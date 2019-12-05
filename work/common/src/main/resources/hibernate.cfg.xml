@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- DB连接四要素 -->
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/qlzh</property>
+        <!-- 方言 -->
+        <!--
+            需要根据不同的数据库类型和版本选择不同的方言
+            方言是为了告诉Hibernate框架使用的数据库类型，Hibernate根据数据库的类型
+            可以在框架的底层根据不同数据库的特点生成不同的执行语句
+        -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
+        <!-- Hibernate生成的SQL是否输出到控制台 -->
+        <property name="show_sql">true</property>
+        <!--将SQL输出时是否格式化 -->
+        <property name="format_sql">true</property>
+        <!--
+            用于指定将当前会话绑定在线程中
+        -->
+        <property name="hibernate.current_session_context_class">thread</property>
+
+        <!--开启二级缓存-->
+        <!-- 开启二级缓存 -->
+        <property name="hibernate.cache.use_second_level_cache">
+            true
+        </property>
+        <!-- 配置二级缓存技术提供者 -->
+        <property name="hibernate.cache.region.factory_class">
+            org.hibernate.cache.ehcache.internal.EhcacheRegionFactory
+        </property>
+        <mapping class="com.sy.entity.User"/>
+    </session-factory>
+</hibernate-configuration>
