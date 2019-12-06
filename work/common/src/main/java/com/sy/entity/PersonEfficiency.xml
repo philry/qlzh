@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.sy.entity.PersonEfficiency">
+        <table name="person_efficiency" schema="qlzh" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="task">
+                <column name="task"/>
+            </basic>
+            <basic name="deptOne">
+                <column name="dept_one"/>
+            </basic>
+            <basic name="deptTwo">
+                <column name="dept_two"/>
+            </basic>
+            <basic name="deptThree">
+                <column name="dept_three"/>
+            </basic>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="time">
+                <column name="time"/>
+            </basic>
+            <basic name="workingTime">
+                <column name="working_time"/>
+            </basic>
+            <basic name="efficiency">
+                <column name="efficiency"/>
+            </basic>
+            <basic name="workingPower">
+                <column name="working_power"/>
+            </basic>
+            <basic name="noloadingPower">
+                <column name="noloading_power"/>
+            </basic>
+            <basic name="counts">
+                <column name="counts"/>
+            </basic>
+            <basic name="overTime">
+                <column name="over_time"/>
+            </basic>
+            <basic name="status">
+                <column name="status"/>
+            </basic>
+            <basic name="createTime">
+                <column name="create_time"/>
+            </basic>
+            <basic name="updateTime">
+                <column name="update_time"/>
+            </basic>
+            <basic name="remark">
+                <column name="remark"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.sy.entity.Task">
+        <table name="task" schema="qlzh" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="workCode">
+                <column name="work_code"/>
+            </basic>
+            <basic name="pid">
+                <column name="pid"/>
+            </basic>
+            <basic name="projectName">
+                <column name="project_name"/>
+            </basic>
+            <basic name="count">
+                <column name="count"/>
+            </basic>
+            <basic name="deptId">
+                <column name="dept_id"/>
+            </basic>
+            <basic name="beginTime">
+                <column name="begin_time"/>
+            </basic>
+            <basic name="endTime">
+                <column name="end_time"/>
+            </basic>
+            <basic name="actualBeginTime">
+                <column name="actual_begin_time"/>
+            </basic>
+            <basic name="actualEndTime">
+                <column name="actual_end_time"/>
+            </basic>
+            <basic name="note">
+                <column name="note"/>
+            </basic>
+            <basic name="checker">
+                <column name="checker"/>
+            </basic>
+            <basic name="checkingStatus">
+                <column name="checking_status"/>
+            </basic>
+            <basic name="personId">
+                <column name="person_id"/>
+            </basic>
+            <basic name="status">
+                <column name="status"/>
+            </basic>
+            <basic name="createTime">
+                <column name="create_time"/>
+            </basic>
+            <basic name="updateTime">
+                <column name="update_time"/>
+            </basic>
+            <basic name="remark">
+                <column name="remark"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.sy.entity.Person">
+        <table name="person" schema="qlzh" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="sex">
+                <column name="sex"/>
+            </basic>
+            <basic name="age">
+                <column name="age"/>
+            </basic>
+            <basic name="deptId">
+                <column name="dept_id"/>
+            </basic>
+            <basic name="roleId">
+                <column name="role_id"/>
+            </basic>
+            <basic name="phone">
+                <column name="phone"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+            <basic name="birthday">
+                <column name="birthday"/>
+            </basic>
+            <basic name="hiredate">
+                <column name="hiredate"/>
+            </basic>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <basic name="workType">
+                <column name="work_type"/>
+            </basic>
+            <basic name="skillLevel">
+                <column name="skill_level"/>
+            </basic>
+            <basic name="pileCounts">
+                <column name="pile_counts"/>
+            </basic>
+            <basic name="status">
+                <column name="status"/>
+            </basic>
+            <basic name="createTime">
+                <column name="create_time"/>
+            </basic>
+            <basic name="updateTime">
+                <column name="update_time"/>
+            </basic>
+            <basic name="remark">
+                <column name="remark"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>

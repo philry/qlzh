@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="com.sy.entity.DataManage">
+        <table name="data_manage" schema="qlzh" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="workId">
+                <column name="work_id"/>
+            </basic>
+            <basic name="noloadingTime">
+                <column name="noloading_time"/>
+            </basic>
+            <basic name="workingTime">
+                <column name="working_time"/>
+            </basic>
+            <basic name="noloadingPower">
+                <column name="noloading_power"/>
+            </basic>
+            <basic name="workingPower">
+                <column name="working_power"/>
+            </basic>
+            <basic name="status">
+                <column name="status"/>
+            </basic>
+            <basic name="createTime">
+                <column name="create_time"/>
+            </basic>
+            <basic name="updateTime">
+                <column name="update_time"/>
+            </basic>
+            <basic name="remark">
+                <column name="remark"/>
+            </basic>
+        </attributes>
+    </entity>
+</entity-mappings>
