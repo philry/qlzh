@@ -29,6 +29,13 @@ public class PersonEfficiency {
     private Timestamp updateTime;
     private String remark;
 
+    public PersonEfficiency() {
+    }
+
+    public PersonEfficiency(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

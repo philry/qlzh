@@ -20,6 +20,13 @@ public class Netty {
     private Timestamp updateTime;
     private String remark;
 
+    public Netty() {
+    }
+
+    public Netty(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

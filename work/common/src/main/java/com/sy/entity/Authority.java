@@ -19,6 +19,13 @@ public class Authority {
     private Timestamp updateTime;
     private String remark;
 
+    public Authority() {
+    }
+
+    public Authority(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

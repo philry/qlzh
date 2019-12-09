@@ -19,6 +19,13 @@ public class RoleAuthority {
     private Timestamp updateTime;
     private String remark;
 
+    public RoleAuthority() {
+    }
+
+    public RoleAuthority(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

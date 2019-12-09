@@ -22,6 +22,13 @@ public class DataManage {
     private Timestamp updateTime;
     private String remark;
 
+    public DataManage() {
+    }
+
+    public DataManage(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

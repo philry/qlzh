@@ -32,6 +32,13 @@ public class Person {
     private Timestamp updateTime;
     private String remark;
 
+    public Person() {
+    }
+
+    public Person(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

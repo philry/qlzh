@@ -23,6 +23,14 @@ public class EfficiencyStatistics {
     private Timestamp updateTime;
     private String remark;
 
+    public EfficiencyStatistics() {
+
+    }
+
+    public EfficiencyStatistics(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

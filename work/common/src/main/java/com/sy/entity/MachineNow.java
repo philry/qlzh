@@ -20,6 +20,13 @@ public class MachineNow {
     private Timestamp updateTime;
     private String remark;
 
+    public MachineNow() {
+    }
+
+    public MachineNow(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,6 +14,13 @@ public class MachineUse {
     private Double current;
     private Integer counts;
 
+    public MachineUse() {
+    }
+
+    public MachineUse(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

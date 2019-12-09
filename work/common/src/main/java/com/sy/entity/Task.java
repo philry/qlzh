@@ -30,6 +30,13 @@ public class Task {
     private Timestamp updateTime;
     private String remark;
 
+    public Task() {
+    }
+
+    public Task(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

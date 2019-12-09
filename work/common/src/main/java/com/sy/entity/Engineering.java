@@ -25,6 +25,13 @@ public class Engineering {
     private Timestamp updateTime;
     private String remark;
 
+    public Engineering() {
+    }
+
+    public Engineering(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

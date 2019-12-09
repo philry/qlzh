@@ -18,6 +18,13 @@ public class Xpg {
     private Timestamp updateTime;
     private String remark;
 
+    public Xpg() {
+    }
+
+    public Xpg(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

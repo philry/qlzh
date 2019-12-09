@@ -21,6 +21,12 @@ public class Dept {
     private Timestamp updateTime;
     private String remark;
 
+    public Dept() {
+    }
+
+    public Dept(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")

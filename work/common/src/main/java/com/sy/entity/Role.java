@@ -17,6 +17,13 @@ public class Role {
     private Timestamp updateTime;
     private String remark;
 
+    public Role() {
+    }
+
+    public Role(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,9 +11,12 @@ import java.util.Objects;
 @Entity
 public class Work {
     private int id;
-    private Integer personId;
-    private Integer taskId;
-    private Integer machineId;
+//    private Integer personId;
+    private Person person;
+//    private Integer taskId;
+    private Task task;
+//    private Integer machineId;
+    private Machine machine;
     private String operate;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -19,6 +24,13 @@ public class Work {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public Work() {
+    }
+
+    public Work(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -31,34 +43,37 @@ public class Work {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "person_id")
-    public Integer getPersonId() {
-        return personId;
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(name = "person_id")
+    @Fetch(FetchMode.SELECT)
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    @Basic
-    @Column(name = "task_id")
-    public Integer getTaskId() {
-        return taskId;
+    @ManyToOne(targetEntity = Task.class)
+    @JoinColumn(name = "task_id")
+    @Fetch(FetchMode.SELECT)
+    public Task getTask() {
+        return task;
     }
 
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
-    @Basic
-    @Column(name = "machine_id")
-    public Integer getMachineId() {
-        return machineId;
+    @ManyToOne(targetEntity = Machine.class)
+    @JoinColumn(name = "machine_id")
+    @Fetch(FetchMode.SELECT)
+    public Machine getMachine() {
+        return machine;
     }
 
-    public void setMachineId(Integer machineId) {
-        this.machineId = machineId;
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
 
     @Basic
@@ -117,9 +132,6 @@ public class Work {
         if (o == null || getClass() != o.getClass()) return false;
         Work work = (Work) o;
         return id == work.id &&
-                Objects.equals(personId, work.personId) &&
-                Objects.equals(taskId, work.taskId) &&
-                Objects.equals(machineId, work.machineId) &&
                 Objects.equals(operate, work.operate) &&
                 Objects.equals(status, work.status) &&
                 Objects.equals(createTime, work.createTime) &&
@@ -129,6 +141,6 @@ public class Work {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personId, taskId, machineId, operate, status, createTime, updateTime, remark);
+        return Objects.hash(id,operate, status, createTime, updateTime, remark);
     }
 }
