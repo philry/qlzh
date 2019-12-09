@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.PersonMapper">
+
+	<resultMap type="com.sy.entity.Person" id="PersonResult">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="sex" column="sex" />
+		<result property="age" column="age" />
+		<result property="deptId" column="dept_id" />
+		<result property="roleId" column="role_id" />
+		<result property="phone" column="phone" />
+		<result property="password" column="password" />
+		<result property="birthday" column="birthday" />
+		<result property="hiredate" column="hiredate" />
+		<result property="email" column="email" />
+		<result property="workType" column="work_type" />
+		<result property="skillLevel" column="skill_level" />
+		<result property="pileCounts" column="pile_counts" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+	</resultMap>
+
+	<sql id="selectPersonVo">
+		select id, name, sex, age, dept_id, role_id,password,birthday, phone,hiredate,email,work_type,skill_level,pile_counts,
+		 status,create_time,update_time,remark from person
+	</sql>
+
+	<select id="selectPersonList" parameterType="com.sy.entity.Person" resultMap="PersonResult">
+		<include refid="selectPersonVo" />
+		<where>
+			<if test="id != null and id !=0 "> and id = #{id}</if>
+			<if test="name != null and name !=''"> and name = #{name}</if>
+			<if test="sex != null and sex != ''"> and sex = #{sex}</if>
+			<if test="age != null and age !=0 "> and age = #{age}</if>
+			<if test="deptId != null "> and dept_id = #{deptId}</if>
+			<if test="roleId != null "> and role_id = #{roleId}</if>
+			<if test="phone != null "> and phone = #{phone}</if>
+			<if test="password != null and password !='' "> and password = #{password}</if>
+			<if test="birthday != null "> and birthday = #{birthday}</if>
+			<if test="hiredate != null "> and hiredate = #{hiredate}</if>
+			<if test="email != null and email !='' "> and email = #{email}</if>
+			<if test="workType != null "> and work_type = #{workType}</if>
+			<if test="skillLevel != null and skillLevel !='' "> and skill_level = #{skillLevel}</if>
+			<if test="pileCounts != null "> and pile_counts = #{pileCounts}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
+	
+	<select id="selectPersonById" parameterType="Integer" resultMap="PersonResult">
+		<include refid="selectPersonVo" />
+		where id=#{id} and #{id}!=0
+	</select>
+	
+	<insert id="insertPerson" parameterType="com.sy.entity.Person" useGeneratedKeys="true" keyProperty="id">
+		insert into person
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0 ">id,</if>
+			<if test="name != null and name !='' "> name,</if>
+			<if test="sex != null and sex != ''">sex,</if>
+			<if test="age != null and age !=0 ">age,</if>
+			<if test="deptId != null ">dept_id,</if>
+			<if test="roleId != null ">role_id,</if>
+			<if test="phone != null ">phone,</if>
+			<if test="password != null and password !='' ">password,</if>
+			<if test="birthday != null ">birthday,</if>
+			<if test="hiredate != null ">hiredate,</if>
+			<if test="email != null and email !='' ">email,</if>
+			<if test="workType != null ">work_type,</if>
+			<if test="skillLevel != null and skillLevel !='' ">skill_level,</if>
+			<if test="pileCounts != null ">pile_counts,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="createTime != null ">create_time,</if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and reamrk !='' ">remark,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0 ">#{id},</if>
+			<if test="name != null and name !=''">#{name},</if>
+			<if test="sex != null and sex != ''">#{sex},</if>
+			<if test="age != null and age !=0 ">#{age},</if>
+			<if test="deptId != null ">#{deptId},</if>
+			<if test="roleId != null ">#{roleId},</if>
+			<if test="phone != null ">#{phone},</if>
+			<if test="password != null and password !='' ">#{password},</if>
+			<if test="birthday != null ">#{birthday},</if>
+			<if test="hiredate != null ">#{hiredate},</if>
+			<if test="email != null and email !='' ">#{email},</if>
+			<if test="workType != null ">#{workType},</if>
+			<if test="skillLevel != null and skillLevel !='' ">#{skillLevel},</if>
+			<if test="pileCounts != null ">#{pileCounts},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null ">#{updateTime},</if>
+			<if test="remark != null and reamrk !='' ">#{remark},</if>
+		</trim>
+	</insert>
+
+	<update id="updatePerson" parameterType="com.sy.entity.Person">
+		update person
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="id != null and id!=0 ">id = #{id},</if>
+			<if test="name != null and name !=''">name = #{name},</if>
+			<if test="sex != null and sex != ''">sex = #{sex},</if>
+			<if test="age != null and age !=0 ">age = #{age},</if>
+			<if test="deptId != null ">dept_id = #{deptId},</if>
+			<if test="roleId != null ">role_id = #{roleId},</if>
+			<if test="phone != null ">phone = #{phone},</if>
+			<if test="password != null and password !='' ">password = #{password},</if>
+			<if test="birthday != null ">birthday = #{birthday},</if>
+			<if test="hiredate != null ">hiredate = #{hiredate},</if>
+			<if test="email != null and email !='' ">email = #{email},</if>
+			<if test="workType != null ">work_type = #{workType},</if>
+			<if test="skillLevel != null and skillLevel !='' ">skill_level = #{skillLevel},</if>
+			<if test="pileCounts != null ">pile_counts = #{pileCounts},</if>
+			<if test="status != null and status !='' ">status = #{status},</if>
+			<if test="createTime != null ">create_time = #{createTime},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="deletePersonById" parameterType="Integer">
+		delete from person where id = #{id}
+	</delete>
+	
+</mapper>

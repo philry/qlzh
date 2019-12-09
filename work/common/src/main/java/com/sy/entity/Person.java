@@ -1,13 +1,21 @@
 package com.sy.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Table(name = "person", schema = "qlzh", catalog = "")
 public class Person {
     private int id;
     private String name;
@@ -242,4 +250,14 @@ public class Person {
     public int hashCode() {
         return Objects.hash(id, name, sex, age, deptId, roleId, phone, password, birthday, hiredate, email, workType, skillLevel, pileCounts, status, createTime, updateTime, remark);
     }
+
+	@Override
+	public String toString() {
+		return "Person [id=" + id + ", name=" + name + ", sex=" + sex + ", age=" + age + ", deptId=" + deptId
+				+ ", roleId=" + roleId + ", phone=" + phone + ", password=" + password + ", birthday=" + birthday
+				+ ", hiredate=" + hiredate + ", email=" + email + ", workType=" + workType + ", skillLevel="
+				+ skillLevel + ", pileCounts=" + pileCounts + ", status=" + status + ", createTime=" + createTime
+				+ ", updateTime=" + updateTime + ", remark=" + remark + "]";
+	}
+    
 }

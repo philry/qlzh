@@ -1,13 +1,20 @@
 package com.sy.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "dept", schema = "qlzh", catalog = "")
 public class Dept {
     private int id;
     private String name;
@@ -133,4 +140,13 @@ public class Dept {
     public int hashCode() {
         return Objects.hash(id, name, level, pid, leader, status, createTime, updateTime, remark);
     }
+
+	@Override
+	public String toString() {
+		return "Dept [id=" + id + ", name=" + name + ", level=" + level + ", pid=" + pid + ", leader=" + leader
+				+ ", status=" + status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark="
+				+ remark + "]";
+	}
+    
+    
 }

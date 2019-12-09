@@ -1,6 +1,11 @@
 package com.sy.vo;
 
+import org.springframework.web.client.HttpStatusCodeException;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sy.constant.HttpStatusConstant;
+
+import springfox.documentation.spring.web.json.Json;
 
 /**
  * 通用的JSON返回类型
@@ -59,6 +64,17 @@ public class JsonResult {
         jsonResult.setData(data);
         return jsonResult;
     }
+    
+    public static JsonResult getJson(int rows) {
+    	JsonResult jsonResult = new JsonResult();
+    	if(rows>0) {
+    		jsonResult.setCode(HttpStatusConstant.SUCCESS);
+    	}else {
+    		jsonResult.setCode(HttpStatusConstant.FAIL);
+    	}
+    	return jsonResult;
+    }
+    
 
     /**
      * 用于构建失败时的JSON对象
