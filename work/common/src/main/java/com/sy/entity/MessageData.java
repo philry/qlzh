@@ -1,5 +1,8 @@
 package com.sy.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -17,6 +20,19 @@ public class MessageData {
     private Timestamp createTime;
     private Date updateTime;
     private String remark;
+
+    private MessageType messageType;
+
+    @ManyToOne(targetEntity = MessageType.class)
+    @JoinColumn(name = "messgae_type")
+    @Fetch(FetchMode.SELECT)
+    public MessageType getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(MessageType messageType) {
+        this.messageType = messageType;
+    }
 
     @Id
     @Column(name = "id")
