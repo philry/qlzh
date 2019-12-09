@@ -4,12 +4,15 @@ package com.sy.controller;
 import com.sy.constant.HttpStatusConstant;
 import com.sy.entity.MessageData;
 import com.sy.entity.MessageType;
+import com.sy.exception.SysException;
 import com.sy.service.MessageDataService;
 import com.sy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("messageData")
@@ -19,16 +22,35 @@ public class MessageController {
     private MessageDataService messageDataService;
 
 
-    @RequestMapping(value = "create",method = RequestMethod.POST)
+    @RequestMapping(value = "sendMessage",method = RequestMethod.POST)
     public JsonResult postMessage(MessageData messageData,Integer messgaeType){
 
-        System.out.println(messageData);
+        MessageData message=null;
 
-        MessageType messageType = new MessageType();
-        messageType.setId(messgaeType);
-        messageData.setMessageType(messageType);
+        try {
+            message = messageDataService.sendMessage(messageData,messgaeType);
+        } catch (SysException e) {
+            return JsonResult.buildFailure(HttpStatusConstant.FAIL,e.getMessage());
+        }
 
-        return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS,messageDataService.saveMessage(messageData));
+        if(message==null){
+            return JsonResult.buildFailure(HttpStatusConstant.FAIL,"发送失败,请稍后再试");
+        }else {
+            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS,message);
+        }
+
+    }
+
+    @RequestMapping(value = "getAcceptMessage",method = RequestMethod.GET)
+    public JsonResult getAcceptMessage(Integer acceptId){
+
+        List<MessageData> list = messageDataService.getAcceptMessage(acceptId);
+
+        if (list.isEmpty()){
+            return JsonResult.buildFailure(HttpStatusConstant.FAIL,"暂无消息");
+        }
+
+        return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS,list);
     }
 
 }
