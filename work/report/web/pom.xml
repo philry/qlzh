@@ -20,6 +20,11 @@
         </dependency>
         <dependency>
             <groupId>com.sy</groupId>
+            <artifactId>dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sy</groupId>
             <artifactId>service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

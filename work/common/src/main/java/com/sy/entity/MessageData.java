@@ -15,7 +15,7 @@ public class MessageData {
     private Integer sendId;
     private Integer accpetId;
     private String context;
-    private Integer messgaeType;
+//    private Integer messgaeType;
     private String status;
     private Timestamp createTime;
     private Date updateTime;
@@ -75,16 +75,6 @@ public class MessageData {
     }
 
     @Basic
-    @Column(name = "messgae_type")
-    public Integer getMessgaeType() {
-        return messgaeType;
-    }
-
-    public void setMessgaeType(Integer messgaeType) {
-        this.messgaeType = messgaeType;
-    }
-
-    @Basic
     @Column(name = "status")
     public String getStatus() {
         return status;
@@ -133,7 +123,6 @@ public class MessageData {
                 Objects.equals(sendId, that.sendId) &&
                 Objects.equals(accpetId, that.accpetId) &&
                 Objects.equals(context, that.context) &&
-                Objects.equals(messgaeType, that.messgaeType) &&
                 Objects.equals(status, that.status) &&
                 Objects.equals(createTime, that.createTime) &&
                 Objects.equals(updateTime, that.updateTime) &&
@@ -142,6 +131,21 @@ public class MessageData {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, sendId, accpetId, context, messgaeType, status, createTime, updateTime, remark);
+        return Objects.hash(id, sendId, accpetId, context, status, createTime, updateTime, remark);
+    }
+
+    @Override
+    public String toString() {
+        return "MessageData{" +
+                "id=" + id +
+                ", sendId=" + sendId +
+                ", accpetId=" + accpetId +
+                ", context='" + context + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                ", messageType=" + messageType +
+                '}';
     }
 }

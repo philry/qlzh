@@ -23,7 +23,6 @@
             <groupId>com.sy</groupId>
             <artifactId>interface</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -33,7 +32,6 @@
             <groupId>com.sy</groupId>
             <artifactId>dao</artifactId>
             <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sy</groupId>

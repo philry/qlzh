@@ -33,5 +33,47 @@
             org.hibernate.cache.ehcache.internal.EhcacheRegionFactory
         </property>
         <mapping class="com.sy.entity.User"/>
+        <mapping resource="com/sy/entity/Authority.hbm.xml"/>
+        <mapping class="com.sy.entity.Authority"/>
+        <mapping resource="com/sy/entity/DataManage.hbm.xml"/>
+        <mapping class="com.sy.entity.DataManage"/>
+        <mapping resource="com/sy/entity/Dept.hbm.xml"/>
+        <mapping class="com.sy.entity.Dept"/>
+        <mapping resource="com/sy/entity/EfficiencyStatistics.hbm.xml"/>
+        <mapping class="com.sy.entity.EfficiencyStatistics"/>
+        <mapping resource="com/sy/entity/Energy.hbm.xml"/>
+        <mapping class="com.sy.entity.Energy"/>
+        <mapping resource="com/sy/entity/Engineering.hbm.xml"/>
+        <mapping class="com.sy.entity.Engineering"/>
+        <mapping resource="com/sy/entity/Machine.hbm.xml"/>
+        <mapping class="com.sy.entity.Machine"/>
+        <mapping resource="com/sy/entity/MachineNow.hbm.xml"/>
+        <mapping class="com.sy.entity.MachineNow"/>
+        <mapping resource="com/sy/entity/MachineType.hbm.xml"/>
+        <mapping class="com.sy.entity.MachineType"/>
+        <mapping resource="com/sy/entity/MachineUse.hbm.xml"/>
+        <mapping class="com.sy.entity.MachineUse"/>
+        <mapping class="com.sy.entity.MessageData"/>
+        <mapping resource="com/sy/entity/MessageData.hbm.xml"/>
+        <mapping resource="com/sy/entity/MessageType.hbm.xml"/>
+        <mapping class="com.sy.entity.MessageType"/>
+        <mapping resource="com/sy/entity/Netty.hbm.xml"/>
+        <mapping class="com.sy.entity.Netty"/>
+        <mapping resource="com/sy/entity/Person.hbm.xml"/>
+        <mapping class="com.sy.entity.Person"/>
+        <mapping class="com.sy.entity.PersonEfficiency"/>
+        <mapping resource="com/sy/entity/PersonEfficiency.hbm.xml"/>
+        <mapping class="com.sy.entity.Role"/>
+        <mapping resource="com/sy/entity/Role.hbm.xml"/>
+        <mapping resource="com/sy/entity/RoleAuthority.hbm.xml"/>
+        <mapping class="com.sy.entity.RoleAuthority"/>
+        <mapping resource="com/sy/entity/ScanWork.hbm.xml"/>
+        <mapping class="com.sy.entity.ScanWork"/>
+        <mapping resource="com/sy/entity/Task.hbm.xml"/>
+        <mapping class="com.sy.entity.Task"/>
+        <mapping resource="com/sy/entity/Work.hbm.xml"/>
+        <mapping class="com.sy.entity.Work"/>
+        <mapping resource="com/sy/entity/Xpg.hbm.xml"/>
+        <mapping class="com.sy.entity.Xpg"/>
     </session-factory>
 </hibernate-configuration>
