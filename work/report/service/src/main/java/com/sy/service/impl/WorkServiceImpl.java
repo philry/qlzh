@@ -1,7 +1,6 @@
 package com.sy.service.impl;
 
-import cn.hutool.core.util.PageUtil;
-import com.alibaba.druid.util.StringUtils;
+
 import com.google.common.collect.Lists;
 import com.sy.dao.WorkDao;
 import com.sy.entity.Machine;
@@ -10,7 +9,6 @@ import com.sy.entity.Task;
 import com.sy.entity.Work;
 import com.sy.service.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
