@@ -16,6 +16,7 @@ public class Engineering {
     private Integer time;
     private Integer workingTime;
     private String efficency;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
     private Double power;
     private String status;

@@ -8,6 +8,7 @@ import com.sy.exception.SysException;
 import com.sy.service.MessageDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -24,6 +25,7 @@ public class MessageDataServiceImpl implements MessageDataService {
     private MessageTypeDao messageTypeDao;
 
     @Override
+    @Transactional
     public MessageData sendMessage(MessageData messageData,Integer type) throws SysException {
 
         if (type==null){

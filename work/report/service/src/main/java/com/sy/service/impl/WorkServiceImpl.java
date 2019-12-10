@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -32,6 +33,7 @@ public class WorkServiceImpl implements WorkService {
 
 
     @Override
+    @Transactional
     public Work startWork(Work work, Integer personId, Integer taskId, Integer machineId) {
 
         work.setPerson(new Person(personId));

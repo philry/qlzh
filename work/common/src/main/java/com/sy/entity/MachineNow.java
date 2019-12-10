@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -9,9 +11,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "machine_now", schema = "qlzh", catalog = "")
 public class MachineNow {
+
     private int id;
-    private Integer personId;
-    private Integer machineId;
+    //    private Integer personId;
+    private Person person;
+    //    private Integer machineId;
+    private Machine machine;
     private Timestamp beginTime;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -38,25 +43,28 @@ public class MachineNow {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "person_id")
-    public Integer getPersonId() {
-        return personId;
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(name = "person_id")
+    @Fetch(FetchMode.SELECT)
+    public Person getPerson() {
+        return person;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person = person;
     }
 
-    @Basic
-    @Column(name = "machine_id")
-    public Integer getMachineId() {
-        return machineId;
+    @ManyToOne(targetEntity = Machine.class)
+    @JoinColumn(name = "machine_id")
+    @Fetch(FetchMode.SELECT)
+    public Machine getMachine() {
+        return machine;
     }
 
-    public void setMachineId(Integer machineId) {
-        this.machineId = machineId;
+    public void setMachine(Machine machine) {
+        this.machine = machine;
     }
+
 
     @Basic
     @Column(name = "begin_time")
@@ -114,8 +122,6 @@ public class MachineNow {
         if (o == null || getClass() != o.getClass()) return false;
         MachineNow that = (MachineNow) o;
         return id == that.id &&
-                Objects.equals(personId, that.personId) &&
-                Objects.equals(machineId, that.machineId) &&
                 Objects.equals(beginTime, that.beginTime) &&
                 Objects.equals(status, that.status) &&
                 Objects.equals(createTime, that.createTime) &&
@@ -125,6 +131,6 @@ public class MachineNow {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, personId, machineId, beginTime, status, createTime, updateTime, remark);
+        return Objects.hash(id, beginTime, status, createTime, updateTime, remark);
     }
 }

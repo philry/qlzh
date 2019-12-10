@@ -1,7 +1,7 @@
 package com.sy.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ruoyi.common.utils.StringUtils;
+import com.sy.utils.StringUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;

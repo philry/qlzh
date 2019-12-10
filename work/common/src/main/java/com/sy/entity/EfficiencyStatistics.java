@@ -15,6 +15,7 @@ public class EfficiencyStatistics {
     private Integer time;
     private Integer workingTime;
     private String efficiency;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

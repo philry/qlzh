@@ -1,6 +1,7 @@
 package com.sy.core.text;
 
-import com.ruoyi.common.utils.StringUtils;
+
+import com.sy.utils.StringUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
