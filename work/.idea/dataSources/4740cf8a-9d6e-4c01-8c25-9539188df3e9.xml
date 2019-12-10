@@ -1659,22 +1659,20 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="354" parent="222" name="noloading_time">
+    <column id="354" parent="222" name="power">
       <Position>3</Position>
-      <Comment>单位（秒）</Comment>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="355" parent="222" name="working_time">
-      <Position>4</Position>
-      <Comment>单位（秒</Comment>
-      <DataType>int(11)|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="356" parent="222" name="power">
-      <Position>5</Position>
       <Comment>此刻的总电量</Comment>
       <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="355" parent="222" name="currents">
+      <Position>4</Position>
+      <DataType>varchar(255)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="356" parent="222" name="voltage">
+      <Position>5</Position>
+      <DataType>double(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="357" parent="222" name="status">
@@ -2106,6 +2104,7 @@
       <Position>3</Position>
       <Comment>上级id</Comment>
       <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="427" parent="228" name="project_name">

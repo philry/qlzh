@@ -1,5 +1,6 @@
 package com.sy.starter;
 
+import com.sy.core.netty.tcp.NettyServer;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +17,8 @@ import javax.annotation.Resource;
 @EntityScan("com.sy.entity")
 public class Starter implements CommandLineRunner {
 
-//    @Resource
-//    private NettyServer nettyServer;
+    @Resource
+    private NettyServer nettyServer;
 
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
@@ -26,6 +27,6 @@ public class Starter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        nettyServer.run(81);
+        nettyServer.run(81);
     }
 }

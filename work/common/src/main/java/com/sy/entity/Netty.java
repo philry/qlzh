@@ -1,7 +1,5 @@
 package com.sy.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -10,22 +8,13 @@ import java.util.Objects;
 public class Netty {
     private int id;
     private String xpg;
-    private Integer noloadingTime;
-    private Integer workingTime;
     private String power;
+    private String currents;
+    private Double voltage;
     private String status;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
-
-    public Netty() {
-    }
-
-    public Netty(int id) {
-        this.id = id;
-    }
 
     @Id
     @Column(name = "id")
@@ -49,26 +38,6 @@ public class Netty {
     }
 
     @Basic
-    @Column(name = "noloading_time")
-    public Integer getNoloadingTime() {
-        return noloadingTime;
-    }
-
-    public void setNoloadingTime(Integer noloadingTime) {
-        this.noloadingTime = noloadingTime;
-    }
-
-    @Basic
-    @Column(name = "working_time")
-    public Integer getWorkingTime() {
-        return workingTime;
-    }
-
-    public void setWorkingTime(Integer workingTime) {
-        this.workingTime = workingTime;
-    }
-
-    @Basic
     @Column(name = "power")
     public String getPower() {
         return power;
@@ -76,6 +45,26 @@ public class Netty {
 
     public void setPower(String power) {
         this.power = power;
+    }
+
+    @Basic
+    @Column(name = "currents")
+    public String getCurrents() {
+        return currents;
+    }
+
+    public void setCurrents(String currents) {
+        this.currents = currents;
+    }
+
+    @Basic
+    @Column(name = "voltage")
+    public Double getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(Double voltage) {
+        this.voltage = voltage;
     }
 
     @Basic
@@ -125,9 +114,9 @@ public class Netty {
         Netty netty = (Netty) o;
         return id == netty.id &&
                 Objects.equals(xpg, netty.xpg) &&
-                Objects.equals(noloadingTime, netty.noloadingTime) &&
-                Objects.equals(workingTime, netty.workingTime) &&
                 Objects.equals(power, netty.power) &&
+                Objects.equals(currents, netty.currents) &&
+                Objects.equals(voltage, netty.voltage) &&
                 Objects.equals(status, netty.status) &&
                 Objects.equals(createTime, netty.createTime) &&
                 Objects.equals(updateTime, netty.updateTime) &&
@@ -136,6 +125,6 @@ public class Netty {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, xpg, noloadingTime, workingTime, power, status, createTime, updateTime, remark);
+        return Objects.hash(id, xpg, power, currents, voltage, status, createTime, updateTime, remark);
     }
 }

@@ -20,9 +20,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
     @Transactional
     public PersonEfficiency saveReport(PersonEfficiency personEfficiency) {
 
-        personEfficiencyDao.save(personEfficiency);
-
-        return null;
+        return personEfficiencyDao.save(personEfficiency);
     }
 
     @Override

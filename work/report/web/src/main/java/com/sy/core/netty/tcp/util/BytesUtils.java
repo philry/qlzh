@@ -3,6 +3,8 @@ package com.sy.core.netty.tcp.util;
 import org.apache.commons.lang.ArrayUtils;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 字节数组转换工具类
@@ -981,5 +983,42 @@ public class BytesUtils {
     	}
     	return ori.toString();
     }
-    
+
+    public static int covert(String content){
+        int number=0;
+        String [] HighLetter = {"A","B","C","D","E","F"};
+        Map<String,Integer> map = new HashMap<>();
+        for(int i = 0;i <= 9;i++){
+            map.put(i+"",i);
+        }
+        for(int j= 10;j<HighLetter.length+10;j++){
+            map.put(HighLetter[j-10],j);
+        }
+        String[]str = new String[content.length()];
+        for(int i = 0; i < str.length; i++){
+            str[i] = content.substring(i,i+1);
+        }
+        for(int i = 0; i < str.length; i++){
+            number += map.get(str[i])*Math.pow(16,str.length-1-i);
+        }
+        return number;
+    }
+
+    /**
+     * float类型转换成16进制
+     * @param changeData
+     * @return
+     */
+    public static String hexadecimal(float changeData){
+        return Integer.toHexString(Float.floatToIntBits(changeData));
+    }
+
+    /**
+     *16进制转换为float类型
+     * @param changeData
+     * @return
+     */
+    public static float hexToTen(String changeData){
+        return Float.intBitsToFloat(Integer.parseInt(changeData,16));
+    }
 }
