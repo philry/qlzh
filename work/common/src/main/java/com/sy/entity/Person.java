@@ -15,7 +15,7 @@ public class Person {
     private Integer age;
     private Integer deptId;
     private Integer roleId;
-    private Integer phone;
+    private String phone;
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date birthday;
@@ -102,11 +102,11 @@ public class Person {
 
     @Basic
     @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 

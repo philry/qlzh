@@ -24,6 +24,9 @@ public class WorkController {
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, Integer personId, String beginTime, String endTime){
 
+        System.out.println(beginTime);
+        System.out.println(endTime);
+
         Page<Work> workPages = workService.getAllWork(pageNum,pageSize,personId, DateUtils.parseDate(beginTime),DateUtils.getNextDay(endTime));
 
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,workPages);

@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -16,7 +18,8 @@ public class Machine {
     private Date payTime;
     private Double maxA;
     private Double minA;
-    private Integer xpgId;
+//    private Integer xpgId;
+    private Xpg xpg;
     private Integer deptId;
     private byte[] code;
     private String status;
@@ -94,14 +97,16 @@ public class Machine {
         this.minA = minA;
     }
 
-    @Basic
-    @Column(name = "xpg_id")
-    public Integer getXpgId() {
-        return xpgId;
+
+    @ManyToOne(targetEntity = Xpg.class)
+    @JoinColumn(name = "xpg_id")
+    @Fetch(FetchMode.SELECT)
+    public Xpg getXpg() {
+        return xpg;
     }
 
-    public void setXpgId(Integer xpgId) {
-        this.xpgId = xpgId;
+    public void setXpg(Xpg xpg) {
+        this.xpg = xpg;
     }
 
     @Basic
@@ -175,7 +180,6 @@ public class Machine {
                 Objects.equals(payTime, machine.payTime) &&
                 Objects.equals(maxA, machine.maxA) &&
                 Objects.equals(minA, machine.minA) &&
-                Objects.equals(xpgId, machine.xpgId) &&
                 Objects.equals(deptId, machine.deptId) &&
                 Arrays.equals(code, machine.code) &&
                 Objects.equals(status, machine.status) &&
@@ -186,7 +190,7 @@ public class Machine {
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(id, name, typeId, payTime, maxA, minA, xpgId, deptId, status, createTime, updateTime, remark);
+        int result = Objects.hash(id, name, typeId, payTime, maxA, minA, deptId, status, createTime, updateTime, remark);
         result = 31 * result + Arrays.hashCode(code);
         return result;
     }

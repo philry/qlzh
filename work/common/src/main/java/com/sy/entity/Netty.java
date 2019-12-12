@@ -127,4 +127,11 @@ public class Netty {
     public int hashCode() {
         return Objects.hash(id, xpg, power, currents, voltage, status, createTime, updateTime, remark);
     }
+
+    @Override
+    public String toString() {
+        return "Netty{" +
+                "id=" + id +
+                '}';
+    }
 }

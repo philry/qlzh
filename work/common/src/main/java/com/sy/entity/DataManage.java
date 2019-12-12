@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,7 +12,8 @@ import java.util.Objects;
 @Table(name = "data_manage", schema = "qlzh", catalog = "")
 public class DataManage {
     private int id;
-    private Integer workId;
+//    private Integer workId;
+    private Work work;
     private Integer noloadingTime;
     private Integer workingTime;
     private Double noloadingPower;
@@ -40,14 +43,16 @@ public class DataManage {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "work_id")
-    public Integer getWorkId() {
-        return workId;
+
+    @ManyToOne(targetEntity = Work.class)
+    @JoinColumn(name = "work_id")
+    @Fetch(FetchMode.SELECT)
+    public Work getWork() {
+        return work;
     }
 
-    public void setWorkId(Integer workId) {
-        this.workId = workId;
+    public void setWork(Work work) {
+        this.work = work;
     }
 
     @Basic
@@ -136,7 +141,6 @@ public class DataManage {
         if (o == null || getClass() != o.getClass()) return false;
         DataManage that = (DataManage) o;
         return id == that.id &&
-                Objects.equals(workId, that.workId) &&
                 Objects.equals(noloadingTime, that.noloadingTime) &&
                 Objects.equals(workingTime, that.workingTime) &&
                 Objects.equals(noloadingPower, that.noloadingPower) &&
@@ -149,6 +153,6 @@ public class DataManage {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, workId, noloadingTime, workingTime, noloadingPower, workingPower, status, createTime, updateTime, remark);
+        return Objects.hash(id, noloadingTime, workingTime, noloadingPower, workingPower, status, createTime, updateTime, remark);
     }
 }
