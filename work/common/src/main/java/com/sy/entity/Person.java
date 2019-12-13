@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -13,7 +15,8 @@ public class Person {
     private String name;
     private String sex;
     private Integer age;
-    private Integer deptId;
+//    private Integer deptId;
+    private Dept dept;
     private Integer roleId;
     private String phone;
     private String password;
@@ -80,14 +83,15 @@ public class Person {
         this.age = age;
     }
 
-    @Basic
-    @Column(name = "dept_id")
-    public Integer getDeptId() {
-        return deptId;
+    @ManyToOne(targetEntity = Dept.class)
+    @JoinColumn(name = "dept_id")
+    @Fetch(FetchMode.SELECT)
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setDeptId(Integer deptId) {
-        this.deptId = deptId;
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
     @Basic
@@ -229,7 +233,6 @@ public class Person {
                 Objects.equals(name, person.name) &&
                 Objects.equals(sex, person.sex) &&
                 Objects.equals(age, person.age) &&
-                Objects.equals(deptId, person.deptId) &&
                 Objects.equals(roleId, person.roleId) &&
                 Objects.equals(phone, person.phone) &&
                 Objects.equals(password, person.password) &&
@@ -247,6 +250,6 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, sex, age, deptId, roleId, phone, password, birthday, hiredate, email, workType, skillLevel, pileCounts, status, createTime, updateTime, remark);
+        return Objects.hash(id, name, sex, age, roleId, phone, password, birthday, hiredate, email, workType, skillLevel, pileCounts, status, createTime, updateTime, remark);
     }
 }

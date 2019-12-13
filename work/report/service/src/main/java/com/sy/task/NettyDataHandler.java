@@ -42,6 +42,12 @@ public class NettyDataHandler {
     @Autowired
     private EngineeringDao engineeringDao;
 
+    @Autowired
+    private PersonDao personDao;
+
+    @Autowired
+    private DeptDao deptDao;
+
 
     @Scheduled(cron = "0 0/3 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
     @Transactional
@@ -125,56 +131,206 @@ public class NettyDataHandler {
 
             dataManageDao.save(data);
 
-            //对报表数据进行存储
-            List<DataManage> dataList = manageDataService.getAllByData(DateUtils.parseDate(day),DateUtils.getNextDay(day));
+        }
 
-            Map<Integer,List<DataManage>> map = new HashMap<>();
 
-            //1.处理数据,将数据与人员进行绑定
-            Set<Integer> personIds = new HashSet<>();
+        //对报表数据进行存储
+        List<DataManage> dataList = manageDataService.getAllByData(DateUtils.parseDate(day),DateUtils.getNextDay(day));
 
-            for (DataManage dataManage : dataList) {
-                Integer personId = dataManage.getWork().getPerson().getId();
-                personIds.add(personId);
-                if(map.get(personId)==null){
-                    List<DataManage> list = new ArrayList<>();
-                    list.add(dataManage);
-                    map.put(personId,list);
-                }else {
-                    map.get(personId).add(dataManage);
-                }
+
+        //开始计算部门报表（以部门作为判定依据）
+
+        handleDeptReport(day, dataList);
+
+        //开始计算工程报表（以派工单作为判定依据）
+
+
+    }
+
+    private void handleDeptReport(String day, List<DataManage> dataList) {
+        Map<Integer,List<DataManage>> map = new HashMap<>();
+
+        //1.处理数据,将数据与人员进行绑定
+        Set<Integer> personIds = new HashSet<>();
+
+        for (DataManage dataManage : dataList) {
+            Integer personId = dataManage.getWork().getPerson().getId();
+            personIds.add(personId);
+            if(map.get(personId)==null){
+                List<DataManage> list = new ArrayList<>();
+                list.add(dataManage);
+                map.put(personId,list);
+            }else {
+                map.get(personId).add(dataManage);
+            }
+        }
+
+
+        //2.根据人员处理数据,将数据整合(人员id，处理好的数据)
+        Map<Integer, Unit> unitPerson = new HashMap<>();
+        for (Integer personId : personIds) {
+            Unit unit = new Unit();
+            int time = 0 ;
+            int working_time = 0 ;
+            BigDecimal ePower = new BigDecimal("0");
+            for (DataManage dataManage : map.get(personId)) {
+                time += dataManage.getNoloadingTime();
+                time += dataManage.getWorkingTime();
+                working_time += dataManage.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
             }
 
-            Map<Integer, Unit> units = new HashMap<>();
+            unit.setTime(time);
+            unit.setWorkTime(working_time);
+            unit.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
 
-            //2.根据人员处理数据，将数据整合
-            for (Integer personId : personIds) {
-                Unit unit = new Unit();
-                int time = 0 ;
-                int working_time = 0 ;
-                BigDecimal ePower = new BigDecimal("0");
-                for (DataManage dataManage : map.get(personId)) {
-                    time += dataManage.getNoloadingTime();
-                    time += dataManage.getWorkingTime();
-                    working_time += dataManage.getWorkingTime();
-                    ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
-                    ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
-                }
-
-                unit.setTime(time);
-                unit.setWorkTime(working_time);
-                unit.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
-
-                units.put(personId,unit);
-
-            }
-
-            //3.根据人员，获取部门
-
-
-
+            unitPerson.put(personId,unit);
 
         }
+
+        //3.根据人员,获取部门（部门id，处理好的数据）
+        Map<Integer,List<Unit>> unitDept_3 = new HashMap<>();
+        Set<Integer> dept_3 = new HashSet<>();
+        for (Integer personId : personIds) {
+            Person person = personDao.getById(personId);
+            Integer deptId = person.getDept().getId();
+
+            if(unitDept_3.get(deptId)==null){
+                List<Unit> list = new ArrayList<>();
+                list.add(unitPerson.get(personId));
+                unitDept_3.put(deptId,list);
+            }else {
+                unitDept_3.get(deptId).add(unitPerson.get(personId));
+            }
+
+            dept_3.add(deptId);
+        }
+
+        //3.根据部门id,处理数据
+        Map<Integer, Engineering> engineeringMap_3 = new HashMap<>();
+        for (Integer deptId : dept_3) {
+            int time = 0 ;
+            int working_time = 0 ;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Unit unit : unitDept_3.get(deptId)) {
+                time += unit.getTime();
+                working_time += unit.getWorkTime();
+                ePower = ePower.add(new BigDecimal(unit.getPower()));
+            }
+
+            //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
+            Dept dept = deptDao.getById(deptId);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,3);
+            //将处理后的数据存储，进行循环
+            engineeringMap_3.put(deptId,engineering);
+
+        }
+
+        //4.根据部门id获取部门,再获取上级pid
+        Map<Integer,List<Engineering>> engineeringData_2 = new HashMap<>();
+        Set<Integer> dept_2 = new HashSet<>();
+        for (Integer integer : dept_3) {
+            Dept dept = deptDao.getById(integer);
+            if(engineeringData_2.get(dept.getPid())==null){
+                List<Engineering> list = new ArrayList<>();
+                list.add(engineeringMap_3.get(integer));
+                engineeringData_2.put(dept.getPid(),list);
+            }else {
+                engineeringData_2.get(dept.getPid()).add(engineeringMap_3.get(integer));
+            }
+
+            dept_2.add(dept.getPid());
+        }
+
+        //处理数据,计算二级数据
+        Map<Integer,Engineering> engineeringMap_2 = new HashMap<>();
+        for (Integer integer : dept_2) {
+            int time = 0 ;
+            int working_time = 0 ;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Engineering engineering : engineeringData_2.get(integer)) {
+                time += engineering.getTime();
+                working_time += engineering.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(engineering.getPower()));
+            }
+            //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
+            Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,2);
+            //将处理后的数据存储，进行循环
+            engineeringMap_2.put(integer,engineering);
+
+        }
+
+        //5.根据部门id获取部门,再获取顶级pid
+        Map<Integer,List<Engineering>> engineeringData_1 = new HashMap<>();
+        Set<Integer> dept_1 = new HashSet<>();
+        for (Integer integer : dept_2) {
+            Dept dept = deptDao.getById(integer);
+            if(engineeringData_1.get(dept.getPid())==null){
+                List<Engineering> list = new ArrayList<>();
+                list.add(engineeringMap_2.get(integer));
+                engineeringData_1.put(dept.getPid(),list);
+            }else {
+                engineeringData_1.get(dept.getPid()).add(engineeringMap_2.get(integer));
+            }
+
+            dept_2.add(dept.getPid());
+        }
+
+        //处理数据,计算一级数据
+        Map<Integer,Engineering> engineeringMap_1 = new HashMap<>();
+        for (Integer integer : dept_1) {
+            int time = 0 ;
+            int working_time = 0 ;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Engineering engineering : engineeringData_1.get(integer)) {
+                time += engineering.getTime();
+                working_time += engineering.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(engineering.getPower()));
+            }
+            //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
+            Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,1);
+            //将处理后的数据存储，进行循环
+            engineeringMap_1.put(integer,engineering);
+        }
+
+        //从上往下开始插入数据，并设置pid
+        for (Integer integer_1 : dept_1) {
+            Engineering engineering_1 = engineeringMap_1.get(integer_1);
+            engineering_1.setPid(0);
+            int pid_2 = engineeringDao.save(engineering_1).getId();
+            List<Integer> list_2 = deptDao.getIdByPid(pid_2);
+            for (Integer integer_2 : list_2) {
+                Engineering engineering_2 = engineeringMap_2.get(integer_2);
+                if (engineering_2!=null){
+                    engineering_2.setPid(pid_2);
+                    int pid_3 = engineeringDao.save(engineering_2).getId();
+                    List<Integer> list_3 = deptDao.getIdByPid(pid_2);
+                    for (Integer integer_3 : list_3) {
+                        Engineering engineering_3 = engineeringMap_3.get(integer_3);
+                        if(engineering_3!=null){
+                            engineering_3.setPid(pid_3);
+                            engineeringDao.save(engineering_3);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private Engineering getEngineering(String day, int time, int working_time, BigDecimal ePower, Dept dept,int level) {
+        Engineering engineering = new Engineering();
+        engineering.setLevel(level);
+        engineering.setDate(DateUtils.parseDate(day));
+        engineering.setCreateTime(new Timestamp(new Date().getTime()));
+        engineering.setName(dept.getName());
+        engineering.setTime(time);
+        engineering.setWorkingTime(working_time);
+        engineering.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+        engineering.setEfficency(String.format("%.2f", (double)working_time/time*100));
+        return engineering;
     }
 
 }
