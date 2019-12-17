@@ -29,10 +29,8 @@ public class Dept {
     private String name;
     private Integer level;
     private Integer pid;
-    @Transient
     private Dept pDept;
     private Integer leader;
-    @Transient
     private Person person;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -61,9 +59,7 @@ public class Dept {
         this.id = id;
     }
 
-    @ManyToOne(targetEntity = Person.class)
-    @JoinColumn(name = "leader")
-    @Fetch(FetchMode.SELECT)
+    @Transient
     public Person getPerson() {
 		return person;
 	}
@@ -101,9 +97,7 @@ public class Dept {
         this.pid = pid;
     }
 
-    @ManyToOne(targetEntity = Dept.class)
-    @JoinColumn(name = "dept_id")
-    @Fetch(FetchMode.SELECT)
+    @Transient
     public Dept getpDept() {
 		return pDept;
 	}
