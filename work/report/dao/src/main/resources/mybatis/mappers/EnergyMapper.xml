@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.EnergyMapper">
+	<resultMap type="com.sy.entity.Energy" id="EnergyResult">
+		<result property="id" column="id" />
+		<result property="time" column="time" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<sql id="selectEnergyVo">
+		select id,time,status,create_time,update_time,remark from energy
+	</sql>
+	
+	<select id="selectEnergyList" parameterType="com.sy.entity.Energy" resultMap="EnergyResult">
+		<include refid="selectEnergyVo" />
+		<where>
+			<if test="id != null and id!=0 "> and id = #{id}</if>
+			<if test="time != null and time >0"> and time = #{time}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
+
+	<insert id="insertEnergy" parameterType="com.sy.entity.Energy" useGeneratedKeys="true" keyProperty="id">
+		insert into energy
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0">id,</if>
+			<if test="time != null and time >0">time,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="createTime != null ">create_time, </if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and reamrk !='' ">remark,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0 ">#{id},</if>
+			<if test="time != null and time >0">#{name},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null "> #{updateTime},</if>
+			<if test="remark != null and reamrk !='' ">#{remark},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateEnergy" parameterType="com.sy.entity.Energy">
+		update energy
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="id != null and id!=0 ">id = #{id},</if>
+			<if test="time != null and time >0">time = #{time},</if>
+			<if test="status != null and status !='' ">status = #{status},</if>
+			<if test="createTime != null ">create_time = #{createTime},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+		</trim>
+		where id = 1
+	</update>	
+	
+</mapper>

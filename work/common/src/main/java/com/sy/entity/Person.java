@@ -6,7 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -18,27 +24,57 @@ import java.util.Objects;
 @Table(name = "person", schema = "qlzh", catalog = "")
 public class Person {
     private int id;
+    
     private String name;
+    
     private String sex;
+    
     private Integer age;
+    
+    @Transient
     private Integer deptId;
+    
+    private Dept dept;
+    
+    @Transient
     private Integer roleId;
-    private Integer phone;
+    
+    private Role role;
+    
+    private String phone;
+    
     private String password;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date hiredate;
+    
     private String email;
+    
     private String workType;
+    
     private Integer skillLevel;
+    
     private Integer pileCounts;
+    
     private String status;
+    
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
+    
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
+    
     private String remark;
+
+    public Person() {
+    }
+
+    public Person(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -51,7 +87,29 @@ public class Person {
         this.id = id;
     }
 
-    @Basic
+    @ManyToOne(targetEntity = Dept.class)
+    @JoinColumn(name = "dept_id")
+    @Fetch(FetchMode.SELECT)
+    public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+	@ManyToOne(targetEntity = Role.class)
+    @JoinColumn(name = "role_id")
+    @Fetch(FetchMode.SELECT)
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -81,8 +139,7 @@ public class Person {
         this.age = age;
     }
 
-    @Basic
-    @Column(name = "dept_id")
+    @Transient
     public Integer getDeptId() {
         return deptId;
     }
@@ -91,8 +148,7 @@ public class Person {
         this.deptId = deptId;
     }
 
-    @Basic
-    @Column(name = "role_id")
+    @Transient
     public Integer getRoleId() {
         return roleId;
     }
@@ -103,11 +159,11 @@ public class Person {
 
     @Basic
     @Column(name = "phone")
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -221,7 +277,32 @@ public class Person {
         this.remark = remark;
     }
 
-    @Override
+    
+    public Person(int id, String name, String sex, Integer age, Integer deptId, Integer roleId, String phone,
+			String password, Date birthday, Date hiredate, String email, String workType, Integer skillLevel,
+			Integer pileCounts, String status, Timestamp createTime, Timestamp updateTime, String remark) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.sex = sex;
+		this.age = age;
+		this.deptId = deptId;
+		this.roleId = roleId;
+		this.phone = phone;
+		this.password = password;
+		this.birthday = birthday;
+		this.hiredate = hiredate;
+		this.email = email;
+		this.workType = workType;
+		this.skillLevel = skillLevel;
+		this.pileCounts = pileCounts;
+		this.status = status;
+		this.createTime = createTime;
+		this.updateTime = updateTime;
+		this.remark = remark;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

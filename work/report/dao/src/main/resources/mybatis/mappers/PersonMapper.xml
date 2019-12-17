@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="age != null and age !=0 "> and age = #{age}</if>
 			<if test="deptId != null "> and dept_id = #{deptId}</if>
 			<if test="roleId != null "> and role_id = #{roleId}</if>
-			<if test="phone != null "> and phone = #{phone}</if>
+			<if test="phone != null and phone!=''"> and phone = #{phone}</if>
 			<if test="password != null and password !='' "> and password = #{password}</if>
 			<if test="birthday != null "> and birthday = #{birthday}</if>
 			<if test="hiredate != null "> and hiredate = #{hiredate}</if>
@@ -50,13 +50,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' "> and status = #{status}</if>
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
-			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
 		</where>
 	</select>
 	
 	<select id="selectPersonById" parameterType="Integer" resultMap="PersonResult">
 		<include refid="selectPersonVo" />
 		where id=#{id} and #{id}!=0
+	</select>
+	
+	<select id="selectDeptLeaderByIds" parameterType="Integer" resultMap="PersonResult">
+		<include refid="selectPersonVo" />
+		where id in
+		<foreach item="id" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+	</select>
+	
+	<select id="selectPersonByDeptIds" parameterType="Integer" resultMap="PersonResult">
+		<include refid="selectPersonVo" />
+		where dept_id in
+		<foreach item="deptId" collection="list" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
 	</select>
 	
 	<insert id="insertPerson" parameterType="com.sy.entity.Person" useGeneratedKeys="true" keyProperty="id">
@@ -68,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="age != null and age !=0 ">age,</if>
 			<if test="deptId != null ">dept_id,</if>
 			<if test="roleId != null ">role_id,</if>
-			<if test="phone != null ">phone,</if>
+			<if test="phone != null and phone!=''">phone,</if>
 			<if test="password != null and password !='' ">password,</if>
 			<if test="birthday != null ">birthday,</if>
 			<if test="hiredate != null ">hiredate,</if>
@@ -79,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status,</if>
 			<if test="createTime != null ">create_time,</if>
 			<if test="updateTime != null ">update_time,</if>
-			<if test="remark != null and reamrk !='' ">remark,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id!=0 ">#{id},</if>
@@ -88,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="age != null and age !=0 ">#{age},</if>
 			<if test="deptId != null ">#{deptId},</if>
 			<if test="roleId != null ">#{roleId},</if>
-			<if test="phone != null ">#{phone},</if>
+			<if test="phone != null and phone!=''">#{phone},</if>
 			<if test="password != null and password !='' ">#{password},</if>
 			<if test="birthday != null ">#{birthday},</if>
 			<if test="hiredate != null ">#{hiredate},</if>
@@ -99,20 +115,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">#{status},</if>
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null ">#{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">#{remark},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
 		</trim>
 	</insert>
 
 	<update id="updatePerson" parameterType="com.sy.entity.Person">
 		update person
 		<trim prefix="SET" suffixOverrides=",">
-			<if test="id != null and id!=0 ">id = #{id},</if>
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="sex != null and sex != ''">sex = #{sex},</if>
 			<if test="age != null and age !=0 ">age = #{age},</if>
 			<if test="deptId != null ">dept_id = #{deptId},</if>
 			<if test="roleId != null ">role_id = #{roleId},</if>
-			<if test="phone != null ">phone = #{phone},</if>
+			<if test="phone != null and phone!=''">phone = #{phone},</if>
 			<if test="password != null and password !='' ">password = #{password},</if>
 			<if test="birthday != null ">birthday = #{birthday},</if>
 			<if test="hiredate != null ">hiredate = #{hiredate},</if>
@@ -123,7 +138,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
 		</trim>
 		where id = #{id}
 	</update>

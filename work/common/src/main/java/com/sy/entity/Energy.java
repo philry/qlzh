@@ -17,6 +17,13 @@ public class Energy {
     private Timestamp updateTime;
     private String remark;
 
+    public Energy() {
+    }
+
+    public Energy(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

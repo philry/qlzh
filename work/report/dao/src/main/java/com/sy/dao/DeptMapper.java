@@ -18,4 +18,8 @@ public interface DeptMapper {
 	int deleteDeptById(Integer id);
 
 	Dept selectDeptById(Integer id);
+
+	List<Dept> selectDeptListByPid(Integer id);
+
+	List<Dept> selectHigherDept();
 }

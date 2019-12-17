@@ -22,6 +22,13 @@ public class MachineType {
     private Timestamp updateTime;
     private String remark;
 
+    public MachineType() {
+    }
+
+    public MachineType(int id) {
+        this.id = id;
+    }
+
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -24,6 +24,13 @@ public class MessageData {
     private Date updateTime;
     private String remark;
 
+    public MessageData() {
+    }
+
+    public MessageData(int id) {
+        this.id = id;
+    }
+
     private MessageType messageType;
 
     @ManyToOne(targetEntity = MessageType.class)
@@ -77,6 +84,7 @@ public class MessageData {
     public void setContext(String context) {
         this.context = context;
     }
+
 
 
 

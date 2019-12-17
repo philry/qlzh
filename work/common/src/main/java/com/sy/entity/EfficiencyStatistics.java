@@ -3,7 +3,7 @@ package com.sy.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -12,9 +12,13 @@ import java.util.Objects;
 public class EfficiencyStatistics {
     private int id;
     private String name;
+    private Integer level;
+    private Integer pid;
     private Integer time;
     private Integer workingTime;
     private String efficiency;
+    private Double power;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date date;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -22,6 +26,14 @@ public class EfficiencyStatistics {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public EfficiencyStatistics() {
+
+    }
+
+    public EfficiencyStatistics(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -42,6 +54,26 @@ public class EfficiencyStatistics {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "level")
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    @Basic
+    @Column(name = "pid")
+    public Integer getPid() {
+        return pid;
+    }
+
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     @Basic
@@ -72,6 +104,16 @@ public class EfficiencyStatistics {
 
     public void setEfficiency(String efficiency) {
         this.efficiency = efficiency;
+    }
+
+    @Basic
+    @Column(name = "power")
+    public Double getPower() {
+        return power;
+    }
+
+    public void setPower(Double power) {
+        this.power = power;
     }
 
     @Basic
@@ -129,20 +171,11 @@ public class EfficiencyStatistics {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EfficiencyStatistics that = (EfficiencyStatistics) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(time, that.time) &&
-                Objects.equals(workingTime, that.workingTime) &&
-                Objects.equals(efficiency, that.efficiency) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(remark, that.remark);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, time, workingTime, efficiency, date, status, createTime, updateTime, remark);
+        return Objects.hash(id);
     }
 }

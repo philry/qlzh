@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,12 +16,16 @@ public class Task {
     private String projectName;
     private Double count;
     private Integer deptId;
+    @Transient
+    private Dept dept;
     private Date beginTime;
     private Date endTime;
     private Date actualBeginTime;
     private Date actualEndTime;
     private String note;
     private Integer checker;
+    @Transient
+    private Person person;
     private String checkingStatus;
     private Integer personId;
     private String status;
@@ -29,6 +34,14 @@ public class Task {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+    @Transient
+    private List<Task> sTasks;
+    public Task() {
+    }
+
+    public Task(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -211,7 +224,34 @@ public class Task {
         this.remark = remark;
     }
 
-    @Override
+    @Transient
+    public List<Task> getsTasks() {
+		return sTasks;
+	}
+
+	public void setsTasks(List<Task> sTasks) {
+		this.sTasks = sTasks;
+	}
+
+	@Transient
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	@Transient
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -240,4 +280,14 @@ public class Task {
     public int hashCode() {
         return Objects.hash(id, workCode, pid, projectName, count, deptId, beginTime, endTime, actualBeginTime, actualEndTime, note, checker, checkingStatus, personId, status, createTime, updateTime, remark);
     }
+
+	@Override
+	public String toString() {
+		return "Task [id=" + id + ", workCode=" + workCode + ", pid=" + pid + ", projectName=" + projectName
+				+ ", count=" + count + ", deptId=" + deptId + ", beginTime=" + beginTime + ", endTime=" + endTime
+				+ ", actualBeginTime=" + actualBeginTime + ", actualEndTime=" + actualEndTime + ", note=" + note
+				+ ", checker=" + checker + ", checkingStatus=" + checkingStatus + ", personId=" + personId + ", status="
+				+ status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark=" + remark + "]";
+	}
+
 }

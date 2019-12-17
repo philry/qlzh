@@ -3,6 +3,10 @@ package com.sy.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
@@ -12,19 +16,33 @@ import java.util.Objects;
 public class Machine {
     private int id;
     private String name;
+    @Transient
     private Integer typeId;
+    private MachineType machineType;
     private Date payTime;
     private Double maxA;
     private Double minA;
+    @Transient
     private Integer xpgId;
+    private Xpg xpg;
+    @Transient
     private Integer deptId;
-    private byte[] code;
+    private Dept dept;
+    @Transient
+    private Object code;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public Machine() {
+    }
+
+    public Machine(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -37,7 +55,40 @@ public class Machine {
         this.id = id;
     }
 
-    @Basic
+    @ManyToOne(targetEntity = MachineType.class)
+    @JoinColumn(name = "type_id")
+    @Fetch(FetchMode.SELECT)
+    public MachineType getMachineType() {
+		return machineType;
+	}
+
+	public void setMachineType(MachineType machineType) {
+		this.machineType = machineType;
+	}
+
+	@ManyToOne(targetEntity = Xpg.class)
+    @JoinColumn(name = "xpg_id")
+    @Fetch(FetchMode.SELECT)
+	public Xpg getXpg() {
+		return xpg;
+	}
+
+	public void setXpg(Xpg xpg) {
+		this.xpg = xpg;
+	}
+
+	@ManyToOne(targetEntity = Dept.class)
+    @JoinColumn(name = "dept_id")
+    @Fetch(FetchMode.SELECT)
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+	@Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -47,8 +98,7 @@ public class Machine {
         this.name = name;
     }
 
-    @Basic
-    @Column(name = "type_id")
+    @Transient
     public Integer getTypeId() {
         return typeId;
     }
@@ -87,8 +137,7 @@ public class Machine {
         this.minA = minA;
     }
 
-    @Basic
-    @Column(name = "xpg_id")
+    @Transient
     public Integer getXpgId() {
         return xpgId;
     }
@@ -97,8 +146,7 @@ public class Machine {
         this.xpgId = xpgId;
     }
 
-    @Basic
-    @Column(name = "dept_id")
+    @Transient
     public Integer getDeptId() {
         return deptId;
     }
@@ -107,9 +155,8 @@ public class Machine {
         this.deptId = deptId;
     }
 
-    @Basic
-    @Column(name = "code")
-    public byte[] getCode() {
+    @Transient
+    public Object getCode() {
         return code;
     }
 
@@ -155,32 +202,5 @@ public class Machine {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Machine machine = (Machine) o;
-        return id == machine.id &&
-                Objects.equals(name, machine.name) &&
-                Objects.equals(typeId, machine.typeId) &&
-                Objects.equals(payTime, machine.payTime) &&
-                Objects.equals(maxA, machine.maxA) &&
-                Objects.equals(minA, machine.minA) &&
-                Objects.equals(xpgId, machine.xpgId) &&
-                Objects.equals(deptId, machine.deptId) &&
-                Arrays.equals(code, machine.code) &&
-                Objects.equals(status, machine.status) &&
-                Objects.equals(createTime, machine.createTime) &&
-                Objects.equals(updateTime, machine.updateTime) &&
-                Objects.equals(remark, machine.remark);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = Objects.hash(id, name, typeId, payTime, maxA, minA, xpgId, deptId, status, createTime, updateTime, remark);
-        result = 31 * result + Arrays.hashCode(code);
-        return result;
     }
 }

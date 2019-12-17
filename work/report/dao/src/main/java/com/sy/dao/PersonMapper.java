@@ -16,4 +16,8 @@ public interface PersonMapper{
 
 	int deletePersonById(Integer id);
 
+	List<Person> selectPersonByDeptIds(List<Integer> ids);
+
+	List<Person> selectDeptLeaderByIds(List<Integer> ids);
+
 }

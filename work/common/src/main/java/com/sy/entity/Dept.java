@@ -6,28 +6,48 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Update;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "dept", schema = "qlzh", catalog = "")
 public class Dept {
     private int id;
     private String name;
     private Integer level;
     private Integer pid;
+    @Transient
+    private Dept pDept;
     private Integer leader;
+    @Transient
+    private Person person;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+    @Transient
+    private List<Dept> sDepts;
 
+    public Dept() {
+    }
+
+    public Dept(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
@@ -40,7 +60,18 @@ public class Dept {
         this.id = id;
     }
 
-    @Basic
+    @ManyToOne(targetEntity = Person.class)
+    @JoinColumn(name = "leader")
+    @Fetch(FetchMode.SELECT)
+    public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	@Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -60,8 +91,7 @@ public class Dept {
         this.level = level;
     }
 
-    @Basic
-    @Column(name = "pid")
+    @Transient
     public Integer getPid() {
         return pid;
     }
@@ -70,8 +100,18 @@ public class Dept {
         this.pid = pid;
     }
 
-    @Basic
-    @Column(name = "leader")
+    @ManyToOne(targetEntity = Dept.class)
+    @JoinColumn(name = "dept_id")
+    @Fetch(FetchMode.SELECT)
+    public Dept getpDept() {
+		return pDept;
+	}
+
+	public void setpDept(Dept pDept) {
+		this.pDept = pDept;
+	}
+
+	@Transient
     public Integer getLeader() {
         return leader;
     }
@@ -120,7 +160,16 @@ public class Dept {
         this.remark = remark;
     }
 
-    @Override
+    @Transient
+    public List<Dept> getsDepts() {
+		return sDepts;
+	}
+
+	public void setsDepts(List<Dept> sDepts) {
+		this.sDepts = sDepts;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -147,6 +196,6 @@ public class Dept {
 				+ ", status=" + status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark="
 				+ remark + "]";
 	}
-    
-    
+
+
 }

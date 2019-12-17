@@ -35,7 +35,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectDeptById" parameterType="Integer" resultMap="DeptResult">
 		<include refid="selectDeptVo" />
-		where id=#{id} and #{id}!=0
+		where id=#{id}
+	</select>
+	
+	<select id="selectDeptListByPid" parameterType="Integer" resultMap="DeptResult">
+		<include refid="selectDeptVo" />
+		where pid=#{id}
+	</select>
+	
+	<select id="selectHigherDept" parameterType="Integer" resultMap="DeptResult">
+		<include refid="selectDeptVo" />
+		where level=1
 	</select>
 	
 	<insert id="insertDept" parameterType="com.sy.entity.Dept" useGeneratedKeys="true" keyProperty="id">

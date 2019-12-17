@@ -4,7 +4,6 @@ package com.sy.controller;
 import com.sy.constant.HttpStatusConstant;
 import com.sy.entity.MessageData;
 import com.sy.entity.MessageType;
-import com.sy.exception.SysException;
 import com.sy.service.MessageDataService;
 import com.sy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class MessageController {
 
         try {
             message = messageDataService.sendMessage(messageData,messgaeType);
-        } catch (SysException e) {
+        } catch (Exception e) {
             return JsonResult.buildFailure(HttpStatusConstant.FAIL,e.getMessage());
         }
 

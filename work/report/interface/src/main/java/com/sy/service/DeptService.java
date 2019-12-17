@@ -16,4 +16,8 @@ public interface DeptService {
 
 	Dept selectDeptById(Integer id);
 
+	List<Dept> selectDeptTree();
+
+	List<Dept> getHigherDept();
+
 }

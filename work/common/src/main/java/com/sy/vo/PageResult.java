@@ -52,11 +52,14 @@ public class PageResult implements Serializable{
 		this.msg = msg;
 	}
 	
-	public static PageResult getPageResult(List<?> list) {
+	public static PageResult getPageResult(List<?> list,Long total) {
 		PageResult pageResult = new PageResult();
 		pageResult.setCode(HttpStatusConstant.SUCCESS);
 		pageResult.setRows(list);
-		pageResult.setTotal(list.size());
+		if(total==null) {
+			total=(long) list.size();
+		}
+		pageResult.setTotal(total);
 		return pageResult;
 	}
 }

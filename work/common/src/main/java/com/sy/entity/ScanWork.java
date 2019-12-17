@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "scan_work", schema = "qlzh", catalog = "")
 public class ScanWork {
     private int id;
     private Integer personId;
@@ -20,6 +19,13 @@ public class ScanWork {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public ScanWork() {
+    }
+
+    public ScanWork(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")

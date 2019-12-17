@@ -10,6 +10,8 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import javax.persistence.Table;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -24,6 +26,13 @@ public class Role {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public Role() {
+    }
+
+    public Role(int id) {
+        this.id = id;
+    }
 
     @Id
     @Column(name = "id")
