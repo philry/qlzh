@@ -20,14 +20,16 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
-
     @RequestMapping(value = "all",method = RequestMethod.GET)
-    public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, Integer personId, String beginTime, String endTime){
+    public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, String personName, String beginTime, String endTime){
 
-        System.out.println(beginTime);
-        System.out.println(endTime);
 
-        Page<Work> workPages = workService.getAllWork(pageNum,pageSize,personId, beginTime ==null ?null:DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
+        Page<Work> workPages = null;
+        try {
+            workPages = workService.getAllWork(pageNum,pageSize,personName, beginTime ==null ?null: DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
+        } catch (Exception e) {
+            return PageJsonResult.buildFailurePage(404,e.getMessage());
+        }
 
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,workPages);
     }

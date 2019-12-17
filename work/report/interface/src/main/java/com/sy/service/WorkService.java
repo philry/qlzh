@@ -9,6 +9,6 @@ public interface WorkService {
 
     Work startWork(Work work,Integer personId,Integer taskId,Integer machineId);
 
-    Page<Work> getAllWork(Integer page, Integer pageSize, Integer personId, Date beginTime,Date endTime);
+    Page<Work> getAllWork(Integer page, Integer pageSize, String personName, Date beginTime,Date endTime) throws Exception;
 
 }

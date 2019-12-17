@@ -2,6 +2,7 @@ package com.sy.service.impl;
 
 
 import com.google.common.collect.Lists;
+import com.sy.dao.PersonDao;
 import com.sy.dao.WorkDao;
 import com.sy.entity.Machine;
 import com.sy.entity.Person;
@@ -31,6 +32,8 @@ public class WorkServiceImpl implements WorkService {
     @Autowired
     private WorkDao workDao;
 
+    @Autowired
+    private PersonDao personDao;
 
     @Override
     @Transactional
@@ -46,26 +49,49 @@ public class WorkServiceImpl implements WorkService {
     }
 
     @Override
-    public Page<Work> getAllWork(Integer page, Integer pageSize,Integer personId, Date beginTime,Date endTime) {
+    public Page<Work> getAllWork(Integer page, Integer pageSize,String personName, Date beginTime,Date endTime) throws Exception {
 
         Pageable pageable = PageRequest.of(page,pageSize);
 
-        Specification querySpeci = new Specification() {
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = Lists.newArrayList();
-                if(personId!=null){
-                    predicates.add(criteriaBuilder.equal(root.get("person").get("id"),personId));
-                }
-                if (beginTime!=null&&endTime!=null){
-                    predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
-                }
+        if("".equals(personName)){
+            Specification querySpeci = new Specification() {
+                @Override
+                public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    List<Predicate> predicates = Lists.newArrayList();
+                    if (beginTime!=null&&endTime!=null){
+                        predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
+                    }
 
-                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+                    return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+                }
+            };
+
+            return workDao.findAll(querySpeci,pageable);
+        }else {
+            Integer personId = personDao.getIdByName(personName);
+
+            if(personId==null){
+                throw new Exception("没有该员工");
             }
-        };
 
-        return workDao.findAll(querySpeci,pageable);
+            Specification querySpeci = new Specification() {
+                @Override
+                public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                    List<Predicate> predicates = Lists.newArrayList();
+                    predicates.add(criteriaBuilder.equal(root.get("person").get("id"),personId));
+                    if (beginTime!=null&&endTime!=null){
+                        predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
+                    }
+                    return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+                }
+            };
+
+            return workDao.findAll(querySpeci,pageable);
+        }
+
+
+
+
     }
 
 
