@@ -4,7 +4,6 @@ import com.sy.dao.MessageDataDao;
 import com.sy.dao.MessageTypeDao;
 import com.sy.entity.MessageData;
 import com.sy.entity.MessageType;
-import com.sy.exception.SysException;
 import com.sy.service.MessageDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,10 +25,10 @@ public class MessageDataServiceImpl implements MessageDataService {
 
     @Override
     @Transactional
-    public MessageData sendMessage(MessageData messageData,Integer type) throws SysException {
+    public MessageData sendMessage(MessageData messageData,Integer type) throws Exception {
 
         if (type==null){
-            throw new SysException("请选择消息类型");
+            throw new Exception("请选择消息类型");
         }
         MessageType messageType = new MessageType(type);
         messageData.setMessageType(messageType);

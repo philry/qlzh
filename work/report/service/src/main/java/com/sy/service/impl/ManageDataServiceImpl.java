@@ -24,23 +24,29 @@ public class ManageDataServiceImpl implements ManageDataService {
     private DataManageDao dataManageDao;
 
     @Override
-    public List<DataManage> getAllByData(Date beginTime, Date endTime) {
+    public List<DataManage> getAllByData(int personId,Date beginTime, Date endTime) {
 
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = Lists.newArrayList();
 
+                if(personId!=0){
+                    predicates.add(criteriaBuilder.equal(root.get("work").get("person").get("id"),personId));
+                }
+
                 if (beginTime!=null&&endTime!=null){
                     predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
                 }
+
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
             }
         };
 
         return dataManageDao.findAll(querySpeci);
-
-
     }
+
+
+
 }

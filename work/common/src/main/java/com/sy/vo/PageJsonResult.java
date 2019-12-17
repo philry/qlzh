@@ -45,13 +45,20 @@ public class PageJsonResult extends JsonResult{
 
         PageJsonResult pageJsonResult = new PageJsonResult();
 
-        pageJsonResult.setCode(200);
+        pageJsonResult.setCode(code);
         pageJsonResult.setPageNumber(page.getNumber());
         pageJsonResult.setPageSize(page.getSize());
         pageJsonResult.setTotalPages(page.getTotalPages());
         pageJsonResult.setTotleCounts((int)page.getTotalElements());
         pageJsonResult.setData(page.getContent());
 
+        return pageJsonResult;
+    }
+
+    public static PageJsonResult buildFailurePage(int code, String errMsg) {
+        PageJsonResult pageJsonResult = new PageJsonResult();
+        pageJsonResult.setCode(code);
+        pageJsonResult.setError(errMsg);
         return pageJsonResult;
     }
 }

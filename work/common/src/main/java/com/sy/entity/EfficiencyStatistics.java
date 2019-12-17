@@ -3,7 +3,7 @@ package com.sy.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -163,23 +163,11 @@ public class EfficiencyStatistics {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EfficiencyStatistics that = (EfficiencyStatistics) o;
-        return id == that.id &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(level, that.level) &&
-                Objects.equals(pid, that.pid) &&
-                Objects.equals(time, that.time) &&
-                Objects.equals(workingTime, that.workingTime) &&
-                Objects.equals(efficiency, that.efficiency) &&
-                Objects.equals(power, that.power) &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(remark, that.remark);
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, level, pid, time, workingTime, efficiency, power, date, status, createTime, updateTime, remark);
+        return Objects.hash(id);
     }
 }

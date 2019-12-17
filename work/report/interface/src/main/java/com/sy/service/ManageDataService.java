@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ManageDataService {
 
-    List<DataManage> getAllByData(Date beginTime,Date endTime);
+    List<DataManage> getAllByData(int personId,Date beginTime,Date endTime);
+
 
 }

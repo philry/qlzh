@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -30,12 +31,16 @@ public class Task {
     private Timestamp updateTime;
     private String remark;
 
+    private List<Task> tasks;
+
     public Task() {
     }
 
     public Task(int id) {
         this.id = id;
     }
+
+
 
     @Id
     @Column(name = "id")
@@ -216,6 +221,15 @@ public class Task {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Transient
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

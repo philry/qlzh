@@ -6,6 +6,7 @@
         <artifactId>ql</artifactId>
         <groupId>com.sy</groupId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.sy</groupId>
@@ -52,5 +53,11 @@
             <version>1.25</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
 </project>

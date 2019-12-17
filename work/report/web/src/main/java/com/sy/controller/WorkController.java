@@ -27,7 +27,7 @@ public class WorkController {
         System.out.println(beginTime);
         System.out.println(endTime);
 
-        Page<Work> workPages = workService.getAllWork(pageNum,pageSize,personId, DateUtils.parseDate(beginTime),DateUtils.getNextDay(endTime));
+        Page<Work> workPages = workService.getAllWork(pageNum,pageSize,personId, beginTime ==null ?null:DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
 
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,workPages);
     }

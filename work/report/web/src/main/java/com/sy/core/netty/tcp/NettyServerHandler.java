@@ -1,13 +1,13 @@
 package com.sy.core.netty.tcp;
 
 import com.sy.core.netty.tcp.util.BytesUtils;
+import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
 import com.sy.dao.NettyDao;
 import com.sy.entity.Netty;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelHandlerAdapter;
-import io.netty.channel.ChannelHandlerContext;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
@@ -108,7 +108,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 
 		// Modbus数据域上传
-		if (cmd == 145) {
+		if (isrReg4gStr.equals("7b7b91")) {
+
+			System.out.println("收到数据信息");
 
 			Netty netty = new Netty();
 			netty.setCreateTime(new Timestamp(new Date().getTime()));
@@ -144,43 +146,100 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		}
 
+		writeToClient(returnHexStr, ctx);
 
+		Thread.sleep(1000);
+
+
+	}
+
+	private void writeToClient(final String receiveStr, ChannelHandlerContext channel) {
+		try {
+			ByteBuf bufff = Unpooled.buffer();// netty需要用ByteBuf传输
+			bufff.writeBytes(BytesUtils.hexString2Bytes(receiveStr));// 对接需要16进制
+			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
+				@Override
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (future.isSuccess()) {
+						System.out.println("AAAA回写成功:" + receiveStr);
+					} else {
+						System.out.println("AAAA回写失败:" + receiveStr);
+					}
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("调用通用writeToClient()异常" + e.getMessage());
+		}
+	}
+
+	private void writeToClient(final String receiveStr, Channel channel) {
+		try {
+			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输
+			bufff.writeBytes(BytesUtils.hexString2Bytes(receiveStr));//对接需要16进制
+			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (future.isSuccess()) {
+						System.out.println("BBBB回写成功:"+receiveStr);
+					} else {
+						System.out.println("BBBB回写失败:"+receiveStr);
+					}
+				}
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("调用通用writeToClient()异常"+e.getMessage());
+		}
+	}
+
+	private String genCmdMsg(String slaveId , String offset , boolean isopen){
+		String hex16 = slaveId+"0500"+offset;
+		if(isopen){
+			hex16 =  hex16 + "ff00"; //打开
+		}else{
+			hex16 =  hex16 + "0000"; //关闭
+		}
+		byte[] modbusBytes = BytesUtils.hexString2Bytes(hex16);
+		String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
+
+		hex16 = hex16+modbusCrc16;//生成modbus指令
+		hex16 = "90"+ hex16;
+
+		byte[] tcpBytes = BytesUtils.hexString2Bytes(hex16);
+		String tcpCrc16 = CRC16Util.getCRC(tcpBytes);
+		hex16 = "7b7b"+hex16+tcpCrc16+"7d7d";
+
+		return hex16;
+	}
+
+	private void closejidianqi() {
+		String xp4g = "";
+		String kgwzm = "";//开关位置
+		String yztbh = "";//格式：1,2
+
+		Channel channel = ClientChannel.getChannel(xp4g.trim());
+		if(channel == null){
+			logger.info("连接暂未建立,请稍后再试...");
+		}
+		if(!channel.isActive()){
+			logger.info("连接已断开，请等待建立连接...");
+		}
+
+		String hexString = genCmdMsg(kgwzm,yztbh.split(",")[1],true);
+		logger.info(">>>>>>>关闭继电器AAA---命令报文为："+hexString);
+
+		writeToClient(hexString,channel);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		System.out.println(ctx.channel().id() + " 有连接异常断开," + "当前活跃连接数: " + channels.size());
+		System.out.println(cause.getMessage());
 		ctx.close();
 	}
-
-	public static void main(String[] args) {
-
-		String receiveStr = "7B7B915B5B312D31282801036000050000000008900000000000000000000000000000000000000000000003E803E803E803E8000100010000004A00000000000000000000004A0000000000007530000100000000E10F0F7F00000000130C09010E302605792E0D1A0B0000008DA729295D5D5B5B312D32282801030605792E0D1A0B6EA629295D5D5B5B312D33282800000000000700000000000800000000000900000000000A00000000000B00000000000C00000000000D00000000000E00000000000F00000000001000000000001100000000001200000000001300000000001400000000001500000000001600000000001700000000001800000000001900000000001A00000000001B00000000001C00000000001D00000000001E00000000001F00000000002000000000002100000000002200000000002300000000002400000000002500000000002600000000002700000000002800000000002900000000002A00000000002B00000000002C00000000002D00000000002E00000000002F00000000003000000000003100000000003200000000003300000000003400000000003500000000003600000000003700000000003800000000003900000000003A00000000003B00000000000500000000000500000000000500000000000500000000000500000000000500000000000529295D5D27017D7D";
-
-//		//定义电流获取位置
-//		String iStart = "312D33";
-//
-//		int iStartIndex = receiveStr.indexOf(iStart);
-//		String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
-//
-//		System.out.println(iInfo);
-//
-//		List<Float> floats = new ArrayList<>();
-//
-//		for (int i = 0; i <60 ; i++) {
-//			int sIndex = i*12;
-//			String str = iInfo.substring(sIndex+0,sIndex+4);
-//			float iA = BytesUtils.hexString2Float(str);
-//			floats.add(iA);
-//		}
-//
-//		String currents = floats.toString().substring(1,floats.toString().length()-1);
-
-
-
-
-	}
-
-
-
 }

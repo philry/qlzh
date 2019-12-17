@@ -48,10 +48,18 @@ public class NettyDataHandler {
     @Autowired
     private DeptDao deptDao;
 
+    @Autowired
+    private TaskDao taskDao;
 
-    @Scheduled(cron = "0 0/3 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
+    @Autowired
+    private EfficiencyStatisticsDao efficiencyStatisticsDao;
+
+
+    @Scheduled(cron = "0 0/5 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
     @Transactional
     public void handleData(){
+
+        System.out.println("开始统计指定天数的数据");
 
         //获取指定日期（前一天）
         Date now = new Date();
@@ -65,6 +73,11 @@ public class NettyDataHandler {
     private void insertData(String day) {
         //获取指定日期区间内的同步数据
         List<Netty> nettyList =  nettyService.getAllByDate(DateUtils.parseDate(day),DateUtils.getNextDay(day));
+
+        if(nettyList.size()<=0){
+            System.out.println("无可同步数据");
+            return;
+        }
 
         for (Netty netty : nettyList) {
 
@@ -135,8 +148,7 @@ public class NettyDataHandler {
 
 
         //对报表数据进行存储
-        List<DataManage> dataList = manageDataService.getAllByData(DateUtils.parseDate(day),DateUtils.getNextDay(day));
-
+        List<DataManage> dataList = manageDataService.getAllByData(0,DateUtils.parseDate(day),DateUtils.getNextDay(day));
 
         //开始计算部门报表（以部门作为判定依据）
 
@@ -144,7 +156,55 @@ public class NettyDataHandler {
 
         //开始计算工程报表（以派工单作为判定依据）
 
+        Set<Integer> taskIds = new HashSet<>();
 
+        Map<Integer,List<DataManage>> map = new HashMap<>();
+
+        handleDataManage(dataList, taskIds, map);
+
+        for (Integer taskId : taskIds) {
+
+            EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
+            String name = taskDao.getById(taskId).getProjectName();
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (DataManage dataManage : map.get(taskId)) {
+                time += dataManage.getWorkingTime();
+                time += dataManage.getNoloadingTime();
+                working_time += dataManage.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
+            }
+            efficiencyStatistics.setTime(time);
+            efficiencyStatistics.setWorkingTime(working_time);
+            efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
+            efficiencyStatistics.setDate(DateUtils.parseDate(day));
+            efficiencyStatistics.setName(name);
+            efficiencyStatistics.setEfficiency(String.format("%.2f", (double)working_time/time*100));
+            efficiencyStatistics.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+
+            efficiencyStatisticsDao.save(efficiencyStatistics);
+
+        }
+
+
+    }
+
+
+    //处理数据，将数据根据personId或者taskId进行存储
+    private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map) {
+        for (DataManage dataManage : dataList) {
+            Integer taskId = dataManage.getWork().getTask().getId();
+            taskIds.add(taskId);
+            if(map.get(taskId)==null){
+                List<DataManage> list = new ArrayList<>();
+                list.add(dataManage);
+                map.put(taskId,list);
+            }else {
+                map.get(taskId).add(dataManage);
+            }
+        }
     }
 
     private void handleDeptReport(String day, List<DataManage> dataList) {
@@ -153,17 +213,7 @@ public class NettyDataHandler {
         //1.处理数据,将数据与人员进行绑定
         Set<Integer> personIds = new HashSet<>();
 
-        for (DataManage dataManage : dataList) {
-            Integer personId = dataManage.getWork().getPerson().getId();
-            personIds.add(personId);
-            if(map.get(personId)==null){
-                List<DataManage> list = new ArrayList<>();
-                list.add(dataManage);
-                map.put(personId,list);
-            }else {
-                map.get(personId).add(dataManage);
-            }
-        }
+        handleDataManage(dataList, personIds, map);
 
 
         //2.根据人员处理数据,将数据整合(人员id，处理好的数据)

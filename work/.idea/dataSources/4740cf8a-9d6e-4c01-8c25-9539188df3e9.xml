@@ -1529,7 +1529,7 @@
     </column>
     <column id="333" parent="219" name="rate">
       <Position>4</Position>
-      <Comment>工效	</Comment>
+      <Comment>工效</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1547,7 +1547,7 @@
     </column>
     <column id="336" parent="219" name="counts">
       <Position>7</Position>
-      <Comment>超限次数	</Comment>
+      <Comment>超限次数</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>

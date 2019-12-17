@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +26,8 @@ public class Engineering {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    private List<Engineering> sonLsit;
 
     public Engineering() {
     }
@@ -162,6 +165,15 @@ public class Engineering {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    @Transient
+    public List<Engineering> getSonLsit() {
+        return sonLsit;
+    }
+
+    public void setSonLsit(List<Engineering> sonLsit) {
+        this.sonLsit = sonLsit;
     }
 
     @Override
