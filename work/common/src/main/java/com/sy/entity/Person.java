@@ -24,49 +24,49 @@ import java.util.Objects;
 @Table(name = "person", schema = "qlzh", catalog = "")
 public class Person {
     private int id;
-    
+
     private String name;
-    
+
     private String sex;
-    
+
     private Integer age;
-    
+
     @Transient
     private Integer deptId;
-    
+
     private Dept dept;
-    
+
     @Transient
     private Integer roleId;
-    
+
     private Role role;
-    
+
     private String phone;
-    
+
     private String password;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date hiredate;
-    
+
     private String email;
-    
+
     private String workType;
-    
+
     private Integer skillLevel;
-    
+
     private Integer pileCounts;
-    
+
     private String status;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
-    
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
-    
+
     private String remark;
 
     public Person() {
@@ -277,7 +277,7 @@ public class Person {
         this.remark = remark;
     }
 
-    
+
     public Person(int id, String name, String sex, Integer age, Integer deptId, Integer roleId, String phone,
 			String password, Date birthday, Date hiredate, String email, String workType, Integer skillLevel,
 			Integer pileCounts, String status, Timestamp createTime, Timestamp updateTime, String remark) {
@@ -340,5 +340,5 @@ public class Person {
 				+ skillLevel + ", pileCounts=" + pileCounts + ", status=" + status + ", createTime=" + createTime
 				+ ", updateTime=" + updateTime + ", remark=" + remark + "]";
 	}
-    
+
 }

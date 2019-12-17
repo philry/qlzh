@@ -1,17 +1,12 @@
 package com.sy.starter;
 
-import com.sy.core.netty.tcp.NettyServer;
-
-import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.boot.CommandLineRunner;
+import com.sy.constant.AppConstant;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.scheduling.annotation.EnableScheduling;
-
-import javax.annotation.Resource;
+import org.springframework.stereotype.Component;
 
 
 @ComponentScan(basePackages = {"com.sy"})
@@ -27,11 +22,5 @@ public class Starter implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(Starter.class, args);
-    }
-
-
-    @Override
-    public void run(String... args) throws Exception {
-        nettyServer.run(90);
     }
 }

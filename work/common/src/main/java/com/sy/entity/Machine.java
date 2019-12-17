@@ -1,6 +1,8 @@
 package com.sy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 
@@ -203,4 +205,5 @@ public class Machine {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }
