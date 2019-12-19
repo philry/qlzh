@@ -88,7 +88,8 @@ public class Dept {
         this.level = level;
     }
 
-    @Transient
+    @Basic
+    @Column(name = "pid")
     public Integer getPid() {
         return pid;
     }

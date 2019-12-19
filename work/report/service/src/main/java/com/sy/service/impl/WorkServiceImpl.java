@@ -71,6 +71,7 @@ public class WorkServiceImpl implements WorkService {
         machineNow.setBeginTime(new Timestamp(new Date().getTime()));
         machineNow.setStatus("0");
         machineNow.setCreateTime(new Timestamp(new Date().getTime()));
+        machineNow.setRemark(String.valueOf(taskId));
         machineNowDao.save(machineNow);
 
         return null;

@@ -17,6 +17,7 @@ public class MachineNow {
     private Person person;
     //    private Integer machineId;
     private Machine machine;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp beginTime;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

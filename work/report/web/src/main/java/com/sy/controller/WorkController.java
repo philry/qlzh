@@ -21,6 +21,7 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
+
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, String personName, String beginTime, String endTime){
 
@@ -41,6 +42,7 @@ public class WorkController {
         try {
             workService.startWork(personId,taskId,machineId);
         }catch (Exception e){
+            e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
 
@@ -53,9 +55,9 @@ public class WorkController {
         try {
             workService.endWork(personId,taskId,machineId);
         }catch (Exception e){
+            e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
-
 
         return JsonResult.buildSuccess(200,"操作成功");
     }

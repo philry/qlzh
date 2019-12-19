@@ -80,7 +80,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 			// 保存会话，通过4g注册号
 			ClientChannel.addChannel(zcxlhStr.trim(), ctx.channel());
-			;
+
 			map.put(ctx.channel().id().asLongText(), zcxlhStr.trim());
 
 			byte[] kh = Arrays.copyOfRange(bytes, 23, 53);// 卡号
@@ -257,28 +257,21 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		return hex16;
 	}
 
-	private void closejidianqi() {
-		String xp4g = "";
-		String kgwzm = "";//开关位置
-		String yztbh = "";//格式：1,2
+	public void controlMachine(String xpg,boolean isOpen){
 
-		Channel channel = ClientChannel.getChannel(xp4g.trim());
-		if(channel == null){
-			logger.info("连接暂未建立,请稍后再试...");
-		}
-		if(!channel.isActive()){
-			logger.info("连接已断开，请等待建立连接...");
+		String returnHexStr = "";
+
+		if(isOpen){
+			//合闸 开机
+ 			returnHexStr = "7b7b90011000570002040001000047d27d7d";
+		}else {
+			//分闸 关机
+			returnHexStr = "7b7b90011000570002040001000186127d7d";
 		}
 
-		String hexString = genCmdMsg(kgwzm,yztbh.split(",")[1],true);
-		logger.info(">>>>>>>关闭继电器AAA---命令报文为："+hexString);
+		Channel ctx = ClientChannel.getChannel(xpg);
 
-		writeToClient(hexString,channel);
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		writeToClient(returnHexStr,ctx);
 	}
 
 	@Override
