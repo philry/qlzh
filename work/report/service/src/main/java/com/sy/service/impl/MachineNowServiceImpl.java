@@ -44,4 +44,10 @@ public class MachineNowServiceImpl implements MachineNowService {
 
         return machineNowDao.findAll();
     }
+
+    @Override
+    public List<MachineNow> getNowMachineByPerson(int personId) {
+
+        return machineNowDao.getByPersonId(personId);
+    }
 }

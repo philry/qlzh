@@ -4,6 +4,7 @@ import com.sy.constant.HttpStatusConstant;
 import com.sy.entity.Work;
 import com.sy.service.WorkService;
 import com.sy.utils.DateUtils;
+import com.sy.vo.JsonResult;
 import com.sy.vo.PageJsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +21,6 @@ public class WorkController {
     @Autowired
     private WorkService workService;
 
-
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, String personName, String beginTime, String endTime){
 
@@ -34,5 +34,31 @@ public class WorkController {
 
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,workPages);
     }
+
+    @RequestMapping(value = "startWork",method = RequestMethod.POST)
+    public JsonResult startWork(Integer personId, Integer taskId, Integer machineId){
+
+        try {
+            workService.startWork(personId,taskId,machineId);
+        }catch (Exception e){
+            return JsonResult.buildFailure(404,e.getMessage());
+        }
+
+        return JsonResult.buildSuccess(200,"操作成功");
+    }
+
+    @RequestMapping(value = "endWork",method = RequestMethod.POST)
+    public JsonResult endWork(Integer personId, Integer taskId, Integer machineId){
+
+        try {
+            workService.endWork(personId,taskId,machineId);
+        }catch (Exception e){
+            return JsonResult.buildFailure(404,e.getMessage());
+        }
+
+
+        return JsonResult.buildSuccess(200,"操作成功");
+    }
+
 
 }

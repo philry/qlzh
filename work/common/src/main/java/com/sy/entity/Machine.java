@@ -22,6 +22,7 @@ public class Machine {
     private Integer typeId;
     private MachineType machineType;
     private Date payTime;
+    private Date lastMaintenanceTime;
     private Double maxA;
     private Double minA;
     @Transient
@@ -117,6 +118,16 @@ public class Machine {
 
     public void setPayTime(Date payTime) {
         this.payTime = payTime;
+    }
+
+    @Basic
+    @Column(name = "last_maintenance_time")
+    public Date getLastMaintenanceTime() {
+        return lastMaintenanceTime;
+    }
+
+    public void setLastMaintenanceTime(Date lastMaintenanceTime) {
+        this.lastMaintenanceTime = lastMaintenanceTime;
     }
 
     @Basic

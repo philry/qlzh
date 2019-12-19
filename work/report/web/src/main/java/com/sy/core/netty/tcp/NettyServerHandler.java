@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -51,14 +52,13 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	}
 
 	@Override
+	@Transactional
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];
 		buf.readBytes(bytes);// 复制内容到字节数组bytes
 		String receiveStr = BytesUtils.bytes2HexString(bytes);// 将接收到的数据转为字符串，此字符串就是客户端发送的字符串
-		logger.info(">>>>>>>>获取到的hex数据为："+receiveStr);
-
 		logger.info(">>>>>>>>获取到的hex数据为："+receiveStr);
 
 		String isrReg4gStr = receiveStr.substring(0, 6);//截取7b7bXX的开头，XX表示具体的命令字：如 84 ，91 ，92
@@ -98,59 +98,104 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
 		// 对时命令
-		if (cmd == 147) {
-
+		if (isrReg4gStr.equals("7b7b93")) {
+//			Calendar calendar = Calendar.getInstance();
+//			int year = calendar.get(Calendar.YEAR);
+//			int month = calendar.get(Calendar.MONTH)+1;
+//			int day = calendar.get(Calendar.DATE);
+//			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+//			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//			int minute = calendar.get(Calendar.MINUTE);
+//			int second = calendar.get(Calendar.SECOND);
+//
+//			returnHexStr = "7b7b93"+
+//					Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
+//					Integer.toHexString(month)+
+//					Integer.toHexString(day)+
+//					Integer.toHexString(week)+
+//					Integer.toHexString(hour)+
+//					Integer.toHexString(minute)+
+//					Integer.toHexString(second)+
+//					"e6907d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
 		if (cmd == 144) {
 
+			returnHexStr = receiveStr;
 		}
-
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
 
-			System.out.println("收到数据信息");
+			if(receiveStr.length()>500){
+				Netty netty = new Netty();
+				netty.setCreateTime(new Timestamp(new Date().getTime()));
 
-			Netty netty = new Netty();
-			netty.setCreateTime(new Timestamp(new Date().getTime()));
+				String xpg = map.get(ctx.channel().id().asLongText());
+				netty.setXpg(xpg);//存放4G注册码
+				netty.setRemark(receiveStr);//存放原报文
 
-			String xpg = map.get(ctx.channel().id().asLongText());
-			netty.setXpg(xpg);//存放4G注册码
-			netty.setRemark(receiveStr);//存放原报文
+				//获取电流信息，并解析合并存储
+				String iStart = "312d33";
 
-			//定义电流获取位置
-			String iStart = "312D33";
+				int iStartIndex = receiveStr.indexOf(iStart);
+				String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
 
-			int iStartIndex = receiveStr.indexOf(iStart);
-			String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
+				List<Double> doubles = new ArrayList<>();
 
-			System.out.println(iInfo);
+				for (int i = 0; i <60 ; i++) {
+					int sIndex = i*12;
+					String str = iInfo.substring(sIndex+0,sIndex+4);
+					double iA  = getPowerValue(str);
+					doubles.add(iA);
+				}
 
-			List<Float> floats = new ArrayList<>();
+				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
-			for (int i = 0; i <60 ; i++) {
-				int sIndex = i*12;
-				String str = iInfo.substring(sIndex+0,sIndex+4);
-				float iA = BytesUtils.hexString2Float(str);
-				floats.add(iA);
+				netty.setCurrents(currents);
+
+				//获取电压
+
+				String infoStart = "010360";
+
+				int vStartIndex = receiveStr.indexOf(infoStart);
+
+				String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
+				double voltage = getDoubleValue(info.substring(8,12));
+
+				netty.setVoltage(voltage);
+
+				//获取电量
+				double power = getPowerValue(info.substring(88,96));
+
+				netty.setPower(String.valueOf(power));
+
+				nettyDao.save(netty);
 			}
 
-			String currents = floats.toString().substring(1,floats.toString().length()-1);
-
-			netty.setCurrents(currents);
-
-			nettyDao.save(netty);
-
-			returnHexStr = "7b7b84bf237d7d";
+			returnHexStr = "7b7b917eec7d7d";
 
 		}
 
 		writeToClient(returnHexStr, ctx);
 
 		Thread.sleep(1000);
+	}
 
+	private double getDoubleValue(String handleStr) {
+		String voltageStr = String.valueOf(BytesUtils.hexString2Int(handleStr));
+		if(voltageStr.length()<=1){
+			return Double.parseDouble("."+voltageStr);
+		}
+		return Double.parseDouble(voltageStr.substring(0,voltageStr.length()-1)+"."+voltageStr.substring(voltageStr.length()-1,voltageStr.length()));
+	}
 
+	private double getPowerValue(String powerStr) {
+		String s = String.valueOf(BytesUtils.hexString2Int(powerStr));
+		if(s.length()<=2){
+			return Double.parseDouble("."+s);
+		}
+		return Double.parseDouble(s.substring(0,s.length()-2)+"."+s.substring(s.length()-2,s.length()));
 	}
 
 	private void writeToClient(final String receiveStr, ChannelHandlerContext channel) {
@@ -242,4 +287,5 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		System.out.println(cause.getMessage());
 		ctx.close();
 	}
+
 }

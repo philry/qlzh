@@ -19,7 +19,7 @@ public class NettyServer {
 	public void run(int port) throws Exception {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
 		EventLoopGroup workerGroup = new NioEventLoopGroup();
-		System.out.println(">>>>>>>>>>TCP连接初始化完成，监听端口：" + port);
+		System.out.println(">>>>>>>>>>TCP连接初始化完成,监听端口:" + port);
 		try {
 			ServerBootstrap bootstrap = new ServerBootstrap();
 			bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)

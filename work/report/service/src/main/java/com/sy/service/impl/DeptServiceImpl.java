@@ -80,7 +80,7 @@ public class DeptServiceImpl implements DeptService {
 			setDept(dept);
 		}
 	}
-	
+
 	private void setDept(Dept dept) {
 		Person person = personMapper.selectPersonById(dept.getLeader());
 		if(person!=null)
@@ -93,6 +93,14 @@ public class DeptServiceImpl implements DeptService {
 		dept2.setPid(dept.getId());
 		List<Dept> sDepts = deptMapper.selectDeptList(dept2);
 		if(sDepts!=null) {
+			List<Dept> ssDepts = new ArrayList<>();
+			for (Dept dept3 : sDepts) {
+				dept2.setPid(dept3.getId());
+				ssDepts = deptMapper.selectDeptList(dept2);
+				if(ssDepts!=null) {
+					dept3.setsDepts(ssDepts);
+				}
+			}
 			dept.setsDepts(sDepts);
 		}
 	}
