@@ -12,6 +12,8 @@ public class RoleAuthority {
     private int id;
     private Integer roleId;
     private Integer authorityId;
+    @Transient
+    private Authority authority;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
@@ -97,7 +99,16 @@ public class RoleAuthority {
         this.remark = remark;
     }
 
-    @Override
+    @Transient
+    public Authority getAuthority() {
+		return authority;
+	}
+
+	public void setAuthority(Authority authority) {
+		this.authority = authority;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -115,4 +126,12 @@ public class RoleAuthority {
     public int hashCode() {
         return Objects.hash(id, roleId, authorityId, status, createTime, updateTime, remark);
     }
+
+	@Override
+	public String toString() {
+		return "RoleAuthority [id=" + id + ", roleId=" + roleId + ", authorityId=" + authorityId + ", authority="
+				+ authority + ", status=" + status + ", createTime=" + createTime + ", updateTime=" + updateTime
+				+ ", remark=" + remark + "]";
+	}
+    
 }

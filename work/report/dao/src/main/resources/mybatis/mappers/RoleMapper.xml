@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' "> and status = #{status}</if>
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
-			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
 		</where>
 	</select>
 	
@@ -35,35 +35,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertRole" parameterType="com.sy.entity.Role" useGeneratedKeys="true" keyProperty="id">
 		insert into role
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null and id!=0">id,</if>
 			<if test="name != null and name !=''">name,</if>
 			<if test="status != null and status !='' ">status,</if>
 			<if test="createTime != null ">create_time, </if>
 			<if test="updateTime != null ">update_time,</if>
-			<if test="remark != null and reamrk !='' ">remark,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null and id!=0 ">#{id},</if>
 			<if test="name != null and name !=''">#{name},</if>
-			<if test="machineId != null">#{machineId},</if>
 			<if test="status != null and status !='' ">#{status},</if>
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null "> #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">#{remark},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
 		</trim>
 	</insert>
 	
 	<update id="updateRole" parameterType="com.sy.entity.Role">
 		update role
 		<trim prefix="SET" suffixOverrides=",">
-			<if test="id != null and id!=0 ">id = #{id},</if>
 			<if test="name != null and name !=''">name = #{name},</if>
-			<if test="status != null and status !='' ">status = #{status},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
 		</trim>
 		where id = #{id}
 	</update>	
+	
+	<delete id="deleteRoleByIds" parameterType="String">
+        delete from role where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
 	
 </mapper>

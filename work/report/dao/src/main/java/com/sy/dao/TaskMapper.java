@@ -2,6 +2,8 @@ package com.sy.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.sy.entity.Task;
 
 public interface TaskMapper {
@@ -13,5 +15,9 @@ public interface TaskMapper {
 	int insertTask(Task task);
 
 	int deleteTaskById(Integer id);
+
+	int updateTask(Task task);
+
+	List<Task> selectTaskByDeptIds(@Param("workCode")String workCode, @Param("list")List<Integer> list);
 
 }

@@ -169,4 +169,29 @@ public class TaskServiceImpl implements TaskService {
 		
 		return 1;
 	}
+
+	@Override
+	@Transactional
+	public int changeCheckStatus(Integer id, String type) {
+		if("0".equals(type)) {
+			Task task = taskMapper.selectTaskById(id);
+			task.setCheckingStatus("0");
+			return taskMapper.updateTask(task);
+		}else {
+			Task t = taskMapper.selectTaskById(id);
+			Task fTask = taskMapper.selectTaskById(t.getPid());
+			if(fTask!=null) {
+				fTask.setCheckingStatus("1");
+				taskMapper.updateTask(fTask);
+			}
+			return taskMapper.deleteTaskById(id);
+		}
+	}
+
+	@Override
+	public List<Task> selectTaskByDeptIds(String workCode,List<Integer> deptIds) {
+		List<Task> list = taskMapper.selectTaskByDeptIds(workCode,deptIds);
+		setTask(list);
+		return list;
+	}
 }

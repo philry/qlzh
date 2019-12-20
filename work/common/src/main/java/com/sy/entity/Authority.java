@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +19,10 @@ public class Authority {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
-
+    
+    @Transient
+    private List<Authority> sList;
+    
     public Authority() {
     }
 
@@ -106,8 +110,17 @@ public class Authority {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+    
+    @Transient
+    public List<Authority> getsList() {
+		return sList;
+	}
 
-    @Override
+	public void setsList(List<Authority> sList) {
+		this.sList = sList;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -126,4 +139,12 @@ public class Authority {
     public int hashCode() {
         return Objects.hash(id, authorityName, level, pid, status, createTime, updateTime, remark);
     }
+
+	@Override
+	public String toString() {
+		return "Authority [id=" + id + ", authorityName=" + authorityName + ", level=" + level + ", pid=" + pid
+				+ ", status=" + status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark="
+				+ remark + ", sList=" + sList + "]";
+	}
+    
 }

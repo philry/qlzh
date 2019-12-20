@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sy.constant.HttpStatusConstant;
 import com.sy.entity.Dept;
 import com.sy.entity.Person;
 import com.sy.service.DeptService;
@@ -44,14 +45,24 @@ public class PersonController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public JsonResult add(Person person) {
-		int rows = personService.insertPerson(person);
-		return JsonResult.getJson(rows);
+		try {
+			int rows = personService.insertPerson(person);
+			return JsonResult.getJson(rows);
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+
+		}
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public JsonResult edit(Person person) {
-		int rows = personService.updatePerson(person);
-		return JsonResult.getJson(rows);
+		try {
+			int rows = personService.updatePerson(person);
+			return JsonResult.getJson(rows);
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+
+		}
 	}
 	
 	@RequestMapping(value = "/querybyid/{id}", method = RequestMethod.GET)
@@ -105,5 +116,15 @@ public class PersonController {
 		Page<Object> startPage = PageHelper.startPage(yema, 10);
 		List<Person> list = personService.selectDeptLeader(deptList);
 		return PageResult.getPageResult(list,startPage.getTotal());
+	}
+	
+	@RequestMapping(value = "/reset/{id}", method = RequestMethod.POST)
+	public JsonResult reset(@PathVariable("id")Integer id) {
+		return JsonResult.getJson(personService.resetPasswordById(id));
+	}
+	
+	@RequestMapping(value = "/changepassword/{id}/{password}")
+	public JsonResult changePassword(@PathVariable("id")Integer id, @PathVariable("password")String password) {
+		return JsonResult.getJson(personService.updatePassword(id,password));
 	}
 }

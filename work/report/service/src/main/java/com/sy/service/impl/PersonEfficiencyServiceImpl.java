@@ -4,7 +4,9 @@ import com.sy.dao.DeptDao;
 import com.sy.dao.PersonDao;
 import com.sy.dao.PersonEfficiencyDao;
 import com.sy.entity.DataManage;
+import com.sy.entity.Dept;
 import com.sy.entity.PersonEfficiency;
+import com.sy.service.DeptService;
 import com.sy.service.ManageDataService;
 import com.sy.service.PersonEfficiencyService;
 import com.sy.utils.DateUtils;
@@ -33,6 +35,9 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
     @Autowired
     private PersonDao personDao;
 
+    @Autowired
+    private DeptService deptService;
+
     @Override
     @Transactional
     public PersonEfficiency saveReport(PersonEfficiency personEfficiency) {
@@ -50,19 +55,33 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
 
     @Override
     @Transactional
-    public void calculateData(String personName, String deptIds, Date beginTime, Date endTime) throws Exception {
+    public void calculateData(String personName, int deptId, Date beginTime, Date endTime) throws Exception {
 
 
+        List<Integer> deptList = new ArrayList<>();
+
+        if(deptId==0){
+            List<Integer> depts = deptDao.getIdByPid(0);
+
+            System.out.println(depts);
+
+            for (Integer dept : depts) {
+                addDeptId(dept, deptList);
+            }
+        }else {
+            addDeptId(deptId, deptList);
+        }
+        System.out.println(deptList);
+
+        //根据部门编号，获取当前部门下的所有员工id
         List<Integer> list = new ArrayList<>();
-
-        String[] strs = deptIds.split(",");
-
-        for (String str : strs) {
-            for (Integer integer : personDao.getPersonIdByDeptId(Integer.parseInt(str))) {
+        for (Integer integer : deptList) {
+            for (Integer integer1 : personDao.getPersonIdByDeptId(integer)) {
                 list.add(integer);
             }
         }
 
+        //判断查询人员和部门是否对应
         if(personName!=null){
             Integer personId = personDao.getIdByName(personName);
 
@@ -76,6 +95,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
 
         }
 
+        //将所有的数据全部存储
         List<DataManage> dataManageList = new ArrayList<>();
 
         for (Integer integer : list) {
@@ -86,6 +106,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
 
         }
 
+        //分类数据,将数据按照人分类好
         Map<Integer,List<DataManage>> map = new HashMap<>();
         Set<Integer> sets = new HashSet<>();
 
@@ -100,6 +121,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             }
         }
 
+        //计算处理数据,并入表
         for (Integer set : sets) {
             PersonEfficiency personEfficiency = new PersonEfficiency();
             int time = 0 ;
@@ -121,6 +143,21 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
             personEfficiencyDao.save(personEfficiency);
         }
+    }
+
+    private void addDeptId(int deptId, List<Integer> deptList) {
+        Dept dept = deptService.selectDeptById(deptId);
+
+        List<Dept> dept_1 = dept.getsDepts();
+
+        for (Dept dept1 : dept_1) {
+
+            for (Dept getsDept : dept1.getsDepts()) {
+                deptList.add(getsDept.getId());
+            }
+            deptList.add(dept1.getId());
+        }
+        deptList.add(dept.getId());
     }
 
 

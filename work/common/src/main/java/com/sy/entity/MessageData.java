@@ -17,6 +17,7 @@ public class MessageData {
     private Integer accpetId;
     private String context;
     //private Integer messgaeType;
+    private MessageType messageType;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
@@ -31,7 +32,6 @@ public class MessageData {
         this.id = id;
     }
 
-    private MessageType messageType;
 
     @ManyToOne(targetEntity = MessageType.class)
     @JoinColumn(name = "messgae_type")

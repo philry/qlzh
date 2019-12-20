@@ -10,4 +10,10 @@ public interface RoleService {
 
 	List<Role> selectRoleList(Role role);
 
+	int insertRole(Role role, Integer appId);
+
+	int deleteRoleByIds(String ids);
+
+	int updateRole(Role role, Integer appId);
+
 }

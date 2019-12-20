@@ -10,4 +10,10 @@ public interface RoleMapper {
 
 	List<Role> selectRoleList(Role role);
 
+	int insertRole(Role role);
+
+	int updateRole(Role role);
+
+	int deleteRoleByIds(String[] ids);
+
 }

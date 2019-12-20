@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' "> and status = #{status}</if>
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
-			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
 		</where>
 	</select>
 	
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status,</if>
 			<if test="createTime != null ">create_time, </if>
 			<if test="updateTime != null ">update_time,</if>
-			<if test="remark != null and reamrk !='' ">remark,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id!=0 ">#{id},</if>
@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">#{status},</if>
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null "> #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">#{remark},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
 		</trim>
 	</insert>
 	
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
 		</trim>
 		where id = #{id}
 	</update>	

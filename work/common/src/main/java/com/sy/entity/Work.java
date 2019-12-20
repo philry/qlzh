@@ -127,6 +127,21 @@ public class Work {
     }
 
     @Override
+    public String toString() {
+        return "Work{" +
+                "id=" + id +
+                ", person=" + person +
+                ", task=" + task +
+                ", machine=" + machine +
+                ", operate='" + operate + '\'' +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

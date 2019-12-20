@@ -13,4 +13,6 @@ public interface MachineNowService {
 
     List<MachineNow> getNowMachine();
 
+    List<MachineNow> getNowMachineByPerson(int personId);
+
 }

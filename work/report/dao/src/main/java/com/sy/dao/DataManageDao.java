@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+
 @Repository
 public interface DataManageDao extends JpaRepository<DataManage,Integer>, JpaSpecificationExecutor {
 
-
+    int deleteByCreateTime(Date time);
 
 }

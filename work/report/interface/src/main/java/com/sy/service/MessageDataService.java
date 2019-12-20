@@ -13,4 +13,7 @@ public interface MessageDataService {
 
     List<MessageData> getSendMessage(Integer sendId);
 
+    int deleteByStatus(String status);
+    
+    int updateStatus(int id,String status);
 }

@@ -7,8 +7,9 @@ import java.util.Date;
 
 public interface WorkService {
 
-    Work startWork(Work work,Integer personId,Integer taskId,Integer machineId);
+    Work startWork(int personId, int taskId, int machineId) throws Exception;
 
     Page<Work> getAllWork(Integer page, Integer pageSize, String personName, Date beginTime,Date endTime) throws Exception;
 
+    boolean endWork(int personId, int taskId, int machineId) throws Exception;
 }

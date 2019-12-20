@@ -21,4 +21,8 @@ public interface TaskService {
 
 	int checkTask(Integer id, Integer type);
 
+	int changeCheckStatus(Integer id, String type);
+
+	List<Task> selectTaskByDeptIds(String string, List<Integer> deptIds);
+
 }

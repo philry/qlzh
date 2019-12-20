@@ -21,4 +21,8 @@ public interface PersonService {
 
 	List<Person> selectPersonByDept(List<Integer> deptIds);
 
+	int resetPasswordById(Integer id);
+
+	int updatePassword(Integer id, String password);
+
 }

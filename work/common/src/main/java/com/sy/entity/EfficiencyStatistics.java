@@ -167,6 +167,25 @@ public class EfficiencyStatistics {
     }
 
     @Override
+    public String toString() {
+        return "EfficiencyStatistics{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", pid=" + pid +
+                ", time=" + time +
+                ", workingTime=" + workingTime +
+                ", efficiency='" + efficiency + '\'' +
+                ", power=" + power +
+                ", date=" + date +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

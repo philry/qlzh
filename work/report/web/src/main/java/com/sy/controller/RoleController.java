@@ -12,6 +12,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sy.constant.HttpStatusConstant;
 import com.sy.entity.Role;
+import com.sy.service.RoleAuthorityService;
 import com.sy.service.RoleService;
 import com.sy.vo.JsonResult;
 import com.sy.vo.PageResult;
@@ -31,13 +32,28 @@ public class RoleController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Role role) {
 		List<Role> list = roleService.selectRoleList(role);
-		return PageResult.getPageResult(list,null);
+		return PageResult.getPageResult(list);
 	}
 	
 	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET)
 	public PageResult getLists(Role role,@PathVariable("yema")Integer yema) {
-		Page<Object> startPage = PageHelper.startPage(yema, 10);
+		Page<Object> startPage = PageHelper.startPage(yema, 15);
 		List<Role> list = roleService.selectRoleList(role);
 		return PageResult.getPageResult(list,startPage.getTotal());
+	}
+	
+	@RequestMapping(value = "/add/{appId}", method = RequestMethod.POST)
+	public JsonResult add(Role role,@PathVariable("appId")Integer appId) {
+		return JsonResult.getJson(roleService.insertRole(role,appId));
+	}
+	
+	@RequestMapping(value = "/edit/{appId}", method = RequestMethod.POST)
+	public JsonResult edit(Role role,@PathVariable("appId")Integer appId) {
+		return JsonResult.getJson(roleService.updateRole(role,appId));
+	}
+	
+	@RequestMapping(value = "/remove/{ids}", method = RequestMethod.GET)
+	public JsonResult remove(@PathVariable("ids")String ids) {
+		return JsonResult.getJson(roleService.deleteRoleByIds(ids));
 	}
 }
