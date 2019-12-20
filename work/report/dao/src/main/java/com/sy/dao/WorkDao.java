@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationExecutor {
@@ -21,5 +22,10 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
 
     @Query(value =" select * from work where create_time <= :s_time and machine_id = :machineId  ORDER BY create_time limit 1",nativeQuery = true)
     Work getLastWorkByTime(@Param("s_time")String s_time,@Param("machineId")Integer machineId);
+
+    @Query(value = "select distinct person_id from work where create_time == ?1",nativeQuery = true)
+    List<Integer> getPersonIdsByDate(String time);
+
+
 
 }

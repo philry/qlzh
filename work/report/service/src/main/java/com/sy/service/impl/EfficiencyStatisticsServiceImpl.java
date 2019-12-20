@@ -6,6 +6,7 @@ import com.sy.dao.TaskDao;
 import com.sy.entity.EfficiencyStatistics;
 import com.sy.entity.Task;
 import com.sy.service.EfficiencyStatisticsService;
+import com.sy.vo.EfficiencyStatisticsVo;
 import com.sy.vo.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -30,7 +31,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
 
 
     @Override
-    public List<Unit> getAllData(String taskName, Date beginTime, Date endTime) throws Exception {
+    public List<EfficiencyStatisticsVo> getAllData(String taskName, Date beginTime, Date endTime) throws Exception {
 
 
         Specification querySpeci = new Specification() {
@@ -39,7 +40,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 List<Predicate> predicates = Lists.newArrayList();
 
                 if (beginTime!=null&&endTime!=null){
-                    predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
+                    predicates.add(criteriaBuilder.between(root.get("date"),beginTime,endTime));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -64,26 +65,68 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         }
 
-        if(taskName!=null){
+        if(taskName!=""){
             if(!taskNames.contains(taskName)){
                 throw new Exception("查询的工程不存在");
             }
 
             Unit unit = calculateData(taskName, map);
 
-            return Collections.singletonList(unit);
-        }else {
+            List<EfficiencyStatisticsVo> vos = new ArrayList<>();
 
-            List<Unit> units = new ArrayList<>();
+            handleVo(unit, vos);
+
+            return vos;
+        }else {
+            List<EfficiencyStatisticsVo> vos = new ArrayList<>();
             for (String name : taskNames) {
-                units.add(calculateData(name,map));
+                Unit unit = calculateData(name, map);
+                handleVo(unit, vos);
             }
 
-            if(!units.isEmpty()){
-                return units;
+            if(!vos.isEmpty()){
+                return vos;
+            }
+            return null;
+        }
+
+    }
+
+    private void handleVo(Unit unit, List<EfficiencyStatisticsVo> vos) {
+        Set<String> set = new HashSet<>();
+        Map<String,List<Unit>> map = new HashMap<>();
+        for (Unit son : unit.getSonList()) {
+            String name = son.getName();
+            set.add(name);
+            if(map.get(name)==null){
+                List<Unit> list = new ArrayList<>();
+                list.add(son);
+                map.put(name,list);
+            }else {
+                map.get(name).add(son);
             }
         }
-        return null;
+
+        for (String s : set) {
+            int time = 0;
+            int workTime = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Unit u : map.get(s)) {
+                time += u.getTime();
+                workTime += u.getWorkTime();
+                ePower = ePower.add(new BigDecimal(u.getPower()));
+            }
+            EfficiencyStatisticsVo vo = new EfficiencyStatisticsVo();
+            vo.setTime(unit.getTime());
+            vo.setWorkTime(unit.getWorkTime());
+            vo.setName(unit.getName());
+            vo.setPower(unit.getPower());
+            vo.setSonName(s);
+            vo.setSonTime(time);
+            vo.setSonWorkTime(workTime);
+            vo.setSonPower(ePower.doubleValue());
+            vos.add(vo);
+        }
     }
 
     private Unit calculateData(String taskName, Map<String, List<EfficiencyStatistics>> map) {
@@ -108,6 +151,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         unit.setSonList(sonList);
         unit.setTime(time);
         unit.setWorkTime(work_time);
+        unit.setPower(ePower.doubleValue());
         return unit;
     }
 
@@ -115,11 +159,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         int pid = -1;
         String tempName = taskName;
         while (pid != 0){
-
-            pid = taskDao.getPidByName(taskName);
-
-            tempName = taskDao.getNameById(pid);
-
+            pid = taskDao.getPidByName(tempName);
+            if(pid!=0){
+                tempName = taskDao.getNameById(pid);
+            }
         }
         return tempName;
     }

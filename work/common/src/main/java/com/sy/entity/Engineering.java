@@ -177,6 +177,26 @@ public class Engineering {
     }
 
     @Override
+    public String toString() {
+        return "Engineering{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", pid=" + pid +
+                ", time=" + time +
+                ", workingTime=" + workingTime +
+                ", efficency='" + efficency + '\'' +
+                ", date=" + date +
+                ", power=" + power +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                ", sonLsit=" + sonLsit +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

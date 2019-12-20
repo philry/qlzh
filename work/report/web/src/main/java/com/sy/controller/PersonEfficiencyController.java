@@ -26,8 +26,9 @@ public class PersonEfficiencyController {
     public PageJsonResult getAllData(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
 
         try {
-            personEfficiencyService.calculateData(personName,deptId,beginTime ==null ?null:DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
+            personEfficiencyService.calculateData(personName,deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.getNextDay(endTime));
         } catch (Exception e) {
+            e.printStackTrace();
             return PageJsonResult.buildFailurePage(404,e.getMessage());
         }
 

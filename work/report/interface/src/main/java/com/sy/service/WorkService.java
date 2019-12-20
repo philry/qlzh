@@ -12,4 +12,6 @@ public interface WorkService {
     Page<Work> getAllWork(Integer page, Integer pageSize, String personName, Date beginTime,Date endTime) throws Exception;
 
     boolean endWork(int personId, int taskId, int machineId) throws Exception;
+
+
 }
