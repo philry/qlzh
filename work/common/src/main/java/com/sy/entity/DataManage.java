@@ -152,6 +152,22 @@ public class DataManage {
     }
 
     @Override
+    public String toString() {
+        return "DataManage{" +
+                "id=" + id +
+                ", work=" + work +
+                ", noloadingTime=" + noloadingTime +
+                ", workingTime=" + workingTime +
+                ", noloadingPower=" + noloadingPower +
+                ", workingPower=" + workingPower +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(id, noloadingTime, workingTime, noloadingPower, workingPower, status, createTime, updateTime, remark);
     }

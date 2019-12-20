@@ -56,8 +56,8 @@ public class NettyDataHandler {
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
 
-//    @Scheduled(cron = "0 0/5 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
-    @Scheduled(fixedRate = 30 * 60 * 1000)
+    @Scheduled(cron = "0 0/30 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
+//    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleData(){
 

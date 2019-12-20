@@ -1,8 +1,10 @@
 package com.sy.controller;
 
 
+import com.sy.entity.EfficiencyStatistics;
 import com.sy.service.EfficiencyStatisticsService;
 import com.sy.utils.DateUtils;
+import com.sy.vo.EfficiencyStatisticsVo;
 import com.sy.vo.JsonResult;
 import com.sy.vo.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,12 @@ public class EfficiencyStatisticsController {
     @RequestMapping(value = "info",method = RequestMethod.GET)
     public JsonResult getData(String taskName,String beginTime,String endTime){
 
-        List<Unit> list = null;
+        List<EfficiencyStatisticsVo> list = null;
 
         try {
-            list = statisticsService.getAllData(taskName, beginTime ==null ?null:DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
+            list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
         } catch (Exception e) {
+            e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
 

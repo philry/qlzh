@@ -49,41 +49,37 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
     public Page<PersonEfficiency> initAllData(Integer page, Integer pageSize) {
 
         Pageable pageable = PageRequest.of(page,pageSize);
-
         return personEfficiencyDao.findAll(pageable);
     }
 
     @Override
     @Transactional
     public void calculateData(String personName, int deptId, Date beginTime, Date endTime) throws Exception {
-
+        personEfficiencyDao.deleteAllData();
 
         List<Integer> deptList = new ArrayList<>();
 
         if(deptId==0){
             List<Integer> depts = deptDao.getIdByPid(0);
-
-            System.out.println(depts);
-
             for (Integer dept : depts) {
                 addDeptId(dept, deptList);
             }
         }else {
             addDeptId(deptId, deptList);
         }
-        System.out.println(deptList);
 
         //根据部门编号，获取当前部门下的所有员工id
         List<Integer> list = new ArrayList<>();
         for (Integer integer : deptList) {
             for (Integer integer1 : personDao.getPersonIdByDeptId(integer)) {
-                list.add(integer);
+                System.out.println(integer1);
+                list.add(integer1);
             }
         }
-
         //判断查询人员和部门是否对应
-        if(personName!=null){
+        if(!"".equals(personName)){
             Integer personId = personDao.getIdByName(personName);
+            System.out.println(personId);
 
             if(personId==null){
                 throw new Exception("该员工不存在");
@@ -93,19 +89,17 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
                 throw new Exception("当前部门不存在该员工");
             }
 
+            list = Collections.singletonList(personId);
         }
-
         //将所有的数据全部存储
         List<DataManage> dataManageList = new ArrayList<>();
 
         for (Integer integer : list) {
-
             for (DataManage data : manageDataService.getAllByData(integer, DateUtils.parseDate(beginTime), DateUtils.parseDate(endTime))) {
                 dataManageList.add(data);
             }
 
         }
-
         //分类数据,将数据按照人分类好
         Map<Integer,List<DataManage>> map = new HashMap<>();
         Set<Integer> sets = new HashSet<>();
@@ -119,8 +113,8 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             }else {
                 map.get(id).add(dataManage);
             }
+            sets.add(id);
         }
-
         //计算处理数据,并入表
         for (Integer set : sets) {
             PersonEfficiency personEfficiency = new PersonEfficiency();
@@ -141,6 +135,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             personEfficiency.setTime(time);
             personEfficiency.setWorkingTime(work_time);
             personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
+            personEfficiency.setRemark(String.valueOf(set));
             personEfficiencyDao.save(personEfficiency);
         }
     }

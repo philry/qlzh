@@ -4,6 +4,7 @@ package com.sy.controller;
 import com.sy.entity.Engineering;
 import com.sy.service.EngineeringService;
 import com.sy.utils.DateUtils;
+import com.sy.vo.EngineeringVo;
 import com.sy.vo.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,11 +24,12 @@ public class EngineeringController {
     @RequestMapping(value = "info",method = RequestMethod.GET)
     public JsonResult initData(String beginTime,String endTime){
 
-        List<Engineering> list = null;
+        List<EngineeringVo> list = null;
 
         try{
-            list = engineeringService.getInitData(beginTime ==null ?null:DateUtils.parseDate(beginTime),endTime ==null ?null:DateUtils.getNextDay(endTime));
+            list = engineeringService.getInitData(beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
         }catch (Exception e){
+            e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
 
