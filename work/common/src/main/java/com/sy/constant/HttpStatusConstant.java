@@ -19,5 +19,5 @@ public class HttpStatusConstant {
     /**
      * 404:访问失败状态码
      **/
-    public static final int FAIL = 403;
+    public static final int FAIL = 404;
 }

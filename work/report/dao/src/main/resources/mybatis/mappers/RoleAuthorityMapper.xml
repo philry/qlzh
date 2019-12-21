@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.RoleAuthorityMapper">
+	<resultMap type="com.sy.entity.RoleAuthority" id="RoleAuthorityResult">
+		<result property="id" column="id" />
+		<result property="roleId" column="role_id" />
+		<result property="authorityId" column="authority_id" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<sql id="selectRoleAuthorityVo">
+		select id,role_id,authority_id,status,create_time,update_time,remark from role_authority
+	</sql>
+	
+	<select id="selectRoleAuthorityList" parameterType="com.sy.entity.RoleAuthority" resultMap="RoleAuthorityResult">
+		<include refid="selectRoleAuthorityVo" />
+		<where>
+			<if test="id != null and id!=0 "> and id = #{id}</if>
+			<if test="roleId != null"> and role_id = #{roleId}</if>
+			<if test="authorityId != null"> and authority_id = #{authorityId}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
+	
+	<select id="selectRoleAuthorityById" parameterType="Integer" resultMap="RoleAuthorityResult">
+		<include refid="selectRoleAuthorityVo" />
+		where id=#{id}
+	</select>
+	
+	<select id="selectRoleAuthorityListByRoleId" parameterType="Integer" resultMap="RoleAuthorityResult">
+		<include refid="selectRoleAuthorityVo" />
+		where role_id=#{roleId}
+	</select>
+	
+	<insert id="insertRoleAuthority" parameterType="com.sy.entity.RoleAuthority" useGeneratedKeys="true" keyProperty="id">
+		insert into role_authority
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">role_id,</if>
+			<if test="authorityId != null">authority_id,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="createTime != null ">create_time, </if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">#{roleId},</if>
+			<if test="authorityId != null">#{authorityId},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null "> #{updateTime},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateRoleAuthority" parameterType="com.sy.entity.RoleAuthority">
+		update role_authority
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="roleId != null">role_id = #{roleId},</if>
+			<if test="authorityId != null">authority_id = #{authorityId},</if>
+			<if test="status != null and status != ''">status = #{status},</if>
+			<if test="createTime != null ">create_time = #{createTime},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
+		</trim>
+		where id = #{id}
+	</update>	
+	
+	<delete id="deleteRoleAuthorityByIds" parameterType="String">
+        delete from role_authority where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteRoleAuthorityByRoleId" parameterType="Integer">
+        delete from role_authority where role_id =#{roleId}
+    </delete>
+    
+    <delete id="deleteRoleAuthorityById" parameterType="Integer">
+        delete from role_authority where id =#{id}
+    </delete>
+	
+	
+</mapper>

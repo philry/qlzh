@@ -62,4 +62,18 @@ public class PageResult implements Serializable{
 		pageResult.setTotal(total);
 		return pageResult;
 	}
+	
+	public static PageResult getPageResult(List<?> list) {
+		PageResult pageResult = new PageResult();
+		if(list!=null&list.size()>0) {
+			pageResult.setCode(HttpStatusConstant.SUCCESS);
+			pageResult.setRows(list);
+			pageResult.setTotal(list.size());
+			return pageResult;
+			
+		}else {
+			pageResult.setCode(HttpStatusConstant.FAIL);
+			return pageResult;
+		}
+	}
 }

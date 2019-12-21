@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -26,7 +27,8 @@ public class Role {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
-
+    @Transient
+    private Authority app;
     public Role() {
     }
 
@@ -95,7 +97,16 @@ public class Role {
         this.remark = remark;
     }
 
-    @Override
+    @Transient
+    public Authority getApp() {
+		return app;
+	}
+
+	public void setApp(Authority app) {
+		this.app = app;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

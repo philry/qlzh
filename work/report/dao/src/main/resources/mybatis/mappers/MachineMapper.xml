@@ -8,6 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="name" column="name" />
 		<result property="typeId" column="type_id" />
 		<result property="payTime" column="pay_time" />
+		<result property="lastMaintenanceTime" column="last_maintenance_time" />
 		<result property="maxA" column="max_a" />
 		<result property="minA" column="min_a" />
 		<result property="xpgId" column="xpg_id" />
@@ -19,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="remark" column="remark" />
 	</resultMap>
 	<sql id="selectMachineVo">
-		select id,name,type_id,pay_time,max_a,min_a,xpg_id,dept_id,code,status,create_time,update_time,remark from machine
+		select id,name,type_id,pay_time,last_maintenance_time,max_a,min_a,xpg_id,dept_id,code,status,create_time,update_time,remark from machine
 	</sql>
 	
 	<select id="selectMachineList" parameterType="com.sy.entity.Machine" resultMap="MachineResult">
@@ -29,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null and name !=''"> and name = #{name}</if>
 			<if test="typeId != null"> and type_id = #{typeId}</if>
 			<if test="payTime != null"> and pay_time = #{payTime}</if>
+			<if test="lastMaintenanceTime != null"> and last_maintenance_time = #{lastMaintenanceTime}</if>
 			<if test="maxA != null"> and max_a = #{maxA}</if>
 			<if test="minA != null"> and min_a = #{minA}</if>
 			<if test="xpgId != null"> and xpg_id = #{xpgId}</if>
@@ -37,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' "> and status = #{status}</if>
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
-			<if test="remark != null and reamrk !='' "> and remark = #{remark}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
 		</where>
 	</select>
 	
@@ -53,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null and name !=''">name,</if>
 			<if test="typeId != null">type_id,</if>
 			<if test="payTime != null">pay_time,</if>
+			<if test="lastMaintenanceTime != null">last_maintenance_time,</if>
 			<if test="maxA != null">max_a, </if>
 			<if test="minA != null"> min_a,</if>
 			<if test="xpgId != null">xpg_id,</if>
@@ -61,13 +64,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status,</if>
 			<if test="createTime != null ">create_time,</if>
 			<if test="updateTime != null ">update_time,</if>
-			<if test="remark != null and reamrk !='' ">remark,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id!=0 ">#{id},</if>
 			<if test="name != null and name !=''">#{name},</if>
 			<if test="typeId != null">#{typeId},</if>
 			<if test="payTime != null">#{payTime},</if>
+			<if test="lastMaintenanceTime != null">#{lastMaintenanceTime},</if>
 			<if test="maxA != null">#{maxA},</if>
 			<if test="minA != null">#{minA},</if>
 			<if test="xpgId != null">#{xpgId},</if>
@@ -76,7 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">#{status},</if>
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null "> #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">#{remark},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
 		</trim>
 	</insert>
 	
@@ -86,6 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="typeId != null">type_id = #{typeId},</if>
 			<if test="payTime != null">pay_time = #{payTime},</if>
+			<if test="lastMaintenanceTime != null">last_maintenance_time = #{lastMaintenanceTime},</if>
 			<if test="maxA != null">max_a = #{maxA},</if>
 			<if test="minA != null">min_a = #{minA},</if>
 			<if test="xpgId != null">xpg_id = #{xpgId},</if>
@@ -94,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="status != null and status !='' ">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
-			<if test="remark != null and reamrk !='' ">remark = #{remark},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
 		</trim>
 		where id = #{id}
 	</update>

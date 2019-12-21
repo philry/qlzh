@@ -1,6 +1,8 @@
 package com.sy.service.impl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,12 +38,36 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public int insertPerson(Person person) {
-		return personMapper.insertPerson(person);
+		Person p = new Person();
+		p.setPhone(person.getPhone());
+		List<Person> list = personMapper.selectPersonList(p);
+		if(list==null||list.size()==0) {
+			person.setPassword("123456");
+			person.setCreateTime(new Timestamp(new Date().getTime()));
+			person.setUpdateTime(person.getCreateTime());
+			return personMapper.insertPerson(person);
+		}else {
+			throw new RuntimeException("该手机号已存在!");
+		}
 	}
 
 	@Override
 	public int updatePerson(Person person) {
-		return personMapper.updatePerson(person);
+		Person p = new Person();
+		p.setPhone(person.getPhone());
+		List<Person> list = personMapper.selectPersonList(p);
+		if(list==null||list.size()==0) {
+			person.setUpdateTime(new Timestamp(new Date().getTime()));
+			return personMapper.updatePerson(person);
+		}else {
+			if(list.get(0).getId()==person.getId()) {
+				person.setUpdateTime(new Timestamp(new Date().getTime()));
+				return personMapper.updatePerson(person);
+			}else {
+				throw new RuntimeException("该手机号已存在!");
+			}
+		}
+		
 	}
 
 	@Override
@@ -88,5 +114,23 @@ public class PersonServiceImpl implements PersonService {
 		List<Person> list = personMapper.selectDeptLeaderByIds(ids);
 		setPerson(list);
 		return list;
+	}
+
+	@Override
+	public int resetPasswordById(Integer id) {
+		Person person = new Person();
+		person.setId(id);
+		person.setPassword("123456");
+		person.setUpdateTime(new Timestamp(new Date().getTime()));
+		return personMapper.updatePerson(person);
+	}
+
+	@Override
+	public int updatePassword(Integer id, String password) {
+		Person person = new Person();
+		person.setId(id);
+		person.setPassword(password);
+		person.setUpdateTime(new Timestamp(new Date().getTime()));
+		return personMapper.updatePerson(person);
 	}
 }

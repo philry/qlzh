@@ -38,7 +38,12 @@ public class DeptController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public JsonResult add(Dept dept) {
-		return JsonResult.getJson(deptService.insertDept(dept));
+		try {
+			int rows = deptService.insertDept(dept);
+			return JsonResult.getJson(rows);
+		} catch (Exception e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)

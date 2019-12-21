@@ -1,5 +1,6 @@
 package com.sy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sy.constant.HttpStatusConstant;
+import com.sy.entity.Dept;
 import com.sy.entity.Task;
+import com.sy.service.DeptService;
 import com.sy.service.TaskService;
 import com.sy.vo.JsonResult;
 import com.sy.vo.PageResult;
@@ -24,10 +27,13 @@ public class TaskController {
 	@Autowired
 	private TaskService taskService;
 	
+	@Autowired
+	private DeptService deptService;
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Task task) {
 		List<Task> list = taskService.selectTaskList(task);
-		return PageResult.getPageResult(list,null);
+		return PageResult.getPageResult(list);
 	}
 	
 	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET)
@@ -88,5 +94,34 @@ public class TaskController {
 			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
 		}
 		
+	}
+	
+	@RequestMapping(value = "/checkstatus/{id}/{type}", method = RequestMethod.GET)
+	public JsonResult changeCheckStatus(@PathVariable("id")Integer id,@PathVariable("type")String type) {
+		int rows = taskService.changeCheckStatus(id,type);
+		return JsonResult.getJson(rows);
+	}
+	
+	@RequestMapping(value = "/todo/{id}", method = RequestMethod.GET)
+	public PageResult getTodoList(@PathVariable("id")Integer id,Task task) {
+		List<Integer> deptIds = new ArrayList<>();
+		List<Dept> deptList = deptService.getDeptList(null);
+		for (Dept dept : deptList) {
+			if(dept.getLeader()!=null) {
+				if(dept.getLeader()==id) {
+					deptIds.add(dept.getId());
+				}
+			}
+		}
+		if(deptIds.size()==0) {
+			return PageResult.getPageResult(null);
+		}else {
+			List<Task> list = taskService.selectTaskByDeptIds(task.getWorkCode(),deptIds);
+			if(list.size()==0||list==null) {
+				return PageResult.getPageResult(null);
+			}else {
+				return PageResult.getPageResult(list);
+			}
+		}
 	}
 }

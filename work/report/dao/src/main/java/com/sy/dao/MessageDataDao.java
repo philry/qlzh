@@ -3,6 +3,7 @@ package com.sy.dao;
 import com.sy.entity.MessageData;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,6 +21,7 @@ public interface MessageDataDao extends JpaRepository<MessageData,Integer>, JpaS
     int deleteByStatus(String status);
 
     @Query("update MessageData m set m.status=?2 where m.id=?1")
+    @Modifying
     int updateStatus(int id,String status);
 
 }

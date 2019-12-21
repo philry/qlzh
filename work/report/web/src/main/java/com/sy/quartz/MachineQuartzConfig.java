@@ -27,7 +27,9 @@ public class MachineQuartzConfig {
 				.withIntervalInMinutes(1)	//定义时间周期
 				.repeatForever();*/
 		CronScheduleBuilder scheduleBuilder 
+			// 每天凌晨1点执行
 			= CronScheduleBuilder.cronSchedule("0 0 1 * * ?");
+			//= CronScheduleBuilder.cronSchedule("0 */1 * * * ?");
 		return TriggerBuilder
 				.newTrigger()
 				.forJob(machinejobDetail())
