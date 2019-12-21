@@ -1,6 +1,7 @@
 package com.sy.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,16 @@ public class MessageNumberController {
 		task.setChecker(null);
 		task.setPersonId(person.getId());
 		List<Task> missionList = taskService.selectTaskList(task);
-		if(missionList==null||missionList.size()==0) {
+				if(missionList==null||missionList.size()==0) {
 			m.setMission(0);
 		}else {
-			m.setMission(missionList.size());
+			List<Task> list = new ArrayList<>();
+			for (Task task2 : missionList) {
+				if(task2.getActualEndTime()==null) {
+					list.add(task2);
+				}
+			}
+			m.setMission(list.size());
 		}
 		List<Integer> deptIds = new ArrayList<>();
 		List<Dept> deptList = deptService.getDeptList(null);
@@ -80,7 +87,7 @@ public class MessageNumberController {
 				}
 			}
 		}
-		if(todoList==null||todoList.size()>0) {
+		if(todoList==null||todoList.size()==0) {
 			m.setTodo(0);
 		}else {
 			m.setTodo(todoList.size());

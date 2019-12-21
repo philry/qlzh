@@ -9,13 +9,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
 public interface MessageDataDao extends JpaRepository<MessageData,Integer>, JpaSpecificationExecutor {
 
 
     List<MessageData> getMessageDataByAccpetId(Integer acceptId);
-
+    
+    List<MessageData> getMessageDataByAccpetIdAndStatus(Integer acceptId,String status);
+    
     List<MessageData> getMessageDataBySendId(Integer sendId);
 
     int deleteByStatus(String status);

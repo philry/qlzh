@@ -46,7 +46,7 @@ public class MessageDataServiceImpl implements MessageDataService {
     @Override
     public List<MessageData> getAcceptMessage(Integer acceptId) {
 
-        return messageDataDao.getMessageDataByAccpetId(acceptId);
+        return messageDataDao.getMessageDataByAccpetIdAndStatus(acceptId,"0");
     }
 
     @Override
