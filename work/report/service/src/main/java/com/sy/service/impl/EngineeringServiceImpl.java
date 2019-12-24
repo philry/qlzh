@@ -141,4 +141,6 @@ public class EngineeringServiceImpl implements EngineeringService {
         };
         return engineeringDao.findAll(querySpeci);
     }
+
+	
 }

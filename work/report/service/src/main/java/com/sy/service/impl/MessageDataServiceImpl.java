@@ -70,7 +70,7 @@ public class MessageDataServiceImpl implements MessageDataService {
 			machine.setUpdateTime(new Timestamp(new Date().getTime()));
 			machineMapper.updateMachine(machine);
 		}else {
-			// TODO 
+			// TODO 超限警告
 		}
 		return messageDataDao.updateStatus(id, status);
 	}

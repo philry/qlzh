@@ -43,6 +43,7 @@ public class MessageNumberController {
 		Person person = personService.selectPersonById(id);
 		Task task = new Task();
 		task.setChecker(person.getId());
+		task.setStatus("0");
 		List<Task> checkList = taskService.selectTaskList(task);
 		if(checkList==null||checkList.size()==0) {
 			m.setCheck(0);
