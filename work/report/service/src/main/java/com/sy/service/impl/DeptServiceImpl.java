@@ -34,6 +34,12 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public int insertDept(Dept dept) {
+		Dept dept2 = new Dept();
+		dept2.setName(dept.getName());
+		List<Dept> list = deptMapper.selectDeptList(dept2);
+		if(list!=null&&list.size()>0) {
+			throw new RuntimeException("部门名称已存在");
+		}
 		dept.setCreateTime(new Timestamp(new Date().getTime()));
 		dept.setUpdateTime(dept.getCreateTime());
 		if(dept.getPid()==0||dept.getPid()==null) {
@@ -47,6 +53,20 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public int updateDept(Dept dept) {
+		Dept dept2 = new Dept();
+		dept2.setName(dept.getName());
+		List<Dept> list = deptMapper.selectDeptList(dept2);
+		boolean flag = true;
+		if(list!=null&&list.size()>0) {
+			for (Dept dept3 : list) {
+				if(dept3.getId()!=dept.getId()) {
+					flag = false;
+				}
+			}
+		}
+		if(!flag) {
+			throw new RuntimeException("部门名称已存在");
+		}
 		dept.setUpdateTime(new Timestamp(new Date().getTime()));
 		if(dept.getPid()==0||dept.getPid()==null) {
 			dept.setLevel(1);

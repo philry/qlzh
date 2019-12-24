@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Pattern.Flag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,12 +62,23 @@ public class PersonServiceImpl implements PersonService {
 			person.setUpdateTime(new Timestamp(new Date().getTime()));
 			return personMapper.updatePerson(person);
 		}else {
-			if(list.get(0).getId()==person.getId()) {
+			boolean flag = true;
+			for (Person person2 : list) {
+				if(person2.getId()!=person.getId());
+				flag=false;
+			}
+			if(flag) {
+				throw new RuntimeException("该手机号已存在!");
+			}else {
 				person.setUpdateTime(new Timestamp(new Date().getTime()));
 				return personMapper.updatePerson(person);
-			}else {
-				throw new RuntimeException("该手机号已存在!");
 			}
+//			if(list.get(0).getId()==person.getId()) {
+//				person.setUpdateTime(new Timestamp(new Date().getTime()));
+//				return personMapper.updatePerson(person);
+//			}else {
+//				throw new RuntimeException("该手机号已存在!");
+//			}
 		}
 		
 	}
