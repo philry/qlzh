@@ -108,7 +108,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			int minute = calendar.get(Calendar.MINUTE);
 			int second = calendar.get(Calendar.SECOND);
 
-			String s = Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
+			String s = "93"+Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
 					Integer.toHexString(month)+
 					Integer.toHexString(day)+
 					Integer.toHexString(week)+
@@ -119,7 +119,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
 			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
 
-			returnHexStr = "7b7b93"+s+modbusCrc16+"e6907d7d";
+			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
 		if (cmd == 144) {
@@ -266,13 +266,17 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		if(isOpen){
 			//合闸 开机
-			hex16 = hex16+"0047d2";
+			hex16 = hex16+"00";
 		}else {
 			//分闸 关机
-			hex16 = hex16+"012775";
+			hex16 = hex16+"01";
 		}
 
-		hex16 = "90"+ hex16;
+		byte[] TcpBytes = BytesUtils.hexString2Bytes(hex16);
+		String TcpCrc16 = CRC16Util.getCRC(TcpBytes);
+
+
+		hex16 = "90"+ hex16+TcpCrc16;
 
 		byte[] modbusBytes = BytesUtils.hexString2Bytes(hex16);
 		String modbusCrc16 = CRC16Util.getCRC(modbusBytes);

@@ -56,12 +56,11 @@ public class NettyDataHandler {
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
 
-    @Scheduled(cron = "0 0/30 * * * ? ") // 每隔5分钟进行统计，将当天的数据进行处理核算
+    @Scheduled(cron = "0 30 0 * * ?") // 每天十二点半处理前天的数据
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleData(){
 
-        System.out.println("开始统计指定天数的数据");
 
         //获取指定日期（前一天）
         Date now = new Date();
@@ -71,6 +70,20 @@ public class NettyDataHandler {
         deleteDate(day);
         //插入数据
         insertData(day);
+    }
+
+    @Scheduled(cron = "0 */5 * * * ?") // 每天十二点半处理前天的数据
+    @Transactional
+    public void handleTodayData(){
+
+
+        //获取指定日期（前一天）
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        deleteDate(today);
+        //插入数据
+        insertData(today);
     }
 
     private void insertData(String day) {

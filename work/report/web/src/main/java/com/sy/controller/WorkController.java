@@ -1,6 +1,9 @@
 package com.sy.controller;
 
 import com.sy.constant.HttpStatusConstant;
+import com.sy.core.netty.tcp.NettyServerHandler;
+import com.sy.dao.MachineDao;
+import com.sy.entity.Machine;
 import com.sy.entity.Work;
 import com.sy.service.WorkService;
 import com.sy.utils.DateUtils;
@@ -20,6 +23,12 @@ public class WorkController {
 
     @Autowired
     private WorkService workService;
+
+    @Autowired
+    private MachineDao machineDao;
+
+    @Autowired
+    private NettyServerHandler nettyServerHandler;
 
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
@@ -41,6 +50,8 @@ public class WorkController {
 
         try {
             workService.startWork(personId,taskId,machineId);
+            Machine machine = machineDao.getById(machineId);
+            nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
@@ -54,6 +65,8 @@ public class WorkController {
 
         try {
             workService.endWork(personId,taskId,machineId);
+            Machine machine = machineDao.getById(machineId);
+            nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());

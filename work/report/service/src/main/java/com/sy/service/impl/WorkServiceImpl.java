@@ -8,6 +8,7 @@ import com.sy.dao.WorkDao;
 import com.sy.entity.*;
 import com.sy.service.MachineNowService;
 import com.sy.service.WorkService;
+import com.sy.task.NettyDataHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +39,7 @@ public class WorkServiceImpl implements WorkService {
     @Autowired
     private MachineNowDao machineNowDao;
 
+
     @Override
     @Transactional
     public Work startWork(int personId, int taskId, int machineId) throws Exception {
@@ -60,6 +62,7 @@ public class WorkServiceImpl implements WorkService {
         }
 
         //TODO 控制合闸
+
 
         //插入工作表
         inseretWork(personId, taskId, machineId,"0");
