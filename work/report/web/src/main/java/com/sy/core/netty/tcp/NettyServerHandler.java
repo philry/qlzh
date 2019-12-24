@@ -3,8 +3,18 @@ package com.sy.core.netty.tcp;
 import com.sy.core.netty.tcp.util.BytesUtils;
 import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
+import com.sy.dao.DeptMapper;
+import com.sy.dao.EnergyMapper;
+import com.sy.dao.MachineMapper;
 import com.sy.dao.NettyDao;
+import com.sy.dao.XpgMapper;
+import com.sy.entity.Energy;
+import com.sy.entity.Machine;
+import com.sy.entity.MessageData;
 import com.sy.entity.Netty;
+import com.sy.entity.Xpg;
+import com.sy.service.MessageDataService;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -31,7 +41,22 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 	@Autowired
 	private NettyDao nettyDao;
-
+	
+	@Autowired
+	private XpgMapper xpgMapper;
+	
+	@Autowired
+	private MachineMapper machineMapper;
+	
+	@Autowired
+	private DeptMapper deptMapper;
+	
+	@Autowired
+	private MessageDataService messageDataService;
+	
+	@Autowired
+	private EnergyMapper energyMapper;
+	
 	private static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
 	@Override
@@ -145,14 +170,48 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
 
 				List<Double> doubles = new ArrayList<>();
-
+				
+				Double maxA = null;
+				Double minA = null;
+				Xpg xpg2 = new Xpg();
+				xpg2.setName(xpg);
+				Integer deptId = null;
+				Integer machineId = null;
+				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
+				if(xpgList!=null&&xpgList.size()>0) {
+					Machine machine = new Machine();
+					machine.setXpgId(xpgList.get(0).getId());
+					List<Machine> machineList = machineMapper.selectMachineList(machine);
+					if(machineList!=null&&machineList.size()>0) {
+						machineId = machineList.get(0).getId();
+						maxA = machineList.get(0).getMaxA();
+						minA = machineList.get(0).getMinA();
+						deptId = machineList.get(0).getDeptId();
+					}
+				}
+				
+				boolean flag = true;
+				
 				for (int i = 0; i <60 ; i++) {
 					int sIndex = i*12;
 					String str = iInfo.substring(sIndex+0,sIndex+4);
 					double iA  = getPowerValue(str);
+					if(flag&maxA!=null&&iA<maxA) {
+						flag=false;
+					}
 					doubles.add(iA);
 				}
-
+				
+				if(flag) {
+					MessageData messageData = new MessageData();
+					messageData.setSendId(0);
+					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
+					messageData.setAccpetId(leader);
+					messageData.setContext(machineId.toString());
+					messageDataService.sendMessage(messageData, 2);
+					
+				}
+				
 				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
 				netty.setCurrents(currents);
@@ -172,8 +231,23 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				double power = getPowerValue(info.substring(88,96));
 
 				netty.setPower(String.valueOf(power));
-
+				
 				nettyDao.save(netty);
+				
+				List<Energy> energyList = energyMapper.selectEnergyList();
+				Integer time = energyList.get(0).getTime();
+				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg, time);
+				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
+				String[] split = currents2.split(",");
+				boolean flag2 = true;
+				for (String str : split) {
+					if(flag2&Integer.valueOf(str)>minA) {
+						flag2=false;
+					}
+				}
+				if(flag2) {
+					controlMachine(xpg, false);
+				}
 			}
 
 			returnHexStr = "7b7b917eec7d7d";
