@@ -55,6 +55,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
     @Override
     @Transactional
     public void calculateData(String personName, int deptId, Date beginTime, Date endTime) throws Exception {
+
         personEfficiencyDao.deleteAllData();
 
         List<Integer> deptList = new ArrayList<>();
@@ -72,15 +73,16 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
         List<Integer> list = new ArrayList<>();
         for (Integer integer : deptList) {
             for (Integer integer1 : personDao.getPersonIdByDeptId(integer)) {
-                System.out.println(integer1);
                 list.add(integer1);
             }
         }
+        //判定当前员工是否是该部门的负责人,负责人可以查看所有员工信息
+
+
+
         //判断查询人员和部门是否对应
         if(!"".equals(personName)){
             Integer personId = personDao.getIdByName(personName);
-            System.out.println(personId);
-
             if(personId==null){
                 throw new Exception("该员工不存在");
             }
@@ -93,13 +95,14 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
         }
         //将所有的数据全部存储
         List<DataManage> dataManageList = new ArrayList<>();
-
         for (Integer integer : list) {
-            for (DataManage data : manageDataService.getAllByData(integer, DateUtils.parseDate(beginTime), DateUtils.parseDate(endTime))) {
+            for (DataManage data : manageDataService.getAllByData(integer, beginTime, endTime)) {
                 dataManageList.add(data);
             }
-
         }
+
+        System.out.println("当天日期的数据"+dataManageList);
+
         //分类数据,将数据按照人分类好
         Map<Integer,List<DataManage>> map = new HashMap<>();
         Set<Integer> sets = new HashSet<>();
@@ -130,6 +133,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
                 nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
             }
             personEfficiency.setName(map.get(set).get(0).getWork().getPerson().getName());
+            personEfficiency.setDeptOne(map.get(set).get(0).getWork().getPerson().getDept().getName());
             personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             personEfficiency.setTime(time);

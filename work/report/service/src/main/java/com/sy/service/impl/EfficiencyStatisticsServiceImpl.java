@@ -34,20 +34,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     public List<EfficiencyStatisticsVo> getAllData(String taskName, Date beginTime, Date endTime) throws Exception {
 
 
-        Specification querySpeci = new Specification() {
-            @Override
-            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                List<Predicate> predicates = Lists.newArrayList();
-
-                if (beginTime!=null&&endTime!=null){
-                    predicates.add(criteriaBuilder.between(root.get("date"),beginTime,endTime));
-                }
-
-                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-            }
-        };
-
-        List<EfficiencyStatistics> list = efficiencyStatisticsDao.findAll(querySpeci);
+        List<EfficiencyStatistics> list = getEfficiencyStatistics(taskName,beginTime, endTime);
 
         //根据项目名称获取顶级上级项目
         Set<String> taskNames = new HashSet<>();
@@ -67,7 +54,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
 
         if(taskName!=""){
             if(!taskNames.contains(taskName)){
-                throw new Exception("查询的工程不存在");
+                throw new Exception("查询的项目不存在/当日该项目并未施工");
             }
 
             Unit unit = calculateData(taskName, map);
@@ -90,6 +77,23 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             return null;
         }
 
+    }
+
+    public List<EfficiencyStatistics> getEfficiencyStatistics(String taskName,Date beginTime, Date endTime) {
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                if (beginTime!=null&&endTime!=null){
+                    predicates.add(criteriaBuilder.between(root.get("date"),beginTime,endTime));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+
+        return efficiencyStatisticsDao.findAll(querySpeci);
     }
 
     private void handleVo(Unit unit, List<EfficiencyStatisticsVo> vos) {
@@ -155,7 +159,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         return unit;
     }
 
-    private String getFirstTaskName(String taskName) {
+    public String getFirstTaskName(String taskName) {
         int pid = -1;
         String tempName = taskName;
         while (pid != 0){

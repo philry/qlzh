@@ -1,5 +1,7 @@
 package com.sy.vo;
 
+import java.util.Objects;
+
 public class EfficiencyStatisticsVo {
 
     private String sonName;
@@ -17,6 +19,8 @@ public class EfficiencyStatisticsVo {
     private int workTime;
 
     private double power;
+
+    private String workNo;
 
 
     public String getSonName() {
@@ -83,17 +87,32 @@ public class EfficiencyStatisticsVo {
         this.power = power;
     }
 
+    public String getWorkNo() {
+        return workNo;
+    }
+
+    public void setWorkNo(String workNo) {
+        this.workNo = workNo;
+    }
+
     @Override
-    public String toString() {
-        return "EfficiencyStatisticsVo{" +
-                "sonName='" + sonName + '\'' +
-                ", sonTime=" + sonTime +
-                ", sonWorkTime=" + sonWorkTime +
-                ", sonPower=" + sonPower +
-                ", name='" + name + '\'' +
-                ", time=" + time +
-                ", workTime=" + workTime +
-                ", power=" + power +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EfficiencyStatisticsVo that = (EfficiencyStatisticsVo) o;
+        return sonTime == that.sonTime &&
+                sonWorkTime == that.sonWorkTime &&
+                Double.compare(that.sonPower, sonPower) == 0 &&
+                time == that.time &&
+                workTime == that.workTime &&
+                Double.compare(that.power, power) == 0 &&
+                sonName.equals(that.sonName) &&
+                name.equals(that.name) &&
+                workNo.equals(that.workNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sonName, sonTime, sonWorkTime, sonPower, name, time, workTime, power, workNo);
     }
 }

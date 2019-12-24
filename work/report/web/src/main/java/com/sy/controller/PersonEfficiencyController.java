@@ -2,6 +2,8 @@ package com.sy.controller;
 
 
 import com.sy.constant.HttpStatusConstant;
+import com.sy.dao.DeptDao;
+import com.sy.dao.PersonDao;
 import com.sy.service.DeptService;
 import com.sy.service.PersonEfficiencyService;
 import com.sy.utils.DateUtils;
@@ -21,9 +23,36 @@ public class PersonEfficiencyController {
     @Autowired
     private DeptService deptService;
 
+    @Autowired
+    private DeptDao deptDao;
+
+    @Autowired
+    private PersonDao personDao;
+
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllData(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
+        if(deptId!=0&&!"".equals(personName)){
+            Integer leader = deptDao.getLeaderById(deptId);
+            Integer personId = personDao.getIdByName(personName);
+
+            if(leader==personId){
+                personName="";
+            }
+        }
+
+        try {
+            personEfficiencyService.calculateData(personName,deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.getNextDay(endTime));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return PageJsonResult.buildFailurePage(404,e.getMessage());
+        }
+
+        return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,personEfficiencyService.initAllData(page,pageSize));
+    }
+
+    @RequestMapping(value = "select",method = RequestMethod.GET)
+    public PageJsonResult getAllDataBySelect(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
 
         try {
             personEfficiencyService.calculateData(personName,deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.getNextDay(endTime));

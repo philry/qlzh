@@ -22,7 +22,7 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     Task getById(Integer id);
 
     @Query("select t.id from Task t where t.projectName = ?1")
-    String getIdByName(String name);
+    Integer getIdByName(String name);
 
 
     @Query("select t from Task t where t.projectName = ?1")
@@ -33,5 +33,9 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
 
     @Query("select t.projectName from Task t where t.id = ?1")
     String getNameById(int id);
+
+    @Query("select t.workCode from Task t where t.projectName = ?1")
+    String getWorkNoByName(String name);
+
 
 }

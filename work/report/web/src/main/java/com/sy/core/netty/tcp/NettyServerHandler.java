@@ -99,24 +99,27 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// 对时命令
 		if (isrReg4gStr.equals("7b7b93")) {
-//			Calendar calendar = Calendar.getInstance();
-//			int year = calendar.get(Calendar.YEAR);
-//			int month = calendar.get(Calendar.MONTH)+1;
-//			int day = calendar.get(Calendar.DATE);
-//			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
-//			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-//			int minute = calendar.get(Calendar.MINUTE);
-//			int second = calendar.get(Calendar.SECOND);
-//
-//			returnHexStr = "7b7b93"+
-//					Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
-//					Integer.toHexString(month)+
-//					Integer.toHexString(day)+
-//					Integer.toHexString(week)+
-//					Integer.toHexString(hour)+
-//					Integer.toHexString(minute)+
-//					Integer.toHexString(second)+
-//					"e6907d7d";
+			Calendar calendar = Calendar.getInstance();
+			int year = calendar.get(Calendar.YEAR);
+			int month = calendar.get(Calendar.MONTH)+1;
+			int day = calendar.get(Calendar.DATE);
+			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+			int minute = calendar.get(Calendar.MINUTE);
+			int second = calendar.get(Calendar.SECOND);
+
+			String s = Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
+					Integer.toHexString(month)+
+					Integer.toHexString(day)+
+					Integer.toHexString(week)+
+					Integer.toHexString(hour)+
+					Integer.toHexString(minute)+
+					Integer.toHexString(second);
+
+			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
+			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
+
+			returnHexStr = "7b7b93"+s+modbusCrc16+"e6907d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
 		if (cmd == 144) {
@@ -259,20 +262,30 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 	public void controlMachine(String xpg,boolean isOpen){
 
-		String returnHexStr = "";
+		String hex16 = "01100057000204000100";
 
 		if(isOpen){
 			//合闸 开机
- 			returnHexStr = "7b7b90011000570002040001000047d27d7d";
+			hex16 = hex16+"0047d2";
 		}else {
 			//分闸 关机
-			returnHexStr = "7b7b90011000570002040001000186127d7d";
+			hex16 = hex16+"012775";
 		}
+
+		hex16 = "90"+ hex16;
+
+		byte[] modbusBytes = BytesUtils.hexString2Bytes(hex16);
+		String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
+
+		hex16 = "7b7b"+hex16+modbusCrc16+"7d7d";
 
 		Channel ctx = ClientChannel.getChannel(xpg);
 
-		writeToClient(returnHexStr,ctx);
+		writeToClient(hex16,ctx);
 	}
+
+
+
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {

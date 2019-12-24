@@ -23,9 +23,12 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
     @Query(value =" select * from work where create_time <= :s_time and machine_id = :machineId  ORDER BY create_time limit 1",nativeQuery = true)
     Work getLastWorkByTime(@Param("s_time")String s_time,@Param("machineId")Integer machineId);
 
-    @Query(value = "select distinct person_id from work where create_time == ?1",nativeQuery = true)
+    @Query(value = "select distinct person_id from work where date(create_time) = ?1",nativeQuery = true)
     List<Integer> getPersonIdsByDate(String time);
 
+    @Query(value = "select distinct task_id from work where date(create_time)=?1 ",nativeQuery = true)
+    List<Integer> getTaskIds(String b_time);
 
-
+    @Query(value = "select distinct machine_id from work where date(create_time)=?1 ",nativeQuery = true)
+    List<Integer> getMachineId(String b_time);
 }
