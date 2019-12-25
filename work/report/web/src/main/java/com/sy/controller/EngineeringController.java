@@ -69,7 +69,7 @@ public class EngineeringController {
 					engineeringResult.setTime(e.getTime_1());
 					BigDecimal workTime = new BigDecimal(e.getWorkTime_1());
 					BigDecimal time = new BigDecimal(e.getTime_1());
-					BigDecimal divide = workTime.divide(time,2,RoundingMode.HALF_UP);
+					BigDecimal divide = workTime.divide(time,4,RoundingMode.HALF_UP);
 					Double efficiency = divide.doubleValue();
 					engineeringResult.setEfficiency(efficiency);
 					// 去除重复数据
@@ -120,7 +120,7 @@ public class EngineeringController {
 					// 计算工效
 					BigDecimal workTime = new BigDecimal(e.getWorkTime_2());
 					BigDecimal time = new BigDecimal(e.getTime_2());
-					BigDecimal divide = workTime.divide(time,2,RoundingMode.HALF_UP);
+					BigDecimal divide = workTime.divide(time,4,RoundingMode.HALF_UP);
 					Double efficiency = divide.doubleValue();
 					engineeringResult.setEfficiency(efficiency);
 					// 去除重复数据
