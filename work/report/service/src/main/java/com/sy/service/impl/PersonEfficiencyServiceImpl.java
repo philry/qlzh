@@ -123,6 +123,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             PersonEfficiency personEfficiency = new PersonEfficiency();
             int time = 0 ;
             int work_time = 0 ;
+            int overCounts = 0;
             BigDecimal wPower = new BigDecimal("0");
             BigDecimal nPower = new BigDecimal("0");
             for (DataManage dataManage : map.get(set)) {
@@ -131,6 +132,8 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
                 work_time += dataManage.getWorkingTime();
                 wPower = wPower.add(new BigDecimal(dataManage.getWorkingPower()));
                 nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                overCounts += Integer.parseInt(dataManage.getRemark());
+
             }
             personEfficiency.setName(map.get(set).get(0).getWork().getPerson().getName());
             personEfficiency.setDeptOne(map.get(set).get(0).getWork().getPerson().getDept().getName());
@@ -140,6 +143,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             personEfficiency.setWorkingTime(work_time);
             personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
             personEfficiency.setRemark(String.valueOf(set));
+            personEfficiency.setCounts(overCounts);
             personEfficiencyDao.save(personEfficiency);
         }
     }

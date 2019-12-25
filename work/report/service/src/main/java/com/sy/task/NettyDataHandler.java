@@ -118,7 +118,7 @@ public class NettyDataHandler {
             BigDecimal iWorking = new BigDecimal(0);
             BigDecimal iNoloading = new BigDecimal(0);
 
-            //定义境界次数，若60s内全部高于最大工作电流，则判定为超载，需要自动关闭焊机
+            //定义境界次数，若60s内全部高于最大工作电流，则判定为超载
             int warningCounts = 0;
 
             //处理电流数据，得出具体的工作时间（电量），空载时间（电量）
@@ -149,6 +149,12 @@ public class NettyDataHandler {
             data.setWorkingPower(workingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             data.setWorkingTime(workingTime);
             data.setNoloadingTime(noloadingTime);
+
+            if(warningCounts==60){
+                data.setRemark("1");
+            }else {
+                data.setRemark("0");
+            }
 
             dataManageDao.save(data);
         }

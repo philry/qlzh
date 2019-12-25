@@ -21,7 +21,7 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
 
     Task getById(Integer id);
 
-    @Query("select t.id from Task t where t.projectName = ?1")
+    @Query("select t.id from Task t where t.projectName = ?1 and pid = 0")
     Integer getIdByName(String name);
 
 
