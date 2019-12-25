@@ -34,10 +34,10 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     @Query("select t.projectName from Task t where t.id = ?1")
     String getNameById(int id);
 
-    @Query("select t.workCode from Task t where t.projectName = ?1")
+    @Query("select t.workCode from Task t where t.projectName = ?1 and pid = 0")
     String getWorkNoByName(String name);
 
-    @Query("select t.projectName from Task t where t.workCode=?1")
+    @Query("select t.projectName from Task t where t.workCode=?1 and pid = 0")
     String getNameByWorkNo(String workNo);
 
 }
