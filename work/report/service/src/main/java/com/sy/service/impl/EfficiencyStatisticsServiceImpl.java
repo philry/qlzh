@@ -129,6 +129,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             vo.setSonTime(time);
             vo.setSonWorkTime(workTime);
             vo.setSonPower(ePower.doubleValue());
+            vo.setWorkNo(taskDao.getWorkNoByName(unit.getName()));
             vos.add(vo);
         }
     }

@@ -33,12 +33,20 @@ public class EfficiencyStatisticsController {
 
         List<EfficiencyStatisticsVo> list = null;
 
+        if(!"".equals(taskName)){
+            taskName = taskDao.getNameByWorkNo(taskName);
+            if(taskName==null){
+                return JsonResult.buildFailure(404,"工号不存在");
+            }
+        }
+
         try {
             list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
         } catch (Exception e) {
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
+
 
         if(list==null){
             return JsonResult.buildFailure(404,"计算失败，稍后再试");

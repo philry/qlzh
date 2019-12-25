@@ -37,7 +37,7 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     @Query("select t.workCode from Task t where t.projectName = ?1")
     String getWorkNoByName(String name);
 
-    @Query("select t.projectName from Task t where t.projectName=?1")
+    @Query("select t.projectName from Task t where t.workCode=?1")
     String getNameByWorkNo(String workNo);
 
 }
