@@ -98,6 +98,12 @@ public class EfficiencyStatisticsController {
             return JsonResult.buildFailure(404,"请输出项目工号");
         }
 
+        taskName = taskDao.getNameByWorkNo(taskName);
+
+        if(taskName==null){
+            return JsonResult.buildFailure(404,"工号不存在");
+        }
+
         try {
             list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
         } catch (Exception e) {
