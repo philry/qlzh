@@ -72,12 +72,12 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */5 * * * ?") // 每天十二点半处理前天的数据
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
     @Transactional
     public void handleTodayData(){
 
 
-        //获取指定日期（前一天）
+        //获取指定日期
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
@@ -135,10 +135,6 @@ public class NettyDataHandler {
                 }
             }
 
-            //TODO  关闭焊机操作
-            if(warningCounts==60){
-
-            }
 
             BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList.get(a-1).getPower()));
 
