@@ -124,27 +124,27 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// 对时命令
 		if (isrReg4gStr.equals("7b7b93")) {
-			Calendar calendar = Calendar.getInstance();
-			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH)+1;
-			int day = calendar.get(Calendar.DATE);
-			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
-			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			int minute = calendar.get(Calendar.MINUTE);
-			int second = calendar.get(Calendar.SECOND);
-
-			String s = "93"+Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
-					Integer.toHexString(month)+
-					Integer.toHexString(day)+
-					Integer.toHexString(week)+
-					Integer.toHexString(hour)+
-					Integer.toHexString(minute)+
-					Integer.toHexString(second);
-
-			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
-			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
-
-			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
+//			Calendar calendar = Calendar.getInstance();
+//			int year = calendar.get(Calendar.YEAR);
+//			int month = calendar.get(Calendar.MONTH)+1;
+//			int day = calendar.get(Calendar.DATE);
+//			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+//			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//			int minute = calendar.get(Calendar.MINUTE);
+//			int second = calendar.get(Calendar.SECOND);
+//
+//			String s = "93"+Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
+//					Integer.toHexString(month)+
+//					Integer.toHexString(day)+
+//					Integer.toHexString(week)+
+//					Integer.toHexString(hour)+
+//					Integer.toHexString(minute)+
+//					Integer.toHexString(second);
+//
+//			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
+//			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
+//
+//			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
 		if (cmd == 144) {
@@ -233,21 +233,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				netty.setPower(String.valueOf(power));
 				
 				nettyDao.save(netty);
-				
-				List<Energy> energyList = energyMapper.selectEnergyList();
-				Integer time = energyList.get(0).getTime();
-				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg, time);
-				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
-				String[] split = currents2.split(",");
-				boolean flag2 = true;
-				for (String str : split) {
-					if(flag2&Integer.valueOf(str)>minA) {
-						flag2=false;
-					}
-				}
-				if(flag2) {
-					controlMachine(xpg, false);
-				}
+
 			}
 
 			returnHexStr = "7b7b917eec7d7d";

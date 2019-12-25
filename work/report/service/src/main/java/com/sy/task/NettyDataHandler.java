@@ -140,9 +140,17 @@ public class NettyDataHandler {
 
             BigDecimal iTotal = iWorking.add(iNoloading);
 
-            BigDecimal workingPower = power.multiply(iWorking.divide(iTotal));
+            BigDecimal workingPower = new BigDecimal("0");
 
-            BigDecimal noloadingPower = power.subtract(workingPower);
+            BigDecimal noloadingPower = new BigDecimal("0");
+
+            try {
+                workingPower = power.multiply(iWorking.divide(iTotal));
+
+                noloadingPower = power.subtract(workingPower);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
             data.setWork(work);
             data.setNoloadingPower(noloadingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
