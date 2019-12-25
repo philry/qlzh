@@ -61,6 +61,7 @@ public class EngineeringController {
 			if(list!=null&&list.size()>0) {
 				HashMap<String, EngineeringResult> hashMap = new HashMap<>();
 				list2=new ArrayList<>();
+				// 获取车间的工效
 				for (EngineeringVo e : list) {
 					EngineeringResult engineeringResult = new EngineeringResult();
 					engineeringResult.setName(e.getName_1());
@@ -71,6 +72,7 @@ public class EngineeringController {
 					BigDecimal divide = workTime.divide(time,2,RoundingMode.HALF_UP);
 					Double efficiency = divide.doubleValue();
 					engineeringResult.setEfficiency(efficiency);
+					// 去除重复数据
 					if(hashMap.get(engineeringResult.getName())==null) {
 						hashMap.put(engineeringResult.getName(), engineeringResult);
 					}
@@ -79,9 +81,12 @@ public class EngineeringController {
 					list2.add(e.getValue());
 				}
 			}
+			// 根据部门名称筛选
+			// 如果没有传入部门名称则返回全部
 			if(deptName==null||deptName=="") {
 				return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, list2);
 			}else {
+				// 如果有则按部门名称进行筛选
 				List<EngineeringResult> list3 = new ArrayList<>();
 				for (EngineeringResult e : list2) {
 					if(deptName.equals(e.getName())) {
@@ -105,17 +110,20 @@ public class EngineeringController {
 			if(list!=null&&list.size()>0) {
 				HashMap<String, EngineeringResult> hashMap = new HashMap<>();
 				list2 = new ArrayList<>();
+				// 获取班组的工效
 				for (EngineeringVo e : list) {
 					EngineeringResult engineeringResult = new EngineeringResult();
 					engineeringResult.setpName(e.getName_1());
 					engineeringResult.setName(e.getName_2());
 					engineeringResult.setTime(e.getTime_2());
 					engineeringResult.setWorkTime(e.getWorkTime_2());
+					// 计算工效
 					BigDecimal workTime = new BigDecimal(e.getWorkTime_2());
 					BigDecimal time = new BigDecimal(e.getTime_2());
 					BigDecimal divide = workTime.divide(time,2,RoundingMode.HALF_UP);
 					Double efficiency = divide.doubleValue();
 					engineeringResult.setEfficiency(efficiency);
+					// 去除重复数据
 					if(hashMap.get(engineeringResult.getName())==null) {
 						hashMap.put(engineeringResult.getName(), engineeringResult);
 					}
@@ -124,17 +132,18 @@ public class EngineeringController {
 					list2.add(e.getValue());
 				}
 			}
-			
+			// 查出车间的部门id
 			for (EngineeringResult e : list2) {
 				Dept dept = new Dept();
 				dept.setName(e.getName());
 				List<Dept> deptList = deptService.getDeptList(dept);
 				e.setDeptId(deptList.get(0).getId());
 			}
-			
 			List<EngineeringResult> list3 = new ArrayList<>();
+			// 根据上级部门名称筛选
 			if(pName!=null&&pName!="") {
 				for (EngineeringResult e : list2) {
+					// 根据上级部门及车间名称筛选
 					if(deptName!=null&&deptName!="") {
 						if(deptName.equals(e.getName())&&pName.equals(e.getpName())) {
 							list3.add(e);
@@ -147,6 +156,7 @@ public class EngineeringController {
 				}
 				return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, list3);
 			}else {
+				// 如果没有传入上级部门名称则判断有没有传入车间名称
 				if(deptName!=null&&deptName!="") {
 					for (EngineeringResult e : list2) {
 						if(deptName.equals(e.getName())) {
@@ -155,6 +165,7 @@ public class EngineeringController {
 					}
 					return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, list3);
 				}else {
+					// 如果都没有则全部返回
 					return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, list2);
 				}
 			}
