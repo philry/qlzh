@@ -16,7 +16,7 @@ public interface NettyDao extends JpaRepository<Netty,Integer>, JpaSpecification
 
     List<Netty> getAllByCreateTimeBetween(Date beginTime,Date endTime);
     
-    @Query(value = "select * from netty  where xpg = ?1 ORDER BY create_time desc LIMIT ?2",nativeQuery = true)
-    List<Netty> getNettyByXpg(String xpg,Integer time);
+    @Query(value = "select * from netty  where xpg = ?1 ORDER BY create_time desc",nativeQuery = true)
+    List<Netty> getNettyByXpg(String xpg);
 
 }
