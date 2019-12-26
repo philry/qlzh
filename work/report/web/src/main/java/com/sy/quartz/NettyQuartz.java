@@ -22,7 +22,8 @@ import com.sy.entity.Xpg;
 @Component
 public class NettyQuartz extends QuartzJobBean {
 
-	private static NettyServerHandler nettyServerHandler = new NettyServerHandler();
+	@Autowired
+	private NettyServerHandler nettyServerHandler;
 
 	@Autowired
 	private NettyMapper nettyMapper;
@@ -62,22 +63,20 @@ public class NettyQuartz extends QuartzJobBean {
 				}
 				if (flag2) {
 					List<Netty> list = nettyMapper.selectAllNettyByXpgAndTime(xpg.getName(), time);
-					if(list.size()>=29) {
-						boolean flag3 = true;
-						outer: for (int i = 0; i < list.size(); i++) {
-							String[] currents3 = list.get(i).getCurrents().split(",");
-							for (int j = 0; j < currents3.length; j++) {
-								if (Double.valueOf(currents3[j]) > machine.getMinA()) {
-									flag3 = false;
-									break outer;
-								}
+					boolean flag3 = true;
+					outer: for (int i = 0; i < list.size(); i++) {
+						String[] currents3 = list.get(i).getCurrents().split(",");
+						for (int j = 0; j < currents3.length; j++) {
+							if (Double.valueOf(currents3[j]) > machine.getMinA()) {
+								flag3 = false;
+								break outer;
 							}
 						}
-						if (flag3) {
-							nettyServerHandler.controlMachine(xpg.getName(), false);
-							machineNowMapper.deleteMachineNowByMachineId(machine.getId());
-							System.out.println(machine.getId() + "号焊机已自动关机");
-						}
+					}
+					if (flag3) {
+						nettyServerHandler.controlMachine(xpg.getName(), false);
+						machineNowMapper.deleteMachineNowByMachineId(machine.getId());
+						System.out.println(machine.getId() + "号焊机已自动关机");
 					}
 				}
 			}
