@@ -8,10 +8,11 @@ import com.sy.entity.Netty;
 
 public interface NettyMapper {
 
-	//@Select("select * from (select * from (select * from netty ORDER BY create_time DESC LIMIT #{time})as t ORDER BY create_time) as t2 GROUP BY xpg")
-	List<Netty> selectAllNettyByTime(Integer time);
+	Netty selectNettyByXpgAndTime(@Param("xpg")String xpg,@Param("time")Integer time);
+	
+	List<Netty> selectAllXpg();
 	
 	Netty getLastNettyByXpg(String xpg);
 	
-	List<Netty> selectNettyByXpgAndTime(@Param("xpg")String xpg,@Param("time")Integer time);
+	List<Netty> selectAllNettyByXpgAndTime(@Param("xpg")String xpg,@Param("time")Integer time);
 }
