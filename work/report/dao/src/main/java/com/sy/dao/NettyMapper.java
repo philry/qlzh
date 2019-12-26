@@ -2,7 +2,7 @@ package com.sy.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Param;
 
 import com.sy.entity.Netty;
 
@@ -12,4 +12,6 @@ public interface NettyMapper {
 	List<Netty> selectAllNettyByTime(Integer time);
 	
 	Netty getLastNettyByXpg(String xpg);
+	
+	List<Netty> selectNettyByXpgAndTime(@Param("xpg")String xpg,@Param("time")Integer time);
 }

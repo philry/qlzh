@@ -28,4 +28,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from netty where xpg = #{xpg} ORDER BY create_time desc LIMIT 1
 	</select>
 	
+	<select id="selectNettyByXpgAndTime" resultMap="NettyResult">
+		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from netty
+		netty where xpg=#{xpg} ORDER BY create_time LIMIT #{time}
+	</select>
+	
 </mapper>
