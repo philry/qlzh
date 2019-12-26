@@ -18,7 +18,7 @@ public class PageResult implements Serializable{
 	
 	private int code;
 	
-	private int msg;
+	private String msg;
 
 	public long getTotal() {
 		return total;
@@ -44,22 +44,27 @@ public class PageResult implements Serializable{
 		this.code = code;
 	}
 
-	public int getMsg() {
+	public String getMsg() {
 		return msg;
 	}
 
-	public void setMsg(int msg) {
+	public void setMsg(String msg) {
 		this.msg = msg;
 	}
 	
 	public static PageResult getPageResult(List<?> list,Long total) {
 		PageResult pageResult = new PageResult();
-		pageResult.setCode(HttpStatusConstant.SUCCESS);
-		pageResult.setRows(list);
-		if(total==null) {
-			total=(long) list.size();
+		if(list!=null&list.size()>0) {
+			pageResult.setCode(HttpStatusConstant.SUCCESS);
+			pageResult.setRows(list);
+			if(total==null) {
+				total=(long) list.size();
+			}
+			pageResult.setTotal(total);
+		}else {
+			pageResult.setMsg("暂无查询结果");
+			pageResult.setCode(HttpStatusConstant.FAIL);
 		}
-		pageResult.setTotal(total);
 		return pageResult;
 	}
 	
@@ -69,11 +74,10 @@ public class PageResult implements Serializable{
 			pageResult.setCode(HttpStatusConstant.SUCCESS);
 			pageResult.setRows(list);
 			pageResult.setTotal(list.size());
-			return pageResult;
-			
 		}else {
+			pageResult.setMsg("暂无查询结果");
 			pageResult.setCode(HttpStatusConstant.FAIL);
-			return pageResult;
 		}
+		return pageResult;
 	}
 }

@@ -15,5 +15,7 @@ public interface MachineMapper {
 	int deleteMachineById(Integer id);
 
 	Machine selectMachineById(Integer id);
+	
+	Machine selectMachineByXpgId(Integer xpgId);
 
 }

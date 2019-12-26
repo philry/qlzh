@@ -29,7 +29,7 @@ public class MachineQuartzConfig {
 		CronScheduleBuilder scheduleBuilder 
 			// 每天凌晨1点执行
 			= CronScheduleBuilder.cronSchedule("0 0 1 * * ?");
-			//= CronScheduleBuilder.cronSchedule("0 */1 * * * ?");
+			//= CronScheduleBuilder.cronSchedule("0 */1 * * * ?");// 每分钟
 		return TriggerBuilder
 				.newTrigger()
 				.forJob(machinejobDetail())
