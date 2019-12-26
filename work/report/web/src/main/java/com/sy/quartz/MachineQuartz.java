@@ -34,7 +34,7 @@ public class MachineQuartz extends QuartzJobBean{
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-		// 先删除消息表中status为1的数据
+		// 先删除消息表中的数据
 		messageDataService.deleteByStatus("1");
 		messageDataService.deleteByStatus("0");
 		

@@ -48,6 +48,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id} and #{id}!=0
 	</select>
 	
+	<select id="selectMachineByXpgId" parameterType="Integer" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		where xpg_id=#{xpgId}
+	</select>
+	
 	<insert id="insertMachine" parameterType="com.sy.entity.Machine" useGeneratedKeys="true" keyProperty="id">
 		insert into machine
 		<trim prefix="(" suffix=")" suffixOverrides=",">

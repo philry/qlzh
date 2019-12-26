@@ -8,6 +8,7 @@ import com.sy.dao.DeptMapper;
 import com.sy.dao.EnergyMapper;
 import com.sy.dao.MachineMapper;
 import com.sy.dao.MachineNowDao;
+import com.sy.dao.MachineNowMapper;
 import com.sy.dao.NettyDao;
 import com.sy.dao.XpgMapper;
 import com.sy.entity.Energy;
@@ -54,13 +55,13 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	private MachineNowDao machineNowDao;
 	
 	@Autowired
+	private MachineNowMapper machineNowMapper;
+	
+	@Autowired
 	private DeptMapper deptMapper;
 	
 	@Autowired
 	private MessageDataService messageDataService;
-	
-	@Autowired
-	private EnergyMapper energyMapper;
 	
 	private static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -177,7 +178,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				List<Double> doubles = new ArrayList<>();
 				
 				Double maxA = null;
-				Double minA = null;
 				Xpg xpg2 = new Xpg();
 				xpg2.setName(xpg);
 				Integer deptId = null;
@@ -190,7 +190,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 					if(machineList!=null&&machineList.size()>0) {
 						machineId = machineList.get(0).getId();
 						maxA = machineList.get(0).getMaxA();
-						minA = machineList.get(0).getMinA();
 						deptId = machineList.get(0).getDeptId();
 					}
 				}
@@ -214,8 +213,8 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 					messageData.setAccpetId(leader);
 					messageData.setContext(machineId.toString());
 					messageDataService.sendMessage(messageData, 2);
+					machineNowMapper.deleteMachineNowByMachineId(machineId);
 					controlMachine(xpg, false);
-					machineNowDao.deleteByMachineId(machineId);
 				}
 				
 				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
@@ -240,21 +239,21 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				
 				nettyDao.save(netty);
 				
-				List<Energy> energyList = energyMapper.selectEnergyList();
-				Integer time = energyList.get(0).getTime();
-				PageHelper.startPage(1, time);
-				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
-				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
-				String[] split = currents2.split(",");
-				boolean flag2 = true;
-				for (String str : split) {
-					if(flag2&Integer.valueOf(str)>minA) {
-						flag2=false;
-					}
-				}
-				if(flag2) {
-					controlMachine(xpg, false);
-				}
+//				List<Energy> energyList = energyMapper.selectEnergyList();
+//				Integer time = energyList.get(0).getTime();
+//				PageHelper.startPage(1, time);
+//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
+//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
+//				String[] split = currents2.split(",");
+//				boolean flag2 = true;
+//				for (String str : split) {
+//					if(flag2&Integer.valueOf(str)>minA) {
+//						flag2=false;
+//					}
+//				}
+//				if(flag2) {
+//					controlMachine(xpg, false);
+//				}
 			}
 
 			returnHexStr = "7b7b917eec7d7d";

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sy.dao.DeptMapper;
 import com.sy.dao.PersonMapper;
+import com.sy.dao.TaskDao;
 import com.sy.dao.TaskMapper;
 import com.sy.entity.Dept;
 import com.sy.entity.Person;
@@ -22,6 +23,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Autowired
 	private TaskMapper taskMapper;
+	
+	@Autowired
+	private TaskDao taskDao;
 	
 	@Autowired
 	private DeptMapper deptMapper;

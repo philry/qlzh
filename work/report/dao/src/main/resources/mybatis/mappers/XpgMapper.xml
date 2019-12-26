@@ -33,6 +33,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectXpgVo" />
 		where id=#{id}
 	</select>
+	
+	<select id="selectXpgByName" parameterType="String" resultMap="XpgResult">
+		<include refid="selectXpgVo" />
+		where name=#{name}
+	</select>
 
 	<insert id="insertXpg" parameterType="com.sy.entity.Xpg" useGeneratedKeys="true" keyProperty="id">
 		insert into xpg
