@@ -130,27 +130,27 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// 对时命令
 		if (isrReg4gStr.equals("7b7b93")) {
-			Calendar calendar = Calendar.getInstance();
-			int year = calendar.get(Calendar.YEAR);
-			int month = calendar.get(Calendar.MONTH)+1;
-			int day = calendar.get(Calendar.DATE);
-			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
-			int hour = calendar.get(Calendar.HOUR_OF_DAY);
-			int minute = calendar.get(Calendar.MINUTE);
-			int second = calendar.get(Calendar.SECOND);
-
-			String s = "93"+Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
-					Integer.toHexString(month)+
-					Integer.toHexString(day)+
-					Integer.toHexString(week)+
-					Integer.toHexString(hour)+
-					Integer.toHexString(minute)+
-					Integer.toHexString(second);
-
-			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
-			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
-
-			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
+//			Calendar calendar = Calendar.getInstance();
+//			int year = calendar.get(Calendar.YEAR);
+//			int month = calendar.get(Calendar.MONTH)+1;
+//			int day = calendar.get(Calendar.DATE);
+//			int week = calendar.get(Calendar.DAY_OF_WEEK)-1;
+//			int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//			int minute = calendar.get(Calendar.MINUTE);
+//			int second = calendar.get(Calendar.SECOND);
+//
+//			String s = "93"+Integer.toHexString(Integer.parseInt(String.valueOf(year).substring(2,4)))+
+//					Integer.toHexString(month)+
+//					Integer.toHexString(day)+
+//					Integer.toHexString(week)+
+//					Integer.toHexString(hour)+
+//					Integer.toHexString(minute)+
+//					Integer.toHexString(second);
+//
+//			byte[] modbusBytes = BytesUtils.hexString2Bytes(s);
+//			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
+//
+//			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
 		if (cmd == 144) {
@@ -161,7 +161,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
 
-			if(receiveStr.length()>500){
+			if(receiveStr.length()==1024){
 				Netty netty = new Netty();
 				netty.setCreateTime(new Timestamp(new Date().getTime()));
 
@@ -169,14 +169,24 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				netty.setXpg(xpg);//存放4G注册码
 				netty.setRemark(receiveStr);//存放原报文
 
-				//获取电流信息，并解析合并存储
-				String iStart = "312d33";
+				//获取电压
 
-				int iStartIndex = receiveStr.indexOf(iStart);
-				String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
+				String infoStart = "010360";
 
-				List<Double> doubles = new ArrayList<>();
-				
+				int vStartIndex = receiveStr.indexOf(infoStart);
+
+				String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
+				double voltage = getDoubleValue(info.substring(8,12));
+
+				if(voltage>100){
+					//获取电流信息，并解析合并存储
+					String iStart = "312d33";
+
+					int iStartIndex = receiveStr.indexOf(iStart);
+					String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
+
+					List<Double> doubles = new ArrayList<>();
+
 //				Double maxA = null;
 //				Xpg xpg2 = new Xpg();
 //				xpg2.setName(xpg);
@@ -196,15 +206,15 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 //				boolean flag = true;
 
-				for (int i = 0; i <60 ; i++) {
-					int sIndex = i*12;
-					String str = iInfo.substring(sIndex+0,sIndex+4);
-					double iA  = getPowerValue(str);
+					for (int i = 0; i <60 ; i++) {
+						int sIndex = i*12;
+						String str = iInfo.substring(sIndex+0,sIndex+4);
+						double iA  = getPowerValue(str);
 //					if(flag&maxA!=null&&iA<maxA) {
 //						flag=false;
 //					}
-					doubles.add(iA);
-				}
+						doubles.add(iA);
+					}
 
 //				if(flag) {
 //					MessageData messageData = new MessageData();
@@ -216,29 +226,22 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //					machineNowMapper.deleteMachineNowByMachineId(machineId);
 //					controlMachine(xpg, false);
 //				}
-				
-				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
-				netty.setCurrents(currents);
+					String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
-				//获取电压
+					netty.setCurrents(currents);
 
-				String infoStart = "010360";
 
-				int vStartIndex = receiveStr.indexOf(infoStart);
 
-				String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
-				double voltage = getDoubleValue(info.substring(8,12));
+					netty.setVoltage(voltage);
 
-				netty.setVoltage(voltage);
+					//获取电量
+					double power = getPowerValue(info.substring(88,96));
 
-				//获取电量
-				double power = getPowerValue(info.substring(88,96));
+					netty.setPower(String.valueOf(power));
 
-				netty.setPower(String.valueOf(power));
-				
-				nettyDao.save(netty);
-				
+					nettyDao.save(netty);
+
 //				List<Energy> energyList = energyMapper.selectEnergyList();
 //				Integer time = energyList.get(0).getTime();
 //				PageHelper.startPage(1, time);
@@ -254,6 +257,8 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //				if(flag2) {
 //					controlMachine(xpg, false);
 //				}
+				}
+
 			}
 
 			returnHexStr = "7b7b917eec7d7d";
