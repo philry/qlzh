@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MachineUseDao extends JpaRepository<MachineUse,Integer>, JpaSpecificationExecutor {
 
-
+    int deleteByRemark(String date);
 
 }

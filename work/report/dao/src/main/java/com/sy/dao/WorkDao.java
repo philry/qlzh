@@ -20,7 +20,7 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
     Page<Work> getAllByPerson(Person person, Pageable pageable);
 
 
-    @Query(value =" select * from work where create_time <= :s_time and machine_id = :machineId  ORDER BY create_time limit 1",nativeQuery = true)
+    @Query(value =" select * from work where create_time <= :s_time and machine_id = :machineId  ORDER BY create_time desc limit 1",nativeQuery = true)
     Work getLastWorkByTime(@Param("s_time")String s_time,@Param("machineId")Integer machineId);
 
     @Query(value = "select distinct person_id from work where date(create_time) = ?1",nativeQuery = true)
@@ -31,4 +31,7 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
 
     @Query(value = "select distinct machine_id from work where date(create_time)=?1 ",nativeQuery = true)
     List<Integer> getMachineId(String b_time);
+
+    @Query(value = "select * from work where machine_id=?1 ",nativeQuery = true)
+    List<Work> getWorkByMachineId(int machineId);
 }

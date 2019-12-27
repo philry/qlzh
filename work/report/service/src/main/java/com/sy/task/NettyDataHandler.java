@@ -55,8 +55,11 @@ public class NettyDataHandler {
     @Autowired
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
+    @Autowired
+    private MachineUseDao machineUseDao;
 
-    @Scheduled(cron = "0 30 0 * * ?") // 每天十二点半处理前天的数据
+
+    @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleData(){
@@ -129,7 +132,7 @@ public class NettyDataHandler {
                 }else if(i>=minA){
                     workingTime++;
                     iWorking = iWorking.add(new BigDecimal(i));
-                }else if(i>0){
+                }else if(i>=0){
                     noloadingTime++;
                     iNoloading = iNoloading.add(new BigDecimal(i));
                 }
@@ -140,9 +143,17 @@ public class NettyDataHandler {
 
             BigDecimal iTotal = iWorking.add(iNoloading);
 
-            BigDecimal workingPower = power.multiply(iWorking.divide(iTotal));
+            BigDecimal workingPower = new BigDecimal("0");
 
-            BigDecimal noloadingPower = power.subtract(workingPower);
+            BigDecimal noloadingPower = new BigDecimal("0");
+
+            try {
+                workingPower = power.multiply(iWorking.divide(iTotal));
+
+                noloadingPower = power.subtract(workingPower);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
 
             data.setWork(work);
             data.setNoloadingPower(noloadingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
@@ -201,6 +212,49 @@ public class NettyDataHandler {
 
         }
 
+        //开始计算设备使用报表
+        List<Integer> ids = workDao.getMachineId(day);
+
+        for (Integer id : ids) {
+
+            List<Work> works = workDao.getWorkByMachineId(id);
+            int noloadingTime = 0;
+            int workingTime = 0;
+            int time = 0;
+            double noloadingPower = 0;
+            double workingPower = 0;
+            double power = 0;
+            int counts =0;
+            for (Work work : works) {
+                List<DataManage> dataManages = manageDataService.getDataByWork(work.getId(),DateUtils.parseDate(day),DateUtils.getNextDay(day));
+                if(!dataManages.isEmpty()){
+                    for (DataManage dataManage : dataManages) {
+                        noloadingTime += dataManage.getNoloadingTime();
+                        workingTime += dataManage.getWorkingTime();
+                        time += dataManage.getWorkingTime();
+                        time += dataManage.getNoloadingTime();
+                        noloadingPower += dataManage.getNoloadingPower();
+                        workingPower += dataManage.getWorkingPower();
+                        power += dataManage.getNoloadingPower();
+                        power += dataManage.getWorkingPower();
+                        counts += Integer.parseInt(dataManage.getRemark());
+                    }
+                }
+            }
+            MachineUse machineUse = new MachineUse();
+            machineUse.setDepeName(works.get(0).getMachine().getDept().getName());
+            machineUse.setMachineId(works.get(0).getMachine().getId());
+            machineUse.setNoloadingTime(noloadingTime);
+            machineUse.setNoloadingPower(String.format("%.2f",noloadingPower));
+            machineUse.setWorkTime(workingTime);
+            machineUse.setWorkingPower(String.format("%.2f",workingPower));
+            machineUse.setTime(time);
+            machineUse.setPower(String.format("%.2f",power));
+            machineUse.setOvercounts(String.valueOf(counts));
+            machineUse.setRemark(day);
+            machineUse.setCreateTime(DateUtils.parseDate(day));
+            machineUseDao.save(machineUse);
+        }
 
     }
 
@@ -209,6 +263,7 @@ public class NettyDataHandler {
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
         engineeringDao.deleteByDate(DateUtils.parseDate(day));
         efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
+        machineUseDao.deleteByRemark(day);
 
     }
 

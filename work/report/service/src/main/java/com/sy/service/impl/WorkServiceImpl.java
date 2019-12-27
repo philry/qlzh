@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,7 +106,7 @@ public class WorkServiceImpl implements WorkService {
     @Override
     public Page<Work> getAllWork(Integer page, Integer pageSize,String personName, Date beginTime,Date endTime) throws Exception {
 
-        Pageable pageable = PageRequest.of(page,pageSize);
+        Pageable pageable = PageRequest.of(page,pageSize, Sort.by(Sort.Direction.DESC,"createTime"));
 
         if("".equals(personName)){
             Specification querySpeci = new Specification() {

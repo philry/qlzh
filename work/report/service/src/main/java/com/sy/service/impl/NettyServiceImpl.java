@@ -5,8 +5,10 @@ import com.sy.dao.NettyDao;
 import com.sy.entity.Netty;
 import com.sy.service.NettyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,4 +56,27 @@ public class NettyServiceImpl implements NettyService {
 
         return nettyDao.findAll(querySpeci);
     }
+
+    @Override
+    public Page<Netty> getAllByName(String xpg, int page, int pageSize) {
+
+        Pageable pageable = PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,"createTime"));
+
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                if(!"".equals(xpg)){
+                    predicates.add(criteriaBuilder.equal(root.get("xpg"),xpg));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+
+        return nettyDao.findAll(querySpeci,pageable);
+    }
+
+
 }
