@@ -177,45 +177,45 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 				List<Double> doubles = new ArrayList<>();
 				
-				Double maxA = null;
-				Xpg xpg2 = new Xpg();
-				xpg2.setName(xpg);
-				Integer deptId = null;
-				Integer machineId = null;
-				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
-				if(xpgList!=null&&xpgList.size()>0) {
-					Machine machine = new Machine();
-					machine.setXpgId(xpgList.get(0).getId());
-					List<Machine> machineList = machineMapper.selectMachineList(machine);
-					if(machineList!=null&&machineList.size()>0) {
-						machineId = machineList.get(0).getId();
-						maxA = machineList.get(0).getMaxA();
-						deptId = machineList.get(0).getDeptId();
-					}
-				}
+//				Double maxA = null;
+//				Xpg xpg2 = new Xpg();
+//				xpg2.setName(xpg);
+//				Integer deptId = null;
+//				Integer machineId = null;
+//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
+//				if(xpgList!=null&&xpgList.size()>0) {
+//					Machine machine = new Machine();
+//					machine.setXpgId(xpgList.get(0).getId());
+//					List<Machine> machineList = machineMapper.selectMachineList(machine);
+//					if(machineList!=null&&machineList.size()>0) {
+//						machineId = machineList.get(0).getId();
+//						maxA = machineList.get(0).getMaxA();
+//						deptId = machineList.get(0).getDeptId();
+//					}
+//				}
 				
-				boolean flag = true;
+//				boolean flag = true;
 				
 				for (int i = 0; i <60 ; i++) {
 					int sIndex = i*12;
 					String str = iInfo.substring(sIndex+0,sIndex+4);
 					double iA  = getPowerValue(str);
-					if(flag&maxA!=null&&iA<maxA) {
-						flag=false;
-					}
+//					if(flag&maxA!=null&&iA<maxA) {
+//						flag=false;
+//					}
 					doubles.add(iA);
 				}
 				
-				if(flag) {
-					MessageData messageData = new MessageData();
-					messageData.setSendId(0);
-					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
-					messageData.setAccpetId(leader);
-					messageData.setContext(machineId.toString());
-					messageDataService.sendMessage(messageData, 2);
-					machineNowMapper.deleteMachineNowByMachineId(machineId);
-					controlMachine(xpg, false);
-				}
+//				if(flag) {
+//					MessageData messageData = new MessageData();
+//					messageData.setSendId(0);
+//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
+//					messageData.setAccpetId(leader);
+//					messageData.setContext(machineId.toString());
+//					messageDataService.sendMessage(messageData, 2);
+//					machineNowMapper.deleteMachineNowByMachineId(machineId);
+//					controlMachine(xpg, false);
+//				}
 				
 				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
