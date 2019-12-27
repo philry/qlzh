@@ -52,16 +52,21 @@ public class NettyQuartz extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		System.out.println("开始查询netty");
+		// 查询出当前正在工作的所以焊机
 		List<MachineNow> list = machineNowDao.findAll();
 		Xpg xpg = null;
 		Netty last = null;
 		double maxA = 0;
 		double minA = 0;
 		for (MachineNow machineNow : list) {
+			// 获取焊机的工作最大电流和非工作最大电流
 			maxA = machineNow.getMachine().getMaxA();
 			minA = machineNow.getMachine().getMinA();
+			// 获取xpg信息
 			xpg = xpgMapper.selectXpgByMachineId(machineNow.getMachine().getId());
+			// 获取最新的netty数据
 			last = nettyMapper.getLastNettyByXpg(xpg.getName());
+			// 判断是否超限
 			boolean flag = true;
 			String[] currents = last.getCurrents().split(",");
 			for (String s : currents) {
@@ -71,6 +76,7 @@ public class NettyQuartz extends QuartzJobBean {
 				}
 			}
 			if(flag) {
+				// 如果超限,发超限警告,并关闭焊机,删除machine_now中该焊机的数据
 				MessageData messageData = new MessageData();
 				messageData.setSendId(0);
 				Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
@@ -84,6 +90,7 @@ public class NettyQuartz extends QuartzJobBean {
 				machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 				nettyServerHandler.controlMachine(xpg.getName(), false);
 				System.out.println(machineNow.getMachine().getId()+"号焊机已超限");
+			// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
 			}else {
 				boolean flag2 = true;
 				for (String s : currents) {

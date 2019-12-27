@@ -44,12 +44,14 @@ public class MessageNumberController {
 		Task task = new Task();
 		task.setChecker(person.getId());
 		task.setStatus("0");
+		task.setCheckingStatus("1");
 		List<Task> checkList = taskService.selectTaskList(task);
 		if(checkList==null||checkList.size()==0) {
 			m.setCheck(0);
 		}else {
 			m.setCheck(checkList.size());
 		}
+		task.setCheckingStatus("0");
 		task.setChecker(null);
 		task.setPersonId(person.getId());
 		List<Task> missionList = taskService.selectTaskList(task);

@@ -25,4 +25,6 @@ public interface TaskService {
 
 	List<Task> selectTaskByDeptIds(String string, List<Integer> deptIds);
 
+	List<Task> selectTaskLists(Task task);
+
 }

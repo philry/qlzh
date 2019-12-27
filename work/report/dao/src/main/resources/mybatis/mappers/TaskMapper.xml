@@ -54,9 +54,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 	
+	<select id="selectTaskLists" parameterType="com.sy.entity.Task" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		<where>
+			<if test="id != null and id !=0 "> and id = #{id}</if>
+			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			<if test="pid != null"> and pid = #{pid}</if>
+			<if test="projectName != null and projectName !='' "> and project_name = #{projectName}</if>
+			<if test="count != null "> and count = #{count}</if>
+			<if test="deptId != null "> and dept_id = #{deptId}</if>
+			<if test="beginTime != null "> and begin_time = #{beginTime}</if>
+			<if test="endTime != null "> and end_time = #{endTime}</if>
+			<if test="actualBeginTime != null "> and actual_begin_time = #{actualBeginTime}</if>
+			<if test="actualEndTime != null "> and actual_end_time = #{actualEndTime}</if>
+			<if test="note != null and note !='' "> and note = #{note}</if>
+			<if test="checker != null "> and checker = #{checker}</if>
+			<if test="checkingStatus != null and checkingStatus !='' "> and checking_status = #{checkingStatus}</if>
+			<if test="personId != null "> and person_id = #{personId}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			and dept_id>=0
+		</where>
+	</select>
+	
 	<select id="selectTaskById" parameterType="Integer" resultMap="TaskResult">
 		<include refid="selectTaskVo" />
 		where id=#{id} and #{id}!=0
+	</select>
+	
+	<select id="selectTaskByProjectName" parameterType="String" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		where project_name=#{projectName}
 	</select>
 	
 	<select id="selectTaskByDeptIds" resultMap="TaskResult">

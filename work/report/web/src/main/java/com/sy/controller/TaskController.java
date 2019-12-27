@@ -39,7 +39,7 @@ public class TaskController {
 	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET)
 	public PageResult getLists(Task task,@PathVariable("yema")Integer yema) {
 		Page<Object> startPage = PageHelper.startPage(yema, 15);
-		List<Task> list = taskService.selectTaskList(task);
+		List<Task> list = taskService.selectTaskLists(task);
 		return PageResult.getPageResult(list,startPage.getTotal());
 	}
 	
@@ -98,8 +98,13 @@ public class TaskController {
 	
 	@RequestMapping(value = "/checkstatus/{id}/{type}", method = RequestMethod.GET)
 	public JsonResult changeCheckStatus(@PathVariable("id")Integer id,@PathVariable("type")String type) {
-		int rows = taskService.changeCheckStatus(id,type);
-		return JsonResult.getJson(rows);
+		try {
+			int rows = taskService.changeCheckStatus(id,type);
+			return JsonResult.getJson(rows);
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
+		
 	}
 	
 	@RequestMapping(value = "/todo/{id}", method = RequestMethod.GET)

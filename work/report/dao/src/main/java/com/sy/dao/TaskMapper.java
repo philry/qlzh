@@ -20,4 +20,8 @@ public interface TaskMapper {
 
 	List<Task> selectTaskByDeptIds(@Param("workCode")String workCode, @Param("list")List<Integer> list);
 
+	Task selectTaskByProjectName(String projectName);
+
+	List<Task> selectTaskLists(Task task);
+
 }

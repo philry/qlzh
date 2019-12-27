@@ -69,7 +69,10 @@ public class TaskServiceImpl implements TaskService {
 		if (sTask != null && sTask.size() > 0) {
 			throw new RuntimeException("请先删除下级派工单");
 		} else {
-			return taskMapper.deleteTaskById(id);
+			task.setId(id);
+			task.setStatus("1");
+			task.setPid(null);
+			return taskMapper.updateTask(task);
 		}
 	}
 
@@ -85,6 +88,10 @@ public class TaskServiceImpl implements TaskService {
 		if ("1".equals(fTask.getCheckingStatus())) {
 			throw new RuntimeException("派工单未审核");
 		} else {
+			Task task2 = taskMapper.selectTaskByProjectName(task.getProjectName());
+			if(task2!=null) {
+				throw new RuntimeException("项目名称不能重复");
+			}
 			task.setWorkCode(fTask.getWorkCode());
 			task.setProjectName(fTask.getProjectName());
 			task.setPid(pid);
@@ -109,9 +116,12 @@ public class TaskServiceImpl implements TaskService {
 		if("1".equals(pTask.getCheckingStatus())) {
 			throw new RuntimeException("派工单未审核");
 		}
+		Task task3 = taskMapper.selectTaskByProjectName(task.getProjectName());
+		if(task3!=null) {
+			throw new RuntimeException("项目名称不能重复");
+		}
 		String[] ids = personIds.split(",");
 		task.setWorkCode(pTask.getWorkCode());
-		task.setProjectName(pTask.getProjectName());
 		task.setCount(pTask.getCount());
 		task.setPid(id);
 		task.setCheckingStatus("0");
@@ -183,18 +193,33 @@ public class TaskServiceImpl implements TaskService {
 			return taskMapper.updateTask(task);
 		}else {
 			Task t = taskMapper.selectTaskById(id);
-			Task fTask = taskMapper.selectTaskById(t.getPid());
-			if(fTask!=null) {
-				fTask.setCheckingStatus("1");
-				taskMapper.updateTask(fTask);
+			System.out.println(t);
+			if("0".equals(t.getStatus())) {
+				throw new RuntimeException("已审核过的派工单不能再被反审核");
+			}else {
+				Task fTask = taskMapper.selectTaskById(t.getPid());
+				if(fTask!=null) {
+					fTask.setCheckingStatus("1");
+					taskMapper.updateTask(fTask);
+				}
+				Task task = new Task();
+				task.setId(id);
+				task.setStatus("1");
+				return taskMapper.updateTask(task);
 			}
-			return taskMapper.deleteTaskById(id);
 		}
 	}
 
 	@Override
 	public List<Task> selectTaskByDeptIds(String workCode,List<Integer> deptIds) {
 		List<Task> list = taskMapper.selectTaskByDeptIds(workCode,deptIds);
+		setTask(list);
+		return list;
+	}
+
+	@Override
+	public List<Task> selectTaskLists(Task task) {
+		List<Task> list = taskMapper.selectTaskLists(task);
 		setTask(list);
 		return list;
 	}
