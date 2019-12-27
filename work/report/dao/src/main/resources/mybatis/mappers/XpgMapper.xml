@@ -34,6 +34,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where id=#{id}
 	</select>
 	
+	<select id="selectXpgByMachineId" parameterType="Integer" resultMap="XpgResult">
+		<include refid="selectXpgVo" />
+		where machine_id=#{machineId}
+	</select>
+	
 	<select id="selectXpgByName" parameterType="String" resultMap="XpgResult">
 		<include refid="selectXpgVo" />
 		where name=#{name}

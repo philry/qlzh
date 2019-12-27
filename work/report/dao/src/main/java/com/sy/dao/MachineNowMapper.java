@@ -6,4 +6,5 @@ public interface MachineNowMapper {
 
 	@Delete("delete from machine_now where machine_id = #{machineId}")
 	int deleteMachineNowByMachineId(Integer machineId);
+
 }

@@ -17,5 +17,7 @@ public interface XpgMapper {
 	List<Xpg> selectXpgList(Xpg xpg);
 	
 	int updateXpg(Xpg xpg);
+	
+	Xpg selectXpgByMachineId(Integer machineId);
 
 }
