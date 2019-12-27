@@ -47,6 +47,29 @@ public class ManageDataServiceImpl implements ManageDataService {
         return dataManageDao.findAll(querySpeci);
     }
 
+    @Override
+    public List<DataManage> getDataByWork(int workId, Date beginTime, Date endTime) {
+
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                if(workId!=0){
+                    predicates.add(criteriaBuilder.equal(root.get("work").get("id"),workId));
+                }
+
+                if (beginTime!=null&&endTime!=null){
+                    predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
+                }
+
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+
+        return dataManageDao.findAll(querySpeci);
+    }
 
 
 }
