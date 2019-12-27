@@ -129,7 +129,7 @@ public class NettyDataHandler {
                 }else if(i>=minA){
                     workingTime++;
                     iWorking = iWorking.add(new BigDecimal(i));
-                }else if(i>0){
+                }else if(i>=0){
                     noloadingTime++;
                     iNoloading = iNoloading.add(new BigDecimal(i));
                 }

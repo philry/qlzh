@@ -5,6 +5,7 @@ import com.sy.dao.NettyDao;
 import com.sy.entity.Netty;
 import com.sy.service.NettyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -53,4 +54,27 @@ public class NettyServiceImpl implements NettyService {
 
         return nettyDao.findAll(querySpeci);
     }
+
+    @Override
+    public Page<Netty> getAllByName(String xpg, int page, int pageSize) {
+
+        Pageable pageable = PageRequest.of(page,pageSize);
+
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                if(!"".equals(xpg)){
+                    predicates.add(criteriaBuilder.equal(root.get("xpg"),xpg));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+
+        return nettyDao.findAll(querySpeci,pageable);
+    }
+
+
 }

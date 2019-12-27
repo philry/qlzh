@@ -202,7 +202,7 @@ public class IndexController {
         AppScan appScan = new AppScan();
         appScan.setEfficiency(chartResult.get(0).getRateValue());
         try {
-            appScan.setProportion(String.format("%.2f",Double.parseDouble(chartResult.get(0).getRateValue())-Double.parseDouble(chartResult.get(0).getRateValue())/Double.parseDouble(chartResult.get(1).getRateValue())*100));
+            appScan.setProportion(String.format("%.2f",Double.parseDouble(chartResult.get(0).getRateValue())-Double.parseDouble(chartResult.get(1).getRateValue())/Double.parseDouble(chartResult.get(1).getRateValue())*100));
         }catch (Exception e){
             e.printStackTrace();
         }

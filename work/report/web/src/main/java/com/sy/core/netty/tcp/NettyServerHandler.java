@@ -4,13 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.sy.core.netty.tcp.util.BytesUtils;
 import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
-import com.sy.dao.DeptMapper;
-import com.sy.dao.EnergyMapper;
-import com.sy.dao.MachineMapper;
-import com.sy.dao.MachineNowDao;
-import com.sy.dao.MachineNowMapper;
-import com.sy.dao.NettyDao;
-import com.sy.dao.XpgMapper;
+import com.sy.dao.*;
 import com.sy.entity.Energy;
 import com.sy.entity.Machine;
 import com.sy.entity.MessageData;
@@ -56,13 +50,13 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 	@Autowired
 	private MachineNowMapper machineNowMapper;
-	
+
 	@Autowired
 	private DeptMapper deptMapper;
 	
 	@Autowired
 	private MessageDataService messageDataService;
-	
+
 	private static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
 	@Override
@@ -161,65 +155,13 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
 
-			if(receiveStr.length()>500){
+			if(receiveStr.length()==1024){
 				Netty netty = new Netty();
 				netty.setCreateTime(new Timestamp(new Date().getTime()));
 
 				String xpg = map.get(ctx.channel().id().asLongText());
 				netty.setXpg(xpg);//存放4G注册码
 				netty.setRemark(receiveStr);//存放原报文
-
-				//获取电流信息，并解析合并存储
-				String iStart = "312d33";
-
-				int iStartIndex = receiveStr.indexOf(iStart);
-				String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
-
-				List<Double> doubles = new ArrayList<>();
-				
-				Double maxA = null;
-				Xpg xpg2 = new Xpg();
-				xpg2.setName(xpg);
-				Integer deptId = null;
-				Integer machineId = null;
-				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
-				if(xpgList!=null&&xpgList.size()>0) {
-					Machine machine = new Machine();
-					machine.setXpgId(xpgList.get(0).getId());
-					List<Machine> machineList = machineMapper.selectMachineList(machine);
-					if(machineList!=null&&machineList.size()>0) {
-						machineId = machineList.get(0).getId();
-						maxA = machineList.get(0).getMaxA();
-						deptId = machineList.get(0).getDeptId();
-					}
-				}
-				
-				boolean flag = true;
-				
-				for (int i = 0; i <60 ; i++) {
-					int sIndex = i*12;
-					String str = iInfo.substring(sIndex+0,sIndex+4);
-					double iA  = getPowerValue(str);
-					if(flag&maxA!=null&&iA<maxA) {
-						flag=false;
-					}
-					doubles.add(iA);
-				}
-				
-				if(flag) {
-					MessageData messageData = new MessageData();
-					messageData.setSendId(0);
-					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
-					messageData.setAccpetId(leader);
-					messageData.setContext(machineId.toString());
-					messageDataService.sendMessage(messageData, 2);
-					machineNowMapper.deleteMachineNowByMachineId(machineId);
-					controlMachine(xpg, false);
-				}
-				
-				String currents = doubles.toString().substring(1,doubles.toString().length()-1);
-
-				netty.setCurrents(currents);
 
 				//获取电压
 
@@ -230,30 +172,71 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
 				double voltage = getDoubleValue(info.substring(8,12));
 
-				netty.setVoltage(voltage);
+				if(voltage>100){
+					//获取电流信息，并解析合并存储
+					String iStart = "312d33";
 
-				//获取电量
-				double power = getPowerValue(info.substring(88,96));
+					int iStartIndex = receiveStr.indexOf(iStart);
+					String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
 
-				netty.setPower(String.valueOf(power));
-				
-				nettyDao.save(netty);
-				
-//				List<Energy> energyList = energyMapper.selectEnergyList();
-//				Integer time = energyList.get(0).getTime();
-//				PageHelper.startPage(1, time);
-//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
-//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
-//				String[] split = currents2.split(",");
-//				boolean flag2 = true;
-//				for (String str : split) {
-//					if(flag2&Integer.valueOf(str)>minA) {
-//						flag2=false;
+					List<Double> doubles = new ArrayList<>();
+
+//				Double maxA = null;
+//				Xpg xpg2 = new Xpg();
+//				xpg2.setName(xpg);
+//				Integer deptId = null;
+//				Integer machineId = null;
+//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
+//				if(xpgList!=null&&xpgList.size()>0) {
+//					Machine machine = new Machine();
+//					machine.setXpgId(xpgList.get(0).getId());
+//					List<Machine> machineList = machineMapper.selectMachineList(machine);
+//					if(machineList!=null&&machineList.size()>0) {
+//						machineId = machineList.get(0).getId();
+//						maxA = machineList.get(0).getMaxA();
+//						deptId = machineList.get(0).getDeptId();
 //					}
 //				}
-//				if(flag2) {
+
+//				boolean flag = true;
+
+					for (int i = 0; i <60 ; i++) {
+						int sIndex = i*12;
+						String str = iInfo.substring(sIndex+0,sIndex+4);
+						double iA  = getPowerValue(str);
+//					if(flag&maxA!=null&&iA<maxA) {
+//						flag=false;
+//					}
+						doubles.add(iA);
+					}
+
+//				if(flag) {
+//					MessageData messageData = new MessageData();
+//					messageData.setSendId(0);
+//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
+//					messageData.setAccpetId(leader);
+//					messageData.setContext(machineId.toString());
+//					messageDataService.sendMessage(messageData, 2);
+//					machineNowMapper.deleteMachineNowByMachineId(machineId);
 //					controlMachine(xpg, false);
 //				}
+//
+					String currents = doubles.toString().substring(1,doubles.toString().length()-1);
+
+					netty.setCurrents(currents);
+
+
+					netty.setVoltage(voltage);
+
+					//获取电量
+					double power = getPowerValue(info.substring(88,96));
+
+					netty.setPower(String.valueOf(power));
+
+					nettyDao.save(netty);
+
+				}
+
 			}
 
 			returnHexStr = "7b7b917eec7d7d";

@@ -22,8 +22,7 @@ import com.sy.entity.Xpg;
 @Component
 public class NettyQuartz extends QuartzJobBean {
 
-	@Autowired
-	private NettyServerHandler nettyServerHandler;
+	private static NettyServerHandler nettyServerHandler = new NettyServerHandler();
 
 	@Autowired
 	private NettyMapper nettyMapper;
@@ -43,6 +42,7 @@ public class NettyQuartz extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		// 获取定时关机设定时间
+		System.out.println("开始查询netty");
 		List<Energy> energyList = energyMapper.selectEnergyList();
 		Integer time = energyList.get(0).getTime();
 		// 查询netty表,根据xpg分组
@@ -50,9 +50,11 @@ public class NettyQuartz extends QuartzJobBean {
 		Xpg xpg = null;
 		Machine machine = null;
 		for (Netty netty : nettys) {
+			System.out.println(netty);
 			xpg = xpgMapper.selectXpgByName(netty.getXpg());
 			machine = machineMapper.selectMachineByXpgId(xpg.getId());
 			Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time);
+			System.out.println(pre);
 			if (netty.getCreateTime().getTime() - pre.getCreateTime().getTime() >= (time - 1) * 60 * 1000) {
 				boolean flag2 = true;
 				String[] currents2 = netty.getCurrents().split(",");
