@@ -36,7 +36,7 @@ public class NettyQuartz extends QuartzJobBean {
 
 	@Autowired
 	private XpgMapper xpgMapper;
-	
+
 	@Autowired
 	private DeptMapper deptMapper;
 
@@ -45,7 +45,7 @@ public class NettyQuartz extends QuartzJobBean {
 
 	@Autowired
 	private MachineNowMapper machineNowMapper;
-	
+
 	@Autowired
 	private MachineNowDao machineNowDao;
 
@@ -70,12 +70,12 @@ public class NettyQuartz extends QuartzJobBean {
 			boolean flag = true;
 			String[] currents = last.getCurrents().split(",");
 			for (String s : currents) {
-				if(Double.valueOf(s)<maxA) {
+				if (Double.valueOf(s) < maxA) {
 					flag = false;
 					break;
 				}
 			}
-			if(flag) {
+			if (flag) {
 				// 如果超限,发超限警告,并关闭焊机,删除machine_now中该焊机的数据
 				MessageData messageData = new MessageData();
 				messageData.setSendId(0);
@@ -89,45 +89,44 @@ public class NettyQuartz extends QuartzJobBean {
 				}
 				machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 				nettyServerHandler.controlMachine(xpg.getName(), false);
-				System.out.println(machineNow.getMachine().getId()+"号焊机已超限");
-			// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
-			}else {
+				System.out.println(machineNow.getMachine().getId() + "号焊机已超限");
+				// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
+			} else {
 				boolean flag2 = true;
 				for (String s : currents) {
-					if(Double.valueOf(s)>minA) {
+					if (Double.valueOf(s) > minA) {
 						flag2 = false;
 						break;
 					}
 				}
-				if(flag2) {
+				if (flag2) {
 					// 获取定时关机设定时间
 					List<Energy> energyList = energyMapper.selectEnergyList();
 					Integer time = energyList.get(0).getTime();
 					Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time);
-					if(last.getCreateTime().getTime()-pre.getCreateTime().getTime()>=(time-1)*60*1000) {
+					if ((last.getCreateTime().getTime()/1000/60-pre.getCreateTime().getTime()/1000/60) <= time) {
 						String[] currents2 = pre.getCurrents().split(",");
 						boolean flag3 = true;
 						for (String s : currents2) {
-							if(Double.valueOf(s)>minA) {
+							if (Double.valueOf(s) > minA) {
 								flag3 = false;
 								break;
 							}
 						}
-						if(flag3) {
+						if (flag3) {
 							List<Netty> lists = nettyMapper.selectAllNettyByXpgAndTime(xpg.getName(), time);
-							if(lists.size()>=(time-1)) {
+							if (lists.size() >= (time - 1)) {
 								boolean flag4 = true;
-								outer:
-								for (Netty n : lists) {
+								outer: for (Netty n : lists) {
 									String[] currents3 = n.getCurrents().split(",");
 									for (String s : currents3) {
-										if(Double.valueOf(s)>minA) {
+										if (Double.valueOf(s) > minA) {
 											flag4 = false;
 											break outer;
 										}
 									}
 								}
-								if(flag4) {
+								if (flag4) {
 									System.out.println(machineNow.getMachine().getId() + "号焊机已自动关机");
 									machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 									nettyServerHandler.controlMachine(xpg.getName(), false);
@@ -135,9 +134,10 @@ public class NettyQuartz extends QuartzJobBean {
 							}
 						}
 					}
+
 				}
 			}
-			
+
 		}
 	}
 }
