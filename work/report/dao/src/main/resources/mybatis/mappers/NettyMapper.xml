@@ -19,7 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	
 	<select id="selectNettyByXpgAndTime"  resultMap="NettyResult">
-		select * from (select * from netty where xpg=#{xpg} ORDER BY create_time desc limit #{time})as t ORDER BY create_time LIMIT 1
+		select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		from (select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		from netty where xpg=#{xpg} ORDER BY create_time desc limit #{time})as t ORDER BY create_time LIMIT 1
 	</select>
 	
 	<select id="getLastNettyByXpg" parameterType="String" resultMap="NettyResult">
@@ -31,8 +33,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="selectAllNettyByXpgAndTime" resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from netty
-		netty where xpg=#{xpg} ORDER BY create_time LIMIT #{time}
+		select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		from (select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		from netty where xpg=#{xpg} ORDER BY create_time desc) as t LIMIT #{time}
 	</select>
 	
 </mapper>
