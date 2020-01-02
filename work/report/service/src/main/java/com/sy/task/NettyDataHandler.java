@@ -59,8 +59,8 @@ public class NettyDataHandler {
     private MachineUseDao machineUseDao;
 
 
-    @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
-//    @Scheduled(fixedRate = 30 * 60 * 1000)
+//    @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
+    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleData(){
 
@@ -69,6 +69,7 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
+        day = "2019-12-27";
         //删除指定日期的输出
         deleteDate(day);
         //插入数据
