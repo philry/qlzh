@@ -114,6 +114,7 @@ public class EngineeringServiceImpl implements EngineeringService {
                 vo.setWorkTime_2(workTime_2);
                 vo.setName_1(s);
                 vo.setName_2(s1);
+                System.out.println(vo);
                 vos.add(vo);
             }
         }
