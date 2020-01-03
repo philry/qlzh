@@ -59,8 +59,8 @@ public class NettyDataHandler {
     private MachineUseDao machineUseDao;
 
 
-//    @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
-    @Scheduled(fixedRate = 30 * 60 * 1000)
+    @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
+//    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleData(){
 

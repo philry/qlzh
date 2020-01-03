@@ -75,5 +75,7 @@
         <mapping class="com.sy.entity.Work"/>
         <mapping resource="com/sy/entity/Xpg.hbm.xml"/>
         <mapping class="com.sy.entity.Xpg"/>
+        <mapping resource="com/sy/entity/Log.hbm.xml"/>
+        <mapping class="com.sy.entity.Log"/>
     </session-factory>
 </hibernate-configuration>
