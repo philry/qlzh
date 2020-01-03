@@ -110,7 +110,7 @@ public class NettyQuartz extends QuartzJobBean {
 						List<Energy> energyList = energyMapper.selectEnergyList();
 						Integer time = energyList.get(0).getTime();
 						Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time);
-						if ((last.getCreateTime().getTime()/1000/60-pre.getCreateTime().getTime()/1000/60)<=(time-1)) {
+						if ((System.currentTimeMillis()/1000/60-last.getCreateTime().getTime()/1000/60)<=2) {
 							String[] currents2 = pre.getCurrents().split(",");
 							boolean flag3 = true;
 							for (String s : currents2) {
