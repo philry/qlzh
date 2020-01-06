@@ -82,7 +82,7 @@ public class IndexController {
         int machineUseCounts = workDao.getMachineId(today).size();
 
         //用电量(调用工程查询接口)
-        List<EfficiencyStatisticsVo> efficiencyStatisticsVos = null;
+        List<EfficiencyStatisticsVo> efficiencyStatisticsVos = new ArrayList<>();
         try {
             efficiencyStatisticsVos = statisticsService.getAllData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
         } catch (Exception e) {
@@ -111,7 +111,8 @@ public class IndexController {
         }
 
         double totalPower = 0.0;
-        if(!efficiencyStatisticsVos.isEmpty()){
+        System.out.println(efficiencyStatisticsVos);
+        if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
                 totalPower += vo.getPower();
             }
@@ -149,7 +150,7 @@ public class IndexController {
             chartResult.add(vo);
         }
         //工效表(调用工效查询接口)
-        List<EngineeringVo> vos = null;
+        List<EngineeringVo> vos = new ArrayList<>();
         try {
              vos = engineeringService.getInitData(DateUtils.parseDate(today),DateUtils.parseDate(today));
         } catch (Exception e) {
