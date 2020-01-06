@@ -1,5 +1,6 @@
 package com.sy.quartz;
 
+import java.util.Date;
 import java.util.List;
 
 import org.quartz.JobExecutionContext;
@@ -110,7 +111,7 @@ public class NettyQuartz extends QuartzJobBean {
 						List<Energy> energyList = energyMapper.selectEnergyList();
 						Integer time = energyList.get(0).getTime();
 						Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time);
-						if ((System.currentTimeMillis()/1000/60-last.getCreateTime().getTime()/1000/60)<=2) {
+						if ((new Date().getTime()/1000/60-last.getCreateTime().getTime()/1000/60)<=2) {
 							String[] currents2 = pre.getCurrents().split(",");
 							boolean flag3 = true;
 							for (String s : currents2) {
