@@ -63,7 +63,6 @@ public class AppVo {
         AppVo appVo = (AppVo) o;
         return time == appVo.time &&
                 workTime == appVo.workTime &&
-                workNo.equals(appVo.workNo) &&
                 efficiency.equals(appVo.efficiency) &&
                 power.equals(appVo.power);
     }
@@ -71,5 +70,16 @@ public class AppVo {
     @Override
     public int hashCode() {
         return Objects.hash(workNo, time, workTime, efficiency, power);
+    }
+
+    @Override
+    public String toString() {
+        return "AppVo{" +
+                "workNo='" + workNo + '\'' +
+                ", time=" + time +
+                ", workTime=" + workTime +
+                ", efficiency='" + efficiency + '\'' +
+                ", power='" + power + '\'' +
+                '}';
     }
 }

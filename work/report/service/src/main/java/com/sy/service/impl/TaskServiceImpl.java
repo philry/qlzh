@@ -55,6 +55,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	@Transactional
 	public int insertTask(Task task) {
 		task.setCreateTime(new Timestamp(new Date().getTime()));
 		task.setUpdateTime(task.getCreateTime());
@@ -62,6 +63,7 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	@Transactional
 	public int deleteTaskById(Integer id) {
 		Task task = new Task();
 		task.setPid(id);

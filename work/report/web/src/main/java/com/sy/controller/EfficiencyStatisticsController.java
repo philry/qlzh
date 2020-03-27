@@ -70,7 +70,7 @@ public class EfficiencyStatisticsController {
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
         }
-
+        System.out.println(list);
         if(list==null){
             return JsonResult.buildFailure(404,"计算失败，稍后再试");
         }else {
@@ -80,11 +80,12 @@ public class EfficiencyStatisticsController {
                 Set<AppVo> appVos = new HashSet<>();
                 for (EfficiencyStatisticsVo vo : list) {
                     AppVo appVo = new AppVo();
-                    appVo.setWorkNo(taskDao.getWorkNoByName(vo.getSonName()));
+                    appVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));
                     appVo.setTime(vo.getTime());
                     appVo.setWorkTime(vo.getWorkTime());
                     appVo.setPower(String.valueOf(vo.getPower()));
                     appVo.setEfficiency(String.format("%.2f", (double)vo.getWorkTime()/vo.getTime()*100));
+                    System.out.println(appVo);
                     appVos.add(appVo);
                 }
                 return JsonResult.buildSuccess(200,appVos);
@@ -129,7 +130,7 @@ public class EfficiencyStatisticsController {
                 List<AppVo> appVos = new ArrayList<>();
                 for (EfficiencyStatisticsVo vo : list) {
                     AppVo appVo = new AppVo();
-                    appVo.setWorkNo(taskDao.getWorkNoByName(vo.getSonName()));
+                    appVo.setWorkNo(vo.getSonName());
                     appVo.setTime(vo.getSonTime());
                     appVo.setWorkTime(vo.getSonWorkTime());
                     appVo.setPower(String.valueOf(vo.getSonPower()));

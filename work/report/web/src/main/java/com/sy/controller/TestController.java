@@ -5,14 +5,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller
-@RequestMapping("/test")
+import java.util.Scanner;
+
+
 public class TestController {
 
-    @RequestMapping("/test01")
+
     public void getTest(){
 
-        System.out.println(123456);
+        Scanner sc = new Scanner(System.in);
+
+        int a = sc.nextInt();
+
+        
 
     }
 

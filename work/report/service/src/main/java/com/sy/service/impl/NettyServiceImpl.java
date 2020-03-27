@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -30,6 +31,7 @@ public class NettyServiceImpl implements NettyService {
 
 
     @Override
+    @Transactional
     public Netty insertData(Netty netty) {
 
         netty.setCreateTime(new Timestamp(new Date().getTime()));

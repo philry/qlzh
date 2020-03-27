@@ -8,7 +8,7 @@ public interface MachineService {
 
 	List<Machine> selectMachineList(Machine machine);
 
-	int insertMachine(Machine machine);
+	int insertMachine(Machine machine) throws Exception;
 
 	int updateMachine(Machine machine);
 

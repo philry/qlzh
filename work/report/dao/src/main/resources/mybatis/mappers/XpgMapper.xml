@@ -69,7 +69,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateXpg" parameterType="com.sy.entity.Xpg">
 		update xpg
 		<trim prefix="SET" suffixOverrides=",">
-			<if test="id != null and id!=0 ">id = #{id},</if>
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="machineId != null">machine_id = #{machineId},</if>
 			<if test="status != null and status !='' ">status = #{status},</if>

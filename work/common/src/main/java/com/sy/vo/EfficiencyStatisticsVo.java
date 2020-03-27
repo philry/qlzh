@@ -115,4 +115,19 @@ public class EfficiencyStatisticsVo {
     public int hashCode() {
         return Objects.hash(sonName, sonTime, sonWorkTime, sonPower, name, time, workTime, power, workNo);
     }
+
+    @Override
+    public String toString() {
+        return "EfficiencyStatisticsVo{" +
+                "sonName='" + sonName + '\'' +
+                ", sonTime=" + sonTime +
+                ", sonWorkTime=" + sonWorkTime +
+                ", sonPower=" + sonPower +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                ", workTime=" + workTime +
+                ", power=" + power +
+                ", workNo='" + workNo + '\'' +
+                '}';
+    }
 }

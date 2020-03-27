@@ -94,7 +94,11 @@ public class NettyQuartz extends QuartzJobBean {
 						e.printStackTrace();
 					}
 					machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
-					nettyServerHandler.controlMachine(xpg.getName(), false);
+					try {
+						nettyServerHandler.controlMachine(xpg.getName(), false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 					System.out.println(machineNow.getMachine().getId() + "号焊机已超限");
 				// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
 				} else {
@@ -142,7 +146,11 @@ public class NettyQuartz extends QuartzJobBean {
 									}
 									if (flag4) {
 										machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
-										nettyServerHandler.controlMachine(xpg.getName(), false);
+										try {
+											nettyServerHandler.controlMachine(xpg.getName(), false);
+										} catch (Exception e) {
+											e.printStackTrace();
+										}
 										System.out.println(machineNow.getMachine().getId() + "号焊机已自动关机");
 									}
 								}

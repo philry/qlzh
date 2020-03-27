@@ -18,6 +18,7 @@ import com.sy.entity.Dept;
 import com.sy.entity.Person;
 import com.sy.entity.Role;
 import com.sy.service.PersonService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -39,6 +40,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public int insertPerson(Person person) {
 		Person p = new Person();
 		p.setPhone(person.getPhone());
@@ -54,6 +56,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public int updatePerson(Person person) {
 		Person p = new Person();
 		p.setPhone(person.getPhone());
@@ -91,6 +94,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public int deletePersonById(Integer id) {
 		return personMapper.deletePersonById(id);
 	}
@@ -130,6 +134,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public int resetPasswordById(Integer id) {
 		Person person = new Person();
 		person.setId(id);
@@ -139,6 +144,7 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
+	@Transactional
 	public int updatePassword(Integer id, String password) {
 		Person person = new Person();
 		person.setId(id);

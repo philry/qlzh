@@ -1,6 +1,6 @@
 package com.sy.starter;
 
-import com.sy.constant.AppConstant;
+
 import com.sy.core.netty.tcp.NettyServer;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.CommandLineRunner;
@@ -10,7 +10,6 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 

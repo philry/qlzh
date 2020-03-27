@@ -77,5 +77,7 @@
         <mapping class="com.sy.entity.Xpg"/>
         <mapping resource="com/sy/entity/Log.hbm.xml"/>
         <mapping class="com.sy.entity.Log"/>
+        <mapping resource="com/sy/entity/CompanyInfo.hbm.xml"/>
+        <mapping class="com.sy.entity.CompanyInfo"/>
     </session-factory>
 </hibernate-configuration>

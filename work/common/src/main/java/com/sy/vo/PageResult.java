@@ -54,7 +54,7 @@ public class PageResult implements Serializable{
 	
 	public static PageResult getPageResult(List<?> list,Long total) {
 		PageResult pageResult = new PageResult();
-		if(list!=null&list.size()>0) {
+		if(list!=null&&list.size()>0) {
 			pageResult.setCode(HttpStatusConstant.SUCCESS);
 			pageResult.setRows(list);
 			if(total==null) {
@@ -70,13 +70,15 @@ public class PageResult implements Serializable{
 	
 	public static PageResult getPageResult(List<?> list) {
 		PageResult pageResult = new PageResult();
-		if(list!=null&list.size()>0) {
-			pageResult.setCode(HttpStatusConstant.SUCCESS);
-			pageResult.setRows(list);
-			pageResult.setTotal(list.size());
-		}else {
+		if(list==null){
 			pageResult.setMsg("暂无查询结果");
 			pageResult.setCode(HttpStatusConstant.FAIL);
+		}else {
+			if(list.size()>0){
+				pageResult.setCode(HttpStatusConstant.SUCCESS);
+				pageResult.setRows(list);
+				pageResult.setTotal(list.size());
+			}
 		}
 		return pageResult;
 	}

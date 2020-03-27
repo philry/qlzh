@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sy.dao.MachineTypeMapper;
 import com.sy.entity.MachineType;
 import com.sy.service.MachineTypeService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MachineTypeServiceImpl implements MachineTypeService {
@@ -21,16 +22,19 @@ public class MachineTypeServiceImpl implements MachineTypeService {
 	}
 
 	@Override
+	@Transactional
 	public int insertMachineType(MachineType machineType) {
 		return machineTypeMapper.insertMachineType(machineType);
 	}
 
 	@Override
+	@Transactional
 	public int updateMachineType(MachineType machineType) {
 		return machineTypeMapper.updateMachineType(machineType);
 	}
 
 	@Override
+	@Transactional
 	public int deleteMachineTypeById(Integer id) {
 		return machineTypeMapper.deleteMachineTypeById(id);
 	}

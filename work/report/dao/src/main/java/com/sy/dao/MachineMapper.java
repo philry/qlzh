@@ -1,6 +1,7 @@
 package com.sy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sy.entity.Machine;
 
@@ -18,4 +19,5 @@ public interface MachineMapper {
 	
 	Machine selectMachineByXpgId(Integer xpgId);
 
+	Machine selectLastMachine();
 }

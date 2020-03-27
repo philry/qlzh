@@ -14,6 +14,7 @@ import com.sy.entity.Machine;
 import com.sy.entity.MachineType;
 import com.sy.entity.Xpg;
 import com.sy.service.MachineService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class MachineServiceImpl implements MachineService{
@@ -38,20 +39,31 @@ public class MachineServiceImpl implements MachineService{
 	}
 
 	@Override
-	public int insertMachine(Machine machine) {
-		Xpg xpg = new Xpg();
-		xpg.setId(machine.getXpgId());
-		xpg.setMachineId(machine.getId());
-		xpgMapper.updateXpg(xpg);
-		return machineMapper.insertMachine(machine);
+	@Transactional
+	public int insertMachine(Machine machine) throws Exception {
+		Machine machine1 = machineMapper.selectMachineByXpgId(machine.getXpgId());
+		if(machine1!=null){
+			throw new Exception("该注册码已绑定其他焊机,请优先取消绑定或者修改注册码");
+		}
+		if(machineMapper.insertMachine(machine)>=0){
+			Xpg xpg = new Xpg();
+			xpg.setId(machine.getXpgId());
+			xpg.setMachineId(machine.getId());
+			xpgMapper.updateXpg(xpg);
+		}else {
+			return 0;
+		}
+		return 1;
 	}
 
 	@Override
+	@Transactional
 	public int updateMachine(Machine machine) {
 		return machineMapper.updateMachine(machine);
 	}
 
 	@Override
+	@Transactional
 	public int removeMachineById(Integer id) {
 		return machineMapper.deleteMachineById(id);
 	}

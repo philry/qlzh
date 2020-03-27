@@ -46,12 +46,12 @@ public class WorkController {
     }
 
     @RequestMapping(value = "startWork",method = RequestMethod.POST)
-    public JsonResult startWork(Integer personId, Integer taskId, Integer machineId){
-
+    public JsonResult startWork(Integer personId, Integer taskId, String machineId){
         try {
-            workService.startWork(personId,taskId,machineId);
-            Machine machine = machineDao.getById(machineId);
+            int machineIndex = Integer.parseInt(machineId);
+            Machine machine = machineDao.getById(machineIndex);
             nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+            workService.startWork(personId,taskId,machineIndex);
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
@@ -61,12 +61,12 @@ public class WorkController {
     }
 
     @RequestMapping(value = "endWork",method = RequestMethod.POST)
-    public JsonResult endWork(Integer personId, Integer taskId, Integer machineId){
-
+    public JsonResult endWork(Integer personId, Integer taskId, String machineId){
         try {
-            workService.endWork(personId,taskId,machineId);
-            Machine machine = machineDao.getById(machineId);
+            int machineIndex = Integer.parseInt(machineId);
+            Machine machine = machineDao.getById(machineIndex);
             nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+            workService.endWork(personId,taskId,machineIndex);
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());

@@ -128,7 +128,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		}
 
-		// 对时命令
+		// 对时命令 由于会有解析失败的问题,所以暂时直接标准回复即可
 		if (isrReg4gStr.equals("7b7b93")) {
 //			Calendar calendar = Calendar.getInstance();
 //			int year = calendar.get(Calendar.YEAR);
@@ -286,6 +286,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		return Double.parseDouble(s.substring(0,s.length()-2)+"."+s.substring(s.length()-2,s.length()));
 	}
 
+	// 一般在系统自动回复中进行使用
 	private void writeToClient(final String receiveStr, ChannelHandlerContext channel) {
 		try {
 			ByteBuf bufff = Unpooled.buffer();// netty需要用ByteBuf传输
@@ -306,6 +307,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 	}
 
+	//一般在用户手动回复或者透传指令时进行使用
 	private void writeToClient(final String receiveStr, Channel channel) {
 		try {
 			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输
@@ -345,7 +347,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		return hex16;
 	}
 
-	public void controlMachine(String xpg,boolean isOpen){
+	public void controlMachine(String xpg,boolean isOpen) throws Exception {
 
 		String hex16 = "01100057000204000100";
 
@@ -369,6 +371,14 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		hex16 = "7b7b"+hex16+modbusCrc16+"7d7d";
 
 		Channel ctx = ClientChannel.getChannel(xpg);
+
+		if(ctx==null){
+			throw new Exception("连接尚未建立,请稍后再试");
+		}
+
+		if(!ctx.isActive()){
+			throw new Exception("连接尚未建立,请稍后再试");
+		}
 
 		writeToClient(hex16,ctx);
 	}

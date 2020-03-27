@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="be2979ed-4ba8-48e3-a041-33ecc937e3c9" name="Default Changelist" comment="" />
+    <list default="true" id="be2979ed-4ba8-48e3-a041-33ecc937e3c9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/AppVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/AppVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EfficiencyStatisticsVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EfficiencyStatisticsVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/XpgDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/XpgDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WorkController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WorkController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,16 +101,18 @@
       <updated>1576128895387</updated>
       <workItem from="1576128897225" duration="20000" />
       <workItem from="1576562362829" duration="15000" />
+      <workItem from="1578290423316" duration="15000" />
+      <workItem from="1578615966885" duration="6000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35000" />
+    <option name="totallyTimeSpent" value="56000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17963752" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18283582" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />

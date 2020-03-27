@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -31,8 +32,6 @@ public class EngineeringServiceImpl implements EngineeringService {
 
     @Override
     public List<EngineeringVo> getInitData(Date beginTime, Date endTime) {
-        System.out.println(beginTime);
-        System.out.println(endTime);
         List<Engineering> list = getData(0,beginTime,endTime);
         for (Engineering engineering : list) {
             int pid = engineering.getId();
@@ -54,11 +53,13 @@ public class EngineeringServiceImpl implements EngineeringService {
         //定义总公司数据
         int time = 0;
         int workTime = 0;
+        BigDecimal power = new BigDecimal("0");
         Set<String> set = new HashSet<>();
         Map<String,List<Engineering>> map = new HashMap<>();
         for (Engineering engineering : list) {
             time += engineering.getTime();
             workTime += engineering.getWorkingTime();
+            power = power.add(new BigDecimal(engineering.getPower()));
             for (Engineering engineering1 : engineering.getSonLsit()) {
                 String name = engineering1.getName();
                 set.add(name);
@@ -75,9 +76,11 @@ public class EngineeringServiceImpl implements EngineeringService {
         for (String s : set) {
             int time_1 = 0;
             int workTime_1 = 0;
+            BigDecimal power_1 = new BigDecimal("0");
             for (Engineering engineering : map.get(s)) {
                 time_1 += engineering.getTime();
                 workTime_1 += engineering.getWorkingTime();
+                power_1 = power_1.add(new BigDecimal(engineering.getPower()));
             }
             Set<String> set1 = new HashSet<>();
             Map<String,List<Engineering>> map1 = new HashMap<>();
@@ -101,20 +104,25 @@ public class EngineeringServiceImpl implements EngineeringService {
             for (String s1 : set1) {
                 int time_2 = 0 ;
                 int workTime_2 = 0;
+                BigDecimal power_2 = new BigDecimal("0");
                 for (Engineering engineering : map1.get(s1)) {
                     time_2 += engineering.getTime();
                     workTime_2 += engineering.getWorkingTime();
+                    power_2 = power_2.add(new BigDecimal(engineering.getPower()));
+
                 }
                 EngineeringVo vo = new EngineeringVo();
                 vo.setTime(time);
                 vo.setWorkTime(workTime);
+                vo.setPower(String.valueOf(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 vo.setTime_1(time_1);
                 vo.setTime_2(time_2);
+                vo.setPower_1(String.valueOf(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 vo.setWorkTime_1(workTime_1);
                 vo.setWorkTime_2(workTime_2);
+                vo.setPower_2(String.valueOf(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
                 vo.setName_1(s);
                 vo.setName_2(s1);
-                System.out.println(vo);
                 vos.add(vo);
             }
         }

@@ -7,4 +7,6 @@ public interface XpgDao extends JpaRepository<Xpg,Integer> {
 
     Xpg getByName(String name);
 
+
+
 }

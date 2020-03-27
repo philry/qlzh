@@ -5,6 +5,7 @@ import com.sy.entity.Engineering;
 import com.sy.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -34,6 +35,7 @@ public class SystemServiceImpl implements SystemService {
     private DataManageDao dataManageDao;
 
     @Override
+    @Transactional
     public void resetData() {
 
         efficiencyStatisticsDao.deleteAll();

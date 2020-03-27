@@ -6,17 +6,47 @@ public class EngineeringVo {
 
     private int time;
 
+    private String power;
+
     private String name_1;
 
     private int workTime_1;
 
     private int time_1;
 
+    private String power_1;
+
     private String name_2;
 
     private int workTime_2;
 
     private int time_2;
+
+    private String power_2;
+
+    public String getPower() {
+        return power;
+    }
+
+    public void setPower(String power) {
+        this.power = power;
+    }
+
+    public String getPower_1() {
+        return power_1;
+    }
+
+    public void setPower_1(String power_1) {
+        this.power_1 = power_1;
+    }
+
+    public String getPower_2() {
+        return power_2;
+    }
+
+    public void setPower_2(String power_2) {
+        this.power_2 = power_2;
+    }
 
     public int getWorkTime() {
         return workTime;
@@ -87,12 +117,15 @@ public class EngineeringVo {
         return "EngineeringVo{" +
                 "workTime=" + workTime +
                 ", time=" + time +
+                ", power='" + power + '\'' +
                 ", name_1='" + name_1 + '\'' +
                 ", workTime_1=" + workTime_1 +
                 ", time_1=" + time_1 +
+                ", power_1='" + power_1 + '\'' +
                 ", name_2='" + name_2 + '\'' +
                 ", workTime_2=" + workTime_2 +
                 ", time_2=" + time_2 +
+                ", power_2='" + power_2 + '\'' +
                 '}';
     }
 }

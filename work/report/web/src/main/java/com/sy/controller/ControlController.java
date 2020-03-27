@@ -17,17 +17,27 @@ public class ControlController {
     private NettyServerHandler nettyServerHandler;
 
     @RequestMapping(value = "open",method = RequestMethod.POST)
-    public JsonResult openMachine(){
+        public JsonResult openMachine(String xpg){
 
-        nettyServerHandler.controlMachine("11911273590002",true);
+        try {
+            nettyServerHandler.controlMachine(xpg,true);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.buildFailure(404,e.getMessage());
+        }
 
         return JsonResult.buildSuccess(200,"操作成功");
     }
 
     @RequestMapping(value = "close",method = RequestMethod.POST)
-    public JsonResult closeMachine(){
+    public JsonResult closeMachine(String xpg){
 
-        nettyServerHandler.controlMachine("11911273590002",false);
+        try {
+            nettyServerHandler.controlMachine(xpg,false);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.buildFailure(404,e.getMessage());
+        }
 
         return JsonResult.buildSuccess(200,"操作成功");
     }

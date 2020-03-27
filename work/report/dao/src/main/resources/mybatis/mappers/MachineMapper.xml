@@ -112,5 +112,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteMachineById" parameterType="Integer">
 		delete from machine where id=#{id}
 	</delete>
+
+	<select id="selectLastMachine" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		where id in (select max(id) from machine)
+	</select>
 	
 </mapper>

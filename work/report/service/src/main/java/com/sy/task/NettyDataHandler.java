@@ -69,7 +69,6 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
-        day = "2019-12-27";
         //删除指定日期的输出
         deleteDate(day);
         //插入数据

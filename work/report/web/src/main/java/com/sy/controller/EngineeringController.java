@@ -67,6 +67,7 @@ public class EngineeringController {
 					engineeringResult.setName(e.getName_1());
 					engineeringResult.setWorkTime(e.getWorkTime_1());
 					engineeringResult.setTime(e.getTime_1());
+					engineeringResult.setPower(e.getPower_1());
 					BigDecimal workTime = new BigDecimal(e.getWorkTime_1());
 					BigDecimal time = new BigDecimal(e.getTime_1());
 					BigDecimal divide = workTime.divide(time,4,RoundingMode.HALF_UP);
@@ -116,6 +117,7 @@ public class EngineeringController {
 					engineeringResult.setpName(e.getName_1());
 					engineeringResult.setName(e.getName_2());
 					engineeringResult.setTime(e.getTime_2());
+					engineeringResult.setPower(e.getPower_2());
 					engineeringResult.setWorkTime(e.getWorkTime_2());
 					// 计算工效
 					BigDecimal workTime = new BigDecimal(e.getWorkTime_2());

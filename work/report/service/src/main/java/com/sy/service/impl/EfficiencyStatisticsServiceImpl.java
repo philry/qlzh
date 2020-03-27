@@ -52,7 +52,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         }
 
-        if(taskName!=""){
+        if(!"".equals(taskName)&&taskName!=null){
             if(!taskNames.contains(taskName)){
                 throw new Exception("查询的项目不存在/当日该项目并未施工");
             }

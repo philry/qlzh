@@ -14,6 +14,7 @@ import com.sy.dao.RoleAuthorityMapper;
 import com.sy.entity.Authority;
 import com.sy.entity.RoleAuthority;
 import com.sy.service.RoleAuthorityService;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RoleAuthorityImpl implements RoleAuthorityService{
@@ -25,11 +26,13 @@ public class RoleAuthorityImpl implements RoleAuthorityService{
 	private AuthorityMapper authorityMapper;
 
 	@Override
+	@Transactional
 	public int deleteRoleAuthorityByRoleId(Integer roleId) {
 		return roleAuthorityMapper.deleteRoleAuthorityByRoleId(roleId);
 	}
 
 	@Override
+	@Transactional
 	public int insertRoleAuthority(RoleAuthority roleAuthority) {
 		return roleAuthorityMapper.insertRoleAuthority(roleAuthority);
 	}
@@ -106,6 +109,7 @@ public class RoleAuthorityImpl implements RoleAuthorityService{
 	}
 
 	@Override
+	@Transactional
 	public int insertRoleAuthoritys(Integer roleId, List<Authority> list) {
 		RoleAuthority roleAuthority = new RoleAuthority();		
 		roleAuthority.setRoleId(roleId);
@@ -147,6 +151,7 @@ public class RoleAuthorityImpl implements RoleAuthorityService{
 	}
 
 	@Override
+	@Transactional
 	public int deletePcRoleAuthorityByRoleId(Integer roleId) {
 		int rows=0;
 		List<RoleAuthority> list = roleAuthorityMapper.selectRoleAuthorityListByRoleId(roleId);

@@ -3,10 +3,7 @@ package com.sy.vo;
 import java.io.Serializable;
 
 public class EngineeringResult implements Serializable{
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 3262781987325948181L;
 
 	private String name;
@@ -18,6 +15,8 @@ public class EngineeringResult implements Serializable{
 	private Integer workTime;
 	
 	private Integer time;
+
+	private String power;
 	
 	private Double efficiency;
 
@@ -59,6 +58,14 @@ public class EngineeringResult implements Serializable{
 
 	public void setTime(Integer time) {
 		this.time = time;
+	}
+
+	public String getPower() {
+		return power;
+	}
+
+	public void setPower(String power) {
+		this.power = power;
 	}
 
 	public Double getEfficiency() {

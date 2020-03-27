@@ -38,7 +38,12 @@ public class MachineController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public JsonResult add(Machine machine) {
-		return JsonResult.getJson(machineService.insertMachine(machine));
+		try {
+			return JsonResult.getJson(machineService.insertMachine(machine));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonResult.buildFailure(404,e.getMessage());
+		}
 	}
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)

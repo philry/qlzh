@@ -33,6 +33,7 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
+	@Transactional
 	public int insertDept(Dept dept) {
 		Dept dept2 = new Dept();
 		dept2.setName(dept.getName());
@@ -52,6 +53,7 @@ public class DeptServiceImpl implements DeptService {
 	}
 
 	@Override
+	@Transactional
 	public int updateDept(Dept dept) {
 		Dept dept2 = new Dept();
 		dept2.setName(dept.getName());
