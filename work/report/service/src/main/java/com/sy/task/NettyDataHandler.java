@@ -76,6 +76,7 @@ public class NettyDataHandler {
     }
 
     @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+//    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData(){
 
@@ -142,17 +143,16 @@ public class NettyDataHandler {
             BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList.get(a-1).getPower()));
 
             BigDecimal iTotal = iWorking.add(iNoloading);
-
             BigDecimal workingPower = new BigDecimal("0");
 
             BigDecimal noloadingPower = new BigDecimal("0");
 
             try {
-                workingPower = power.multiply(iWorking.divide(iTotal));
-
+                workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
                 noloadingPower = power.subtract(workingPower);
             }catch (Exception e){
                 e.printStackTrace();
+                workingPower = power;
             }
 
             data.setWork(work);

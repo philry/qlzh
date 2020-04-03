@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.ProcessDetailMapper">
+    
+    <resultMap type="com.sy.entity.ProcessDetail" id="ProcessDetailResult">
+        <result property="id"    column="id"    />
+        <result property="tableType"    column="table_type"    />
+        <result property="role"    column="role"    />
+        <result property="people"    column="people"    />
+        <result property="	operation"    column="	operation"    />
+        <result property="content"    column="content"    />
+        <result property="stepLevel"    column="step_level"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectProcessDetailVo">
+        select id, table_type, role, people, operation,content, step_level, status, create_time, update_time, remark from process_detail
+    </sql>
+
+    <select id="selectProcessDetailList" parameterType="com.sy.entity.ProcessDetail" resultMap="ProcessDetailResult">
+        <include refid="selectProcessDetailVo"/>
+        <where>  
+            <if test="tableType != null  and tableType != ''"> and table_type = #{tableType}</if>
+            <if test="role != null  and role != ''"> and role = #{role}</if>
+            <if test="people != null  and people != ''"> and people = #{people}</if>
+            <if test="	operation != null  and operation != ''"> and 	operation = #{	operation}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="stepLevel != null  and stepLevel != ''"> and step_level = #{stepLevel}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectProcessDetailById" parameterType="Long" resultMap="ProcessDetailResult">
+        <include refid="selectProcessDetailVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProcessDetail" parameterType="com.sy.entity.ProcessDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into process_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">table_type,</if>
+            <if test="role != null  and role != ''">role,</if>
+            <if test="people != null  and people != ''">people,</if>
+            <if test="	operation != null  and 	operation != ''">operation,</if>
+            <if test="content != null  and content != ''">content,</if>
+            <if test="stepLevel != null  and stepLevel != ''">step_level,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createTime == null ">create_time,</if>
+            <if test="updateTime == null ">update_time,</if>
+            <if test="remark != null  and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">#{tableType},</if>
+            <if test="role != null  and role != ''">#{role},</if>
+            <if test="people != null  and people != ''">#{people},</if>
+            <if test="	operation != null  and 	operation != ''">#{	operation},</if>
+            <if test="content != null  and content != ''">#{content},</if>
+            <if test="stepLevel != null  and stepLevel != ''">#{stepLevel},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="createTime == null ">now(),</if>
+            <if test="updateTime == null ">now(),</if>
+            <if test="remark != null  and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProcessDetail" parameterType="com.sy.entity.ProcessDetail">
+        update process_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">table_type = #{tableType},</if>
+            <if test="role != null  and role != ''">role = #{role},</if>
+            <if test="people != null  and people != ''">people = #{people},</if>
+            <if test="	operation != null  and 	operation != ''">operation = #{operation},</if>
+            <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="stepLevel != null  and stepLevel != ''">step_level = #{stepLevel},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="updateTime != null ">update_time = now(),</if>
+            <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProcessDetailById" parameterType="Long">
+        delete from process_detail where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessDetailByIds" parameterType="String">
+        delete from process_detail where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectTableType" parameterType="string" resultType="_int">
+        select count(*) from process_detail where `table_type` = #{tableType}
+    </select>
+
+    <select id="selectDetailsByRemarkAndType" resultMap="ProcessDetailResult">
+        <include refid="selectProcessDetailVo"/>
+        where remark = #{remark} and `table_type` = #{tableType};
+    </select>
+
+</mapper>

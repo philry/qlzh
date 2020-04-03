@@ -161,7 +161,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
 
-			if(receiveStr.length()==1024){
+			if(receiveStr.length()>0){
 				Netty netty = new Netty();
 				netty.setCreateTime(new Timestamp(new Date().getTime()));
 
