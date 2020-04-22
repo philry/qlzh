@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Objects;
 
 @Entity
-@Table(name = "machine_use", schema = "qlzh", catalog = "")
+@Table(name = "machine_use", schema = "qlzh2", catalog = "")
 public class MachineUse {
     private int id;
     private Integer machineId;

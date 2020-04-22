@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "data_manage", schema = "qlzh", catalog = "")
+@Table(name = "data_manage", schema = "qlzh2", catalog = "")
 public class DataManage {
     private int id;
 //    private Integer workId;

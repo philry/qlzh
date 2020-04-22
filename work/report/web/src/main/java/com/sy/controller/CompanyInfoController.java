@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("company")
+@RequestMapping("/company")
 public class CompanyInfoController {
 
 

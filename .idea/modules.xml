@@ -2,7 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/work/common/common.iml" filepath="$PROJECT_DIR$/work/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/report/dao/dao.iml" filepath="$PROJECT_DIR$/work/report/dao/dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/report/interface/interface.iml" filepath="$PROJECT_DIR$/work/report/interface/interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/ql.iml" filepath="$PROJECT_DIR$/work/ql.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/qlzh.iml" filepath="$PROJECT_DIR$/.idea/qlzh.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/report/report.iml" filepath="$PROJECT_DIR$/work/report/report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/report/service/service.iml" filepath="$PROJECT_DIR$/work/report/service/service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/work/report/web/web.iml" filepath="$PROJECT_DIR$/work/report/web/web.iml" />
     </modules>
   </component>
 </project>

@@ -70,9 +70,9 @@ public class NettyDataHandler {
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
         //删除指定日期的输出
-        deleteDate(day);
+        deleteDate("2020-04-17");
         //插入数据
-        insertData(day);
+        insertData("2020-04-17");
     }
 
     @Scheduled(cron = "0 */5 * * * ?") // 5分钟
@@ -85,9 +85,9 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate(today);
+        deleteDate("2020-04-18");
         //插入数据
-        insertData(today);
+        insertData("2020-04-18");
     }
 
     private void insertData(String day) {
@@ -140,6 +140,7 @@ public class NettyDataHandler {
             }
 
 
+            //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
             BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList.get(a-1).getPower()));
 
             BigDecimal iTotal = iWorking.add(iNoloading);
@@ -148,15 +149,16 @@ public class NettyDataHandler {
             BigDecimal noloadingPower = new BigDecimal("0");
 
             try {
+                //workingPower = power*（iWorking/iTotal 结果保留2位小数，结果采用四舍五入方式）
                 workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
-                noloadingPower = power.subtract(workingPower);
+                noloadingPower = power.subtract(workingPower);//noloadingPower= power-workingPower
             }catch (Exception e){
                 e.printStackTrace();
                 workingPower = power;
             }
 
             data.setWork(work);
-            data.setNoloadingPower(noloadingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+            data.setNoloadingPower(noloadingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
             data.setWorkingPower(workingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             data.setWorkingTime(workingTime);
             data.setNoloadingTime(noloadingTime);

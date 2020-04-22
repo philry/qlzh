@@ -21,6 +21,6 @@ public interface DeptDao extends JpaRepository<Dept,Integer> {
     List<Integer> getIdByPid(int pid);
 
     @Query(value = "select leader from dept where id = ?1",nativeQuery = true)
-    int getLeaderById(int id);
+    Integer getLeaderById(int id);
 
 }

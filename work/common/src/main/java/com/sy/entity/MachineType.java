@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "machine_type", schema = "qlzh", catalog = "")
+@Table(name = "machine_type", schema = "qlzh2", catalog = "")
 public class MachineType {
     private int id;
     private String name;

@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "message_data", schema = "qlzh", catalog = "")
+@Table(name = "message_data", schema = "qlzh2", catalog = "")
 public class MessageData {
     private int id;
     private Integer sendId;

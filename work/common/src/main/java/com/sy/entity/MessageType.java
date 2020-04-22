@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "message_type", schema = "qlzh", catalog = "")
+@Table(name = "message_type", schema = "qlzh2", catalog = "")
 public class MessageType {
     private int id;
     private String typeName;

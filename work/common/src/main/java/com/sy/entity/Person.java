@@ -21,7 +21,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "person", schema = "qlzh", catalog = "")
+@Table(name = "person", schema = "qlzh2", catalog = "")
 public class Person {
     private int id;
 
