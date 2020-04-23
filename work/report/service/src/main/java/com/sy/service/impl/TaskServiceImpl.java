@@ -80,11 +80,48 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
+	public int stopTaskById(Integer id) {
+		Task d2 = new Task();
+		List<Task> sTasks = new ArrayList<>();
+		Task d = taskMapper.selectTaskById(id);
+		d2.setPid(id);
+		sTasks = taskMapper.selectTaskList(d2);
+		if(sTasks!=null&sTasks.size()>0) {
+			for (Task task : sTasks) {
+				d2.setPid(task.getId());
+				List<Task> sTasks2 = taskMapper.selectTaskList(d);
+				if(sTasks2!=null&sTasks2.size()>0) {
+					for (Task task2 : sTasks2) {
+						d2.setPid(task2.getId());
+						List<Task> sTasks3 = taskMapper.selectTaskList(d);
+						if(sTasks3!=null&&sTasks3.size()>0) {
+							for(Task task3 : sTasks3){
+								task3.setStatus("2");
+								taskMapper.updateTask(task3);
+								}
+						//	task2.setsTasks(sTasks3);
+							}
+						task2.setStatus("2");
+						taskMapper.updateTask(task2);
+						}
+				//	task.setsTasks(sTasks2);
+					}
+				task.setStatus("2");   //task的status字段为2表示任务停止
+				taskMapper.updateTask(task);
+				}
+		//	d.setsTasks(sTasks);
+			}
+		d.setStatus("2");
+		return taskMapper.updateTask(d);
+	}
+
+	@Override
+	@Transactional
 	public int insertSonTask(Task task, Integer pid) {
 		Task fTask = taskMapper.selectTaskById(pid);
 		Dept dept = deptMapper.selectDeptById(fTask.getDeptId());
 		if(dept!=null) {
-			if(dept.getLevel()==3)
+			if(dept.getLevel()==4)
 				throw new RuntimeException("不能再添加下级派工单了");
 		}
 		if ("1".equals(fTask.getCheckingStatus())) {
@@ -111,7 +148,7 @@ public class TaskServiceImpl implements TaskService {
 		Task pTask = taskMapper.selectTaskById(id);
 		// 判断是否是最下级的部门,不是则不能分解
 		Dept dept = deptMapper.selectDeptById(pTask.getDeptId());
-		if(dept.getLevel()!=3) {
+		if(dept.getLevel()!=4) {
 			throw new RuntimeException("该派工单不能被分解");
 		}
 		// 判断派工单是否审核,未审核不能分解
@@ -173,11 +210,11 @@ public class TaskServiceImpl implements TaskService {
 		}else {
 			Dept dept = deptMapper.selectDeptById(task.getDeptId());
 			if(type==1) {
-				if(dept.getLevel()==3) {
+				if(dept.getLevel()==4) {
 					throw new RuntimeException("不能再新建下级派工单了");
 				}
 			}else {
-				if(dept.getLevel()!=3) {
+				if(dept.getLevel()!=4) {
 					throw new RuntimeException("该派工单不能被分解");
 				}
 			}
