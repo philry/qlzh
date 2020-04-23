@@ -123,6 +123,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             PersonEfficiency personEfficiency = new PersonEfficiency();
             int time = 0 ;
             int work_time = 0 ;
+            int noloading_time = 0;
             int overCounts = 0;
             BigDecimal wPower = new BigDecimal("0");
             BigDecimal nPower = new BigDecimal("0");
@@ -130,6 +131,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
                 time += dataManage.getNoloadingTime();
                 time += dataManage.getWorkingTime();
                 work_time += dataManage.getWorkingTime();
+                noloading_time = time - work_time;
                 wPower = wPower.add(new BigDecimal(dataManage.getWorkingPower()));
                 nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
                 overCounts += Integer.parseInt(dataManage.getRemark());
@@ -140,6 +142,7 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
             personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
             personEfficiency.setTime(time);
+            personEfficiency.setNoloadingTime(noloading_time);
             personEfficiency.setWorkingTime(work_time);
             personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
             personEfficiency.setRemark(String.valueOf(set));
