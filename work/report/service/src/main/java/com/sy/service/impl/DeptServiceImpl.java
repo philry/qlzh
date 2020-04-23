@@ -111,7 +111,7 @@ public class DeptServiceImpl implements DeptService {
 		if(pDept!=null) {
 			dept.setpDept(pDept);
 		}
-		Dept dept2 = new Dept();
+		/*Dept dept2 = new Dept();
 		dept2.setPid(dept.getId());
 		List<Dept> sDepts = deptMapper.selectDeptList(dept2);
 		if(sDepts!=null) {
@@ -123,6 +123,33 @@ public class DeptServiceImpl implements DeptService {
 					dept3.setsDepts(ssDepts);
 				}
 			}
+			dept.setsDepts(sDepts);
+		}*/
+		Dept d = new Dept();
+		List<Dept> sDepts = new ArrayList<>();
+		d.setPid(dept.getId());
+		List<Dept> sDepts2 = deptMapper.selectDeptList(d);
+		if(sDepts2!=null&sDepts2.size()>0) {
+			dept.setsDepts(sDepts2);
+			for (Dept dept2 : sDepts2) {
+				d.setPid(dept2.getId());
+				List<Dept> sDepts3 = deptMapper.selectDeptList(d);
+				if(sDepts3!=null&&sDepts3.size()>0) {
+					dept2.setsDepts(sDepts3);
+					for(Dept dept3 : sDepts3){
+						d.setPid(dept3.getId());
+						List<Dept> sDepts4 = deptMapper.selectDeptList(d);
+						if(sDepts4!=null){
+							dept3.setsDepts(sDepts4);
+						}else{
+							dept3.setsDepts(sDepts);
+						}
+					}
+				}else{
+					dept2.setsDepts(sDepts);
+				}
+			}
+		}else {
 			dept.setsDepts(sDepts);
 		}
 	}
@@ -148,8 +175,19 @@ public class DeptServiceImpl implements DeptService {
 					for (Dept dept2 : sDepts2) {
 						d.setPid(dept2.getId());
 						List<Dept> sDepts3 = deptMapper.selectDeptList(d);
-						if(sDepts3!=null) {
+						if(sDepts3!=null&&sDepts3.size()>0) {
 							dept2.setsDepts(sDepts3);
+							for(Dept dept3 : sDepts3){
+								d.setPid(dept3.getId());
+								List<Dept> sDepts4 = deptMapper.selectDeptList(d);
+								if(sDepts4!=null){
+									dept3.setsDepts(sDepts4);
+								}else{
+									dept3.setsDepts(sDepts);
+								}
+							}
+						}else{
+							dept2.setsDepts(sDepts);
 						}
 					}
 				}else {
