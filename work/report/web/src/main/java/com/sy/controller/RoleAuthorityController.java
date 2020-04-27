@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import com.sy.constant.HttpStatusConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,5 +47,14 @@ public class RoleAuthorityController {
 //			}
 //		}
 		return JsonResult.getJson(rows);
+	}
+
+	@RequestMapping(value = "/selectRoleAuthority/{roleId}", method = RequestMethod.POST)
+	public JsonResult selectRoleAuthority(@PathVariable("roleId")Integer roleId) {
+		try {
+			return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, roleAuthorityService.selectRoleAuthorityListByRoleId(roleId));
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
 	}
 }

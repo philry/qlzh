@@ -15,6 +15,10 @@ public interface TaskService {
 
 	int deleteTaskById(Integer id);
 
+	int stopTaskById(Integer id);
+
+	int endTaskById(Integer id);
+
 	int insertSonTask(Task task, Integer pid);
 
 	int splitTask(Task task, Integer id, String personIds);

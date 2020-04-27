@@ -6,6 +6,7 @@ import com.sy.dao.MessageTypeDao;
 import com.sy.entity.Machine;
 import com.sy.entity.MessageData;
 import com.sy.entity.MessageType;
+import com.sy.entity.Task;
 import com.sy.service.MessageDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -74,4 +75,33 @@ public class MessageDataServiceImpl implements MessageDataService {
 		}
 		return messageDataDao.updateStatus(id, status);
 	}
+
+    @Override
+    public void sendMessageToPersonsByTask(Task task) {
+        Integer person = task.getPersonId();
+        Integer checker = task.getChecker();
+
+        MessageData messageData = new MessageData();
+        MessageType messageType = new MessageType(3);
+
+        messageData.setAccpetId(person);
+        messageData.setMessageType(messageType);
+        switch(task.getStatus()){
+            case "2" :messageData.setContext(task.getProjectName()+"任务已终止");break;
+            case "3" :messageData.setContext(task.getProjectName()+"任务已完工");break;
+            default: break;
+        }
+
+        messageData.setCreateTime(new Timestamp(new Date().getTime()));
+        messageData.setUpdateTime(new java.sql.Date(new Date().getTime()));
+        messageData.setStatus("0");
+        if(person !=null) {
+            messageDataDao.save(messageData);
+        }
+        if(checker!=null){
+            messageData.setAccpetId(checker);
+            messageDataDao.save(messageData);
+        }
+
+    }
 }

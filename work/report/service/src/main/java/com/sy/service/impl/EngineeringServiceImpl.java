@@ -32,17 +32,24 @@ public class EngineeringServiceImpl implements EngineeringService {
 
     @Override
     public List<EngineeringVo> getInitData(Date beginTime, Date endTime) {
-        List<Engineering> list = getData(0,beginTime,endTime);
-        for (Engineering engineering : list) {
+        List<Engineering> list = getData(0,beginTime,endTime);//pid为0生产部级
+        for (Engineering engineering : list) { //对
             int pid = engineering.getId();
 
-            List<Engineering> sonList = getData(pid,beginTime,endTime);
+            List<Engineering> sonList = getData(pid,beginTime,endTime);//车间级
 
             for (Engineering engineering1 : sonList) {
 
                 int pid1 = engineering1.getId();
+                List<Engineering> sonList1 = getData(pid1,beginTime,endTime);//工程队级
 
-                engineering1.setSonLsit(getData(pid1,beginTime,endTime));
+                for(Engineering engineering2 : sonList1){
+                    int pid2 = engineering2.getId();
+                    engineering2.setSonLsit(getData(pid2,beginTime,endTime));//班组级
+                }
+
+                engineering1.setSonLsit(sonList1);
+
             }
 
             engineering.setSonLsit(sonList);

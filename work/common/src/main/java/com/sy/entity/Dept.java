@@ -32,6 +32,8 @@ public class Dept {
     private Dept pDept;
     private Integer leader;
     private Person person;
+    private String flag;
+    private Integer operator;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
@@ -117,6 +119,17 @@ public class Dept {
     }
 
     @Basic
+    @Column(name = "flag")
+    public String getFlag() { return flag; }
+
+    public void setFlag(String flag) { this.flag = flag; }
+
+    @Transient
+    public Integer getOperator() { return operator; }
+
+    public void setOperator(Integer operator) { this.operator = operator; }
+
+    @Basic
     @Column(name = "status")
     public String getStatus() {
         return status;
@@ -175,6 +188,8 @@ public class Dept {
                 Objects.equals(level, dept.level) &&
                 Objects.equals(pid, dept.pid) &&
                 Objects.equals(leader, dept.leader) &&
+                Objects.equals(flag, dept.flag) &&
+                Objects.equals(operator, dept.operator) &&
                 Objects.equals(status, dept.status) &&
                 Objects.equals(createTime, dept.createTime) &&
                 Objects.equals(updateTime, dept.updateTime) &&
@@ -183,15 +198,23 @@ public class Dept {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, level, pid, leader, status, createTime, updateTime, remark);
+        return Objects.hash(id, name, level, pid, leader, flag, operator, status, createTime, updateTime, remark);
     }
 
-	@Override
-	public String toString() {
-		return "Dept [id=" + id + ", name=" + name + ", level=" + level + ", pid=" + pid + ", leader=" + leader
-				+ ", status=" + status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark="
-				+ remark + "]";
-	}
-
-
+    @Override
+    public String toString() {
+        return "Dept{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", pid=" + pid +
+                ", leader=" + leader +
+                ", flag='" + flag + '\'' +
+                ", operator=" + operator +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

@@ -36,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="selectRoleAuthorityListByRoleId" parameterType="Integer" resultMap="RoleAuthorityResult">
 		<include refid="selectRoleAuthorityVo" />
-		where role_id=#{roleId}
+		where role_id=#{roleId} group by authority_id
 	</select>
 	
 	<insert id="insertRoleAuthority" parameterType="com.sy.entity.RoleAuthority" useGeneratedKeys="true" keyProperty="id">

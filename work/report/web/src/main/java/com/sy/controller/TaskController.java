@@ -129,4 +129,24 @@ public class TaskController {
 			}
 		}
 	}
+
+	@RequestMapping(value = "/stopTask/{id}",method = RequestMethod.GET)
+	public JsonResult stopTask(@PathVariable("id") Integer id){
+		try {
+			taskService.stopTaskById(id);
+			return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
+	}
+
+	@RequestMapping(value = "/endTask/{id}",method = RequestMethod.GET)
+	public JsonResult endTask(@PathVariable("id") Integer id){
+		try {
+			taskService.endTaskById(id);
+			return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
+		} catch (RuntimeException e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
+	}
 }

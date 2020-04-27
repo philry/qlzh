@@ -230,7 +230,7 @@ public class IndexController {
         return result;
     }
 
-    @RequestMapping(value = "appdata",method = RequestMethod.GET)
+    @RequestMapping(value = "/appdata",method = RequestMethod.GET)
     public AjaxResult getAppData(){
 
         Date now = new Date();
@@ -409,10 +409,10 @@ public class IndexController {
         result.put("todayUsedPower", todayPower);      //今日工程耗能
         result.put("totalWorkCount", person_counts);    //总人数
         result.put("currentMonthUsedPower", totalPower);  //本月总用电量
-        result.put("chartResult", chartResult);          //两周图表
-        result.put("projectResult", indexVosProject);     //今日工程耗能
+//        result.put("chartResult", chartResult);          //两周图表
+//        result.put("projectResult", indexVosProject);     //今日工程
         result.put("groupResult", indexVoEfficiency);     //今日工效
-        result.put("appScan",appScan);                 //app总工效等
+        result.put("appScan",appScan);                 //app对象()
         return result;
     }
 

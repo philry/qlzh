@@ -17,6 +17,7 @@ public class PersonEfficiency {
     private String name;
     private Integer time;
     private Integer workingTime;
+    private Integer noloadingTime;
     private String efficiency;
     private Double workingPower;
     private Double noloadingPower;
@@ -116,6 +117,12 @@ public class PersonEfficiency {
     public void setWorkingTime(Integer workingTime) {
         this.workingTime = workingTime;
     }
+
+    @Basic
+    @Column(name = "noloading_time")
+    public Integer getNoloadingTime() { return noloadingTime; }
+
+    public void setNoloadingTime(Integer noloadingTime) { this.noloadingTime = noloadingTime; }
 
     @Basic
     @Column(name = "efficiency")

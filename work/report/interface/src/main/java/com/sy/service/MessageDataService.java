@@ -2,6 +2,7 @@ package com.sy.service;
 
 
 import com.sy.entity.MessageData;
+import com.sy.entity.Task;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ public interface MessageDataService {
     int deleteByStatus(String status);
     
     int updateStatus(int id,String status);
+
+    void sendMessageToPersonsByTask(Task task);
 }
