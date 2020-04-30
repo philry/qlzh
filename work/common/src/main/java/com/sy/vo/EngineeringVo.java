@@ -24,6 +24,14 @@ public class EngineeringVo {
 
     private String power_2;
 
+    private String name_3;
+
+    private int workTime_3;
+
+    private int time_3;
+
+    private String power_3;
+
     public String getPower() {
         return power;
     }
@@ -112,6 +120,55 @@ public class EngineeringVo {
         this.time_2 = time_2;
     }
 
+    public String getName_3() {
+        return name_3;
+    }
+
+    public void setName_3(String name_3) {
+        this.name_3 = name_3;
+    }
+
+    public int getWorkTime_3() {
+        return workTime_3;
+    }
+
+    public void setWorkTime_3(int workTime_3) {
+        this.workTime_3 = workTime_3;
+    }
+
+    public int getTime_3() {
+        return time_3;
+    }
+
+    public void setTime_3(int time_3) {
+        this.time_3 = time_3;
+    }
+
+    public String getPower_3() {
+        return power_3;
+    }
+
+    public void setPower_3(String power_3) {
+        this.power_3 = power_3;
+    }
+
+    /*@Override
+    public String toString() {
+        return "EngineeringVo{" +
+                "workTime=" + workTime +
+                ", time=" + time +
+                ", power='" + power + '\'' +
+                ", name_1='" + name_1 + '\'' +
+                ", workTime_1=" + workTime_1 +
+                ", time_1=" + time_1 +
+                ", power_1='" + power_1 + '\'' +
+                ", name_2='" + name_2 + '\'' +
+                ", workTime_2=" + workTime_2 +
+                ", time_2=" + time_2 +
+                ", power_2='" + power_2 + '\'' +
+                '}';
+    }*/
+
     @Override
     public String toString() {
         return "EngineeringVo{" +
@@ -126,6 +183,10 @@ public class EngineeringVo {
                 ", workTime_2=" + workTime_2 +
                 ", time_2=" + time_2 +
                 ", power_2='" + power_2 + '\'' +
+                ", name_3='" + name_3 + '\'' +
+                ", workTime_3=" + workTime_3 +
+                ", time_3=" + time_3 +
+                ", power_3='" + power_3 + '\'' +
                 '}';
     }
 }

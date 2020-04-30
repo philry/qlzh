@@ -32,20 +32,20 @@ public class EngineeringServiceImpl implements EngineeringService {
 
     @Override
     public List<EngineeringVo> getInitData(Date beginTime, Date endTime) {
-        List<Engineering> list = getData(0,beginTime,endTime);//pid为0生产部级
-        for (Engineering engineering : list) { //对
+        List<Engineering> list = getData(0,beginTime,endTime);//pid为0生产部级,list为engineering表中的生产部的数据
+        for (Engineering engineering : list) { //engineering，list为生产部级数据
             int pid = engineering.getId();
 
-            List<Engineering> sonList = getData(pid,beginTime,endTime);//车间级
+            List<Engineering> sonList = getData(pid,beginTime,endTime);//sonList为车间级
 
             for (Engineering engineering1 : sonList) {
 
                 int pid1 = engineering1.getId();
-                List<Engineering> sonList1 = getData(pid1,beginTime,endTime);//工程队级
+                List<Engineering> sonList1 = getData(pid1,beginTime,endTime);
 
-                for(Engineering engineering2 : sonList1){
+                for(Engineering engineering2 : sonList1){//engineering2，sonList1为工程队级
                     int pid2 = engineering2.getId();
-                    engineering2.setSonLsit(getData(pid2,beginTime,endTime));//班组级
+                    engineering2.setSonLsit(getData(pid2,beginTime,endTime));//getData(pid2,beginTime,endTime)为班组级
                 }
 
                 engineering1.setSonLsit(sonList1);
@@ -63,13 +63,15 @@ public class EngineeringServiceImpl implements EngineeringService {
         BigDecimal power = new BigDecimal("0");
         Set<String> set = new HashSet<>();
         Map<String,List<Engineering>> map = new HashMap<>();
+
         for (Engineering engineering : list) {
+            //所有生产部级数据相加
             time += engineering.getTime();
             workTime += engineering.getWorkingTime();
             power = power.add(new BigDecimal(engineering.getPower()));
-            for (Engineering engineering1 : engineering.getSonLsit()) {
+            for (Engineering engineering1 : engineering.getSonLsit()) {//车间级
                 String name = engineering1.getName();
-                set.add(name);
+                set.add(name);  //set车间级
                 if(map.get(name)!=null){
                     map.get(name).add(engineering1);
                 }else {
@@ -80,7 +82,7 @@ public class EngineeringServiceImpl implements EngineeringService {
             }
         }
 
-        for (String s : set) {
+        for (String s : set) { //车间级
             int time_1 = 0;
             int workTime_1 = 0;
             BigDecimal power_1 = new BigDecimal("0");
@@ -96,7 +98,7 @@ public class EngineeringServiceImpl implements EngineeringService {
                 for (Engineering engineering1 : engineering.getSonLsit()) {
 
                     String name = engineering1.getName();
-                    set1.add(name);
+                    set1.add(name);   //set1工程队级
                     if(map1.get(name)!=null){
                         map1.get(name).add(engineering1);
                     }else {
@@ -108,7 +110,7 @@ public class EngineeringServiceImpl implements EngineeringService {
                 }
             }
 
-            for (String s1 : set1) {
+            for (String s1 : set1) { //工程队级
                 int time_2 = 0 ;
                 int workTime_2 = 0;
                 BigDecimal power_2 = new BigDecimal("0");
@@ -116,21 +118,56 @@ public class EngineeringServiceImpl implements EngineeringService {
                     time_2 += engineering.getTime();
                     workTime_2 += engineering.getWorkingTime();
                     power_2 = power_2.add(new BigDecimal(engineering.getPower()));
-
                 }
-                EngineeringVo vo = new EngineeringVo();
-                vo.setTime(time);
-                vo.setWorkTime(workTime);
-                vo.setPower(String.valueOf(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
-                vo.setTime_1(time_1);
-                vo.setTime_2(time_2);
-                vo.setPower_1(String.valueOf(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
-                vo.setWorkTime_1(workTime_1);
-                vo.setWorkTime_2(workTime_2);
-                vo.setPower_2(String.valueOf(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
-                vo.setName_1(s);
-                vo.setName_2(s1);
-                vos.add(vo);
+                //新增
+                Set<String> set2 = new HashSet<>();
+                Map<String,List<Engineering>> map2 = new HashMap<>();
+                for (Engineering engineering : map1.get(s1)) {
+
+                    for (Engineering engineering2 : engineering.getSonLsit()) {
+
+                        String name = engineering2.getName();
+                        set2.add(name);   //set2 班组级
+                        if(map2.get(name)!=null){
+                            map2.get(name).add(engineering2);
+                        }else {
+                            List<Engineering> list2 = new ArrayList<>();
+                            list2.add(engineering2);
+                            map2.put(name,list2);
+                        }
+                    }
+                }
+
+                //新增一级
+                for (String s2 : set2) { //班组级
+                    int time_3 = 0;
+                    int workTime_3 = 0;
+                    BigDecimal power_3 = new BigDecimal("0");
+                    for (Engineering engineering : map2.get(s2)) {
+                        time_3 += engineering.getTime();
+                        workTime_3 += engineering.getWorkingTime();
+                        power_3 = power_3.add(new BigDecimal(engineering.getPower()));
+
+                    }
+
+                    EngineeringVo vo = new EngineeringVo();
+                    vo.setTime(time);
+                    vo.setWorkTime(workTime);
+                    vo.setPower(String.valueOf(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
+                    vo.setTime_1(time_1);
+                    vo.setTime_2(time_2);
+                    vo.setPower_1(String.valueOf(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
+                    vo.setWorkTime_1(workTime_1);
+                    vo.setWorkTime_2(workTime_2);
+                    vo.setPower_2(String.valueOf(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
+                    vo.setName_1(s);
+                    vo.setName_2(s1);
+                    vo.setTime_3(time_3);
+                    vo.setWorkTime_3(workTime_3);
+                    vo.setPower_3(String.valueOf(power_3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
+                    vo.setName_3(s2);
+                    vos.add(vo);
+                }
             }
         }
 
@@ -158,5 +195,24 @@ public class EngineeringServiceImpl implements EngineeringService {
         return engineeringDao.findAll(querySpeci);
     }
 
-	
+    @Override
+    public List<Engineering> getDataByLevel(int level, Date beginTime, Date endTime) {
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                predicates.add(criteriaBuilder.equal(root.get("level"), level));
+
+                if (beginTime != null && endTime != null) {
+                    predicates.add(criteriaBuilder.between(root.get("date"), beginTime, endTime));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        return engineeringDao.findAll(querySpeci);
+    }
+
+
 }

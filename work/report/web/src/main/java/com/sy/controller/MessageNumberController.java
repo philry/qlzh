@@ -40,7 +40,7 @@ public class MessageNumberController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public MessageNumber getNum(@PathVariable("id")Integer id) {
 		MessageNumber m = new MessageNumber();
-		Person person = personService.selectPersonById(id);
+		Person person = personService.selectPersonById(id);//当前登录的人员
 		Task task = new Task();
 		task.setChecker(person.getId());
 		task.setStatus("0");
@@ -68,10 +68,24 @@ public class MessageNumberController {
 		}
 		List<Integer> deptIds = new ArrayList<>();
 		List<Dept> deptList = deptService.getDeptList(null);
-		for (Dept d : deptList) {
+		/*for (Dept d : deptList) {
 			if(d.getLeader()!=null) {
 				if(d.getLeader()==person.getId()) {
 					deptIds.add(d.getId());
+				}
+			}
+		}*/
+		for (Dept dept : deptList) {
+			if(dept.getLeader()!=null) {
+				if(dept.getOperator()==null) {//operator为null表示新建与审核是同一人
+					//Integer超过128就不能用==判断相等了，所以用String判断
+					if (dept.getLeader().toString().equals(Integer.toString(person.getId()))) {
+						deptIds.add(dept.getId());
+					}
+				}else{ //operatorb不为null表示新建与审核不是同一人
+					if(dept.getOperator().toString().equals(Integer.toString(person.getId()))){
+						deptIds.add(dept.getId());
+					}
 				}
 			}
 		}

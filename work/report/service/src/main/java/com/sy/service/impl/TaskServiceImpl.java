@@ -59,8 +59,21 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public int insertTask(Task task) {
+		Integer deptId = task.getDeptId();
+		Dept dept  =deptMapper.selectDeptById(deptId);
+		Integer leader  =dept.getLeader();
+		String flag = dept.getFlag();
+
+		/*if("0".equals(flag)&&personId!=leader){
+			throw new RuntimeException("新建与审核为同一人时只有总经理才能新建最高级派工单");
+		}*/
 		task.setCreateTime(new Timestamp(new Date().getTime()));
 		task.setUpdateTime(task.getCreateTime());
+
+		task.setChecker(leader);
+		if("0".equals(flag)){//新建与审核为同一人时默认审核通过
+			task.setCheckingStatus("0");//CheckingStatus为0表示审核通过
+		}
 		return taskMapper.insertTask(task);
 	}
 
@@ -238,6 +251,23 @@ public class TaskServiceImpl implements TaskService {
     @Override
 	@Transactional
 	public int insertSonTask(Task task, Integer pid) {
+		Integer deptId = task.getDeptId();
+		Dept thisDept  =deptMapper.selectDeptById(deptId);
+		Integer leader  =thisDept.getLeader();
+		String flag = thisDept.getFlag();
+
+		/*if("0".equals(flag)&&personId!=leader){
+			throw new RuntimeException("新建与审核为同一人时只有总经理才能新建最高级派工单");
+		}*/
+		task.setCreateTime(new Timestamp(new Date().getTime()));
+		task.setUpdateTime(task.getCreateTime());
+
+		task.setChecker(leader);
+		if("0".equals(flag)){//新建与审核为同一人时默认审核通过
+			task.setCheckingStatus("0");//CheckingStatus为0表示审核通过
+		}
+
+
 		Task fTask = taskMapper.selectTaskById(pid);
 		Dept dept = deptMapper.selectDeptById(fTask.getDeptId());
 		if(dept!=null) {

@@ -392,7 +392,7 @@ public class NettyDataHandler {
 
         }
 
-        //5.根据部门id获取部门,再获取顶级pid
+        //5.根据部门id获取部门,再获取上级pid
         Map<Integer,List<Engineering>> engineeringData_1 = new HashMap<>();
         Set<Integer> dept_1 = new HashSet<>();
         for (Integer integer : dept_2) {
@@ -426,31 +426,75 @@ public class NettyDataHandler {
             engineeringMap_1.put(integer,engineering);
         }
 
+        //-------------------------------------新增的一级
+        //5.根据部门id获取部门,再获取顶级pid
+        Map<Integer,List<Engineering>> engineeringData_0 = new HashMap<>();
+        Set<Integer> dept_0 = new HashSet<>();
+        for (Integer integer : dept_1) {
+            Dept dept = deptDao.getById(integer);
+            if(engineeringData_0.get(dept.getPid())==null){
+                List<Engineering> list = new ArrayList<>();
+                list.add(engineeringMap_1.get(integer));
+                engineeringData_0.put(dept.getPid(),list);
+            }else {
+                engineeringData_0.get(dept.getPid()).add(engineeringMap_1.get(integer));
+            }
+
+            dept_0.add(dept.getPid());
+        }
+
+        //处理数据,计算一级数据
+        Map<Integer,Engineering> engineeringMap_0 = new HashMap<>();
+        for (Integer integer : dept_0) {
+            int time = 0 ;
+            int working_time = 0 ;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Engineering engineering : engineeringData_0.get(integer)) {
+                time += engineering.getTime();
+                working_time += engineering.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(engineering.getPower()));
+            }
+            //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
+            Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,1);
+            //将处理后的数据存储，进行循环
+            engineeringMap_0.put(integer,engineering);
+        }
+
         //从上往下开始插入数据，并设置pid
-        for (Integer integer_1 : dept_1) {
-            Engineering engineering_1 = engineeringMap_1.get(integer_1);
-            engineering_1.setPid(0);
-            int pid_2 = engineeringDao.save(engineering_1).getId();
-            System.out.println(pid_2);
-            List<Integer> list_2 = deptDao.getIdByPid(integer_1);
-            System.out.println(list_2);
-            System.out.println(111);
-            for (Integer integer_2 : list_2) {
-                Engineering engineering_2 = engineeringMap_2.get(integer_2);
-                if (engineering_2!=null){
-                    engineering_2.setPid(pid_2);
-                    int pid_3 = engineeringDao.save(engineering_2).getId();
-                    List<Integer> list_3 = deptDao.getIdByPid(integer_2);
-                    for (Integer integer_3 : list_3) {
-                        Engineering engineering_3 = engineeringMap_3.get(integer_3);
-                        if(engineering_3!=null){
-                            engineering_3.setPid(pid_3);
-                            engineeringDao.save(engineering_3);
+        for(Integer integer_0 : dept_0){
+            Engineering engineering_0 = engineeringMap_0.get(integer_0);
+            engineering_0.setPid(0);
+            int pid_1 = engineeringDao.save(engineering_0).getId();//生产部级
+            List<Integer> list_1 = deptDao.getIdByPid(integer_0);
+            for (Integer integer_1 : dept_1) {
+                Engineering engineering_1 = engineeringMap_1.get(integer_1);
+                if(engineering_1!=null){
+                    engineering_1.setPid(pid_1);
+                    int pid_2 = engineeringDao.save(engineering_1).getId();//车间级
+//                System.out.println(pid_2);
+                    List<Integer> list_2 = deptDao.getIdByPid(integer_1);
+//                System.out.println(list_2);
+//                System.out.println(111);
+                    for (Integer integer_2 : list_2) {
+                        Engineering engineering_2 = engineeringMap_2.get(integer_2);
+                        if (engineering_2!=null){
+                            engineering_2.setPid(pid_2);
+                            int pid_3 = engineeringDao.save(engineering_2).getId();//工程队级
+                            List<Integer> list_3 = deptDao.getIdByPid(integer_2);
+                            for (Integer integer_3 : list_3) {
+                                Engineering engineering_3 = engineeringMap_3.get(integer_3);
+                                if(engineering_3!=null){
+                                    engineering_3.setPid(pid_3);
+                                    engineeringDao.save(engineering_3);//班组级
+                                }
+                            }
                         }
                     }
                 }
             }
         }
+
     }
 
     private Engineering getEngineering(String day, int time, int working_time, BigDecimal ePower, Dept dept,int level) {

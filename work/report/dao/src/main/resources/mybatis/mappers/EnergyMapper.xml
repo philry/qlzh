@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
 			<if test="remark != null and remark !='' ">remark = #{remark},</if>
 		</trim>
-		where id = 1
+ 		where id = 1
 	</update>	
 	
 </mapper>

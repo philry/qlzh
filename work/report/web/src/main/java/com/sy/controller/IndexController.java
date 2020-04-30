@@ -217,11 +217,11 @@ public class IndexController {
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日在岗人数
         result.put("yesterdayWorkCount", pre_work_day_counts);//昨日在岗人数
-        result.put("openCount", machineNowCounts);   //实时焊机数
-        result.put("workCount", machineUseCounts);   //实时焊机工作数
+        result.put("openCount", machineNowCounts);    //实时焊机数
+        result.put("workCount", machineUseCounts);    //实时焊机工作数
         result.put("totalCount", machineCounts);      //焊机总数
-        result.put("todayUsedPower", todayPower);      //今日工程耗能
-        result.put("totalWorkCount", person_counts);    //总人数
+        result.put("todayUsedPower", todayPower);     //今日工程耗能
+        result.put("totalWorkCount", person_counts);  //总人数
         result.put("currentMonthUsedPower", totalPower);  //本月总用电量
         result.put("chartResult", chartResult);          //两周图表
         result.put("projectResult", indexVosProject);     //今日工程耗能

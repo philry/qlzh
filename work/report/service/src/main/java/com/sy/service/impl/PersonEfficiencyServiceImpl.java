@@ -159,6 +159,9 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
         for (Dept dept1 : dept_1) {
 
             for (Dept getsDept : dept1.getsDepts()) {
+                for(Dept dept3:getsDept.getsDepts()){
+                    deptList.add(dept3.getId());
+                }
                 deptList.add(getsDept.getId());
             }
             deptList.add(dept1.getId());

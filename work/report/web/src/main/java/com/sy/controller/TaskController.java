@@ -113,8 +113,15 @@ public class TaskController {
 		List<Dept> deptList = deptService.getDeptList(null);
 		for (Dept dept : deptList) {
 			if(dept.getLeader()!=null) {
-				if(dept.getLeader()==id) {
-					deptIds.add(dept.getId());
+				if(dept.getOperator()==null) {//operator为null表示新建与审核是同一人
+					//Integer超过128就不能用==判断相等了，所以用String判断
+					if (dept.getLeader().toString().equals(id.toString())) {
+						deptIds.add(dept.getId());
+					}
+				}else{ //operatorb不为null表示新建与审核不是同一人
+					if(dept.getOperator().toString().equals(id.toString())){
+						deptIds.add(dept.getId());
+					}
 				}
 			}
 		}

@@ -31,9 +31,10 @@ public class Dept {
     private Integer pid;
     private Dept pDept;
     private Integer leader;
-    private Person person;
+    private Person person;//部门负责人
     private String flag;
     private Integer operator;
+    private Person operatorPerson; //操作员
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
@@ -128,6 +129,15 @@ public class Dept {
     public Integer getOperator() { return operator; }
 
     public void setOperator(Integer operator) { this.operator = operator; }
+
+    @Transient
+    public Person getOperatorPerson() {
+        return operatorPerson;
+    }
+
+    public void setOperatorPerson(Person operatorPerson) {
+        this.operatorPerson = operatorPerson;
+    }
 
     @Basic
     @Column(name = "status")

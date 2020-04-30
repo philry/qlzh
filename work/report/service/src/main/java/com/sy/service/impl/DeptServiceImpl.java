@@ -105,8 +105,11 @@ public class DeptServiceImpl implements DeptService {
 
 	private void setDept(Dept dept) {
 		Person person = personMapper.selectPersonById(dept.getLeader());
+		Person operatorPerson = personMapper.selectPersonById(dept.getOperator());
 		if(person!=null)
 			dept.setPerson(person);
+		if(operatorPerson!=null)
+			dept.setOperatorPerson(operatorPerson);
 		Dept pDept = deptMapper.selectDeptById(dept.getPid());
 		if(pDept!=null) {
 			dept.setpDept(pDept);
