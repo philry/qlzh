@@ -62,7 +62,7 @@ public class NettyDataHandler {
     @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
-    public void handleData(){
+    public void handleData() {
 
 
         //获取指定日期（前一天）
@@ -78,7 +78,7 @@ public class NettyDataHandler {
     @Scheduled(cron = "0 */5 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
-    public void handleTodayData(){
+    public void handleTodayData() {
 
 
         //获取指定日期
@@ -92,9 +92,9 @@ public class NettyDataHandler {
 
     private void insertData(String day) {
         //获取指定日期区间内的同步数据
-        List<Netty> nettyList =  nettyService.getAllByDate(DateUtils.parseDate(day),DateUtils.getNextDay(day));
+        List<Netty> nettyList = nettyService.getAllByDate(DateUtils.parseDate(day), DateUtils.getNextDay(day));
 
-        if(nettyList.size()<=0){
+        if (nettyList.size() <= 0) {
             System.out.println("无可同步数据");
             return;
         }
@@ -111,14 +111,14 @@ public class NettyDataHandler {
             List<String> currents = Arrays.asList(currentStr.split(","));
             //根据2G码获取最新的扫码工作信息信息
             Xpg xpg = xpgDao.getByName(netty.getXpg());
-            Work work = workDao.getLastWorkByTime(DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS,netty.getCreateTime()),xpg.getMachineId());
+            Work work = workDao.getLastWorkByTime(DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime()), xpg.getMachineId());
             //获取焊机的电流临界值
             Machine machine = machineDao.getById(xpg.getMachineId());
             Double maxA = machine.getMaxA();
             Double minA = machine.getMinA();
 
-            int noloadingTime=0;
-            int workingTime=0;
+            int noloadingTime = 0;
+            int workingTime = 0;
             BigDecimal iWorking = new BigDecimal(0);
             BigDecimal iNoloading = new BigDecimal(0);
 
@@ -128,12 +128,12 @@ public class NettyDataHandler {
             //处理电流数据，得出具体的工作时间（电量），空载时间（电量）
             for (String current : currents) {
                 double i = Double.parseDouble(current);
-                if(i>maxA){
+                if (i > maxA) {
                     warningCounts++;
-                }else if(i>=minA){
+                } else if (i >= minA) {
                     workingTime++;
                     iWorking = iWorking.add(new BigDecimal(i));
-                }else if(i>=0){
+                } else if (i >= 0) {
                     noloadingTime++;
                     iNoloading = iNoloading.add(new BigDecimal(i));
                 }
@@ -141,7 +141,7 @@ public class NettyDataHandler {
 
 
             //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
-            BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList.get(a-1).getPower()));
+            BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList.get(a - 1).getPower()));
 
             BigDecimal iTotal = iWorking.add(iNoloading);
             BigDecimal workingPower = new BigDecimal("0");
@@ -152,20 +152,20 @@ public class NettyDataHandler {
                 //workingPower = power*（iWorking/iTotal 结果保留2位小数，结果采用四舍五入方式）
                 workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
                 noloadingPower = power.subtract(workingPower);//noloadingPower= power-workingPower
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 workingPower = power;
             }
 
             data.setWork(work);
-            data.setNoloadingPower(noloadingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
-            data.setWorkingPower(workingPower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+            data.setNoloadingPower(noloadingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
+            data.setWorkingPower(workingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             data.setWorkingTime(workingTime);
             data.setNoloadingTime(noloadingTime);
 
-            if(warningCounts==60){
+            if (warningCounts == 60) {
                 data.setRemark("1");
-            }else {
+            } else {
                 data.setRemark("0");
             }
 
@@ -174,7 +174,7 @@ public class NettyDataHandler {
 
 
         //对报表数据进行存储
-        List<DataManage> dataList = manageDataService.getAllByData(0,DateUtils.parseDate(day),DateUtils.getNextDay(day));
+        List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
 
         //开始计算部门报表（以部门作为判定依据）
 
@@ -184,9 +184,9 @@ public class NettyDataHandler {
 
         Set<Integer> taskIds = new HashSet<>();
 
-        Map<Integer,List<DataManage>> map = new HashMap<>();
+        Map<Integer, List<DataManage>> map = new HashMap<>();
 
-        handleDataManage(dataList, taskIds, map,"部门");
+        handleDataManage(dataList, taskIds, map, "部门");
 
 
         for (Integer taskId : taskIds) {
@@ -208,8 +208,8 @@ public class NettyDataHandler {
             efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
             efficiencyStatistics.setDate(DateUtils.parseDate(day));
             efficiencyStatistics.setName(name);
-            efficiencyStatistics.setEfficiency(String.format("%.2f", (double)working_time/time*100));
-            efficiencyStatistics.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+            efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
+            efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             efficiencyStatisticsDao.save(efficiencyStatistics);
 
         }
@@ -226,10 +226,10 @@ public class NettyDataHandler {
             double noloadingPower = 0;
             double workingPower = 0;
             double power = 0;
-            int counts =0;
+            int counts = 0;
             for (Work work : works) {
-                List<DataManage> dataManages = manageDataService.getDataByWork(work.getId(),DateUtils.parseDate(day),DateUtils.getNextDay(day));
-                if(!dataManages.isEmpty()){
+                List<DataManage> dataManages = manageDataService.getDataByWork(work.getId(), DateUtils.parseDate(day), DateUtils.getNextDay(day));
+                if (!dataManages.isEmpty()) {
                     for (DataManage dataManage : dataManages) {
                         noloadingTime += dataManage.getNoloadingTime();
                         workingTime += dataManage.getWorkingTime();
@@ -247,11 +247,11 @@ public class NettyDataHandler {
             machineUse.setDepeName(works.get(0).getMachine().getDept().getName());
             machineUse.setMachineId(works.get(0).getMachine().getId());
             machineUse.setNoloadingTime(noloadingTime);
-            machineUse.setNoloadingPower(String.format("%.2f",noloadingPower));
+            machineUse.setNoloadingPower(String.format("%.2f", noloadingPower));
             machineUse.setWorkTime(workingTime);
-            machineUse.setWorkingPower(String.format("%.2f",workingPower));
+            machineUse.setWorkingPower(String.format("%.2f", workingPower));
             machineUse.setTime(time);
-            machineUse.setPower(String.format("%.2f",power));
+            machineUse.setPower(String.format("%.2f", power));
             machineUse.setOvercounts(String.valueOf(counts));
             machineUse.setRemark(day);
             machineUse.setCreateTime(DateUtils.parseDate(day));
@@ -260,7 +260,7 @@ public class NettyDataHandler {
 
     }
 
-    private void deleteDate(String day){
+    private void deleteDate(String day) {
 
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
         engineeringDao.deleteByDate(DateUtils.parseDate(day));
@@ -271,37 +271,37 @@ public class NettyDataHandler {
 
 
     //处理数据，将数据根据personId或者taskId进行存储
-    private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map,String type) {
+    private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map, String type) {
         for (DataManage dataManage : dataList) {
             Integer taskId = dataManage.getWork().getTask().getId();
-            if("人员".equals(type)){
+            if ("人员".equals(type)) {
                 taskId = dataManage.getWork().getPerson().getId();
             }
             taskIds.add(taskId);
-            if(map.get(taskId)==null){
+            if (map.get(taskId) == null) {
                 List<DataManage> list = new ArrayList<>();
                 list.add(dataManage);
-                map.put(taskId,list);
-            }else {
+                map.put(taskId, list);
+            } else {
                 map.get(taskId).add(dataManage);
             }
         }
     }
 
     private void handleDeptReport(String day, List<DataManage> dataList) {
-        Map<Integer,List<DataManage>> map = new HashMap<>();
+        Map<Integer, List<DataManage>> map = new HashMap<>();
 
         //1.处理数据,将数据与人员进行绑定
         Set<Integer> personIds = new HashSet<>();
 
-        handleDataManage(dataList, personIds, map,"人员");
+        handleDataManage(dataList, personIds, map, "人员");
 
         //2.根据人员处理数据,将数据整合(人员id，处理好的数据)
         Map<Integer, Unit> unitPerson = new HashMap<>();
         for (Integer personId : personIds) {
             Unit unit = new Unit();
-            int time = 0 ;
-            int working_time = 0 ;
+            int time = 0;
+            int working_time = 0;
             BigDecimal ePower = new BigDecimal("0");
             for (DataManage dataManage : map.get(personId)) {
                 time += dataManage.getNoloadingTime();
@@ -313,24 +313,24 @@ public class NettyDataHandler {
 
             unit.setTime(time);
             unit.setWorkTime(working_time);
-            unit.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
+            unit.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
 
-            unitPerson.put(personId,unit);
+            unitPerson.put(personId, unit);
 
         }
 
         //3.根据人员,获取部门（部门id，处理好的数据）
-        Map<Integer,List<Unit>> unitDept_3 = new HashMap<>();
+        Map<Integer, List<Unit>> unitDept_3 = new HashMap<>();
         Set<Integer> dept_3 = new HashSet<>();
         for (Integer personId : personIds) {
             Person person = personDao.getById(personId);
             Integer deptId = person.getDept().getId();
 
-            if(unitDept_3.get(deptId)==null){
+            if (unitDept_3.get(deptId) == null) {
                 List<Unit> list = new ArrayList<>();
                 list.add(unitPerson.get(personId));
-                unitDept_3.put(deptId,list);
-            }else {
+                unitDept_3.put(deptId, list);
+            } else {
                 unitDept_3.get(deptId).add(unitPerson.get(personId));
             }
 
@@ -340,8 +340,8 @@ public class NettyDataHandler {
         //3.根据部门id,处理数据
         Map<Integer, Engineering> engineeringMap_3 = new HashMap<>();
         for (Integer deptId : dept_3) {
-            int time = 0 ;
-            int working_time = 0 ;
+            int time = 0;
+            int working_time = 0;
             BigDecimal ePower = new BigDecimal("0");
             for (Unit unit : unitDept_3.get(deptId)) {
                 time += unit.getTime();
@@ -351,22 +351,22 @@ public class NettyDataHandler {
 
             //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
             Dept dept = deptDao.getById(deptId);
-            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,3);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 4);//班组级别
             //将处理后的数据存储，进行循环
-            engineeringMap_3.put(deptId,engineering);
+            engineeringMap_3.put(deptId, engineering);
 
         }
 
         //4.根据部门id获取部门,再获取上级pid
-        Map<Integer,List<Engineering>> engineeringData_2 = new HashMap<>();
+        Map<Integer, List<Engineering>> engineeringData_2 = new HashMap<>();
         Set<Integer> dept_2 = new HashSet<>();
         for (Integer integer : dept_3) {
             Dept dept = deptDao.getById(integer);
-            if(engineeringData_2.get(dept.getPid())==null){
+            if (engineeringData_2.get(dept.getPid()) == null) {
                 List<Engineering> list = new ArrayList<>();
                 list.add(engineeringMap_3.get(integer));
-                engineeringData_2.put(dept.getPid(),list);
-            }else {
+                engineeringData_2.put(dept.getPid(), list);
+            } else {
                 engineeringData_2.get(dept.getPid()).add(engineeringMap_3.get(integer));
             }
 
@@ -374,10 +374,10 @@ public class NettyDataHandler {
         }
 
         //处理数据,计算二级数据
-        Map<Integer,Engineering> engineeringMap_2 = new HashMap<>();
+        Map<Integer, Engineering> engineeringMap_2 = new HashMap<>();
         for (Integer integer : dept_2) {
-            int time = 0 ;
-            int working_time = 0 ;
+            int time = 0;
+            int working_time = 0;
             BigDecimal ePower = new BigDecimal("0");
             for (Engineering engineering : engineeringData_2.get(integer)) {
                 time += engineering.getTime();
@@ -386,22 +386,22 @@ public class NettyDataHandler {
             }
             //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
             Dept dept = deptDao.getById(integer);
-            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,2);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 3);//工程队级别
             //将处理后的数据存储，进行循环
-            engineeringMap_2.put(integer,engineering);
+            engineeringMap_2.put(integer, engineering);
 
         }
 
         //5.根据部门id获取部门,再获取上级pid
-        Map<Integer,List<Engineering>> engineeringData_1 = new HashMap<>();
+        Map<Integer, List<Engineering>> engineeringData_1 = new HashMap<>();
         Set<Integer> dept_1 = new HashSet<>();
         for (Integer integer : dept_2) {
             Dept dept = deptDao.getById(integer);
-            if(engineeringData_1.get(dept.getPid())==null){
+            if (engineeringData_1.get(dept.getPid()) == null) {
                 List<Engineering> list = new ArrayList<>();
                 list.add(engineeringMap_2.get(integer));
-                engineeringData_1.put(dept.getPid(),list);
-            }else {
+                engineeringData_1.put(dept.getPid(), list);
+            } else {
                 engineeringData_1.get(dept.getPid()).add(engineeringMap_2.get(integer));
             }
 
@@ -409,10 +409,10 @@ public class NettyDataHandler {
         }
 
         //处理数据,计算一级数据
-        Map<Integer,Engineering> engineeringMap_1 = new HashMap<>();
+        Map<Integer, Engineering> engineeringMap_1 = new HashMap<>();
         for (Integer integer : dept_1) {
-            int time = 0 ;
-            int working_time = 0 ;
+            int time = 0;
+            int working_time = 0;
             BigDecimal ePower = new BigDecimal("0");
             for (Engineering engineering : engineeringData_1.get(integer)) {
                 time += engineering.getTime();
@@ -421,22 +421,22 @@ public class NettyDataHandler {
             }
             //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
             Dept dept = deptDao.getById(integer);
-            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,1);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 2);//车间级别
             //将处理后的数据存储，进行循环
-            engineeringMap_1.put(integer,engineering);
+            engineeringMap_1.put(integer, engineering);
         }
 
         //-------------------------------------新增的一级
         //5.根据部门id获取部门,再获取顶级pid
-        Map<Integer,List<Engineering>> engineeringData_0 = new HashMap<>();
+        Map<Integer, List<Engineering>> engineeringData_0 = new HashMap<>();
         Set<Integer> dept_0 = new HashSet<>();
         for (Integer integer : dept_1) {
             Dept dept = deptDao.getById(integer);
-            if(engineeringData_0.get(dept.getPid())==null){
+            if (engineeringData_0.get(dept.getPid()) == null) {
                 List<Engineering> list = new ArrayList<>();
                 list.add(engineeringMap_1.get(integer));
-                engineeringData_0.put(dept.getPid(),list);
-            }else {
+                engineeringData_0.put(dept.getPid(), list);
+            } else {
                 engineeringData_0.get(dept.getPid()).add(engineeringMap_1.get(integer));
             }
 
@@ -444,10 +444,10 @@ public class NettyDataHandler {
         }
 
         //处理数据,计算一级数据
-        Map<Integer,Engineering> engineeringMap_0 = new HashMap<>();
+        Map<Integer, Engineering> engineeringMap_0 = new HashMap<>();
         for (Integer integer : dept_0) {
-            int time = 0 ;
-            int working_time = 0 ;
+            int time = 0;
+            int working_time = 0;
             BigDecimal ePower = new BigDecimal("0");
             for (Engineering engineering : engineeringData_0.get(integer)) {
                 time += engineering.getTime();
@@ -456,20 +456,20 @@ public class NettyDataHandler {
             }
             //将部门工效属性赋值（pid需要等上级部门完成后才能插入）
             Dept dept = deptDao.getById(integer);
-            Engineering engineering = getEngineering(day, time, working_time, ePower, dept,1);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 1);//生产部级别
             //将处理后的数据存储，进行循环
-            engineeringMap_0.put(integer,engineering);
+            engineeringMap_0.put(integer, engineering);
         }
 
         //从上往下开始插入数据，并设置pid
-        for(Integer integer_0 : dept_0){
+        for (Integer integer_0 : dept_0) {
             Engineering engineering_0 = engineeringMap_0.get(integer_0);
             engineering_0.setPid(0);
             int pid_1 = engineeringDao.save(engineering_0).getId();//生产部级
             List<Integer> list_1 = deptDao.getIdByPid(integer_0);
             for (Integer integer_1 : dept_1) {
                 Engineering engineering_1 = engineeringMap_1.get(integer_1);
-                if(engineering_1!=null){
+                if (engineering_1 != null) {
                     engineering_1.setPid(pid_1);
                     int pid_2 = engineeringDao.save(engineering_1).getId();//车间级
 //                System.out.println(pid_2);
@@ -478,13 +478,13 @@ public class NettyDataHandler {
 //                System.out.println(111);
                     for (Integer integer_2 : list_2) {
                         Engineering engineering_2 = engineeringMap_2.get(integer_2);
-                        if (engineering_2!=null){
+                        if (engineering_2 != null) {
                             engineering_2.setPid(pid_2);
                             int pid_3 = engineeringDao.save(engineering_2).getId();//工程队级
                             List<Integer> list_3 = deptDao.getIdByPid(integer_2);
                             for (Integer integer_3 : list_3) {
                                 Engineering engineering_3 = engineeringMap_3.get(integer_3);
-                                if(engineering_3!=null){
+                                if (engineering_3 != null) {
                                     engineering_3.setPid(pid_3);
                                     engineeringDao.save(engineering_3);//班组级
                                 }
@@ -497,7 +497,7 @@ public class NettyDataHandler {
 
     }
 
-    private Engineering getEngineering(String day, int time, int working_time, BigDecimal ePower, Dept dept,int level) {
+    private Engineering getEngineering(String day, int time, int working_time, BigDecimal ePower, Dept dept, int level) {
         Engineering engineering = new Engineering();
         engineering.setLevel(level);
         engineering.setDate(DateUtils.parseDate(day));
@@ -505,8 +505,8 @@ public class NettyDataHandler {
         engineering.setName(dept.getName());
         engineering.setTime(time);
         engineering.setWorkingTime(working_time);
-        engineering.setPower(ePower.setScale(2,BigDecimal.ROUND_HALF_UP).doubleValue());
-        engineering.setEfficency(String.format("%.2f", (double)working_time/time*100));
+        engineering.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        engineering.setEfficency(String.format("%.2f", (double) working_time / time * 100));
         return engineering;
     }
 

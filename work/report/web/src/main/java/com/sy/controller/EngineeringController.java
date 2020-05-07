@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -110,7 +113,7 @@ public class EngineeringController {
 	}
 
 	@RequestMapping(value = "/workshopChart", method = RequestMethod.GET) //车间级一周图表数据
-	public AjaxResult workshopChart() {
+	public AjaxResult workshopChart(String beginTime,String endTime,String deptName) {
 		String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, new Date());
 
 		List<Engineering> list = null;
@@ -118,14 +121,33 @@ public class EngineeringController {
 
 		//一周图表
 		List<String> dayStrings = new ArrayList<>();
-		int length = 7;
-		String tempDay = today;
-		dayStrings.add(tempDay);
-		for (int i = 0; i < length - 1; i++) {
-			tempDay = DateUtils.getPrevDay(tempDay);
+		if((beginTime == null && endTime == null) || (beginTime == "" && endTime == "")){
+            int length = 7;
+            String tempDay = today;
+            dayStrings.add(tempDay);
+            for (int i = 0; i < length - 1; i++) {
+                tempDay = DateUtils.getPrevDay(tempDay);
+                dayStrings.add(tempDay);
+            }
+        }else{
+			//按时间查询
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			long sub = 0;
+			try {
+				sub = Math.abs(dateFormat.parse(endTime).getTime() - dateFormat.parse(beginTime).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			int length  = (int)(sub/1000/60/60/24);
+			String tempDay = endTime;
 			dayStrings.add(tempDay);
+			for (int i = 0; i < length; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
 		}
-		Map<Integer,List<ChartVo>>  chartResultMap = new HashMap<>();
+
+		Map<String,List<ChartVo>>  chartResultMap = new HashMap<>();
 		List<ChartVo> chartResult = new ArrayList<>();;
 
 
@@ -135,15 +157,25 @@ public class EngineeringController {
 
 			list = engineeringService.getDataByLevel(2,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
 			Integer id = null;
+			String name = null;
 			for(Engineering engieering: list){
 				id = engieering.getId();
+				name = engieering.getName();
+
 				vo.setPowerValue(String.valueOf(engieering.getPower()));
 				vo.setRateValue(engieering.getEfficency());
 			}
-			chartResult.add(vo);
-			if (id != null) {
-				chartResultMap.put(id,chartResult);
+			if(deptName == null || deptName == ""){
+				chartResult.add(vo);
+				if (id != null) {
+					chartResultMap.put(name,chartResult);
+				}
 			}
+			if(deptName.equals(name)){
+				chartResult.add(vo);
+				chartResultMap.put(name,chartResult);
+			}
+
 		}
 		AjaxResult result = new AjaxResult();
 		result.put("chartResultMap", chartResultMap);
@@ -227,7 +259,7 @@ public class EngineeringController {
     }
 
 	@RequestMapping(value = "/teamChart", method = RequestMethod.GET) //工程队级一周图表数据
-	public AjaxResult teamChart() {
+	public AjaxResult teamChart(String beginTime,String endTime,String deptName) {
 		String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, new Date());
 
 		List<Engineering> list = null;
@@ -235,14 +267,33 @@ public class EngineeringController {
 
 		//一周图表
 		List<String> dayStrings = new ArrayList<>();
-		int length = 7;
-		String tempDay = today;
-		dayStrings.add(tempDay);
-		for (int i = 0; i < length - 1; i++) {
-			tempDay = DateUtils.getPrevDay(tempDay);
+		if((beginTime == null && endTime == null) || (beginTime == "" && endTime == "")){
+			int length = 7;
+			String tempDay = today;
 			dayStrings.add(tempDay);
+			for (int i = 0; i < length - 1; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
+		}else{
+			//按时间查询
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			long sub = 0;
+			try {
+				sub = Math.abs(dateFormat.parse(endTime).getTime() - dateFormat.parse(beginTime).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			int length  = (int)(sub/1000/60/60/24);
+			String tempDay = endTime;
+			dayStrings.add(tempDay);
+			for (int i = 0; i < length; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
 		}
-		Map<Integer,List<ChartVo>>  chartResultMap = new HashMap<>();
+
+		Map<String,List<ChartVo>>  chartResultMap = new HashMap<>();
 		List<ChartVo> chartResult = new ArrayList<>();;
 
 
@@ -252,14 +303,22 @@ public class EngineeringController {
 
 			list = engineeringService.getDataByLevel(3,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
 			Integer id = null;
+			String name =null;
 			for(Engineering engieering: list){
 				id = engieering.getId();
+				name = engieering.getName();
 				vo.setPowerValue(String.valueOf(engieering.getPower()));
 				vo.setRateValue(engieering.getEfficency());
 			}
-			chartResult.add(vo);
-			if (id != null) {
-				chartResultMap.put(id,chartResult);
+			if(deptName == null || deptName == ""){
+				chartResult.add(vo);
+				if (id != null) {
+					chartResultMap.put(name,chartResult);
+				}
+			}
+			if(deptName.equals(name)){ //查询时部门名称对比
+				chartResult.add(vo);
+				chartResultMap.put(name,chartResult);
 			}
 		}
 		AjaxResult result = new AjaxResult();
@@ -343,7 +402,7 @@ public class EngineeringController {
 	}
 
 	@RequestMapping(value = "/banzuChart", method = RequestMethod.GET) //工程队级一周图表数据
-	public AjaxResult banzuChart() {
+	public AjaxResult banzuChart(String beginTime,String endTime,String deptName) {
 		String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, new Date());
 
 		List<Engineering> list = null;
@@ -351,14 +410,32 @@ public class EngineeringController {
 
 		//一周图表
 		List<String> dayStrings = new ArrayList<>();
-		int length = 7;
-		String tempDay = today;
-		dayStrings.add(tempDay);
-		for (int i = 0; i < length - 1; i++) {
-			tempDay = DateUtils.getPrevDay(tempDay);
+		if((beginTime == null && endTime == null) || (beginTime == "" && endTime == "")){
+			int length = 7;
+			String tempDay = today;
 			dayStrings.add(tempDay);
+			for (int i = 0; i < length - 1; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
+		}else{
+			//按时间查询
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			long sub = 0;
+			try {
+				sub = Math.abs(dateFormat.parse(endTime).getTime() - dateFormat.parse(beginTime).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			int length  = (int)(sub/1000/60/60/24);
+			String tempDay = endTime;
+			dayStrings.add(tempDay);
+			for (int i = 0; i < length; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
 		}
-		Map<Integer,List<ChartVo>>  chartResultMap = new HashMap<>();
+		Map<String,List<ChartVo>>  chartResultMap = new HashMap<>();
 		List<ChartVo> chartResult = new ArrayList<>();;
 
 
@@ -368,14 +445,22 @@ public class EngineeringController {
 
 			list = engineeringService.getDataByLevel(4,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
 			Integer id = null;
+			String name = null;
 			for(Engineering engieering: list){
 				id = engieering.getId();
+				name = engieering.getName();
 				vo.setPowerValue(String.valueOf(engieering.getPower()));
 				vo.setRateValue(engieering.getEfficency());
 			}
-			chartResult.add(vo);
-			if (id != null) {
-				chartResultMap.put(id,chartResult);
+			if(deptName == null || deptName == ""){
+				chartResult.add(vo);
+				if (id != null) {
+					chartResultMap.put(name,chartResult);
+				}
+			}
+			if(deptName.equals(name)){
+				chartResult.add(vo);
+				chartResultMap.put(name,chartResult);
 			}
 		}
 		AjaxResult result = new AjaxResult();

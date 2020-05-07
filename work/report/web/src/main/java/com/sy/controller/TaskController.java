@@ -118,7 +118,7 @@ public class TaskController {
 					if (dept.getLeader().toString().equals(id.toString())) {
 						deptIds.add(dept.getId());
 					}
-				}else{ //operatorb不为null表示新建与审核不是同一人
+				}else{ //operator不为null表示新建与审核不是同一人
 					if(dept.getOperator().toString().equals(id.toString())){
 						deptIds.add(dept.getId());
 					}
@@ -136,6 +136,7 @@ public class TaskController {
 			}
 		}
 	}
+
 
 	@RequestMapping(value = "/stopTask/{id}",method = RequestMethod.GET)
 	public JsonResult stopTask(@PathVariable("id") Integer id){

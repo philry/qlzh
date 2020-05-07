@@ -326,16 +326,17 @@ public class TaskServiceImpl implements TaskService {
 		for(int i=0;i<ids.length;i++) {
 			// 同工号同员工不能重复插入
 			task2.setWorkCode(task.getWorkCode());
+			task2.setProjectName(task.getProjectName());//新加的(项目名称相同才表示派工单重复)
 			task2.setPersonId(Integer.valueOf(ids[i]));
 			list = taskMapper.selectTaskList(task2);
-			if(list==null||list.size()==0) {
+			if(list==null||list.size()==0) { //list里有数据表示派工单重复
 				task.setPersonId(Integer.valueOf(ids[i]));
 				rows+=taskMapper.insertTask(task);
 			}
 		}
 		if(rows>0) {
 			return rows;
-		}else {
+		}else { //rows为0表示派工单重复了
 			throw new RuntimeException("不能重复分解派工单");
 		}
 	}
