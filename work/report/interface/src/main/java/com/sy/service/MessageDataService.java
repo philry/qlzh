@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MessageDataService {
 
-    MessageData sendMessage(MessageData messageData,Integer type) throws Exception;
+    MessageData sendMessage(MessageData messageData, Integer type) throws Exception;
 
     List<MessageData> getAcceptMessage(Integer acceptId);
 

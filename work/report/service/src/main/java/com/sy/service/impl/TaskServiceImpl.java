@@ -383,8 +383,25 @@ public class TaskServiceImpl implements TaskService {
 	public int changeCheckStatus(Integer id, String type) {
 		if("0".equals(type)) {
 			Task task = taskMapper.selectTaskById(id);
-			task.setCheckingStatus("0");
-			return taskMapper.updateTask(task);
+			task.setCheckingStatus("0"); //0同意
+		//	return taskMapper.updateTask(task);
+			int i = taskMapper.updateTask(task);
+			Integer deptId =  task.getDeptId();
+			Dept dept = deptMapper.selectDeptById(deptId);
+			//给操作员发送消息提醒
+			if(dept.getOperator() != null){ //审核和派工单操作员不是同一人
+				MessageData messageData = new MessageData();
+				MessageType messageType = new MessageType(3);
+
+				messageData.setAccpetId(dept.getOperator());
+				messageData.setContext("施工项目："+task.getProjectName()+"已审核完成");
+				messageData.setMessageType(messageType);
+				messageData.setCreateTime(new Timestamp(new Date().getTime()));
+				messageData.setUpdateTime(new java.sql.Date(new Date().getTime()));
+				messageData.setStatus("0");
+				messageDataDao.save(messageData);
+			}
+			return i;
 		}else {
 			Task t = taskMapper.selectTaskById(id);
 			System.out.println(t);
@@ -399,7 +416,7 @@ public class TaskServiceImpl implements TaskService {
 				}
 				Task task = new Task();
 				task.setId(id);
-				task.setStatus("1");
+				task.setStatus("1"); //status为1表示删除，不同意的就把派工单设为删除状态
 				return taskMapper.updateTask(task);
 			}
 		}
