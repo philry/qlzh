@@ -12,6 +12,7 @@ import java.util.Objects;
 public class EfficiencyStatistics {
     private int id;
     private String name;
+    private Integer taskId;
     private Integer level;
     private Integer pid;
     private Integer time;
@@ -64,6 +65,16 @@ public class EfficiencyStatistics {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    @Basic
+    @Column(name = "taskId")
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
     }
 
     @Basic
@@ -166,11 +177,31 @@ public class EfficiencyStatistics {
         this.remark = remark;
     }
 
+   /* @Override
+    public String toString() {
+        return "EfficiencyStatistics{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", pid=" + pid +
+                ", time=" + time +
+                ", workingTime=" + workingTime +
+                ", efficiency='" + efficiency + '\'' +
+                ", power=" + power +
+                ", date=" + date +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }*/
+
     @Override
     public String toString() {
         return "EfficiencyStatistics{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", taskId=" + taskId +
                 ", level=" + level +
                 ", pid=" + pid +
                 ", time=" + time +
