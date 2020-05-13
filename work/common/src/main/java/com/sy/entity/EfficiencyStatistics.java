@@ -68,7 +68,7 @@ public class EfficiencyStatistics {
     }
 
     @Basic
-    @Column(name = "taskId")
+    @Column(name = "task_id")
     public Integer getTaskId() {
         return taskId;
     }

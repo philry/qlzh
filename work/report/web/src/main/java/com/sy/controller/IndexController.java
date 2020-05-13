@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @RestController
@@ -138,7 +139,8 @@ public class IndexController {
                         power += efficiencyStatisticsVo.getPower();
                     }
                 }
-                vo.setPowerValue(String.valueOf(power));
+            //  vo.setPowerValue(String.valueOf(power));
+                vo.setPowerValue(String.format("%.2f", power));//保留两位小数
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -205,7 +207,8 @@ public class IndexController {
         try {
             double dayEff = Double.parseDouble(chartResult.get(0).getRateValue());
             double prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
-            appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff));
+      //    appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff)); //环比
+            appScan.setProportion(String.format("%.2f", (new BigDecimal(dayEff).subtract(new BigDecimal(prevDayEff))).doubleValue()*100));//应要求环比改成直接相减
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -324,7 +327,8 @@ public class IndexController {
                         power += efficiencyStatisticsVo.getPower();
                     }
                 }
-                vo.setPowerValue(String.valueOf(power));
+                vo.setPowerValue(String.format("%.2f", power));//保留两位小数
+            //  vo.setPowerValue(String.valueOf(power));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -391,7 +395,8 @@ public class IndexController {
         try {
             double dayEff = Double.parseDouble(chartResult.get(0).getRateValue());
             double prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
-            appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff));
+       //   appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff));//环比
+            appScan.setProportion(String.format("%.2f", (new BigDecimal(dayEff).subtract(new BigDecimal(prevDayEff))).doubleValue()*100));//应要求环比改成直接相减
         }catch (Exception e){
             e.printStackTrace();
         }

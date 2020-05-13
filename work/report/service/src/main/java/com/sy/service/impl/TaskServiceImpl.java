@@ -1,5 +1,6 @@
 package com.sy.service.impl;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -267,8 +268,22 @@ public class TaskServiceImpl implements TaskService {
 			task.setCheckingStatus("0");//CheckingStatus为0表示审核通过
 		}
 
-
 		Task fTask = taskMapper.selectTaskById(pid);
+		Integer id1 = fTask.getId();
+		Double fcount = fTask.getCount();
+		Double count  =task.getCount();
+		Double restCount = fcount;
+		Task t1 =new Task();
+		List<Task> taskList = taskMapper.selectTaskList(t1);
+		for(Task t2: taskList){
+			if(t2.getPid().equals(id1)){ //上级任务数量减去所有的直接下级任务数量后的剩余数量，填的数量这个数量对比
+				restCount = new BigDecimal(restCount).subtract(new BigDecimal(t2.getCount())).doubleValue();
+			}
+		}
+		if(count.compareTo(restCount)>0){ //count比restCount大
+			throw new RuntimeException("数量超出了上级任务的可分配数量，请重新修改数量");
+		}
+
 		Dept dept = deptMapper.selectDeptById(fTask.getDeptId());
 		if(dept!=null) {
 			if(dept.getLevel()==4)
@@ -349,6 +364,7 @@ public class TaskServiceImpl implements TaskService {
 		if(dept!=null)
 			task.setDept(dept);
 	}
+
 	
 	private void setTask(List<Task> list) {
 		for (Task task : list) {
@@ -431,6 +447,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> selectTaskLists(Task task) {
+
 		List<Task> list = taskMapper.selectTaskLists(task);
 		setTask(list);
 		return list;

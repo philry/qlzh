@@ -1,5 +1,6 @@
 package com.sy.quartz;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -76,7 +77,8 @@ public class NettyQuartz extends QuartzJobBean {
 				boolean flag = true;
 				String[] currents = last.getCurrents().split(",");
 				for (String s : currents) {
-					if (Double.valueOf(s) < maxA) {
+				//	if (Double.valueOf(s) < maxA) {
+					if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){
 						flag = false;
 						break;
 					}
@@ -103,9 +105,10 @@ public class NettyQuartz extends QuartzJobBean {
 					System.out.println(machineNow.getMachine().getId() + "号焊机已超限");
 				// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
 				} else {
-					boolean flag2 = true;
+					boolean flag2 = true;//flag2为true表示处于工作状态
 					for (String s : currents) {
-						if (Double.valueOf(s) > minA) {
+				//		if (Double.valueOf(s) > minA) {
+						if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
 							flag2 = false;
 							break;
 						}
@@ -113,13 +116,14 @@ public class NettyQuartz extends QuartzJobBean {
 					if (flag2) {
 						// 获取定时关机设定时间
 						List<Energy> energyList = energyMapper.selectEnergyList();
-						Integer time = energyList.get(0).getTime();
-						Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time);
-						if ((new Date().getTime()/1000/60-last.getCreateTime().getTime()/1000/60)<=2) {
+						Integer time = energyList.get(0).getTime(); //time单位为min
+						Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time); //当前正在工作的焊机当前时间往前{time}个的底表数据
+						if ((new Date().getTime()/1000/60-last.getCreateTime().getTime()/1000/60) <= 2) { //Todo 是否影响实际自动关机时间？待确认
 							String[] currents2 = pre.getCurrents().split(",");
 							boolean flag3 = true;
 							for (String s : currents2) {
-								if (Double.valueOf(s) > minA) {
+						//		if (Double.valueOf(s) > minA) {
+								if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
 									flag3 = false;
 									break;
 								}
@@ -132,10 +136,11 @@ public class NettyQuartz extends QuartzJobBean {
 									long preTime = (lists.get(0).getCreateTime().getTime())/1000/60;
 									outer: for (Netty n : lists) {
 										String[] currents3 = n.getCurrents().split(",");
-										if(preTime-n.getCreateTime().getTime()/1000/60<=1) {
+										if(preTime-n.getCreateTime().getTime()/1000/60 <= 1) {
 											preTime = n.getCreateTime().getTime()/1000/60;
 											for (String s : currents3) {
-												if (Double.valueOf(s) > minA) {
+										//		if (Double.valueOf(s) > minA) {
+												if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
 													flag4 = false;
 													break outer;
 												}

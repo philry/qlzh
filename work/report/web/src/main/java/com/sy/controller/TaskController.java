@@ -3,6 +3,7 @@ package com.sy.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sy.entity.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +38,18 @@ public class TaskController {
 	}
 	
 	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET)
-	public PageResult getLists(Task task,@PathVariable("yema")Integer yema) {
+	public PageResult getLists(Task task, Person person, @PathVariable("yema")Integer yema) {
 		Page<Object> startPage = PageHelper.startPage(yema, 15);
 		List<Task> list = taskService.selectTaskLists(task);
-		return PageResult.getPageResult(list,startPage.getTotal());
+		List<Task> list1 =new ArrayList<>();
+		for(Task task1 :list){
+			if(task.getDeptId()!=null){
+				if(task.getDeptId().equals(person.getDeptId())){//登陆的人只显示他部门的派工单
+					list1.add(task1);
+				}
+			}
+		}
+		return PageResult.getPageResult(list1,startPage.getTotal());
 	}
 	
 	@RequestMapping(value = "/querybyid/{id}", method = RequestMethod.GET)

@@ -41,7 +41,9 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         Map<String,List<EfficiencyStatistics>> map = new HashMap<>();
 
         for (EfficiencyStatistics efficiencyStatistics : list) {
-            String name = getFirstTaskName(efficiencyStatistics.getName());
+      //    String name = getFirstTaskName(efficiencyStatistics.getName());
+            String name = getFirstTaskName1(efficiencyStatistics.getTaskId());
+
             taskNames.add(name);
             if(map.get(name)==null){
                 List<EfficiencyStatistics> tempList = new ArrayList<>();
@@ -160,7 +162,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         return unit;
     }
 
-    public String getFirstTaskName(String taskName) {
+    public String getFirstTaskName(String taskName) { //获取该任务最顶级的项目名称
         int pid = -1;
         String tempName = taskName;
         while (pid != 0){
@@ -171,4 +173,20 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         }
         return tempName;
     }
+
+    //获取该任务最顶级的项目名称(新方法,解决项目名称不能重复问题)
+    public String getFirstTaskName1(Integer taskId){
+        int pid = -1;
+        Integer id = taskId;
+        String tempName = null;
+        while (pid != 0){
+            pid = taskDao.getPidById(id);
+            if(pid!=0){
+                id = pid;
+            }
+            tempName = taskDao.getNameById(id);
+        }
+        return tempName;
+    }
+
 }

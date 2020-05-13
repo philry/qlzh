@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.sy.entity.Energy;
 
-public interface EnergyMapper {
+public interface 	EnergyMapper {
 
 	List<Energy> selectEnergyList();
 

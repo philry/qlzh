@@ -14,4 +14,6 @@ public interface EfficiencyStatisticsService {
     List<EfficiencyStatistics> getEfficiencyStatistics(String taskName, Date beginTime, Date endTime) throws Exception;
 
     String getFirstTaskName(String taskName);
+
+    String getFirstTaskName1(Integer taskId);
 }

@@ -75,7 +75,7 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */1 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
@@ -85,9 +85,9 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate(today);
+        deleteDate("2020-05-08");
         //插入数据
-        insertData(today);
+        insertData("2020-05-08");
     }
 
     private void insertData(String day) {
@@ -208,6 +208,7 @@ public class NettyDataHandler {
             efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
             efficiencyStatistics.setDate(DateUtils.parseDate(day));
             efficiencyStatistics.setName(name);
+            efficiencyStatistics.setTaskId(taskId); //新加的字段
             efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
             efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
             efficiencyStatisticsDao.save(efficiencyStatistics);
