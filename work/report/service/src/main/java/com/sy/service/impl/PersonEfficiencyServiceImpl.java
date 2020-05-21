@@ -53,6 +53,12 @@ public class PersonEfficiencyServiceImpl implements PersonEfficiencyService {
     }
 
     @Override
+    public List<PersonEfficiency> initDeptData(Integer deptId) {
+
+        return personEfficiencyDao.selectDeptData(deptId);
+    }
+
+    @Override
     @Transactional
     public void calculateData(String personName, int deptId, Date beginTime, Date endTime) throws Exception {
 

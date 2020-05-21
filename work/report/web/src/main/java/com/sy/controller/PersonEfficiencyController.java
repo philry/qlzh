@@ -7,6 +7,7 @@ import com.sy.dao.PersonDao;
 import com.sy.service.DeptService;
 import com.sy.service.PersonEfficiencyService;
 import com.sy.utils.DateUtils;
+import com.sy.vo.JsonResult;
 import com.sy.vo.PageJsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +32,7 @@ public class PersonEfficiencyController {
 
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
-    public PageJsonResult getAllData(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
+    public JsonResult getAllData(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
         if(deptId!=0&&!"".equals(personName)){
             Integer leader = deptDao.getLeaderById(deptId);
             Integer personId = personDao.getIdByName(personName);
@@ -49,6 +50,8 @@ public class PersonEfficiencyController {
         }
 
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,personEfficiencyService.initAllData(page,pageSize));
+     //   return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, personEfficiencyService.initDeptData(deptId));
+
     }
 
     @RequestMapping(value = "select",method = RequestMethod.GET)

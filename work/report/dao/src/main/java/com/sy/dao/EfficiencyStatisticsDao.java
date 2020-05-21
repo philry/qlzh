@@ -18,4 +18,6 @@ public interface EfficiencyStatisticsDao extends JpaRepository<EfficiencyStatist
     @Modifying
     int deleteByDate(Date time);
 
+
+
 }

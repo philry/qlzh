@@ -100,7 +100,7 @@ public class EngineeringController {
 				// 如果有则按部门名称进行筛选
 				List<EngineeringResult> list3 = new ArrayList<>();
 				for (EngineeringResult e : list2) {
-					if (deptName.equals(e.getName())) {
+					if (deptName.equals(e.getName())) { //只展示本部门的数据
 						list3.add(e);
 					}
 				}
@@ -158,17 +158,18 @@ public class EngineeringController {
 			list = engineeringService.getDataByLevel(2,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
 			Integer id = null;
 			String name = null;
-			for(Engineering engieering: list){
+			for(Engineering engieering: list) {
 				id = engieering.getId();
 				name = engieering.getName();
+				//TODO
 
 				vo.setPowerValue(String.valueOf(engieering.getPower()));
 				vo.setRateValue(engieering.getEfficency());
 			}
-			if(deptName == null || deptName == ""){
+			if (deptName == null || deptName == "") {
 				chartResult.add(vo);
 				if (id != null) {
-					chartResultMap.put(name,chartResult);
+					chartResultMap.put(name, chartResult);
 				}
 			}
 			if(deptName.equals(name)){
@@ -228,7 +229,7 @@ public class EngineeringController {
 				for (EngineeringResult e : list2) {
 					// 根据上级部门及车间名称筛选
 					if(deptName!=null&&deptName!="") {
-						if(deptName.equals(e.getName())&&pName.equals(e.getpName())) {
+						if(deptName.equals(e.getName())&&pName.equals(e.getpName())) { //只展示同一部门的数据
 							list3.add(e);
 						}
 					}else {

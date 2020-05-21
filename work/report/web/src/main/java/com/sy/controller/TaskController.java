@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.sy.entity.Person;
+import com.sy.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,9 @@ public class TaskController {
 	
 	@Autowired
 	private DeptService deptService;
+
+	@Autowired
+	private PersonService personService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Task task) {
@@ -37,19 +41,25 @@ public class TaskController {
 		return PageResult.getPageResult(list);
 	}
 	
-	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET)
-	public PageResult getLists(Task task, Person person, @PathVariable("yema")Integer yema) {
+	@RequestMapping(value = "/lists/{yema}", method = RequestMethod.GET) //pc生产管理下的派工单接口
+//	public PageResult getLists(Task task, @PathVariable("yema")Integer yema) { //原来的接口
+	public PageResult getLists(Integer deptId, @PathVariable("yema")Integer yema) {
 		Page<Object> startPage = PageHelper.startPage(yema, 15);
+		Task task = new Task();
+		task.setDeptId(deptId);
 		List<Task> list = taskService.selectTaskLists(task);
+
+		/*该方法获取personId时有问题
+		Person person = personService.selectPersonById(personId);
 		List<Task> list1 =new ArrayList<>();
 		for(Task task1 :list){
-			if(task.getDeptId()!=null){
-				if(task.getDeptId().equals(person.getDeptId())){//登陆的人只显示他部门的派工单
+			if(task1.getDeptId()!=null){
+				if(task1.getDeptId().equals(person.getDeptId())){//登陆的人只显示他部门的派工单
 					list1.add(task1);
 				}
 			}
-		}
-		return PageResult.getPageResult(list1,startPage.getTotal());
+		}*/
+		return PageResult.getPageResult(list,startPage.getTotal());
 	}
 	
 	@RequestMapping(value = "/querybyid/{id}", method = RequestMethod.GET)

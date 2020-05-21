@@ -75,7 +75,7 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */1 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */2 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
@@ -85,9 +85,9 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate("2020-05-08");
+        deleteDate(today);
         //插入数据
-        insertData("2020-05-08");
+        insertData(today);
     }
 
     private void insertData(String day) {
@@ -189,7 +189,7 @@ public class NettyDataHandler {
         handleDataManage(dataList, taskIds, map, "部门");
 
 
-        for (Integer taskId : taskIds) {
+        for (Integer taskId : taskIds) { //taskIds是所有焊工开机扫码选择的任务id
 
             EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
             String name = taskDao.getById(taskId).getProjectName();
@@ -208,10 +208,10 @@ public class NettyDataHandler {
             efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
             efficiencyStatistics.setDate(DateUtils.parseDate(day));
             efficiencyStatistics.setName(name);
-            efficiencyStatistics.setTaskId(taskId); //新加的字段
+            efficiencyStatistics.setTaskId(taskId); //新加的字段,任务id
             efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
             efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            efficiencyStatisticsDao.save(efficiencyStatistics);
+            efficiencyStatisticsDao.save(efficiencyStatistics); //存储的是焊工一级的数据
 
         }
 
@@ -274,11 +274,11 @@ public class NettyDataHandler {
     //处理数据，将数据根据personId或者taskId进行存储
     private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map, String type) {
         for (DataManage dataManage : dataList) {
-            Integer taskId = dataManage.getWork().getTask().getId();
+            Integer taskId = dataManage.getWork().getTask().getId();//焊工开机扫码选择的任务id
             if ("人员".equals(type)) {
                 taskId = dataManage.getWork().getPerson().getId();
             }
-            taskIds.add(taskId);
+            taskIds.add(taskId); //List中值是不可重复的
             if (map.get(taskId) == null) {
                 List<DataManage> list = new ArrayList<>();
                 list.add(dataManage);
@@ -504,6 +504,7 @@ public class NettyDataHandler {
         engineering.setDate(DateUtils.parseDate(day));
         engineering.setCreateTime(new Timestamp(new Date().getTime()));
         engineering.setName(dept.getName());
+   //   engineering.setDeptId(dept.getId());
         engineering.setTime(time);
         engineering.setWorkingTime(working_time);
         engineering.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());

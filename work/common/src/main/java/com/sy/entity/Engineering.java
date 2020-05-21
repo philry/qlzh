@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Engineering {
     private int id;
     private String name;
+//  private String deptId;
     private Integer level;
     private Integer pid;
     private Integer time;
@@ -56,6 +57,12 @@ public class Engineering {
     public void setName(String name) {
         this.name = name;
     }
+
+    /*@Basic
+    @Column(name = "dept_id")
+    public String getDeptId() { return deptId; }
+
+    public void setDeptId(String deptId) { this.deptId = deptId; }*/
 
     @Basic
     @Column(name = "level")

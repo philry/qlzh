@@ -23,11 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="remark" column="remark" />
+		<result property="process" column="process" />
 	</resultMap>
 
 	<sql id="selectTaskVo">
 		select id, work_code, pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
-		 status,create_time,update_time,remark from task
+		 status,create_time,update_time,remark,process from task
 	</sql>
 
 	<select id="selectTaskList" parameterType="com.sy.entity.Task" resultMap="TaskResult">
@@ -51,7 +52,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
 			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			<if test="process != null and process !='' "> and process = #{process}</if>
 		</where>
+		order by status asc,create_time desc
 	</select>
 	
 	<select id="selectTaskLists" parameterType="com.sy.entity.Task" resultMap="TaskResult">
@@ -75,8 +78,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
 			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			<if test="process != null and process !='' "> and process = #{process}</if>
 			and dept_id>=0
 		</where>
+		order by status asc,create_time desc
 	</select>
 	
 	<select id="selectTaskById" parameterType="Integer" resultMap="TaskResult">
@@ -120,6 +125,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null ">create_time,</if>
 			<if test="updateTime != null ">update_time,</if>
 			<if test="remark != null and remark !='' ">remark,</if>
+			<if test="process != null and process !='' ">process,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="workCode != null and workCode !=''">#{workCode},</if>
@@ -139,6 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null ">#{updateTime},</if>
 			<if test="remark != null and remark !='' ">#{remark},</if>
+			<if test="process != null and process !='' ">#{process},</if>
 		</trim>
 	</insert>
 
@@ -162,6 +169,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
 			<if test="remark != null and remark !='' ">remark = #{remark},</if>
+			<if test="process != null and process !='' ">process = #{process},</if>
 		</trim>
 		where id = #{id}
 	</update>

@@ -6,6 +6,12 @@ public class EfficiencyStatisticsVo {
 
     private String sonName;
 
+    private String name_1;
+
+    private String name_2;
+
+    private String name_3;
+
     private int sonTime;
 
     private int sonWorkTime;
@@ -38,6 +44,18 @@ public class EfficiencyStatisticsVo {
     public void setSonTime(int sonTime) {
         this.sonTime = sonTime;
     }
+
+    public String getName_1() { return name_1; }
+
+    public void setName_1(String name_1) { this.name_1 = name_1; }
+
+    public String getName_2() { return name_2; }
+
+    public void setName_2(String name_2) { this.name_2 = name_2; }
+
+    public String getName_3() { return name_3; }
+
+    public void setName_3(String name_3) { this.name_3 = name_3; }
 
     public int getSonWorkTime() {
         return sonWorkTime;
@@ -95,7 +113,7 @@ public class EfficiencyStatisticsVo {
         this.workNo = workNo;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -120,6 +138,48 @@ public class EfficiencyStatisticsVo {
     public String toString() {
         return "EfficiencyStatisticsVo{" +
                 "sonName='" + sonName + '\'' +
+                ", sonTime=" + sonTime +
+                ", sonWorkTime=" + sonWorkTime +
+                ", sonPower=" + sonPower +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                ", workTime=" + workTime +
+                ", power=" + power +
+                ", workNo='" + workNo + '\'' +
+                '}';
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EfficiencyStatisticsVo that = (EfficiencyStatisticsVo) o;
+        return sonTime == that.sonTime &&
+                sonWorkTime == that.sonWorkTime &&
+                Double.compare(that.sonPower, sonPower) == 0 &&
+                time == that.time &&
+                workTime == that.workTime &&
+                Double.compare(that.power, power) == 0 &&
+                Objects.equals(sonName, that.sonName) &&
+                Objects.equals(name_1, that.name_1) &&
+                Objects.equals(name_2, that.name_2) &&
+                Objects.equals(name_3, that.name_3) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(workNo, that.workNo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sonName, name_1, name_2, name_3, sonTime, sonWorkTime, sonPower, name, time, workTime, power, workNo);
+    }
+
+    @Override
+    public String toString() {
+        return "EfficiencyStatisticsVo{" +
+                "sonName='" + sonName + '\'' +
+                ", name_1='" + name_1 + '\'' +
+                ", name_2='" + name_2 + '\'' +
+                ", name_3='" + name_3 + '\'' +
                 ", sonTime=" + sonTime +
                 ", sonWorkTime=" + sonWorkTime +
                 ", sonPower=" + sonPower +

@@ -36,6 +36,8 @@ public class Task {
     private String remark;
     @Transient
     private List<Task> sTasks;
+    private String process;
+
     public Task() {
     }
 
@@ -224,6 +226,12 @@ public class Task {
         this.remark = remark;
     }
 
+    @Basic
+    @Column(name = "process")
+    public String getProcess() { return process; }
+
+    public void setProcess(String process) { this.process = process; }
+
     @Transient
     public List<Task> getsTasks() {
 		return sTasks;
@@ -251,6 +259,8 @@ public class Task {
 		this.dept = dept;
 	}
 
+
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -273,12 +283,13 @@ public class Task {
                 Objects.equals(status, task.status) &&
                 Objects.equals(createTime, task.createTime) &&
                 Objects.equals(updateTime, task.updateTime) &&
-                Objects.equals(remark, task.remark);
+                Objects.equals(remark, task.remark) &&
+                Objects.equals(process, task.process);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, workCode, pid, projectName, count, deptId, beginTime, endTime, actualBeginTime, actualEndTime, note, checker, checkingStatus, personId, status, createTime, updateTime, remark);
+        return Objects.hash(id, workCode, pid, projectName, count, deptId, beginTime, endTime, actualBeginTime, actualEndTime, note, checker, checkingStatus, personId, status, createTime, updateTime, remark, process);
     }
 
 	@Override
@@ -287,7 +298,8 @@ public class Task {
 				+ ", count=" + count + ", deptId=" + deptId + ", beginTime=" + beginTime + ", endTime=" + endTime
 				+ ", actualBeginTime=" + actualBeginTime + ", actualEndTime=" + actualEndTime + ", note=" + note
 				+ ", checker=" + checker + ", checkingStatus=" + checkingStatus + ", personId=" + personId + ", status="
-				+ status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark=" + remark + "]";
+				+ status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark=" + remark + ", " +
+                "process=" + process + "]";
 	}
 
 }

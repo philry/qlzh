@@ -46,7 +46,7 @@ public class PersonServiceImpl implements PersonService {
 		p.setPhone(person.getPhone());
 		List<Person> list = personMapper.selectPersonList(p);
 		if(list==null||list.size()==0) {
-			person.setPassword("123456");
+			person.setPassword("123456");//新增人员时默认密码为123456
 			person.setCreateTime(new Timestamp(new Date().getTime()));
 			person.setUpdateTime(person.getCreateTime());
 			return personMapper.insertPerson(person);

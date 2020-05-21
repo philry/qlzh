@@ -13,6 +13,8 @@ public interface PersonEfficiencyService {
 
     Page<PersonEfficiency> initAllData(Integer page, Integer pageSize);
 
+    List<PersonEfficiency> initDeptData(Integer deptId);
+
     void   calculateData(String personName,int deptId, Date beginTime,Date endTime) throws Exception;
 
 }

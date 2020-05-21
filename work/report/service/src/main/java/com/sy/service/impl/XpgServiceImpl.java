@@ -24,6 +24,10 @@ public class XpgServiceImpl implements XpgService {
 	@Override
 	@Transactional
 	public Xpg insertXpg(Xpg xpg) {
+		Xpg xpg1 = xpgMapper.selectXpgByName(xpg.getName());
+		if(xpg1 != null){
+			throw new RuntimeException("该4G码已存在，请重新输入");
+		}
 		xpgMapper.insertXpg(xpg);
 		return xpg;
 	}

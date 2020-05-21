@@ -45,6 +45,12 @@ public class IndexController {
     @Autowired
     private TaskDao taskDao;
 
+    @Autowired
+    private PersonMapper personMapper;
+
+    @Autowired
+    private DeptMapper deptMapper;
+
     @RequestMapping(value = "data",method = RequestMethod.GET)
     public AjaxResult getData(){
 
@@ -57,8 +63,20 @@ public class IndexController {
         int work_day_counts = work_day.size();
         //环比(查询work表,查询昨日扫码的人员的id的个数)
         int pre_work_day_counts = workDao.getPersonIdsByDate(day).size();
-        //总人数(根据人员表获取总人数)
-        int person_counts = personDao.findAll().size();
+       /* //总人数(根据人员表获取总人数)旧的
+        int person_counts = personDao.findAll().size();*/
+
+        //总人数(班长+焊工，所属部门等级为4的人员)
+        int person_counts = 0;
+        Person person = new Person();
+        List<Person> list = personMapper.selectPersonList(person);
+        for(Person person2 : list){
+            Dept dept  = deptMapper.selectDeptById(person2.getDeptId());
+            if(dept.getLevel() == 4){
+                person_counts++;
+            }
+        }
+
         String workerProportion = null;
         if(person_counts==0){
             workerProportion = (String.format("%.2f", (double)(work_day_counts-pre_work_day_counts)*100));
@@ -195,6 +213,9 @@ public class IndexController {
             for (IndexVo indexVo : indexVoEfficiency) {
                 for (IndexVo vo : indexVoPrevEfficiency) {
                     if(vo.getName().equals(indexVo.getName())){
+                        if(vo.getEfficiency() == null){
+                            indexVo.setPervEfficiency("0");
+                        }
                         indexVo.setPervEfficiency(vo.getEfficiency());
                     }
                 }
@@ -383,6 +404,9 @@ public class IndexController {
             for (IndexVo indexVo : indexVoEfficiency) {
                 for (IndexVo vo : indexVoPrevEfficiency) {
                     if(vo.getName().equals(indexVo.getName())){
+                        if(vo.getEfficiency() == null){
+                            indexVo.setPervEfficiency("0");
+                        }
                         indexVo.setPervEfficiency(vo.getEfficiency());
                     }
                 }

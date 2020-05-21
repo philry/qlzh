@@ -77,8 +77,8 @@ public class NettyQuartz extends QuartzJobBean {
 				boolean flag = true;
 				String[] currents = last.getCurrents().split(",");
 				for (String s : currents) {
-				//	if (Double.valueOf(s) < maxA) {
-					if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){
+					if (Double.valueOf(s) < maxA) { //原来的对比方式
+				//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //我改的对比方式
 						flag = false;
 						break;
 					}
@@ -107,8 +107,8 @@ public class NettyQuartz extends QuartzJobBean {
 				} else {
 					boolean flag2 = true;//flag2为true表示处于工作状态
 					for (String s : currents) {
-				//		if (Double.valueOf(s) > minA) {
-						if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
+						if (Double.valueOf(s) > minA) { //原来的对比方式
+					//	if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){ //我改的对比方式
 							flag2 = false;
 							break;
 						}
@@ -122,8 +122,8 @@ public class NettyQuartz extends QuartzJobBean {
 							String[] currents2 = pre.getCurrents().split(",");
 							boolean flag3 = true;
 							for (String s : currents2) {
-						//		if (Double.valueOf(s) > minA) {
-								if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
+								if (Double.valueOf(s) > minA) { //原来的对比方式
+						//		if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){ //我改的对比方式
 									flag3 = false;
 									break;
 								}
@@ -139,8 +139,8 @@ public class NettyQuartz extends QuartzJobBean {
 										if(preTime-n.getCreateTime().getTime()/1000/60 <= 1) {
 											preTime = n.getCreateTime().getTime()/1000/60;
 											for (String s : currents3) {
-										//		if (Double.valueOf(s) > minA) {
-												if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){
+												if (Double.valueOf(s) > minA) {//原来的对比方式
+										//		if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){//我改的对比方式
 													flag4 = false;
 													break outer;
 												}

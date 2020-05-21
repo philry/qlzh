@@ -11,6 +11,7 @@ import java.util.Objects;
 public class PersonEfficiency {
     private int id;
     private String task;
+    private Integer deptId;
     private String deptOne;
     private String deptTwo;
     private String deptThree;
@@ -46,6 +47,16 @@ public class PersonEfficiency {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "dept_id")
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
     }
 
     @Basic
@@ -214,7 +225,7 @@ public class PersonEfficiency {
         this.remark = remark;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -241,5 +252,36 @@ public class PersonEfficiency {
     @Override
     public int hashCode() {
         return Objects.hash(id, task, deptOne, deptTwo, deptThree, name, time, workingTime, efficiency, workingPower, noloadingPower, counts, overTime, status, createTime, updateTime, remark);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonEfficiency that = (PersonEfficiency) o;
+        return id == that.id &&
+                Objects.equals(task, that.task) &&
+                Objects.equals(deptId, that.deptId) &&
+                Objects.equals(deptOne, that.deptOne) &&
+                Objects.equals(deptTwo, that.deptTwo) &&
+                Objects.equals(deptThree, that.deptThree) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(workingTime, that.workingTime) &&
+                Objects.equals(noloadingTime, that.noloadingTime) &&
+                Objects.equals(efficiency, that.efficiency) &&
+                Objects.equals(workingPower, that.workingPower) &&
+                Objects.equals(noloadingPower, that.noloadingPower) &&
+                Objects.equals(counts, that.counts) &&
+                Objects.equals(overTime, that.overTime) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                Objects.equals(remark, that.remark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, task, deptId, deptOne, deptTwo, deptThree, name, time, workingTime, noloadingTime, efficiency, workingPower, noloadingPower, counts, overTime, status, createTime, updateTime, remark);
     }
 }
