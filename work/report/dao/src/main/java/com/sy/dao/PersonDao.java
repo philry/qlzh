@@ -20,4 +20,7 @@ public interface PersonDao extends JpaRepository<Person,Integer>, JpaSpecificati
 
     @Query("select p.id from Person p where p.dept.id = ?1")
     List<Integer> getPersonIdByDeptId(int deptId);
+
+    @Query("select p.pileCounts from Person p where p.id = ?1")
+    Integer getPileCounts (int personId);
 }

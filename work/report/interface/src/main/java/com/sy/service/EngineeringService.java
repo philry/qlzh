@@ -17,4 +17,5 @@ public interface EngineeringService {
 
     List<Engineering> getDataByLevel(int level,Date beginTime, Date endTime);
 
+//    Engineering engineering getDataByLevelAndName(int level, String name);
 }

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import com.sy.entity.Person;
 
+import javax.servlet.http.HttpServletResponse;
+
 public class LoginResult implements Serializable{
 
 	/**
@@ -18,6 +20,8 @@ public class LoginResult implements Serializable{
 	private Person person;
 	
 	private Object obj;
+
+	private HttpServletResponse response;
 
 	public int getCode() {
 		return code;
@@ -50,5 +54,8 @@ public class LoginResult implements Serializable{
 	public void setObj(Object obj) {
 		this.obj = obj;
 	}
-	
+
+	public HttpServletResponse getResponse() {return response;}
+
+	public void setResponse(HttpServletResponse response) {this.response = response;}
 }

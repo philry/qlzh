@@ -12,6 +12,10 @@ public interface NettyService {
 
     List<Netty> getAllByDate(Date beginTime,Date endTime);
 
+    List<String> getAllXpgsByDate(Date beginTime,Date endTime);
+
+    List<Netty> getAllByDateAndXpgId(String xpgId, Date beginTime,Date endTime);
+
     Page<Netty> getAllByName(String xpg, int page, int pageSize);
 
 }

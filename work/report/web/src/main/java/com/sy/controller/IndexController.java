@@ -244,7 +244,7 @@ public class IndexController {
         result.put("openCount", machineNowCounts);    //实时焊机数
         result.put("workCount", machineUseCounts);    //实时焊机工作数
         result.put("totalCount", machineCounts);      //焊机总数
-        result.put("todayUsedPower", todayPower);     //今日工程耗能
+        result.put("todayUsedPower", todayPower);     //今日用电量
         result.put("totalWorkCount", person_counts);  //总人数
         result.put("currentMonthUsedPower", totalPower);  //本月总用电量
         result.put("chartResult", chartResult);          //两周图表
@@ -262,7 +262,12 @@ public class IndexController {
         String day = DateUtils.getPrevDay(today);
 
         //在岗人数(查询work表,查询当日扫码的人员的id的个数)
-        List<Integer> work_day = workDao.getPersonIdsByDate(today);
+        List<Integer> work_day = workDao.getPersonIdsByDate(today); //work_day是今日所有扫码开关机的人员id
+        /*for(Integer work_day_person : work_day){
+            String name = engineering.getName();
+            String name = engineering.getName();
+            String name = engineering.getName();
+        }*/
         int work_day_counts = work_day.size();
         //环比(查询work表,查询昨日扫码的人员的id的个数)
         int pre_work_day_counts = workDao.getPersonIdsByDate(day).size();

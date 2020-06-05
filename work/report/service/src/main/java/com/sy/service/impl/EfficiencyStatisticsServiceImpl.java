@@ -65,6 +65,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             List<EfficiencyStatisticsVo> vos = new ArrayList<>();
 
             handleVo(unit, vos);
+    //      handleVo2(unit, vos);
 
             return vos;
         }else {
@@ -73,6 +74,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 Unit unit = calculateData(name, map);
       //        Unit unit = calculateData2(name, map);
                 handleVo(unit, vos);
+      //        handleVo2(unit, vos);
             }
 
             if(!vos.isEmpty()){
@@ -134,7 +136,8 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             vo.setSonTime(time);
             vo.setSonWorkTime(workTime);
             vo.setSonPower(ePower.doubleValue());
-            vo.setWorkNo(taskDao.getWorkNoByName(unit.getName()));
+//          vo.setWorkNo(taskDao.getWorkNoByName(unit.getName()));
+            vo.setWorkNo(taskDao.getWorkNoById(unit.getId()));
             vos.add(vo);
         }
     }
@@ -143,6 +146,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     private void handleVo2(Unit unit, List<EfficiencyStatisticsVo> vos) {
         Set<String> set = new HashSet<>();
         Map<String,List<Unit>> map = new HashMap<>();
+        Map<Integer,List<EfficiencyStatistics>> map2 = new HashMap<>();
+        List<Integer> banzupids = new ArrayList<>();
+
+        List<EfficiencyStatistics> lists =  efficiencyStatisticsDao.findAll();
         for (Unit son : unit.getSonList()) {
             String name = son.getName();
             set.add(name); //焊工级别的project_name
@@ -155,35 +162,91 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         }
 
-        for (String s : set) { //set是所有焊工级别的project_name
+        for(EfficiencyStatistics efficiencyStatistics : lists){
+            Integer taskId = efficiencyStatistics.getTaskId();
+            if(map2.get(taskId)==null){
+                List<EfficiencyStatistics> list = new ArrayList<>();
+                list.add(efficiencyStatistics);
+                map2.put(taskId,list);
+            }else {
+                map2.get(taskId).add(efficiencyStatistics);
+            }
+        }
+
+        for(EfficiencyStatistics efficiencyStatistics : lists){
+            Integer taskId = efficiencyStatistics.getTaskId();
+            Integer pid = taskDao.getPidById(taskId);
+            banzupids.add(pid);
+        }
+
+
+      for (String s : set) { //set是所有焊工级别的project_name
+//        for(EfficiencyStatistics efficiencyStatistics : lists){//lists是所有焊工级别的数据
+//            String s = efficiencyStatistics.getName();
             int time = 0;
             int workTime = 0;
             BigDecimal ePower = new BigDecimal("0");
+
+            String name3 = null;
+            int time3 = 0;//班组级
+            int workTime3 = 0;
+            BigDecimal Power3 = new BigDecimal("0");
             for (Unit u : map.get(s)) {
                 time += u.getTime();
                 workTime += u.getWorkTime();
                 ePower = ePower.add(new BigDecimal(u.getPower()));
+//            }
+
+
+
+                Integer taskId = u.getId();
+//          for(EfficiencyStatistics efficiencyStatistics1 : map2.get(taskId)) {
+                Integer id = taskId;
+                Integer pid = taskDao.getPidById(id);
+                if(pid !=null){
+                    name3 = taskDao.getNameById(pid);//班组级
+                }
+                if (banzupids.contains(pid)) {
+                    time3 += time;
+                    workTime3 += workTime;
+                    Power3 = Power3.add(ePower);
+                }
             }
 
 
+//          }
+
+
+
+            //新增的start
             /*List<EfficiencyStatistics> lists =  efficiencyStatisticsDao.findAll();
-            List<Integer> pids = new ArrayList<>();
+            List<Integer> banzupids = new ArrayList<>();
             Map<Integer,EfficiencyStatistics> map2 = new HashMap<>();
             int time3=0; //班组级别的
             int workingtime3=0;
-
             for(EfficiencyStatistics efficiencyStatistics : lists){
                 Integer taskId = efficiencyStatistics.getTaskId();
                 Integer pid = taskDao.getPidById(taskId);
-                pids.add(pid);
-                if(pids.contains(pid)){
-                    time3 += time3;
-                    workingtime3 += workingtime3;
-                }else{
+                banzupids.add(pid);
+            }
+
+            for(Integer pid : banzupids){
+                if(!banzupids.contains(pid)){ //不包含
+                    Integer id_first = pid;
                     time3 = unit.getTime();
                     workingtime3 = unit.getWorkTime();
+                }else{ //包含
+                    if(pid.equals(banzupids.get(0))){
+                        time3 += time3;
+                        workingtime3 += workingtime3;
+                    }else{
+                        Integer id_first = pid;
+                        time3 = unit.getTime();
+                        workingtime3 = unit.getWorkTime();
+                    }
                 }
             }*/
+            //新增的end
 
             EfficiencyStatisticsVo vo = new EfficiencyStatisticsVo();
             vo.setTime(unit.getTime());
@@ -191,18 +254,24 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             vo.setName(unit.getName());
             vo.setPower(unit.getPower());
 
+            vo.setName_3(name3);
+            vo.setTime3(time3);
+            vo.setWorkTime3(workTime3);
+            vo.setPower3(Power3.doubleValue());
+
             vo.setSonName(s);
             vo.setSonTime(time);
             vo.setSonWorkTime(workTime);
             vo.setSonPower(ePower.doubleValue());
-            vo.setWorkNo(taskDao.getWorkNoByName(unit.getName()));
+            vo.setWorkNo(taskDao.getWorkNoById(unit.getId()));
             vos.add(vo);
-
         }
     }
 
     private Unit calculateData(String taskName, Map<String, List<EfficiencyStatistics>> map) {
+        Integer id = taskDao.getIdByName(taskName);//生产部级别任务的id
         Unit unit = new Unit();
+        unit.setId(id);
         unit.setName(taskName);
         int time = 0;
         int work_time = 0 ;
@@ -236,14 +305,22 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         int work_time = 0 ;
         BigDecimal ePower = new BigDecimal("0");
         List<Unit> sonList = new ArrayList<>();
-        int taskId = 0;
+
+        int time3 = 0;
+        int work_time3 = 0 ;
+        BigDecimal ePower3 = new BigDecimal("0");
+        List<Unit> sonList3 = new ArrayList<>();
+        List<Integer> banzuids = new ArrayList<>();
+        Unit unit3 = null;
+        Integer pid = 0;
+        /*int taskId = 0;
         List<Integer> ids = new ArrayList<>();
         int time3=0; //班组级别的
         int workingtime3=0;
         Integer id = null;
-        Map<Integer,EfficiencyStatistics> map2 = new HashMap<>();
+        Map<Integer,EfficiencyStatistics> map2 = new HashMap<>();*/
         for (EfficiencyStatistics efficiencyStatistics : map.get(taskName)) {
-            if(ids.size() == 0){ //
+            /*if(ids.size() == 0){ //
                 taskId = efficiencyStatistics.getTaskId();
                 Integer pid = taskDao.getPidById(taskId);
                 id = pid;
@@ -263,26 +340,44 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                     time3 = unit.getTime();
                     workingtime3 = unit.getWorkTime();
                 }
-            }
-
-
-
-
-
+            }*/
 
 
 
             Unit sonUnit = new Unit();
+            sonUnit.setId(efficiencyStatistics.getTaskId());//焊工级别的任务id
             sonUnit.setName(efficiencyStatistics.getName());
             sonUnit.setPower(efficiencyStatistics.getPower());
             sonUnit.setWorkTime(efficiencyStatistics.getWorkingTime());
             sonUnit.setTime(efficiencyStatistics.getTime());
             sonList.add(sonUnit);
 
+            pid = taskDao.getPidById(efficiencyStatistics.getTaskId());
+
+            if(banzuids.contains(pid)){
+                time3 += time;
+                work_time3 += work_time;
+                ePower3 = ePower3.add(ePower);
+                unit3.setName(taskDao.getNameById(pid));
+                unit3.setTime(time3);
+                unit3.setWorkTime(work_time3);
+                unit3.setPower(ePower3.doubleValue());
+                sonList3.add(unit3);
+            }else{
+                unit3 = new Unit();//班组级别,不包含,新建unit3
+                time3 = time;
+                work_time3 = work_time;
+                ePower3 = ePower;
+            }
+            banzuids.add(pid);
+
+
             time += efficiencyStatistics.getTime();
             work_time += efficiencyStatistics.getWorkingTime();
             ePower = ePower.add(new BigDecimal(efficiencyStatistics.getPower()));
+
         }
+
         unit.setSonList(sonList);
         unit.setTime(time);
         unit.setWorkTime(work_time);

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Engineering {
     private int id;
     private String name;
-//  private String deptId;
+//  private String deptId; //我新加的，用不到了
     private Integer level;
     private Integer pid;
     private Integer time;

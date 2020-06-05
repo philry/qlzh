@@ -215,4 +215,23 @@ public class EngineeringServiceImpl implements EngineeringService {
     }
 
 
+    /*public Engineering getDataByLevelAndName(int level, String name) {
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                predicates.add(criteriaBuilder.equal(root.get("level"), level));
+
+                if (name != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("name"), name));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        return engineeringDao.findAll(querySpeci);
+    }*/
+
+
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 public class Unit {
 
+    private Integer id;
+
     //名称
     private String name;
 
@@ -30,6 +32,14 @@ public class Unit {
 
     //子集
     private List<Unit> sonList;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

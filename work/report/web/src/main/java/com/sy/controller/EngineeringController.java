@@ -122,14 +122,14 @@ public class EngineeringController {
 		//一周图表
 		List<String> dayStrings = new ArrayList<>();
 		if((beginTime == null && endTime == null) || (beginTime == "" && endTime == "")){
-            int length = 7;
-            String tempDay = today;
-            dayStrings.add(tempDay);
-            for (int i = 0; i < length - 1; i++) {
-                tempDay = DateUtils.getPrevDay(tempDay);
-                dayStrings.add(tempDay);
-            }
-        }else{
+			int length = 7;
+			String tempDay = today;
+			dayStrings.add(tempDay);
+			for (int i = 0; i < length - 1; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
+		}else{
 			//按时间查询
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			long sub = 0;
@@ -159,6 +159,7 @@ public class EngineeringController {
 			Integer id = null;
 			String name = null;
 			for(Engineering engieering: list) {
+
 				id = engieering.getId();
 				name = engieering.getName();
 				//TODO
@@ -172,11 +173,98 @@ public class EngineeringController {
 					chartResultMap.put(name, chartResult);
 				}
 			}
-			if(deptName.equals(name)){
+			if (deptName.equals(name)) {
 				chartResult.add(vo);
-				chartResultMap.put(name,chartResult);
+				chartResultMap.put(name, chartResult);
 			}
 
+		}
+		AjaxResult result = new AjaxResult();
+		result.put("chartResultMap", chartResultMap);
+		return result;
+	}
+
+	@RequestMapping(value = "/workshopChart2", method = RequestMethod.GET) //车间级一周图表数据
+	public AjaxResult workshopChart2(String beginTime,String endTime,String deptName) {
+		String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, new Date());
+
+		List<Engineering> list = null;
+		List<EngineeringResult> list2 = null;
+
+		//一周图表
+		List<String> dayStrings = new ArrayList<>();
+		if((beginTime == null && endTime == null) || (beginTime == "" && endTime == "")){
+			int length = 7;
+			String tempDay = today;
+			dayStrings.add(tempDay);
+			for (int i = 0; i < length - 1; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
+		}else{
+			//按时间查询
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			long sub = 0;
+			try {
+				sub = Math.abs(dateFormat.parse(endTime).getTime() - dateFormat.parse(beginTime).getTime());
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			int length  = (int)(sub/1000/60/60/24);
+			String tempDay = endTime;
+			dayStrings.add(tempDay);
+			for (int i = 0; i < length; i++) {
+				tempDay = DateUtils.getPrevDay(tempDay);
+				dayStrings.add(tempDay);
+			}
+		}
+
+		Map<String,List<ChartVo>>  chartResultMap = new HashMap<>();
+		List<ChartVo> chartResult = new ArrayList<>();;
+
+//		list = engineeringService.getDataByLevel(2);
+		for(Engineering engieering: list) {
+			ChartVo vo = new ChartVo();
+			Integer id = null;
+			String name = null;
+			id = engieering.getId();
+			name = engieering.getName();
+			//TODO
+
+			vo.setPowerValue(String.valueOf(engieering.getPower()));
+			vo.setRateValue(engieering.getEfficency());
+			//	}
+			for (String dayString : dayStrings) {
+				//		ChartVo vo = new ChartVo();
+	//			Engineering engineering = engineeringService.getDataByLevelAndName(2,name,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
+				vo.setDate(dayString);
+				vo.setPowerValue(String.valueOf(engieering.getPower()));
+				vo.setRateValue(engieering.getEfficency());
+
+				//	list = engineeringService.getDataByLevel(2,DateUtils.parseDate(dayString), DateUtils.parseDate(dayString));
+		/*	Integer id = null;
+			String name = null;
+			for(Engineering engieering: list) {
+
+				id = engieering.getId();
+				name = engieering.getName();
+				//TODO
+
+				vo.setPowerValue(String.valueOf(engieering.getPower()));
+				vo.setRateValue(engieering.getEfficency());
+			}*/
+				if (deptName == null || deptName == "") {
+					chartResult.add(vo);
+					if (id != null) {
+						chartResultMap.put(name, chartResult);
+					}
+				}
+				if (deptName.equals(name)) {
+					chartResult.add(vo);
+					chartResultMap.put(name, chartResult);
+				}
+
+			}
 		}
 		AjaxResult result = new AjaxResult();
 		result.put("chartResultMap", chartResultMap);

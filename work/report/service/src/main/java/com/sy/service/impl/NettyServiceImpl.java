@@ -60,6 +60,34 @@ public class NettyServiceImpl implements NettyService {
     }
 
     @Override
+    public List<String> getAllXpgsByDate(Date beginTime, Date endTime) {
+        return nettyDao.findAllXpgs(beginTime, endTime);
+    }
+
+    @Override
+    public List<Netty> getAllByDateAndXpgId(String xpgId,Date beginTime, Date endTime) {
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                if (beginTime!=null&&endTime!=null){
+                    predicates.add(criteriaBuilder.between(root.get("createTime"),beginTime,endTime));
+                }
+
+                if(!"".equals(xpgId)&&xpgId!=null){
+                    predicates.add(criteriaBuilder.equal(root.get("xpg"),xpgId));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+
+        return nettyDao.findAll(querySpeci);
+    }
+
+
+    @Override
     public Page<Netty> getAllByName(String xpg, int page, int pageSize) {
 
         Pageable pageable = PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,"createTime"));

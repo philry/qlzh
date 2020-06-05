@@ -101,7 +101,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		// 返回16进制到客户端
 		String returnHexStr = "7b7b84bf237d7d";
 		// 设备注册
-		if (isrReg4gStr.equals("7b7b84")) { //原来的写法是：cmd == 132 ，这里面有问题，主要是接口到的报文会有00db84的情况
+		if (isrReg4gStr.equals("7b7b84")) { //原来的写法是：cmd == 132 ，这里面有问题，主要是接到的报文会有00db84的情况
 			byte[] xsf = Arrays.copyOfRange(bytes, 0, 2);// 起始符
 			// logger.info(">>>>>>>>起始符为："+BytesUtils.getString(xsf));
 

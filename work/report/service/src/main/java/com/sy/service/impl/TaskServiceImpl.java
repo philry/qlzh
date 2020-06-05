@@ -218,7 +218,7 @@ public class TaskServiceImpl implements TaskService {
                                         taskMapper.updateTask(task4);//最高级到个人
                                     }
                                 }
-                                if(task3.getStatus() == "3"){
+                                if(task3.getStatus() == "2"){
                                     throw new RuntimeException("任务已处于终止状态，不能被完工(1)");
                                 }
                                 task3.setStatus("3");
@@ -226,7 +226,7 @@ public class TaskServiceImpl implements TaskService {
                             }
                             task2.setsTasks(sTasks3);
                         }
-                        if(task2.getStatus() == "3"){
+                        if(task2.getStatus() == "2"){
                             throw new RuntimeException("任务已处于终止状态，不能被完工(2)");
                         }
                         task2.setStatus("3");
@@ -234,7 +234,7 @@ public class TaskServiceImpl implements TaskService {
                     }
                     task.setsTasks(sTasks2);
                 }
-                if(task.getStatus() == "3"){
+                if(task.getStatus() == "2"){
                     throw new RuntimeException("任务已处于终止状态，不能被完工(3)");
                 }
                 task.setStatus("3");   //task的status字段为3表示任务完工
@@ -242,12 +242,75 @@ public class TaskServiceImpl implements TaskService {
             }
             d.setsTasks(sTasks);
         }
-        if(d.getStatus() == "3"){
+        if(d.getStatus() == "2"){
             throw new RuntimeException("任务已处于终止状态，不能被完工(4)");
         }
         d.setStatus("3");
         return taskMapper.updateTask(d);//最高级到生产部
     }
+
+	@Override
+	@Transactional
+	public int unEndTaskById(Integer id) {
+
+		// 从上级往下级反完工，Status为0表示正常
+		Task d = taskMapper.selectTaskById(id);
+
+		Task d2 = new Task();
+		List<Task> sTasks = new ArrayList<>();
+		d2.setPid(id);
+		sTasks = taskMapper.selectTaskList(d2);
+		if(sTasks!=null&sTasks.size()>0) {
+			for (Task task : sTasks) {
+				d2.setPid(task.getId());
+				List<Task> sTasks2 = taskMapper.selectTaskList(d2);
+				if(sTasks2!=null&sTasks2.size()>0) {
+					for (Task task2 : sTasks2) {
+						d2.setPid(task2.getId());
+						List<Task> sTasks3 = taskMapper.selectTaskList(d2);
+						if(sTasks3!=null&&sTasks3.size()>0) {
+							for(Task task3 : sTasks3){
+								d2.setPid(task3.getId());
+								List<Task> sTasks4 = taskMapper.selectTaskList(d2);
+								if(sTasks4!=null&&sTasks4.size()>0){
+									for(Task task4 : sTasks4){
+										/*if(task4.getStatus() == "3"){
+											throw new RuntimeException("任务已处于终止状态，不能被反完工(0)");
+										}*/
+										task4.setStatus("0");//0正常 1删除 2终止 3完工
+										taskMapper.updateTask(task4);//最高级到个人
+									}
+								}
+								/*if(task3.getStatus() == "3"){
+									throw new RuntimeException("任务已处于终止状态，不能被完工(1)");
+								}*/
+								task3.setStatus("0");
+								taskMapper.updateTask(task3);//最高级到班组
+							}
+							task2.setsTasks(sTasks3);
+						}
+						/*if(task2.getStatus() == "3"){
+							throw new RuntimeException("任务已处于终止状态，不能被完工(0)");
+						}*/
+						task2.setStatus("0");
+						taskMapper.updateTask(task2);//最高级到工程队
+					}
+					task.setsTasks(sTasks2);
+				}
+				/*if(task.getStatus() == "3"){
+					throw new RuntimeException("任务已处于终止状态，不能被完工(3)");
+				}*/
+				task.setStatus("0"); // task的status字段为0表示任务正常
+				taskMapper.updateTask(task);//最高级到车间
+			}
+			d.setsTasks(sTasks);
+		}
+		/*if(d.getStatus() == "3"){
+			throw new RuntimeException("任务已处于终止状态，不能被完工(4)");
+		}*/
+		d.setStatus("0");
+		return taskMapper.updateTask(d);//最高级到生产部
+	}
 
     @Override
 	@Transactional
@@ -293,16 +356,17 @@ public class TaskServiceImpl implements TaskService {
 		//	throw new RuntimeException("派工单未审核");
             throw new RuntimeException("派工单未同意");
 		} else {
-			Task task2 = taskMapper.selectTaskByProjectName(task.getProjectName());
+			/*Task task2 = taskMapper.selectTaskByProjectName(task.getProjectName());
 			if(task2!=null) {
 				throw new RuntimeException("项目名称不能重复");
-			}
+			}*/
 			task.setWorkCode(fTask.getWorkCode()); //工号是唯一的
 		//	task.setProjectName(fTask.getProjectName());
             task.setProjectName(task.getProjectName());//项目名称不能重复
 			task.setPid(pid);
 			task.setCreateTime(new Timestamp(new Date().getTime()));
 			task.setUpdateTime(task.getCreateTime());
+			task.setProcess(task.getProcess());
 			return taskMapper.insertTask(task);
 		}
 	}

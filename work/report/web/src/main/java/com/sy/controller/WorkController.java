@@ -3,6 +3,7 @@ package com.sy.controller;
 import com.sy.constant.HttpStatusConstant;
 import com.sy.core.netty.tcp.NettyServerHandler;
 import com.sy.dao.MachineDao;
+import com.sy.dao.PersonDao;
 import com.sy.entity.Machine;
 import com.sy.entity.Work;
 import com.sy.service.WorkService;
@@ -30,6 +31,8 @@ public class WorkController {
     @Autowired
     private NettyServerHandler nettyServerHandler;
 
+    @Autowired
+    private PersonDao personDao;
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, String personName, String beginTime, String endTime){
@@ -50,8 +53,13 @@ public class WorkController {
         try {
             int machineIndex = Integer.parseInt(machineId);
             Machine machine = machineDao.getById(machineIndex);
-            nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
-            workService.startWork(personId,taskId,machineIndex);
+            Integer pileCounts = personDao.getPileCounts(personId);
+            if(pileCounts == 0 || pileCounts == null || "".equals(pileCounts)){ //人员的焊机开机数量为‘0’或空白或没填时不能打开焊机
+                throw new RuntimeException("该人员不能打开焊机！");
+            }else{
+                nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+                workService.startWork(personId,taskId,machineIndex);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());

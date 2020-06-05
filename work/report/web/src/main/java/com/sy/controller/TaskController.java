@@ -167,6 +167,7 @@ public class TaskController {
 		}
 	}
 
+
 	@RequestMapping(value = "/endTask/{id}",method = RequestMethod.GET)
 	public JsonResult endTask(@PathVariable("id") Integer id){
 		try {
@@ -176,4 +177,14 @@ public class TaskController {
 			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
 		}
 	}
+
+    @RequestMapping(value = "/unEndTask/{id}",method = RequestMethod.GET)
+    public JsonResult unEndTask(@PathVariable("id") Integer id){
+        try {
+            taskService.unEndTaskById(id);
+            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
+        } catch (RuntimeException e) {
+            return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+        }
+    }
 }
