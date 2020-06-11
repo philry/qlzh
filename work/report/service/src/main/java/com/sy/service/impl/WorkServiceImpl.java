@@ -2,6 +2,7 @@ package com.sy.service.impl;
 
 
 import com.google.common.collect.Lists;
+import com.sy.dao.MachineDao;
 import com.sy.dao.MachineNowDao;
 import com.sy.dao.PersonDao;
 import com.sy.dao.WorkDao;
@@ -37,6 +38,10 @@ public class WorkServiceImpl implements WorkService {
     @Autowired
     private PersonDao personDao;
 
+
+    @Autowired
+    private MachineDao machineDao;
+
     @Autowired
     private MachineNowDao machineNowDao;
 
@@ -50,7 +55,7 @@ public class WorkServiceImpl implements WorkService {
             throw new Exception("此焊机已被打开,请使用其他焊机操作");
         }
 
-        //判定用户有否有开焊机的权利
+        /* //判定用户有否有开焊机的权利
         Person person = personDao.getById(personId);
         int counts = person.getPileCounts();
 
@@ -58,27 +63,29 @@ public class WorkServiceImpl implements WorkService {
         List<MachineNow> list = machineNowDao.getByPersonId(personId);
         int openCounts = list.size();
 
-        if(openCounts>=counts){
+       if(openCounts>=counts){
             throw new Exception("可开焊机达到最大数量,请关闭其他焊机后在尝试");
-        }
+        }else{*/
+            //TODO 控制合闸
 
-        //TODO 控制合闸
+
+            //插入工作表
+            inseretWork(personId, taskId, machineId,"0");
+
+            //插入焊机使用表
+            MachineNow machineNow = new MachineNow();
+            machineNow.setPerson(new Person(personId));
+            machineNow.setMachine(new Machine(machineId));
+            machineNow.setBeginTime(new Timestamp(new Date().getTime()));
+            machineNow.setStatus("0");
+            machineNow.setCreateTime(new Timestamp(new Date().getTime()));
+            machineNow.setRemark(String.valueOf(taskId));
+            machineNowDao.save(machineNow);
 
 
-        //插入工作表
-        inseretWork(personId, taskId, machineId,"0");
+            return null;
+//        }
 
-        //插入焊机使用表
-        MachineNow machineNow = new MachineNow();
-        machineNow.setPerson(new Person(personId));
-        machineNow.setMachine(new Machine(machineId));
-        machineNow.setBeginTime(new Timestamp(new Date().getTime()));
-        machineNow.setStatus("0");
-        machineNow.setCreateTime(new Timestamp(new Date().getTime()));
-        machineNow.setRemark(String.valueOf(taskId));
-        machineNowDao.save(machineNow);
-
-        return null;
     }
 
     @Override
@@ -100,6 +107,11 @@ public class WorkServiceImpl implements WorkService {
         machineNowDao.deleteByPersonAndMachine(personId,machineId);
 
         return false;
+    }
+
+    @Override
+    public Integer selectTaskIdByPersonAndMachine(Integer personId, Integer machineId) {
+        return workDao.selectTaskIdByPersonAndMachine(personId,machineId);
     }
 
 

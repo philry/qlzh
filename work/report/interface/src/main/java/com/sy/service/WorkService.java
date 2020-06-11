@@ -13,5 +13,5 @@ public interface WorkService {
 
     boolean endWork(int personId, int taskId, int machineId) throws Exception;
 
-
+    Integer selectTaskIdByPersonAndMachine(Integer personId, Integer machineId);
 }

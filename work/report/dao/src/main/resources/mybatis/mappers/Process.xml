@@ -2,30 +2,26 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.sy.dao.WorkTypeMapper">
+<mapper namespace="com.sy.dao.ProcessMapper">
 
-	<resultMap type="com.sy.entity.WorkType" id="WorkTypeResult">
+	<resultMap type="com.sy.entity.Process" id="ProcessResult">
 		<result property="id" column="id" />
 		<result property="name" column="name" />
-		<result property="level" column="level" />
-		<result property="pid" column="pid" />
 		<result property="status" column="status" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="remark" column="remark" />
 	</resultMap>
 
-	<sql id="selectWorkTypeVo">
-		select id,name,level,pid,status,create_time,update_time,remark from work_type
+	<sql id="selectProcessVo">
+		select id,name,status,create_time,update_time,remark from process
 	</sql>
 
-	<select id="selectWorkTypeList" parameterType="com.sy.entity.WorkType" resultMap="WorkTypeResult">
-		<include refid="selectWorkTypeVo" />
+	<select id="selectProcessList" parameterType="com.sy.entity.Process" resultMap="ProcessResult">
+		<include refid="selectProcessVo" />
 		<where>
 			<if test="id != null and id !=0 "> and id = #{id}</if>
 			<if test="name != null and name !=''"> and name = #{name}</if>
-			<if test="level != null and level !='' "> and level = #{level}</if>
-			<if test="pid != null and pid !='' "> and pid = #{pid}</if>
 			<if test="status != null and status !='' "> and status = #{status}</if>
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
@@ -34,17 +30,15 @@
 	</select>
 
 
-	<select id="selectWorkTypeById" parameterType="Integer" resultMap="WorkTypeResult">
-		<include refid="selectWorkTypeVo" />
+	<select id="selectProcessById" parameterType="Integer" resultMap="ProcessResult">
+		<include refid="selectProcessVo" />
 		where id=#{id} and #{id}!=0
 	</select>
 
-	<insert id="insertWorkType" parameterType="com.sy.entity.WorkType" useGeneratedKeys="true" keyProperty="id">
-		insert into work_type
+	<insert id="insertProcess" parameterType="com.sy.entity.Process" useGeneratedKeys="true" keyProperty="id">
+		insert into process
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="name != null and name !=''">name,</if>
-			<if test="level != null and level !='' ">level,</if>
-			<if test="pid != null and pid !='' ">pid,</if>
 			<if test="status != null and status !='' ">status,</if>
 			<if test="createTime != null and createTime != '' ">create_time,</if>
 			<if test="updateTime != null and updateTime != '' ">update_time,</if>
@@ -52,8 +46,6 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="name != null and name !=''">#{name},</if>
-			<if test="level != null and level !='' ">#{level},</if>
-			<if test="pid != null and pid !='' ">#{pid},</if>
 			<if test="status != null and status !='' ">#{status},</if>
 			<if test="createTime != null ">#{createTime},</if>
 			<if test="updateTime != null ">#{updateTime},</if>
@@ -61,12 +53,10 @@
 		</trim>
 	</insert>
 
-	<update id="updateWorkType" parameterType="com.sy.entity.WorkType">
-		update work_type
+	<update id="updateProcess" parameterType="com.sy.entity.Process">
+		update process
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="name != null and name !=''">name = #{name},</if>
-			<if test="level != null and level !='' ">level = #{level},</if>
-			<if test="pid != null">pid = #{pid},</if>
 			<if test="status != null and status !='' ">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>
@@ -75,8 +65,8 @@
 		where id = #{id}
 	</update>
 
-	<delete id="deleteWorkTypeById" parameterType="Integer">
-		delete from work_type where id = #{id}
+	<delete id="deleteProcessById" parameterType="Integer">
+		delete from process where id = #{id}
 	</delete>
 
 </mapper>
