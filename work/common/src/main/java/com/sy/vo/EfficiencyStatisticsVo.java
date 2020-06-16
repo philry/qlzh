@@ -6,27 +6,27 @@ public class EfficiencyStatisticsVo {
 
     private String sonName;
 
-    private String name_1;
+    private String name_1; //车间
 
-    private String name_2;
+    private String name_2; //工程队
 
-    private String name_3;
+    private String name_3; //班组
 
-    private int sonTime;
+  private int sonTime;
 
     private int sonWorkTime;
 
     private double sonPower;
 
-    private String name;
+    private String name; //总厂
 
-    private int time;
+    private int time; //总厂
 
     private int time1; //车间
 
-    private int time2;//工程队
+    private int time2; //工程队
 
-    private int time3;//班组
+    private int time3; //班组
 
     private int workTime;
 

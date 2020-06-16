@@ -28,7 +28,7 @@ public class EfficiencyStatisticsController {
     @Autowired
     private WorkDao workDao;
 
-    @RequestMapping(value = "info",method = RequestMethod.GET)
+    @RequestMapping(value = "info",method = RequestMethod.GET)//pc工程报表接口
     public JsonResult getData(String taskName,String beginTime,String endTime){
 
         List<EfficiencyStatisticsVo> list = null;
@@ -41,7 +41,8 @@ public class EfficiencyStatisticsController {
         }
 
         try {
-            list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
+    //      list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
+            list = statisticsService.getInitData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +67,8 @@ public class EfficiencyStatisticsController {
         List<EfficiencyStatisticsVo> list = null;
 
         try {
-            list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
+    //        list = statisticsService.getAllData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
+            list = statisticsService.getInitData(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
         } catch (Exception e) {
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
@@ -78,18 +80,21 @@ public class EfficiencyStatisticsController {
             if(list.isEmpty()){
                 return JsonResult.buildFailure(404,"无数据");
             }else {
+                /*原来的
                 Set<AppVo> appVos = new HashSet<>();
                 for (EfficiencyStatisticsVo vo : list) {
                     AppVo appVo = new AppVo();
                     appVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));
                     appVo.setTime(vo.getTime());
                     appVo.setWorkTime(vo.getWorkTime());
-                    appVo.setPower(String.valueOf(vo.getPower()));
+                    appVo.setPower( String.format("%.2f", vo.getPower()));//double类型保留两位小数
+            //      appVo.setPower(String.valueOf(vo.getPower()));
                     appVo.setEfficiency(String.format("%.2f", (double)vo.getWorkTime()/vo.getTime()*100));
                     System.out.println(appVo);
                     appVos.add(appVo);
                 }
-                return JsonResult.buildSuccess(200,appVos);
+                return JsonResult.buildSuccess(200,appVos);*/
+                return JsonResult.buildSuccess(200,list);
             }
         }
     }
@@ -105,10 +110,10 @@ public class EfficiencyStatisticsController {
         List<EfficiencyStatisticsVo> list = null;
 
         if("".equals(taskName)||taskName==null){
-            return JsonResult.buildFailure(404,"请输出项目工号");
+            return JsonResult.buildFailure(404,"请输入项目工号");
         }
 
-        taskName = taskDao.getNameByWorkNo(taskName);
+        taskName = taskDao.getNameByWorkNo(taskName);//生产部级别的项目名称
 
         if(taskName==null){
             return JsonResult.buildFailure(404,"工号不存在");

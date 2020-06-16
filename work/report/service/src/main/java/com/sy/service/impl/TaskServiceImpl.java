@@ -387,10 +387,10 @@ public class TaskServiceImpl implements TaskService {
 		//	throw new RuntimeException("派工单未审核");
             throw new RuntimeException("派工单未同意");
 		}
-		Task task3 = taskMapper.selectTaskByProjectName(task.getProjectName());
+		/*Task task3 = taskMapper.selectTaskByProjectName(task.getProjectName());
 		if(task3!=null) {
 			throw new RuntimeException("项目名称不能重复");
-		}
+		}*/
 		String[] ids = personIds.split(",");
 		task.setWorkCode(pTask.getWorkCode());
 		task.setCount(pTask.getCount());
@@ -403,12 +403,12 @@ public class TaskServiceImpl implements TaskService {
 		Task task2 = new Task();
 		List<Task> list = new ArrayList<>();
 		for(int i=0;i<ids.length;i++) {
-			// 同工号同员工不能重复插入
+			// 同工号同项目名称同员工不能重复插入
 			task2.setWorkCode(task.getWorkCode());
-			task2.setProjectName(task.getProjectName());//新加的(项目名称相同才表示派工单重复)
+			task2.setProjectName(task.getProjectName());
 			task2.setPersonId(Integer.valueOf(ids[i]));
 			list = taskMapper.selectTaskList(task2);
-			if(list==null||list.size()==0) { //list里有数据表示派工单重复
+			if(list==null||list.size()==0) { //list里有数据表示派工单重复派给同一人
 				task.setPersonId(Integer.valueOf(ids[i]));
 				rows+=taskMapper.insertTask(task);
 			}

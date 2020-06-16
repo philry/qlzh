@@ -1,5 +1,6 @@
 package com.sy.dao;
 
+import com.sy.entity.Dept;
 import com.sy.entity.Person;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -23,4 +24,5 @@ public interface PersonDao extends JpaRepository<Person,Integer>, JpaSpecificati
 
     @Query("select p.pileCounts from Person p where p.id = ?1")
     Integer getPileCounts (int personId);
+
 }

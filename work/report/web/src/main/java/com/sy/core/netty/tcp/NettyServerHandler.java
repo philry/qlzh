@@ -124,9 +124,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
 		// 报警设定值字段上传
-		if (cmd == 137) {
+		/*if (cmd == 137) {
 
-		}
+		}*/
 
 		// 对时命令 由于会有解析失败的问题,所以暂时直接标准回复即可
 		if (isrReg4gStr.equals("7b7b93")) {
@@ -153,10 +153,11 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
 		}
 		// modbus命令回传，返回的是请求原报文
-		if (cmd == 144) {
+		/*if (cmd == 144) {
+
 
 			returnHexStr = receiveStr;
-		}
+		}*/
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {

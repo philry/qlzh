@@ -18,6 +18,7 @@ public interface EfficiencyStatisticsDao extends JpaRepository<EfficiencyStatist
     @Modifying
     int deleteByDate(Date time);
 
-
+    @Query("select e.name from EfficiencyStatistics e where  e.taskId = ?1")
+    String getNameByTaskId(int taskId);
 
 }

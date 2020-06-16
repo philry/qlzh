@@ -2,11 +2,15 @@ package com.sy.service.impl;
 
 import com.google.common.collect.Lists;
 import com.sy.dao.EfficiencyStatisticsDao;
+import com.sy.dao.EfficiencyStatisticsNewDao;
 import com.sy.dao.TaskDao;
 import com.sy.entity.EfficiencyStatistics;
+import com.sy.entity.EfficiencyStatisticsNew;
+import com.sy.entity.Engineering;
 import com.sy.entity.Task;
 import com.sy.service.EfficiencyStatisticsService;
 import com.sy.vo.EfficiencyStatisticsVo;
+import com.sy.vo.EngineeringVo;
 import com.sy.vo.Unit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,6 +31,9 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
     @Autowired
+    private EfficiencyStatisticsNewDao efficiencyStatisticsNewDao;
+
+    @Autowired
     private TaskDao taskDao;
 
 
@@ -44,7 +51,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
       //    String name = getFirstTaskName(efficiencyStatistics.getName());
             String name = getFirstTaskName1(efficiencyStatistics.getTaskId());//name为生产部级的projectName
 
-            taskNames.add(name); //taskNames是所有生产部级的projectName，set内元素不重复
+            taskNames.add(name); //taskNames是所有生产部级的projectName
             if(map.get(name)==null){
                 List<EfficiencyStatistics> tempList = new ArrayList<>();
                 tempList.add(efficiencyStatistics);
@@ -60,21 +67,17 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
 
             Unit unit = calculateData(taskName, map);
-    //      Unit unit = calculateData2(taskName, map);
 
             List<EfficiencyStatisticsVo> vos = new ArrayList<>();
 
             handleVo(unit, vos);
-    //      handleVo2(unit, vos);
 
             return vos;
         }else {
             List<EfficiencyStatisticsVo> vos = new ArrayList<>();
             for (String name : taskNames) {
                 Unit unit = calculateData(name, map);
-      //        Unit unit = calculateData2(name, map);
                 handleVo(unit, vos);
-      //        handleVo2(unit, vos);
             }
 
             if(!vos.isEmpty()){
@@ -85,12 +88,224 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
 
     }
 
-    public List<EfficiencyStatistics> getEfficiencyStatistics(String taskName,Date beginTime, Date endTime) {
+    //我新写的
+    @Override
+    public List<EfficiencyStatisticsVo> getInitData(String taskName,Date beginTime, Date endTime) {
+        List<EfficiencyStatisticsNew> list = getData(0,beginTime,endTime);//pid为0生产部级,list为efficiencyStatistics表中的生产部的数据
+
+        for (EfficiencyStatisticsNew efficiencyStatistics : list) { //efficiencyStatistics，list为生产部级数据
+
+            int pid = efficiencyStatistics.getId();
+
+            List<EfficiencyStatisticsNew> sonList = getData(pid,beginTime,endTime);//sonList为车间级
+
+            for (EfficiencyStatisticsNew efficiencyStatistics1 : sonList) {
+
+                int pid1 = efficiencyStatistics1.getId();
+                List<EfficiencyStatisticsNew> sonList1 = getData(pid1,beginTime,endTime);
+
+                for(EfficiencyStatisticsNew efficiencyStatistics2 : sonList1){//engineering2，sonList1为工程队级
+                    int pid2 = efficiencyStatistics2.getId();
+                    efficiencyStatistics2.setSonLsit(getData(pid2,beginTime,endTime));//getData(pid2,beginTime,endTime)为班组级
+                }
+
+                efficiencyStatistics1.setSonLsit(sonList1);
+
+            }
+
+            efficiencyStatistics.setSonLsit(sonList);
+        }
+
+        List<EfficiencyStatisticsVo> vos = new ArrayList<>();
+
+    //  Set<String> set0 = new HashSet<>();
+    //  Map<String,List<EfficiencyStatistics>> map0 = new HashMap<>();
+        Set<Integer> set0 = new HashSet<>();
+        Map<Integer,List<EfficiencyStatisticsNew>> map0 = new HashMap<>();
+        for (EfficiencyStatisticsNew efficiencyStatistics : list) {//整条船级
+
+        //  String name = efficiencyStatistics.getName();
+        //  set0.add(name);  //set整条船级
+            Integer taskId = efficiencyStatistics.getTaskId();
+            set0.add(taskId);
+            if(map0.get(taskId)!=null){
+                map0.get(taskId).add(efficiencyStatistics);
+            }else {
+                List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
+                list1.add(efficiencyStatistics);
+           //   map0.put(name,list1);
+                map0.put(taskId,list1);
+            }
+        }
+        for(Integer s0 : set0) { //整条船级
+            //定义总公司数据
+            String name = efficiencyStatisticsNewDao.getNameByTaskId(s0);
+            int time = 0;
+            int workTime = 0;
+            BigDecimal power = new BigDecimal("0");
+        //  Set<String> set = new HashSet<>();
+        //  Map<String, List<EfficiencyStatistics>> map = new HashMap<>();
+            Set<Integer> set = new HashSet<>();
+            Map<Integer, List<EfficiencyStatisticsNew>> map = new HashMap<>();
+
+            for (EfficiencyStatisticsNew efficiencyStatistics : map0.get(s0)) {
+                //所有生产部级数据相加
+                time += efficiencyStatistics.getTime();
+                workTime += efficiencyStatistics.getWorkingTime();
+                power = power.add(new BigDecimal(efficiencyStatistics.getPower()));
+                for (EfficiencyStatisticsNew efficiencyStatistics1 : efficiencyStatistics.getSonLsit()) {//车间级
+                //  String name = efficiencyStatistics1.getName();
+                //  set.add(name);  //set车间级
+                    Integer taskId = efficiencyStatistics1.getTaskId();
+                    set.add(taskId);
+                    if (map.get(taskId) != null) {
+                        map.get(taskId).add(efficiencyStatistics1);
+                    } else {
+                        List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
+                        list1.add(efficiencyStatistics1);
+                //      map.put(name,list1);
+                        map.put(taskId, list1);
+                    }
+                }
+            }
+            for (Integer s : set) { //车间级
+                String name1 = efficiencyStatisticsNewDao.getNameByTaskId(s);
+                int time_1 = 0;
+                int workTime_1 = 0;
+                BigDecimal power_1 = new BigDecimal("0");
+                for (EfficiencyStatisticsNew efficiencyStatistics : map.get(s)) {
+                    time_1 += efficiencyStatistics.getTime();
+                    workTime_1 += efficiencyStatistics.getWorkingTime();
+                    power_1 = power_1.add(new BigDecimal(efficiencyStatistics.getPower()));
+                }
+           //   Set<String> set1 = new HashSet<>();
+           //   Map<String, List<EfficiencyStatistics>> map1 = new HashMap<>();
+                Set<Integer> set1 = new HashSet<>();
+                Map<Integer, List<EfficiencyStatisticsNew>> map1 = new HashMap<>();
+                for (EfficiencyStatisticsNew efficiencyStatistics : map.get(s)) {
+
+                    for (EfficiencyStatisticsNew efficiencyStatistics1 : efficiencyStatistics.getSonLsit()) {
+
+                        /*String name = efficiencyStatistics1.getName();
+                        set1.add(name);   //set1工程队级*/
+                        Integer taskId = efficiencyStatistics1.getTaskId();
+                        set1.add(taskId);
+                        if (map1.get(taskId) != null) {
+                            map1.get(taskId).add(efficiencyStatistics1);
+                        } else {
+                            List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
+                            list1.add(efficiencyStatistics1);
+                    //      map1.put(name, list1);
+                            map1.put(taskId, list1);
+                        }
+
+                    }
+                }
+
+                for (Integer s1 : set1) { //工程队级
+                    String name2 = efficiencyStatisticsNewDao.getNameByTaskId(s1);
+                    int time_2 = 0;
+                    int workTime_2 = 0;
+                    BigDecimal power_2 = new BigDecimal("0");
+                    for (EfficiencyStatisticsNew efficiencyStatistics : map1.get(s1)) {
+                        time_2 += efficiencyStatistics.getTime();
+                        workTime_2 += efficiencyStatistics.getWorkingTime();
+                        power_2 = power_2.add(new BigDecimal(efficiencyStatistics.getPower()));
+                    }
+                    //新增
+            //      Set<String> set2 = new HashSet<>();
+            //      Map<String, List<EfficiencyStatistics>> map2 = new HashMap<>();
+                    Set<Integer> set2 = new HashSet<>();
+                    Map<Integer, List<EfficiencyStatisticsNew>> map2 = new HashMap<>();
+                    for (EfficiencyStatisticsNew efficiencyStatistics : map1.get(s1)) {
+
+                        for (EfficiencyStatisticsNew efficiencyStatistics2 : efficiencyStatistics.getSonLsit()) {
+
+                            /*String name = efficiencyStatistics2.getName();
+                            set2.add(name);   //set2 班组级*/
+                            Integer taskId = efficiencyStatistics2.getTaskId();
+                            set2.add(taskId);
+                            if (map2.get(taskId) != null) {
+                                map2.get(taskId).add(efficiencyStatistics2);
+                            } else {
+                                List<EfficiencyStatisticsNew> list2 = new ArrayList<>();
+                                list2.add(efficiencyStatistics2);
+                            //  map2.put(name, list2);
+                                map2.put(taskId, list2);
+                            }
+                        }
+                    }
+
+                    //新增一级
+                    for (Integer s2 : set2) { //班组级
+                        String name3 = efficiencyStatisticsNewDao.getNameByTaskId(s2);
+                        int time_3 = 0;
+                        int workTime_3 = 0;
+                        BigDecimal power_3 = new BigDecimal("0");
+                        String workNo = null;
+                        for (EfficiencyStatisticsNew efficiencyStatistics : map2.get(s2)) {
+                            time_3 += efficiencyStatistics.getTime();
+                            workTime_3 += efficiencyStatistics.getWorkingTime();
+                            power_3 = power_3.add(new BigDecimal(efficiencyStatistics.getPower()));
+                            workNo = getWorkNo(efficiencyStatistics.getTaskId());
+                        }
+
+                        EfficiencyStatisticsVo vo = new EfficiencyStatisticsVo();
+                        vo.setWorkNo(workNo);
+                        vo.setName(name);//vo.setName(s0);
+                        vo.setTime(time);
+                        vo.setWorkTime(workTime);
+                        vo.setPower(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setTime1(time_1);
+                        vo.setTime2(time_2);
+                        vo.setPower1(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setWorkTime1(workTime_1);
+                        vo.setWorkTime2(workTime_2);
+                        vo.setPower2(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setName_1(name1);//vo.setName(s);
+                        vo.setName_2(name2);//vo.setName(s1);
+                        vo.setTime3(time_3);
+                        vo.setWorkTime3(workTime_3);
+                        vo.setPower3(power_3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setName_3(name3);//vo.setName(s2);
+                        vos.add(vo);
+                    }
+                }
+            }
+        }
+
+        return vos;
+
+    }
+
+    //我新写的
+    public List<EfficiencyStatisticsNew> getData(int pid, Date beginTime, Date endTime) {
+
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> predicates = Lists.newArrayList();
 
+                predicates.add(criteriaBuilder.equal(root.get("pid"), pid));
+
+                if (beginTime != null && endTime != null) {
+                    predicates.add(criteriaBuilder.between(root.get("date"), beginTime, endTime));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        return efficiencyStatisticsNewDao.findAll(querySpeci);
+    }
+
+    public List<EfficiencyStatistics> getEfficiencyStatistics(String taskName,Date beginTime, Date endTime) {
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+                /*if(taskName!=null&&!("").equals(taskName)){
+                    predicates.add(criteriaBuilder.equal(root.get("name"),taskName));
+                }*/
                 if (beginTime!=null&&endTime!=null){
                     predicates.add(criteriaBuilder.between(root.get("date"),beginTime,endTime));
                 }
@@ -142,7 +357,67 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         }
     }
 
-    //新写的方法
+
+
+    private void handleVo01(Unit unit, List<EfficiencyStatisticsVo> vos) {
+        Set<String> set = new HashSet<>();
+        Map<String,List<Unit>> map = new HashMap<>();
+        for (Unit son : unit.getSonList()) {
+            String name = son.getName();
+            set.add(name); //焊工级别的project_name
+            if(map.get(name)==null){
+                List<Unit> list = new ArrayList<>();
+                list.add(son);
+                map.put(name,list);
+            }else {
+                map.get(name).add(son);
+            }
+        }
+
+        for (String s : set) { //set是所有焊工级别的project_name
+            int time = 0;
+            int workTime = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Unit u : map.get(s)) {
+                time += u.getTime();
+                workTime += u.getWorkTime();
+                ePower = ePower.add(new BigDecimal(u.getPower()));
+            }
+            EfficiencyStatisticsVo vo = new EfficiencyStatisticsVo();
+            vo.setTime(unit.getTime());
+            vo.setWorkTime(unit.getWorkTime());
+            vo.setName(unit.getName());
+            vo.setPower(unit.getPower());
+
+            /*//车间
+            vo.setTime1();
+            vo.setWorkTime1();
+            vo.setName_1();
+            vo.setPower1();
+
+            //工程队
+            vo.setTime2();
+            vo.setWorkTime2();
+            vo.setName_2();
+            vo.setPower2();
+
+            //班组
+            vo.setTime3();
+            vo.setWorkTime3();
+            vo.setName_3();
+            vo.setPower3();*/
+
+            vo.setSonName(s);
+            vo.setSonTime(time);
+            vo.setSonWorkTime(workTime);
+            vo.setSonPower(ePower.doubleValue());
+//          vo.setWorkNo(taskDao.getWorkNoByName(unit.getName()));
+            vo.setWorkNo(taskDao.getWorkNoById(unit.getId()));
+            vos.add(vo);
+        }
+    }
+
+
     private void handleVo2(Unit unit, List<EfficiencyStatisticsVo> vos) {
         Set<String> set = new HashSet<>();
         Map<String,List<Unit>> map = new HashMap<>();
@@ -196,7 +471,6 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 workTime += u.getWorkTime();
                 ePower = ePower.add(new BigDecimal(u.getPower()));
 //            }
-
 
 
                 Integer taskId = u.getId();
@@ -297,7 +571,35 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     }
 
 
-    //新写的方法
+    private Unit calculateData01(String taskName, Map<String, List<EfficiencyStatistics>> map) {
+        Integer id = taskDao.getIdByName(taskName);//生产部级别任务的id
+        Unit unit = new Unit();
+        unit.setId(id);
+        unit.setName(taskName);
+        int time = 0;
+        int work_time = 0 ;
+        BigDecimal ePower = new BigDecimal("0");
+        List<Unit> sonList = new ArrayList<>();
+        for (EfficiencyStatistics efficiencyStatistics : map.get(taskName)) {
+            Unit sonUnit = new Unit();
+            sonUnit.setName(efficiencyStatistics.getName());
+            sonUnit.setPower(efficiencyStatistics.getPower());
+            sonUnit.setWorkTime(efficiencyStatistics.getWorkingTime());
+            sonUnit.setTime(efficiencyStatistics.getTime());
+            sonList.add(sonUnit);
+
+            time += efficiencyStatistics.getTime();
+            work_time += efficiencyStatistics.getWorkingTime();
+            ePower = ePower.add(new BigDecimal(efficiencyStatistics.getPower()));
+        }
+        unit.setSonList(sonList);
+        unit.setTime(time);
+        unit.setWorkTime(work_time);
+        unit.setPower(ePower.doubleValue());
+        return unit;
+    }
+
+
     private Unit calculateData2(String taskName, Map<String, List<EfficiencyStatistics>> map) {
         Unit unit = new Unit();
         unit.setName(taskName);
@@ -408,6 +710,20 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 id = pid;
             }
             tempName = taskDao.getNameById(id);
+        }
+        return tempName;
+    }
+
+    public String getWorkNo(Integer taskId){
+        Integer pid = -1;
+        Integer id = taskId;
+        String tempName = null;
+        while (pid != 0){
+            pid = taskDao.getPidById(id);
+            if(pid!=0){
+                id = pid;
+            }
+            tempName = taskDao.getWorkNoById(id);
         }
         return tempName;
     }

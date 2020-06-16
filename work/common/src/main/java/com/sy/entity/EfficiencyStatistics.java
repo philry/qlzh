@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,7 @@ public class EfficiencyStatistics {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+    private List<EfficiencyStatistics> sonLsit;
 
     public EfficiencyStatistics() {
 
@@ -177,7 +179,16 @@ public class EfficiencyStatistics {
         this.remark = remark;
     }
 
-   /* @Override
+    @Transient
+    public List<EfficiencyStatistics> getSonLsit() {
+        return sonLsit;
+    }
+
+    public void setSonLsit(List<EfficiencyStatistics> sonLsit) {
+        this.sonLsit = sonLsit;
+    }
+
+    /* @Override
     public String toString() {
         return "EfficiencyStatistics{" +
                 "id=" + id +

@@ -56,6 +56,9 @@ public class NettyDataHandler {
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
     @Autowired
+    private EfficiencyStatisticsNewDao efficiencyStatisticsNewDao;
+
+    @Autowired
     private MachineUseDao machineUseDao;
 
 
@@ -189,7 +192,8 @@ public class NettyDataHandler {
         }
         //新增的end
 
-        /*for (int a = 1; a < nettyList.size(); a++) {
+        /*原来的
+        for (int a = 1; a < nettyList.size(); a++) {
             Netty netty = nettyList.get(a);
             //存储处理数据对象
             DataManage data = new DataManage();
@@ -277,14 +281,15 @@ public class NettyDataHandler {
 
         handleDeptReport(day, dataList);
 
-        //开始计算工程报表（以派工单作为判定依据）
+        //开始计算工程报表（以派工单作为判定依据，数据放入新工程报表）
+        handleEfficiencyStatisticsReport(day, dataList);//新增的
 
+      //原来的工程报表存储start
         Set<Integer> taskIds = new HashSet<>();
 
         Map<Integer, List<DataManage>> map = new HashMap<>();
 
         handleDataManage(dataList, taskIds, map, "部门");
-
 
         for (Integer taskId : taskIds) { //taskIds是所有焊工开机扫码选择的任务id
 
@@ -311,6 +316,7 @@ public class NettyDataHandler {
             efficiencyStatisticsDao.save(efficiencyStatistics); //存储的是焊工一级的数据
 
         }
+        //原来的工程报表存储end
 
         //开始计算设备使用报表
         List<Integer> ids = workDao.getMachineId(day);
@@ -363,6 +369,7 @@ public class NettyDataHandler {
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
         engineeringDao.deleteByDate(DateUtils.parseDate(day));
         efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
+        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
 
     }
@@ -370,6 +377,23 @@ public class NettyDataHandler {
 
     //处理数据，将数据根据personId或者taskId进行存储
     private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map, String type) {
+        for (DataManage dataManage : dataList) {
+            Integer taskId = dataManage.getWork().getTask().getId();//焊工开机扫码选择的任务id
+            if ("人员".equals(type)) {
+                taskId = dataManage.getWork().getPerson().getId();
+            }
+            taskIds.add(taskId);
+            if (map.get(taskId) == null) {
+                List<DataManage> list = new ArrayList<>();
+                list.add(dataManage);
+                map.put(taskId, list);
+            } else {
+                map.get(taskId).add(dataManage);
+            }
+        }
+    }
+
+    private void handleDataManage2(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map, String type) {
         for (DataManage dataManage : dataList) {
             Integer taskId = dataManage.getWork().getTask().getId();//焊工开机扫码选择的任务id
             if ("人员".equals(type)) {
@@ -525,7 +549,7 @@ public class NettyDataHandler {
         }
 
         //-------------------------------------新增的一级
-        //5.根据部门id获取部门,再获取顶级pid
+        //6.根据部门id获取部门,再获取顶级pid
         Map<Integer, List<Engineering>> engineeringData_0 = new HashMap<>();
         Set<Integer> dept_0 = new HashSet<>();
         for (Integer integer : dept_1) {
@@ -595,18 +619,271 @@ public class NettyDataHandler {
 
     }
 
+    private void handleEfficiencyStatisticsReport(String day, List<DataManage> dataList) {
+        Map<Integer, List<DataManage>> map = new HashMap<>();
+
+        //1.处理数据,将数据与任务进行绑定
+        Set<Integer> taskIds = new HashSet<>();
+
+        handleDataManage(dataList, taskIds, map, "部门");
+
+        //2.根据任务处理数据,将数据整合(任务id，处理好的数据)
+        Map<Integer, Unit> unitTask = new HashMap<>();
+        for (Integer taskId : taskIds) {//taskIds是所有焊工开机扫码选择的任务id
+            Unit unit = new Unit();
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (DataManage dataManage : map.get(taskId)) {
+                time += dataManage.getNoloadingTime();
+                time += dataManage.getWorkingTime();
+                working_time += dataManage.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
+            }
+
+            unit.setTime(time);
+            unit.setWorkTime(working_time);
+            unit.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+
+            unitTask.put(taskId, unit);
+
+        }
+
+        //3.根据任务,获取分派到班组级级的任务（任务id，处理好的数据）
+        Map<Integer, List<Unit>> unitTask_3 = new HashMap<>();
+        Set<Integer> task_3 = new HashSet<>();
+        for (Integer taskId : taskIds) { //taskIds是所有上过工的焊工级别的任务
+            /*Person person = personDao.getById(taskId);
+            Integer deptId = person.getDept().getId();*/
+
+            Integer banzuTaskId = taskDao.getPidById(taskId);//班组级别任务id
+
+            if (unitTask_3.get(banzuTaskId) == null) {
+                List<Unit> list = new ArrayList<>();
+                list.add(unitTask.get(taskId));
+                unitTask_3.put(banzuTaskId, list);
+            } else {
+                unitTask_3.get(banzuTaskId).add(unitTask.get(taskId));
+            }
+
+            task_3.add(banzuTaskId);//班组级别任务id集合
+        }
+
+        //3.根据任务id,处理数据
+        Map<Integer, EfficiencyStatisticsNew> efficiencyStatisticsMap_3 = new HashMap<>();
+        for (Integer taskId : task_3) {
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (Unit unit : unitTask_3.get(taskId)) {
+                time += unit.getTime();
+                working_time += unit.getWorkTime();
+                ePower = ePower.add(new BigDecimal(unit.getPower()));
+            }
+
+            //将分派到班组级别任务的工程报表属性赋值（pid需要等上级任务完成后才能插入）
+            Task task = taskDao.getById(taskId);
+            EfficiencyStatisticsNew efficiencyStatistics = getEfficiencyStatisticsNew(day, time, working_time, ePower, task, 4);//分派到班组级别的任务
+            //将处理后的数据存储，进行循环
+            efficiencyStatisticsMap_3.put(taskId, efficiencyStatistics);
+
+        }
+
+        //4.根据任务id获取任务,再获取上级pid
+        Map<Integer, List<EfficiencyStatisticsNew>> efficiencyStatisticsData_2 = new HashMap<>();
+        Set<Integer> task_2 = new HashSet<>();
+        for (Integer integer : task_3) {
+            Task task = taskDao.getById(integer);
+            if (efficiencyStatisticsData_2.get(task.getPid()) == null) {
+                List<EfficiencyStatisticsNew> list = new ArrayList<>();
+                list.add(efficiencyStatisticsMap_3.get(integer));
+                efficiencyStatisticsData_2.put(task.getPid(), list);
+            } else {
+                efficiencyStatisticsData_2.get(task.getPid()).add(efficiencyStatisticsMap_3.get(integer));
+            }
+
+            task_2.add(task.getPid());
+        }
+
+        //处理数据,计算二级数据
+        Map<Integer, EfficiencyStatisticsNew> efficiencyStatisticsMap_2 = new HashMap<>();
+        for (Integer integer : task_2) {
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (EfficiencyStatisticsNew efficiencyStatistics : efficiencyStatisticsData_2.get(integer)) {
+                time += efficiencyStatistics.getTime();
+                working_time += efficiencyStatistics.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(efficiencyStatistics.getPower()));
+            }
+
+            /*Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 3);//工程队级别*/
+            //将分派到工程队级别任务的工程报表属性赋值（pid需要等上级部门完成后才能插入）
+            Task task = taskDao.getById(integer);
+            EfficiencyStatisticsNew efficiencyStatistics = getEfficiencyStatisticsNew(day, time, working_time, ePower, task, 3);//分派到工程队级别的任务
+
+            //将处理后的数据存储，进行循环
+            efficiencyStatisticsMap_2.put(integer, efficiencyStatistics);
+
+        }
+
+        //5.根据任务id获取任务,再获取上级pid
+        Map<Integer, List<EfficiencyStatisticsNew>> efficiencyStatisticsData_1 = new HashMap<>();
+        Set<Integer> task_1 = new HashSet<>();
+        for (Integer integer : task_2) {
+   //       Dept dept = deptDao.getById(integer);
+            Task task = taskDao.getById(integer);
+            if (efficiencyStatisticsData_1.get(task.getPid()) == null) {
+                List<EfficiencyStatisticsNew> list = new ArrayList<>();
+                list.add(efficiencyStatisticsMap_2.get(integer));
+                efficiencyStatisticsData_1.put(task.getPid(), list);
+            } else {
+                efficiencyStatisticsData_1.get(task.getPid()).add(efficiencyStatisticsMap_2.get(integer));
+            }
+
+            task_1.add(task.getPid());
+        }
+
+        //处理数据,计算一级数据
+        Map<Integer, EfficiencyStatisticsNew> efficiencyStatisticsMap_1 = new HashMap<>();
+        for (Integer integer : task_1) {
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (EfficiencyStatisticsNew efficiencyStatistics : efficiencyStatisticsData_1.get(integer)) {
+                time += efficiencyStatistics.getTime();
+                working_time += efficiencyStatistics.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(efficiencyStatistics.getPower()));
+            }
+
+            /*Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 2);//车间级别*/
+            //将分派到车间级别任务的工程报表属性赋值（pid需要等上级部门完成后才能插入）
+            Task task = taskDao.getById(integer);
+            EfficiencyStatisticsNew efficiencyStatistics = getEfficiencyStatisticsNew(day, time, working_time, ePower, task, 2);//分派到车间级别的任务
+
+            //将处理后的数据存储，进行循环
+            efficiencyStatisticsMap_1.put(integer, efficiencyStatistics);
+        }
+
+
+        //6.根据部门id获取部门,再获取顶级pid
+        Map<Integer, List<EfficiencyStatisticsNew>> efficiencyStatisticsData_0 = new HashMap<>();
+        Set<Integer> task_0 = new HashSet<>();
+        for (Integer integer : task_1) {
+    //      Dept dept = deptDao.getById(integer);
+            Task task = taskDao.getById(integer);
+            if (efficiencyStatisticsData_0.get(task.getPid()) == null) {
+                List<EfficiencyStatisticsNew> list = new ArrayList<>();
+                list.add(efficiencyStatisticsMap_1.get(integer));
+                efficiencyStatisticsData_0.put(task.getPid(), list);
+            } else {
+                efficiencyStatisticsData_0.get(task.getPid()).add(efficiencyStatisticsMap_1.get(integer));
+            }
+
+            task_0.add(task.getPid());
+        }
+
+        //处理数据,计算一级数据
+        Map<Integer, EfficiencyStatisticsNew> efficiencyStatisticsMap_0 = new HashMap<>();
+        for (Integer integer : task_0) {
+            int time = 0;
+            int working_time = 0;
+            BigDecimal ePower = new BigDecimal("0");
+            for (EfficiencyStatisticsNew efficiencyStatistics : efficiencyStatisticsData_0.get(integer)) {
+                time += efficiencyStatistics.getTime();
+                working_time += efficiencyStatistics.getWorkingTime();
+                ePower = ePower.add(new BigDecimal(efficiencyStatistics.getPower()));
+            }
+
+            /*Dept dept = deptDao.getById(integer);
+            Engineering engineering = getEngineering(day, time, working_time, ePower, dept, 1);//生产部级别*/
+            //将分派到生产部级别任务的工程报表属性赋值（pid需要等上级部门完成后才能插入）
+            Task task = taskDao.getById(integer);
+            EfficiencyStatisticsNew efficiencyStatistics = getEfficiencyStatisticsNew(day, time, working_time, ePower, task, 1);//生产部级别的任务
+
+            //将处理后的数据存储，进行循环
+            efficiencyStatisticsMap_0.put(integer, efficiencyStatistics);
+        }
+
+        //从上往下开始插入数据，并设置pid
+        for (Integer integer_0 : task_0) {
+            EfficiencyStatisticsNew efficiencyStatistics_0 = efficiencyStatisticsMap_0.get(integer_0);
+            efficiencyStatistics_0.setPid(0);
+            int pid_1 = efficiencyStatisticsNewDao.save(efficiencyStatistics_0).getId();//生产部级任务
+            List<Integer> list_1 = taskDao.getIdsByPid(integer_0);
+            for (Integer integer_1 : list_1) {
+                EfficiencyStatisticsNew efficiencyStatistics_1 = efficiencyStatisticsMap_1.get(integer_1);
+                if (efficiencyStatistics_1 != null) {
+                    efficiencyStatistics_1.setPid(pid_1);
+                    int pid_2 = efficiencyStatisticsNewDao.save(efficiencyStatistics_1).getId();//车间级任务
+//                System.out.println(pid_2);
+                    List<Integer> list_2 = taskDao.getIdsByPid(integer_1);
+//                System.out.println(list_2);
+//                System.out.println(111);
+                    for (Integer integer_2 : list_2) {
+                        EfficiencyStatisticsNew efficiencyStatistics_2 = efficiencyStatisticsMap_2.get(integer_2);
+                        if (efficiencyStatistics_2 != null) {
+                            efficiencyStatistics_2.setPid(pid_2);
+                            int pid_3 = efficiencyStatisticsNewDao.save(efficiencyStatistics_2).getId();//工程队级任务
+                            List<Integer> list_3 = taskDao.getIdsByPid(integer_2);
+                            for (Integer integer_3 : list_3) {
+                                EfficiencyStatisticsNew efficiencyStatistics_3 = efficiencyStatisticsMap_3.get(integer_3);
+                                if (efficiencyStatistics_3 != null) {
+                                    efficiencyStatistics_3.setPid(pid_3);
+                                    efficiencyStatisticsNewDao.save(efficiencyStatistics_3);//班组级任务
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
     private Engineering getEngineering(String day, int time, int working_time, BigDecimal ePower, Dept dept, int level) {
         Engineering engineering = new Engineering();
         engineering.setLevel(level);
         engineering.setDate(DateUtils.parseDate(day));
         engineering.setCreateTime(new Timestamp(new Date().getTime()));
         engineering.setName(dept.getName());
-   //   engineering.setDeptId(dept.getId());
+        //   engineering.setDeptId(dept.getId());
         engineering.setTime(time);
         engineering.setWorkingTime(working_time);
         engineering.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
         engineering.setEfficency(String.format("%.2f", (double) working_time / time * 100));
         return engineering;
+    }
+
+    private EfficiencyStatistics getEfficiencyStatistics(String day, int time, int working_time, BigDecimal ePower, Task task, int level) {
+        EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
+        efficiencyStatistics.setLevel(level);
+        efficiencyStatistics.setDate(DateUtils.parseDate(day));
+        efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
+        efficiencyStatistics.setName(task.getProjectName());
+        efficiencyStatistics.setTaskId(task.getId());
+        efficiencyStatistics.setTime(time);
+        efficiencyStatistics.setWorkingTime(working_time);
+        efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
+        return efficiencyStatistics;
+    }
+
+    private EfficiencyStatisticsNew getEfficiencyStatisticsNew(String day, int time, int working_time, BigDecimal ePower, Task task, int level) {
+        EfficiencyStatisticsNew efficiencyStatistics = new EfficiencyStatisticsNew();
+        efficiencyStatistics.setLevel(level);
+        efficiencyStatistics.setDate(DateUtils.parseDate(day));
+        efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
+        efficiencyStatistics.setName(task.getProjectName());
+        efficiencyStatistics.setTaskId(task.getId());
+        efficiencyStatistics.setTime(time);
+        efficiencyStatistics.setWorkingTime(working_time);
+        efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+        efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
+        return efficiencyStatistics;
     }
 
 }

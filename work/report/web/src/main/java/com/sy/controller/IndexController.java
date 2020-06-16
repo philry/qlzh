@@ -52,7 +52,7 @@ public class IndexController {
     private DeptMapper deptMapper;
 
     @RequestMapping(value = "data",method = RequestMethod.GET)
-    public AjaxResult getData(){
+    public AjaxResult getData(Integer deptId){
 
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
@@ -60,6 +60,7 @@ public class IndexController {
 
         //在岗人数(查询work表,查询当日扫码的人员的id的个数)
         List<Integer> work_day = workDao.getPersonIdsByDate(today);
+
         int work_day_counts = work_day.size();
         //环比(查询work表,查询昨日扫码的人员的id的个数)
         int pre_work_day_counts = workDao.getPersonIdsByDate(day).size();
@@ -103,7 +104,8 @@ public class IndexController {
         //用电量(调用工程查询接口)
         List<EfficiencyStatisticsVo> efficiencyStatisticsVos = new ArrayList<>();
         try {
-            efficiencyStatisticsVos = statisticsService.getAllData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
+       //     efficiencyStatisticsVos = statisticsService.getAllData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
+            efficiencyStatisticsVos = statisticsService.getInitData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -113,7 +115,8 @@ public class IndexController {
         double todayPower = 0.0;
         if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-                todayPower += vo.getPower();
+           //   todayPower += vo.getPower();
+                todayPower += vo.getPower3();//今日所有班组级用电量总和就是今日用电量
                 IndexVo indexVo = new IndexVo();
                 indexVo.setName(vo.getName());
                 indexVo.setPower(String.valueOf(vo.getPower()));
@@ -241,8 +244,8 @@ public class IndexController {
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日在岗人数
         result.put("yesterdayWorkCount", pre_work_day_counts);//昨日在岗人数
-        result.put("openCount", machineNowCounts);    //实时焊机数
-        result.put("workCount", machineUseCounts);    //实时焊机工作数
+        result.put("openCount", machineNowCounts);    //实时焊机开机台数
+        result.put("workCount", machineUseCounts);    //今天工作焊机台数
         result.put("totalCount", machineCounts);      //焊机总数
         result.put("todayUsedPower", todayPower);     //今日用电量
         result.put("totalWorkCount", person_counts);  //总人数
@@ -299,7 +302,8 @@ public class IndexController {
         //用电量(调用工程查询接口)
         List<EfficiencyStatisticsVo> efficiencyStatisticsVos = new ArrayList<>();
         try {
-            efficiencyStatisticsVos = statisticsService.getAllData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
+    //        efficiencyStatisticsVos = statisticsService.getAllData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
+            efficiencyStatisticsVos = statisticsService.getInitData("",DateUtils.parseDate(today),DateUtils.parseDate(today));
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -309,7 +313,8 @@ public class IndexController {
         double todayPower = 0.0;
         if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-                todayPower += vo.getPower();
+        //        todayPower += vo.getPower();
+                todayPower += vo.getPower3();//今日所有班组级用电量总和就是今日用电量
                 IndexVo indexVo = new IndexVo();
                 indexVo.setName(vo.getName());
                 indexVo.setPower(String.valueOf(vo.getPower()));
@@ -437,14 +442,14 @@ public class IndexController {
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日在岗人数
         result.put("yesterdayWorkCount", pre_work_day_counts);//昨日在岗人数
-        result.put("openCount", machineNowCounts);   //实时焊机数
-        result.put("workCount", machineUseCounts);   //实时焊机工作数
+        result.put("openCount", machineNowCounts);   //实时焊机开机台数
+        result.put("workCount", machineUseCounts);   //今天工作焊机台数
         result.put("totalCount", machineCounts);      //焊机总数
         result.put("todayUsedPower", todayPower);      //今日工程耗能
         result.put("totalWorkCount", person_counts);    //总人数
         result.put("currentMonthUsedPower", totalPower);  //本月总用电量
 //        result.put("chartResult", chartResult);          //两周图表
-//        result.put("projectResult", indexVosProject);     //今日工程
+//        result.put("projectResult", indexVosProject);     //今日工程耗能
         result.put("groupResult", indexVoEfficiency);     //今日工效
         result.put("appScan",appScan);                 //app对象()
         return result;

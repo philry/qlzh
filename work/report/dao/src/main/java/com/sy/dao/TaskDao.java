@@ -37,6 +37,9 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     @Query("select distinct t.id from Task t where t.pid=?1")
     int getIdByPid(Integer pid);
 
+    @Query("select t.id from Task t where t.pid=?1")
+    List<Integer> getIdsByPid(Integer pid);
+
     @Query("select t.projectName from Task t where t.id = ?1")
     String getNameById(int id);
 
