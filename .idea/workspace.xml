@@ -6,11 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be2979ed-4ba8-48e3-a041-33ecc937e3c9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/82ee2a1c-f9f5-4e36-a17a-9c6724b42b24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/82ee2a1c-f9f5-4e36-a17a-9c6724b42b24.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/work/report/dao/target/" />
     <ignored path="$PROJECT_DIR$/work/report/service/target/" />
@@ -137,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="91" column="14" lean-forward="true" selection-start-line="91" selection-start-column="14" selection-end-line="91" selection-end-column="14" />
+            <state relative-caret-position="72">
+              <caret line="82" column="18" lean-forward="true" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -168,8 +164,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3056">
-              <caret line="128" column="11" lean-forward="true" selection-start-line="128" selection-start-column="11" selection-end-line="128" selection-end-column="11" />
+            <state relative-caret-position="378">
+              <caret line="268" column="10" lean-forward="true" selection-start-line="268" selection-start-column="10" selection-end-line="268" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -732,8 +728,8 @@
         <option value="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/ChildChannelHandler.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" />
       </list>
     </option>
   </component>
@@ -1730,7 +1726,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592380816871" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592380916108" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -1806,7 +1802,7 @@
       <workItem from="1592302956410" duration="36000" />
       <workItem from="1592303127902" duration="8514000" />
       <workItem from="1592351991301" duration="16741000" />
-      <workItem from="1592378345356" duration="2436000" />
+      <workItem from="1592378345356" duration="2765000" />
     </task>
     <task id="LOCAL-00001" summary="qlzh后端">
       <created>1587520543448</created>
@@ -1913,11 +1909,18 @@
       <option name="project" value="LOCAL" />
       <updated>1592288447945</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="解决因开机透传时对仪表回复回来的7b7b90数据再次回复而导致的丢包问题">
+      <created>1592381097278</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1592381097278</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="859943000" />
+    <option name="totallyTimeSpent" value="860272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1930,9 +1933,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="7" width="1910" height="1032" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.15135135" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.21837838" />
       <window_info id="Structure" order="1" sideWeight="0.5016779" side_tool="true" weight="0.1106383" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -2043,7 +2045,8 @@
     <MESSAGE value="修改bug以及将netty表数据列表按xpg分组后再计算电量" />
     <MESSAGE value="工程报表四级展示" />
     <MESSAGE value="新增四级的工程报表" />
-    <option name="LAST_COMMIT_MESSAGE" value="新增四级的工程报表" />
+    <MESSAGE value="解决因开机透传时对仪表回复回来的7b7b90数据再次回复而导致的丢包问题" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决因开机透传时对仪表回复回来的7b7b90数据再次回复而导致的丢包问题" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2511,6 +2514,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="82" column="18" lean-forward="true" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
@@ -2521,17 +2531,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="91" column="14" lean-forward="true" selection-start-line="91" selection-start-column="14" selection-end-line="91" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3056">
-          <caret line="128" column="11" lean-forward="true" selection-start-line="128" selection-start-column="11" selection-end-line="128" selection-end-column="11" />
+        <state relative-caret-position="378">
+          <caret line="268" column="10" lean-forward="true" selection-start-line="268" selection-start-column="10" selection-end-line="268" selection-end-column="10" />
         </state>
       </provider>
     </entry>
