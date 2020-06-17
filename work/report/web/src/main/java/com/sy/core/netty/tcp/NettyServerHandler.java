@@ -82,8 +82,8 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	public void channelActive(ChannelHandlerContext ctx) {
 	}
 
-	@Override
-	@Transactional
+	@Override	  //正常发包给我是数据域上传(数据域上传：仪表发数据包给我，我给仪表个回复)
+	@Transactional//开关机透传时他给我的回复不用再回复他了(数据透传：我发指令给仪表，仪表给我个回复)
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 		ByteBuf buf = (ByteBuf) msg;
@@ -101,7 +101,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		// 返回16进制到客户端
 		String returnHexStr = "7b7b84bf237d7d";
 		// 设备注册
-		if (isrReg4gStr.equals("7b7b84")) { //原来的写法是：cmd == 132 ，这里面有问题，主要是接到的报文会有00db84的情况
+		if (isrReg4gStr.equals("7b7b84")) { //原来的写法是：cmd == 132 ，84的16进制就是132 ，这里面有问题，主要是接到的报文会有00db84的情况
 			byte[] xsf = Arrays.copyOfRange(bytes, 0, 2);// 起始符
 			// logger.info(">>>>>>>>起始符为："+BytesUtils.getString(xsf));
 
@@ -124,12 +124,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
 		// 报警设定值字段上传
-		/*if (cmd == 137) {
+		/*if (cmd == 137) {//isrReg4gStr.equals("7b7b89")
 
 		}*/
 
 		// 对时命令 由于会有解析失败的问题,所以暂时直接标准回复即可
-		if (isrReg4gStr.equals("7b7b93")) {
+		/*if (isrReg4gStr.equals("7b7b93")) {
 //			Calendar calendar = Calendar.getInstance();
 //			int year = calendar.get(Calendar.YEAR);
 //			int month = calendar.get(Calendar.MONTH)+1;
@@ -151,10 +151,10 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //			String modbusCrc16 = CRC16Util.getCRC(modbusBytes);
 //
 //			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
-		}
-		// modbus命令回传，返回的是请求原报文
-		/*if (cmd == 144) {
-
+		}*/
+		// 透传不用回复
+		/*原来的
+		if (cmd == 144) {//isrReg4gStr.equals("7b7b90") 90的16进制就是144
 
 			returnHexStr = receiveStr;
 		}*/
@@ -266,9 +266,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		}
 
-		writeToClient(returnHexStr, ctx);
+		if(isrReg4gStr.equals("7b7b93")||isrReg4gStr.equals("7b7b91") //7b7b93,7b7b91,7b7b84,7b7b89这些才要回复
+				||isrReg4gStr.equals("7b7b84")||isrReg4gStr.equals("7b7b89")){
+			writeToClient(returnHexStr, ctx);
 
-		Thread.sleep(1000);
+			Thread.sleep(1000);
+		}
 	}
 
 	private double getDoubleValue(String handleStr) {
@@ -348,6 +351,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		return hex16;
 	}
 
+	//开关机是透传(透传：我下发指令给他，他给我个回复)
 	public void controlMachine(String xpg,boolean isOpen) throws Exception {
 
 		String hex16 = "01100057000204000100";
