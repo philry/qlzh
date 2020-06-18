@@ -88,9 +88,9 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate("2020-05-16");
+        deleteDate(today);
         //插入数据
-        insertData("2020-05-16");
+        insertData(today);
     }
 
     private void insertData(String day) {

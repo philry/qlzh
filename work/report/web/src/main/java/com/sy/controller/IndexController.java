@@ -184,6 +184,7 @@ public class IndexController {
                 totalPower += vo.getPower();
             }
         }
+        String currentMonthUsedPower = String.format("%.2f", totalPower);
         //两周图表
         List<String> dayStrings = new ArrayList<>();
         int length = 14;
@@ -294,7 +295,7 @@ public class IndexController {
         result.put("totalCount", machineCounts);      //焊机总数
         result.put("todayUsedPower", todayPower);     //今日用电量
         result.put("totalWorkCount", person_counts);  //总人数
-        result.put("currentMonthUsedPower", totalPower);  //本月总用电量
+        result.put("currentMonthUsedPower", currentMonthUsedPower);  //本月总用电量
         result.put("chartResult", chartResult);          //两周图表
         result.put("projectResult", indexVosProject);     //今日工程耗能
         result.put("groupResult", indexVoEfficiency);     //今日工效
@@ -420,6 +421,7 @@ public class IndexController {
                 totalPower += vo.getPower();
             }
         }
+        String currentMonthUsedPower = String.format("%.2f", totalPower);
         //两周图表
         List<String> dayStrings = new ArrayList<>();
         int length = 14;
@@ -530,7 +532,7 @@ public class IndexController {
         result.put("totalCount", machineCounts);      //焊机总数
         result.put("todayUsedPower", todayPower);      //今日工程耗能
         result.put("totalWorkCount", person_counts);    //总人数
-        result.put("currentMonthUsedPower", totalPower);  //本月总用电量
+        result.put("currentMonthUsedPower", currentMonthUsedPower);  //本月总用电量
 //        result.put("chartResult", chartResult);          //两周图表
 //        result.put("projectResult", indexVosProject);     //今日工程耗能
         result.put("groupResult", indexVoEfficiency);     //今日工效

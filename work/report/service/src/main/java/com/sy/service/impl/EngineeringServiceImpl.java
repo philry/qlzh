@@ -75,7 +75,7 @@ public class EngineeringServiceImpl implements EngineeringService {
             workTime += engineering.getWorkingTime();
             power = power.add(new BigDecimal(engineering.getPower()));
             for (Engineering engineering1 : engineering.getSonLsit()) {//车间级
-                /*String name = engineering1.getName(); //TODO 后续估计要改 name是部门名称，可能重复，例如：不同车间或工程队都有班组1
+                /*String name = engineering1.getName(); //name是部门名称，可能重复，例如：不同车间或工程队都有班组1
                 set.add(name);  //set车间级*/
 
                 Integer deptId = engineering1.getDeptId();

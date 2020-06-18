@@ -20,7 +20,7 @@ public interface EfficiencyStatisticsNewDao extends JpaRepository<EfficiencyStat
     @Modifying
     int deleteByDate(Date time);
 
-    //这种写法表只能用实体类EfficiencyStatistics来表示
+    //这种写法表只能用实体类EfficiencyStatisticsNew来表示
     @Query("select e.name from EfficiencyStatisticsNew e where  e.taskId = ?1")
     String getNameByTaskId(int taskId);
 
