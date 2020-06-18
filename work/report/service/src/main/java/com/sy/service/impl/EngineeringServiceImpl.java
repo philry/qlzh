@@ -1,6 +1,7 @@
 package com.sy.service.impl;
 
 import com.google.common.collect.Lists;
+import com.sy.dao.DeptDao;
 import com.sy.dao.EngineeringDao;
 import com.sy.entity.Engineering;
 import com.sy.service.EngineeringService;
@@ -24,6 +25,9 @@ public class EngineeringServiceImpl implements EngineeringService {
 
     @Autowired
     private EngineeringDao engineeringDao;
+
+    @Autowired
+    private DeptDao deptDao;
 
     @Override
     public List<Engineering> getAllData(Date beginTime, Date endTime) {
@@ -61,28 +65,34 @@ public class EngineeringServiceImpl implements EngineeringService {
         int time = 0;
         int workTime = 0;
         BigDecimal power = new BigDecimal("0");
-        Set<String> set = new HashSet<>();
-        Map<String,List<Engineering>> map = new HashMap<>();
-
+        /*Set<String> set = new HashSet<>();
+        Map<String,List<Engineering>> map = new HashMap<>();*/
+        Set<Integer> set = new HashSet<>();
+        Map<Integer,List<Engineering>> map = new HashMap<>();
         for (Engineering engineering : list) {
             //所有生产部级数据相加
             time += engineering.getTime();
             workTime += engineering.getWorkingTime();
             power = power.add(new BigDecimal(engineering.getPower()));
             for (Engineering engineering1 : engineering.getSonLsit()) {//车间级
-                String name = engineering1.getName();
-                set.add(name);  //set车间级
-                if(map.get(name)!=null){
-                    map.get(name).add(engineering1);
+                /*String name = engineering1.getName(); //TODO 后续估计要改 name是部门名称，可能重复，例如：不同车间或工程队都有班组1
+                set.add(name);  //set车间级*/
+
+                Integer deptId = engineering1.getDeptId();
+                set.add(deptId); //set车间级
+                if(map.get(deptId)!=null){
+                    map.get(deptId).add(engineering1);
                 }else {
                     List<Engineering> list1 = new ArrayList<>();
                     list1.add(engineering1);
-                    map.put(name,list1);
+                    map.put(deptId,list1);
                 }
             }
         }
 
-        for (String s : set) { //车间级
+   //   for (String s : set) { //车间级名称
+        for (Integer s : set) { //车间级的id
+            String name1 = deptDao.getById(s).getName();
             int time_1 = 0;
             int workTime_1 = 0;
             BigDecimal power_1 = new BigDecimal("0");
@@ -91,26 +101,32 @@ public class EngineeringServiceImpl implements EngineeringService {
                 workTime_1 += engineering.getWorkingTime();
                 power_1 = power_1.add(new BigDecimal(engineering.getPower()));
             }
-            Set<String> set1 = new HashSet<>();
-            Map<String,List<Engineering>> map1 = new HashMap<>();
+            /*Set<String> set1 = new HashSet<>();
+            Map<String,List<Engineering>> map1 = new HashMap<>();*/
+            Set<Integer> set1 = new HashSet<>();
+            Map<Integer,List<Engineering>> map1 = new HashMap<>();
             for (Engineering engineering : map.get(s)) {
 
                 for (Engineering engineering1 : engineering.getSonLsit()) {
 
-                    String name = engineering1.getName();
-                    set1.add(name);   //set1工程队级
-                    if(map1.get(name)!=null){
-                        map1.get(name).add(engineering1);
+                    /*String name = engineering1.getName();
+                    set1.add(name);   //set1工程队级*/
+                    Integer deptId = engineering1.getDeptId();
+                    set1.add(deptId); //set1工程队级
+                    if(map1.get(deptId)!=null){
+                        map1.get(deptId).add(engineering1);
                     }else {
                         List<Engineering> list1 = new ArrayList<>();
                         list1.add(engineering1);
-                        map1.put(name,list1);
+                        map1.put(deptId,list1);
                     }
 
                 }
             }
 
-            for (String s1 : set1) { //工程队级
+    //      for (String s1 : set1) { //工程队级的名称
+            for (Integer s1 : set1) { //工程队级的id
+                String name2 = deptDao.getById(s1).getName();
                 int time_2 = 0 ;
                 int workTime_2 = 0;
                 BigDecimal power_2 = new BigDecimal("0");
@@ -120,26 +136,32 @@ public class EngineeringServiceImpl implements EngineeringService {
                     power_2 = power_2.add(new BigDecimal(engineering.getPower()));
                 }
                 //新增
-                Set<String> set2 = new HashSet<>();
-                Map<String,List<Engineering>> map2 = new HashMap<>();
+                /*Set<String> set2 = new HashSet<>();
+                Map<String,List<Engineering>> map2 = new HashMap<>();*/
+                Set<Integer> set2 = new HashSet<>();
+                Map<Integer,List<Engineering>> map2 = new HashMap<>();
                 for (Engineering engineering : map1.get(s1)) {
 
                     for (Engineering engineering2 : engineering.getSonLsit()) {
 
-                        String name = engineering2.getName();
-                        set2.add(name);   //set2 班组级
-                        if(map2.get(name)!=null){
-                            map2.get(name).add(engineering2);
+                        /*String name = engineering2.getName();
+                        set2.add(name);   //set2 班组级*/
+                        Integer deptId = engineering2.getDeptId();
+                        set2.add(deptId); //set2 班组级
+                        if(map2.get(deptId)!=null){
+                            map2.get(deptId).add(engineering2);
                         }else {
                             List<Engineering> list2 = new ArrayList<>();
                             list2.add(engineering2);
-                            map2.put(name,list2);
+                            map2.put(deptId,list2);
                         }
                     }
                 }
 
                 //新增一级
-                for (String s2 : set2) { //班组级
+        //      for (String s2 : set2) { //班组级的名称
+                for (Integer s2 : set2) { //班组级的id
+                    String name3 = deptDao.getById(s2).getName();
                     int time_3 = 0;
                     int workTime_3 = 0;
                     BigDecimal power_3 = new BigDecimal("0");
@@ -160,12 +182,12 @@ public class EngineeringServiceImpl implements EngineeringService {
                     vo.setWorkTime_1(workTime_1);
                     vo.setWorkTime_2(workTime_2);
                     vo.setPower_2(String.valueOf(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
-                    vo.setName_1(s);
-                    vo.setName_2(s1);
+                    vo.setName_1(name1);//vo.setName_1(s);
+                    vo.setName_2(name2);//vo.setName_2(s1);
                     vo.setTime_3(time_3);
                     vo.setWorkTime_3(workTime_3);
                     vo.setPower_3(String.valueOf(power_3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
-                    vo.setName_3(s2);
+                    vo.setName_3(name3);//vo.setName_3(s2);
                     vos.add(vo);
                 }
             }

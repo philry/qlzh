@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Engineering {
     private int id;
     private String name;
-//  private String deptId; //我新加的，用不到了
+    private Integer deptId;
     private Integer level;
     private Integer pid;
     private Integer time;
@@ -58,11 +58,11 @@ public class Engineering {
         this.name = name;
     }
 
-    /*@Basic
+    @Basic
     @Column(name = "dept_id")
-    public String getDeptId() { return deptId; }
+    public Integer getDeptId() { return deptId; }
 
-    public void setDeptId(String deptId) { this.deptId = deptId; }*/
+    public void setDeptId(Integer deptId) { this.deptId = deptId; }
 
     @Basic
     @Column(name = "level")
@@ -183,7 +183,7 @@ public class Engineering {
         this.sonLsit = sonLsit;
     }
 
-    @Override
+    /*@Override
     public String toString() {
         return "Engineering{" +
                 "id=" + id +
@@ -226,5 +226,53 @@ public class Engineering {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, level, pid, time, workingTime, efficency, date, power, status, createTime, updateTime, remark);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Engineering that = (Engineering) o;
+        return id == that.id &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(deptId, that.deptId) &&
+                Objects.equals(level, that.level) &&
+                Objects.equals(pid, that.pid) &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(workingTime, that.workingTime) &&
+                Objects.equals(efficency, that.efficency) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(power, that.power) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                Objects.equals(remark, that.remark) &&
+                Objects.equals(sonLsit, that.sonLsit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, deptId, level, pid, time, workingTime, efficency, date, power, status, createTime, updateTime, remark, sonLsit);
+    }
+
+    @Override
+    public String toString() {
+        return "Engineering{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", deptId='" + deptId + '\'' +
+                ", level=" + level +
+                ", pid=" + pid +
+                ", time=" + time +
+                ", workingTime=" + workingTime +
+                ", efficency='" + efficency + '\'' +
+                ", date=" + date +
+                ", power=" + power +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                ", sonLsit=" + sonLsit +
+                '}';
     }
 }

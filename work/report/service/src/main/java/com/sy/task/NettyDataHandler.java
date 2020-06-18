@@ -88,9 +88,9 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate(today);
+        deleteDate("2020-05-16");
         //插入数据
-        insertData(today);
+        insertData("2020-05-16");
     }
 
     private void insertData(String day) {
@@ -850,7 +850,7 @@ public class NettyDataHandler {
         engineering.setDate(DateUtils.parseDate(day));
         engineering.setCreateTime(new Timestamp(new Date().getTime()));
         engineering.setName(dept.getName());
-        //   engineering.setDeptId(dept.getId());
+        engineering.setDeptId(dept.getId());
         engineering.setTime(time);
         engineering.setWorkingTime(working_time);
         engineering.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());

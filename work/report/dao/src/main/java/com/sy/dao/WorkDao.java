@@ -26,6 +26,9 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
     @Query(value = "select distinct person_id from work where date(create_time) = ?1",nativeQuery = true)
     List<Integer> getPersonIdsByDate(String time);
 
+    @Query(value = "select distinct person_id from work where date(create_time) = ?1 and person_id in ?2",nativeQuery = true)
+    List<Integer> getPersonIdsByDateAndPersonids(String today,List<Integer> personids);
+
     @Query(value = "select distinct task_id from work where date(create_time)=?1 ",nativeQuery = true)
     List<Integer> getTaskIds(String b_time);
 

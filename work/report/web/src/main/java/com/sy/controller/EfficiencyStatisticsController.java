@@ -61,7 +61,7 @@ public class EfficiencyStatisticsController {
         }
     }
 
-    @RequestMapping(value = "app/info/all",method = RequestMethod.GET)
+    @RequestMapping(value = "app/info/all",method = RequestMethod.GET) //app工程报表接口
     public JsonResult getAppData(String taskName,String beginTime,String endTime){
 
         List<EfficiencyStatisticsVo> list = null;

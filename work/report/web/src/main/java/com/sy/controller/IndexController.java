@@ -49,17 +49,62 @@ public class IndexController {
     private PersonMapper personMapper;
 
     @Autowired
+    private DeptDao deptDao;
+
+    @Autowired
     private DeptMapper deptMapper;
 
     @RequestMapping(value = "data",method = RequestMethod.GET)
+//    public AjaxResult getData(){ //原来的
     public AjaxResult getData(Integer deptId){
 
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
 
+        //我新写的start
+        List<Integer> personids = new ArrayList<>();
+
+        //最高到生产部级
+        List<Integer> personids0 = personDao.getPersonIdByDeptId(deptId);
+        for(Integer personId : personids0){
+            personids.add(personId);
+        }
+
+        //下级部门(最高到车间级)
+        List<Integer> deptIds1 = deptDao.getIdByPid(deptId);
+        for(Integer deptId1 : deptIds1){
+            List<Integer> personids1 = personDao.getPersonIdByDeptId(deptId1);
+            for(Integer personId : personids1){
+                personids.add(personId);//最高到车间级的部门所有人员放入personids
+            }
+
+            //每个部门的下级部门(最高到工程队级)
+            List<Integer> deptIds2 = deptDao.getIdByPid(deptId1);
+            for(Integer deptId2 : deptIds2){
+                List<Integer> personids2 = personDao.getPersonIdByDeptId(deptId2);
+                for(Integer personId : personids2){
+                    personids.add(personId);//最高到工程队级的部门所有人员放入personids
+                }
+
+                //每个部门的下级部门(最高到班组级)
+                List<Integer> deptIds3 = deptDao.getIdByPid(deptId2);
+                for(Integer deptId3 : deptIds3){
+                    List<Integer> personids3 = personDao.getPersonIdByDeptId(deptId3);
+                    for(Integer personId : personids3){
+                        personids.add(personId); //最高到班组级的部门所有人员放入personids
+                    }
+                }
+            }
+        }
+
+        //今日在岗人数(显示本级部门级及以下部门的扫码人员人数)
+        List<Integer> work_day = workDao.getPersonIdsByDateAndPersonids(today,personids);
+        //我新写的end
+
+        /*原来的
         //在岗人数(查询work表,查询当日扫码的人员的id的个数)
-        List<Integer> work_day = workDao.getPersonIdsByDate(today);
+        List<Integer> work_day = workDao.getPersonIdsByDate(today);*/
 
         int work_day_counts = work_day.size();
         //环比(查询work表,查询昨日扫码的人员的id的个数)
@@ -258,19 +303,57 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/appdata",method = RequestMethod.GET)
-    public AjaxResult getAppData(){
+//    public AjaxResult getAppData(){
+    public AjaxResult getAppData(Integer deptId){
 
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
 
+        //我新写的start
+        List<Integer> personids = new ArrayList<>();
+
+        //最高到生产部级
+        List<Integer> personids0 = personDao.getPersonIdByDeptId(deptId);
+        for(Integer personId : personids0){
+            personids.add(personId);
+        }
+
+        //下级部门(最高到车间级)
+        List<Integer> deptIds1 = deptDao.getIdByPid(deptId);
+        for(Integer deptId1 : deptIds1){
+            List<Integer> personids1 = personDao.getPersonIdByDeptId(deptId1);
+            for(Integer personId : personids1){
+                personids.add(personId);//最高到车间级的部门所有人员放入personids
+            }
+
+            //每个部门的下级部门(最高到工程队级)
+            List<Integer> deptIds2 = deptDao.getIdByPid(deptId1);
+            for(Integer deptId2 : deptIds2){
+                List<Integer> personids2 = personDao.getPersonIdByDeptId(deptId2);
+                for(Integer personId : personids2){
+                    personids.add(personId);//最高到工程队级的部门所有人员放入personids
+                }
+
+                //每个部门的下级部门(最高到班组级)
+                List<Integer> deptIds3 = deptDao.getIdByPid(deptId2);
+                for(Integer deptId3 : deptIds3){
+                    List<Integer> personids3 = personDao.getPersonIdByDeptId(deptId3);
+                    for(Integer personId : personids3){
+                        personids.add(personId); //最高到班组级的部门所有人员放入personids
+                    }
+                }
+            }
+        }
+
+        //今日在岗人数(显示本级部门级及以下部门的扫码人员人数)
+        List<Integer> work_day = workDao.getPersonIdsByDateAndPersonids(today,personids);
+        //我新写的end
+
+        /*原来的
         //在岗人数(查询work表,查询当日扫码的人员的id的个数)
-        List<Integer> work_day = workDao.getPersonIdsByDate(today); //work_day是今日所有扫码开关机的人员id
-        /*for(Integer work_day_person : work_day){
-            String name = engineering.getName();
-            String name = engineering.getName();
-            String name = engineering.getName();
-        }*/
+        List<Integer> work_day = workDao.getPersonIdsByDate(today); //work_day是今日所有扫码开关机的人员id*/
+
         int work_day_counts = work_day.size();
         //环比(查询work表,查询昨日扫码的人员的id的个数)
         int pre_work_day_counts = workDao.getPersonIdsByDate(day).size();

@@ -7,6 +7,12 @@
   <component name="ChangeListManager">
     <list default="true" id="be2979ed-4ba8-48e3-a041-33ecc937e3c9" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/work/report/dao/target/" />
     <ignored path="$PROJECT_DIR$/work/report/service/target/" />
@@ -95,6 +101,13 @@
         <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
         <item name="qlzh2: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="work: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="qlzh2: schema" type="76f4a085:MysqlImplModel$Schema" />
         <item name="work_type: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
@@ -108,10 +121,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+            <state relative-caret-position="72">
+              <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="31" />
               <folding>
-                <marker date="1592380036885" expanded="true" signature="813:848" ph="..." />
+                <marker date="1592447664694" expanded="true" signature="813:848" ph="..." />
               </folding>
             </state>
           </provider>
@@ -120,8 +133,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
+            <state relative-caret-position="83">
+              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
               <folding>
                 <element signature="e#918#919#0" expanded="true" />
                 <element signature="e#976#977#0" expanded="true" />
@@ -133,8 +146,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="82" column="18" lean-forward="true" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
+            <state relative-caret-position="59">
+              <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -149,10 +162,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="38" />
+            <state relative-caret-position="1152">
+              <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
               <folding>
                 <element signature="e#3726#3727#0" expanded="true" />
                 <element signature="e#3764#3765#0" expanded="true" />
@@ -161,11 +183,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="378">
-              <caret line="268" column="10" lean-forward="true" selection-start-line="268" selection-start-column="10" selection-end-line="268" selection-end-column="10" />
+            <state relative-caret-position="-4758">
+              <caret line="102" column="15" lean-forward="true" selection-start-line="102" selection-start-column="15" selection-end-line="102" selection-end-column="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatisticsNew.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-288">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -341,8 +372,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="20" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="192">
+              <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -350,8 +381,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="192">
+              <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -359,11 +390,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1728">
-              <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="1079">
+              <caret line="171" column="28" selection-start-line="171" selection-start-column="23" selection-end-line="171" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -477,11 +505,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3744">
-              <caret line="158" column="56" selection-start-line="158" selection-start-column="49" selection-end-line="158" selection-end-column="56" />
+            <state relative-caret-position="-175">
+              <caret line="147" column="54" lean-forward="true" selection-start-line="147" selection-start-column="54" selection-end-line="147" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -501,8 +529,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+            <state relative-caret-position="480">
+              <caret line="26" column="50" lean-forward="true" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -550,8 +581,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="9072">
-              <caret line="391" column="51" selection-start-line="391" selection-start-column="51" selection-end-line="391" selection-end-column="51" />
+            <state relative-caret-position="362">
+              <caret line="271" column="52" selection-start-line="271" selection-start-column="45" selection-end-line="271" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -568,8 +599,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2184">
+            <state relative-caret-position="434">
               <caret line="91" column="39" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/EngineeringDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -577,8 +617,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1056">
-              <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
+            <state relative-caret-position="96">
+              <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -604,8 +644,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="24" column="63" selection-start-line="24" selection-start-column="63" selection-end-line="24" selection-end-column="63" />
+            <state relative-caret-position="360">
+              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -613,8 +653,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4328">
-              <caret line="242" column="23" selection-start-line="242" selection-start-column="23" selection-end-line="242" selection-end-column="23" />
+            <state relative-caret-position="264">
+              <caret line="155" lean-forward="true" selection-start-line="155" selection-end-line="155" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -691,11 +731,8 @@
         <option value="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonController.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/EfficiencyStatisticsDao.java" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EngineeringService.java" />
-        <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EngineeringController.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java" />
@@ -709,7 +746,6 @@
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/LoginResult.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/LoginController.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/NettyService.java" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/NettyServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyDao.java" />
@@ -723,13 +759,17 @@
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/ProcessService.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/WorkService.java" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/WorkServiceImpl.java" />
-        <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" />
-        <option value="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/ChildChannelHandler.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" />
+        <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java" />
+        <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" />
+        <option value="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -822,9 +862,9 @@
     <option name="vmOptions" value="-DarchetypeCatalog=internal" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-1" />
+    <option name="x" value="2" />
     <option name="y" value="7" />
-    <option name="width" value="1910" />
+    <option name="width" value="1921" />
     <option name="height" value="1032" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -1726,7 +1766,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592380916108" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1592448376721" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -1735,7 +1775,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.37596473" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1802,7 +1842,7 @@
       <workItem from="1592302956410" duration="36000" />
       <workItem from="1592303127902" duration="8514000" />
       <workItem from="1592351991301" duration="16741000" />
-      <workItem from="1592378345356" duration="2765000" />
+      <workItem from="1592378345356" duration="13079000" />
     </task>
     <task id="LOCAL-00001" summary="qlzh后端">
       <created>1587520543448</created>
@@ -1916,11 +1956,18 @@
       <option name="project" value="LOCAL" />
       <updated>1592381097278</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="解决因开机透传时对仪表回复回来的7b7b90数据再次回复而导致的丢包问题">
+      <created>1592381124099</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1592381124099</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="860272000" />
+    <option name="totallyTimeSpent" value="870586000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1932,9 +1979,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="7" width="1910" height="1032" extended-state="0" />
+    <frame x="2" y="7" width="1921" height="1032" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.21837838" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.13057496" />
       <window_info id="Structure" order="1" sideWeight="0.5016779" side_tool="true" weight="0.1106383" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1944,13 +1992,13 @@
       <window_info id="Web" order="7" sideWeight="0.5006135" side_tool="true" weight="0.09946808" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.10356347" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.75319827" weight="0.058352403" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.75319827" visible="true" weight="0.06979405" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77393615" weight="0.035634745" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49973276" weight="0.32845894" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.30778033" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.034324944" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49973276" weight="0.3295838" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.2468017" side_tool="true" weight="0.16926503" />
@@ -1963,10 +2011,10 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.07005347" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.10324325" />
+      <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.05749597" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Database" order="8" weight="0.11837838" />
+      <window_info anchor="right" id="Database" order="8" weight="0.09403546" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.32972974" />
     </layout>
   </component>
@@ -2087,60 +2135,10 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/5.0.0.Alpha1/netty-all-5.0.0.Alpha1-sources.jar!/io/netty/channel/ChannelHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="216" column="20" selection-start-line="216" selection-start-column="9" selection-end-line="216" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/5.0.0.Alpha1/netty-all-5.0.0.Alpha1-sources.jar!/io/netty/channel/ChannelHandlerAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/5.0.0.Alpha1/netty-all-5.0.0.Alpha1-sources.jar!/io/netty/buffer/ByteBuf.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="1468" column="28" selection-start-line="1468" selection-start-column="28" selection-end-line="1468" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/io/netty/netty-all/5.0.0.Alpha1/netty-all-5.0.0.Alpha1-sources.jar!/io/netty/channel/ChannelFutureListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="28" column="28" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="22" column="51" selection-start-line="22" selection-start-column="51" selection-end-line="22" selection-end-column="51" />
-          <folding>
-            <element signature="e#918#919#0" expanded="true" />
-            <element signature="e#976#977#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="30" column="4" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="38" />
-          <folding>
-            <element signature="e#3726#3727#0" expanded="true" />
-            <element signature="e#3764#3765#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2276,23 +2274,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1728">
-          <caret line="72" column="25" selection-start-line="72" selection-start-column="25" selection-end-line="72" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WorkController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="696">
@@ -2321,27 +2302,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3744">
-          <caret line="158" column="56" selection-start-line="158" selection-start-column="49" selection-end-line="158" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/WorkServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2232">
           <caret line="118" column="45" selection-start-line="118" selection-start-column="41" selection-end-line="118" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="26" column="18" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
         </state>
       </provider>
     </entry>
@@ -2377,31 +2341,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9072">
-          <caret line="391" column="51" selection-start-line="391" selection-start-column="51" selection-end-line="391" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="22" column="32" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2184">
-          <caret line="91" column="39" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1056">
-          <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -2416,13 +2359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="24" column="63" selection-start-line="24" selection-start-column="63" selection-end-line="24" selection-end-column="63" />
         </state>
       </provider>
     </entry>
@@ -2497,44 +2433,156 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatisticsNew.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="-288">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="271" column="52" selection-start-line="271" selection-start-column="45" selection-end-line="271" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4758">
+          <caret line="102" column="15" lean-forward="true" selection-start-line="102" selection-start-column="15" selection-end-line="102" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="e#918#919#0" expanded="true" />
+            <element signature="e#976#977#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4328">
-          <caret line="242" column="23" selection-start-line="242" selection-start-column="23" selection-end-line="242" selection-end-column="23" />
+        <state relative-caret-position="264">
+          <caret line="155" lean-forward="true" selection-start-line="155" selection-end-line="155" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="82" column="18" lean-forward="true" selection-start-line="82" selection-start-column="18" selection-end-line="82" selection-end-column="18" />
+        <state relative-caret-position="192">
+          <caret line="70" column="45" selection-start-line="70" selection-start-column="45" selection-end-line="70" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1079">
+          <caret line="171" column="28" selection-start-line="171" selection-start-column="23" selection-end-line="171" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="91" column="39" selection-start-line="91" selection-start-column="16" selection-end-line="91" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/EngineeringDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1152">
+          <caret line="64" column="33" selection-start-line="64" selection-start-column="33" selection-end-line="64" selection-end-column="33" />
+          <folding>
+            <element signature="e#3726#3727#0" expanded="true" />
+            <element signature="e#3764#3765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/WorkDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="26" column="50" lean-forward="true" selection-start-line="26" selection-start-column="50" selection-end-line="26" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        <state relative-caret-position="72">
+          <caret line="3" selection-start-line="3" selection-end-line="5" selection-end-column="31" />
           <folding>
-            <marker date="1592380036885" expanded="true" signature="813:848" ph="..." />
+            <marker date="1592447664694" expanded="true" signature="813:848" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="268" column="10" lean-forward="true" selection-start-line="268" selection-start-column="10" selection-end-line="268" selection-end-column="10" />
+        <state relative-caret-position="59">
+          <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EngineeringServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175">
+          <caret line="147" column="54" lean-forward="true" selection-start-line="147" selection-start-column="54" selection-end-line="147" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
