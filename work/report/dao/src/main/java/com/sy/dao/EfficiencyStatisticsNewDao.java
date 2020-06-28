@@ -15,13 +15,13 @@ public interface EfficiencyStatisticsNewDao extends JpaRepository<EfficiencyStat
 
     EfficiencyStatistics getById(int id);
 
-    //这种写法表能直接写表名
+    /*//这种写法表能直接写表名
     @Query(value="delete from efficiency_statistics_new where  date = ?1",nativeQuery = true)
-    @Modifying
+    @Modifying*/  //标准名称的方法可以不用写sql，Spring Data JPA框架会按照标准名称自动生成对应sql
     int deleteByDate(Date time);
 
     //这种写法表只能用实体类EfficiencyStatisticsNew来表示
-    @Query("select e.name from EfficiencyStatisticsNew e where  e.taskId = ?1")
+    @Query("select distinct e.name from EfficiencyStatisticsNew e where  e.taskId = ?1")
     String getNameByTaskId(int taskId);
 
 }

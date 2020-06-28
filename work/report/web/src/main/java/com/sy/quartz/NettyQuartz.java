@@ -107,8 +107,7 @@ public class NettyQuartz extends QuartzJobBean {
 					MessageData messageData = new MessageData();
 					messageData.setSendId(0);
 					Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
-			//		messageData.setAccpetId(leader);//原来的
-
+					messageData.setAccpetId(leader);//原来的
 					messageData.setAccpetId(personId);//我改的
 					messageData.setContext(String.valueOf(machineNow.getMachine().getId()));
 					try {

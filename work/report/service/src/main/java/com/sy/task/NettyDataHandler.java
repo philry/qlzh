@@ -116,7 +116,7 @@ public class NettyDataHandler {
                 Netty netty = nettyList1.get(a);
                 //存储处理数据对象
                 DataManage data = new DataManage();
-                data.setCreateTime(new Timestamp(DateUtils.parseDate(day).getTime()));
+                data.setCreateTime(new Timestamp(DateUtils.parseDate(day).getTime()));//时分秒为00:00:00
 
 
                 //将数据库存储的60s电流取出
@@ -174,6 +174,7 @@ public class NettyDataHandler {
                     workingPower = power;
                 }
 
+                data.setDate(DateUtils.parseDate(day));
                 data.setWork(work);
                 data.setNoloadingPower(noloadingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
                 data.setWorkingPower(workingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());

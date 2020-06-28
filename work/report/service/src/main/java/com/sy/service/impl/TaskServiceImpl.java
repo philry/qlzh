@@ -36,6 +36,9 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private MessageDataDao messageDataDao;
 
+	@Autowired
+	private WorkDao workDao;
+
 	@Override
 	public List<Task> selectTaskList(Task task) {
 		List<Task> list = taskMapper.selectTaskList(task);
@@ -80,18 +83,45 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int deleteTaskById(Integer id) {
+	public void deleteTaskById(Integer id) {
 		Task task = new Task();
 		task.setPid(id);
 		List<Task> sTask = taskMapper.selectTaskList(task);
+		List<Work> work = workDao.getWorkByTaskId(id);//上工表里有该任务说明被引用过了就不能删除
 		if (sTask != null && sTask.size() > 0) {
 			throw new RuntimeException("请先删除下级派工单");
-		} else {
-			task.setId(id);
+		} else if(work != null && work.size() > 0){
+			throw new RuntimeException("该派工单已经开工生产，无法删除");//第二种方法，可以状态改为1，名义上的删除
+		}else{
+			/*task.setId(id);
 			task.setStatus("1");
 			task.setPid(null);
-			return taskMapper.updateTask(task);
+			return taskMapper.updateTask(task);*/
+			taskMapper.deleteTaskById(id);//建派工单时操作失误要删除，事实上的删除
 		}
+	}
+
+	@Override
+	public int modifyTaskById(Task task, Integer id) {
+		task.setUpdateTime(new Timestamp(new Date().getTime()));
+		Integer pid = taskMapper.selectPidById(id);
+		Task fTask = taskMapper.selectTaskById(pid);
+		Integer id1 = fTask.getId();
+		Double fcount = fTask.getCount();
+		Double count = task.getCount();
+		Double restCount = fcount;
+		Task t1 = new Task();
+		List<Task> taskList = taskMapper.selectTaskList(t1);
+		for(Task t2: taskList){
+			if(t2.getPid().equals(id1)){ //上级任务数量减去所有的直接下级任务数量后的剩余数量，填的数量这个数量对比
+				restCount = new BigDecimal(restCount).subtract(new BigDecimal(t2.getCount())).doubleValue();
+			}
+		}
+		if(count.compareTo(restCount)>0){ //count比restCount大
+			throw new RuntimeException("数量超出了上级任务的可分配数量，请重新修改数量");
+		}
+
+		return taskMapper.updateTask(task);
 	}
 
 	@Override
@@ -356,6 +386,17 @@ public class TaskServiceImpl implements TaskService {
 		//	throw new RuntimeException("派工单未审核");
             throw new RuntimeException("派工单未同意");
 		} else {
+			//给任务下派部门的领导发送消息提醒
+			MessageData messageData = new MessageData();
+			MessageType messageType = new MessageType(3);
+			messageData.setAccpetId(leader);
+			messageData.setContext("你接到新的任务："+task.getProjectName()+"，请下派该任务");
+			messageData.setMessageType(messageType);
+			messageData.setCreateTime(new Timestamp(new Date().getTime()));
+			messageData.setUpdateTime(new java.sql.Date(new Date().getTime()));
+			messageData.setStatus("0");
+			messageDataDao.save(messageData);
+
 			/*Task task2 = taskMapper.selectTaskByProjectName(task.getProjectName());
 			if(task2!=null) {
 				throw new RuntimeException("项目名称不能重复");
@@ -408,7 +449,18 @@ public class TaskServiceImpl implements TaskService {
 			task2.setProjectName(task.getProjectName());
 			task2.setPersonId(Integer.valueOf(ids[i]));
 			list = taskMapper.selectTaskList(task2);
-			if(list==null||list.size()==0) { //list里有数据表示派工单重复派给同一人
+			if(list==null||list.size()==0) { //list里要是有数据表示派工单重复派给同一人,这里就跳过
+				//给分到任务的焊工发送消息提醒
+				MessageData messageData = new MessageData();
+				MessageType messageType = new MessageType(3);
+				messageData.setAccpetId(Integer.valueOf(ids[i]));
+				messageData.setContext("你接到新的任务："+task.getProjectName()+"，请完成该任务");
+				messageData.setMessageType(messageType);
+				messageData.setCreateTime(new Timestamp(new Date().getTime()));
+				messageData.setUpdateTime(new java.sql.Date(new Date().getTime()));
+				messageData.setStatus("0");
+				messageDataDao.save(messageData);
+
 				task.setPersonId(Integer.valueOf(ids[i]));
 				rows+=taskMapper.insertTask(task);
 			}
@@ -427,6 +479,9 @@ public class TaskServiceImpl implements TaskService {
 		Dept dept = deptMapper.selectDeptById(task.getDeptId());
 		if(dept!=null)
 			task.setDept(dept);
+		Person workingPerson = personMapper.selectPersonById(task.getPersonId());
+		if(workingPerson!=null)
+		task.setWorkingPerson(workingPerson);//任务分解给哪个焊工了
 	}
 
 	

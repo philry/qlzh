@@ -13,7 +13,9 @@ public interface TaskService {
 
 	int insertTask(Task task);
 
-	int deleteTaskById(Integer id);
+	void deleteTaskById(Integer id);
+
+	int modifyTaskById(Task task, Integer id);
 
 	int stopTaskById(Integer id);
 

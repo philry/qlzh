@@ -24,4 +24,6 @@ public interface TaskMapper {
 
 	List<Task> selectTaskLists(Task task);
 
+	Integer selectPidById(Integer id);
+
 }

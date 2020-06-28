@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("messageData")
-public class MessageController {
+public class  MessageController {
 
     @Autowired
     private MessageDataService messageDataService;

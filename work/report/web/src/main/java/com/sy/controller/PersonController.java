@@ -85,12 +85,19 @@ public class PersonController {
 		List<Dept> list = deptService.getDeptList(dept);
 		if(list!=null&&list.size()>=0) {
 			for (Dept dept2 : list) {
-				deptIds.add(dept2.getId());
+				deptIds.add(dept2.getId()); //车间级别的部门
 				dept.setPid(dept2.getId());
 				List<Dept> list2 = deptService.getDeptList(dept);
 				if(list2!=null&&list2.size()>0) {
 					for (Dept dept3 : list2) {
-						deptIds.add(dept3.getId());
+						deptIds.add(dept3.getId()); //工程队级别的部门
+						dept.setPid(dept3.getId());
+						List<Dept> list3 = deptService.getDeptList(dept);
+						if(list3!=null&&list3.size()>0) {
+							for (Dept dept4 : list3) {
+								deptIds.add(dept4.getId()); //班组级别的部门
+							}
+						}
 					}
 				}
 			}

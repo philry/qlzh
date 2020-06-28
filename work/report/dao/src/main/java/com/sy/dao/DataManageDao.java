@@ -13,4 +13,7 @@ public interface DataManageDao extends JpaRepository<DataManage,Integer>, JpaSpe
 
     int deleteByCreateTime(Date time);
 
+    //标准名称的方法Spring Data JPA框架会自动生成对应sql
+    int deleteByDate(Date time);
+
 }

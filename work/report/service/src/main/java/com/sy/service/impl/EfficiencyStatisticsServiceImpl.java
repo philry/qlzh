@@ -1,6 +1,7 @@
 package com.sy.service.impl;
 
 import com.google.common.collect.Lists;
+import com.sy.dao.DeptDao;
 import com.sy.dao.EfficiencyStatisticsDao;
 import com.sy.dao.EfficiencyStatisticsNewDao;
 import com.sy.dao.TaskDao;
@@ -36,6 +37,8 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     @Autowired
     private TaskDao taskDao;
 
+    @Autowired
+    private DeptDao deptDao;
 
     @Override
     public List<EfficiencyStatisticsVo> getAllData(String taskName, Date beginTime, Date endTime) throws Exception {
@@ -137,9 +140,11 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 map0.put(taskId,list1);
             }
         }
-        for(Integer s0 : set0) { //整条船级
+        for(Integer s0 : set0) { //生产部级所有船任务id集合
             //定义总公司数据
             String name = efficiencyStatisticsNewDao.getNameByTaskId(s0);
+            Integer deptId = taskDao.getDeptIdById(s0);
+            String deptName = deptDao.getNameById(deptId);
             int time = 0;
             int workTime = 0;
             BigDecimal power = new BigDecimal("0");
@@ -168,8 +173,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                     }
                 }
             }
-            for (Integer s : set) { //车间级
+            for (Integer s : set) { //派到车间级的任务id集合
                 String name1 = efficiencyStatisticsNewDao.getNameByTaskId(s);
+                Integer deptId1 = taskDao.getDeptIdById(s);
+                String deptName1 = deptDao.getNameById(deptId1);
                 int time_1 = 0;
                 int workTime_1 = 0;
                 BigDecimal power_1 = new BigDecimal("0");
@@ -202,8 +209,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                     }
                 }
 
-                for (Integer s1 : set1) { //工程队级
+                for (Integer s1 : set1) { //派到工程队级任务id集合
                     String name2 = efficiencyStatisticsNewDao.getNameByTaskId(s1);
+                    Integer deptId2 = taskDao.getDeptIdById(s1);
+                    String deptName2 = deptDao.getNameById(deptId2);
                     int time_2 = 0;
                     int workTime_2 = 0;
                     BigDecimal power_2 = new BigDecimal("0");
@@ -237,8 +246,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                     }
 
                     //新增一级
-                    for (Integer s2 : set2) { //班组级
+                    for (Integer s2 : set2) { //派到班组级任务id集合
                         String name3 = efficiencyStatisticsNewDao.getNameByTaskId(s2);
+                        Integer deptId3 = taskDao.getDeptIdById(s2);
+                        String deptName3 = deptDao.getNameById(deptId3);
                         int time_3 = 0;
                         int workTime_3 = 0;
                         BigDecimal power_3 = new BigDecimal("0");
@@ -253,21 +264,25 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                         EfficiencyStatisticsVo vo = new EfficiencyStatisticsVo();
                         vo.setWorkNo(workNo);
                         vo.setName(name);//vo.setName(s0);
-                        vo.setTime(time);
-                        vo.setWorkTime(workTime);
-                        vo.setPower(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-                        vo.setTime1(time_1);
-                        vo.setTime2(time_2);
-                        vo.setPower1(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-                        vo.setWorkTime1(workTime_1);
-                        vo.setWorkTime2(workTime_2);
-                        vo.setPower2(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
                         vo.setName_1(name1);//vo.setName(s);
                         vo.setName_2(name2);//vo.setName(s1);
-                        vo.setTime3(time_3);
-                        vo.setWorkTime3(workTime_3);
-                        vo.setPower3(power_3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
                         vo.setName_3(name3);//vo.setName(s2);
+                        vo.setDeptName(deptName);
+                        vo.setDeptName1(deptName1);
+                        vo.setDeptName2(deptName2);
+                        vo.setDeptName3(deptName3);
+                        vo.setTime(time);
+                        vo.setTime1(time_1);
+                        vo.setTime2(time_2);
+                        vo.setTime3(time_3);
+                        vo.setWorkTime(workTime);
+                        vo.setWorkTime1(workTime_1);
+                        vo.setWorkTime2(workTime_2);
+                        vo.setWorkTime3(workTime_3);
+                        vo.setPower(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setPower1(power_1.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setPower2(power_2.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                        vo.setPower3(power_3.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
                         vos.add(vo);
                     }
                 }

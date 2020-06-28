@@ -37,6 +37,8 @@ public class Task {
     @Transient
     private List<Task> sTasks;
     private String process;
+    @Transient
+    private Person workingPerson;//任务分解给哪个焊工了
 
     public Task() {
     }
@@ -259,6 +261,14 @@ public class Task {
 		this.dept = dept;
 	}
 
+    @Transient
+    public Person getWorkingPerson() {
+        return workingPerson;
+    }
+
+    public void setWorkingPerson(Person workingPerson) {
+        this.workingPerson = workingPerson;
+    }
 
 
 	@Override

@@ -81,7 +81,17 @@ public class TaskController {
 			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
 		}
 	}
-	
+
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public JsonResult removeById(Task task,@PathVariable("id")Integer id) {
+		try {
+			taskService.modifyTaskById(task,id);
+			return JsonResult.getJson(1);
+		} catch (Exception e) {
+			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
+		}
+	}
+
 	@RequestMapping(value = "/addson/{pid}", method = RequestMethod.POST)
 	public JsonResult addSonTask(Task task,@PathVariable("pid")Integer pid) {
 		try {

@@ -6,6 +6,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -19,6 +20,7 @@ public class DataManage {
     private Double noloadingPower;
     private Double workingPower;
     private String status;
+    private Date date;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -106,6 +108,16 @@ public class DataManage {
     }
 
     @Basic
+    @Column(name = "date")
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    @Basic
     @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
@@ -135,7 +147,7 @@ public class DataManage {
         this.remark = remark;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -170,5 +182,45 @@ public class DataManage {
     @Override
     public int hashCode() {
         return Objects.hash(id, noloadingTime, workingTime, noloadingPower, workingPower, status, createTime, updateTime, remark);
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataManage that = (DataManage) o;
+        return id == that.id &&
+                Objects.equals(work, that.work) &&
+                Objects.equals(noloadingTime, that.noloadingTime) &&
+                Objects.equals(workingTime, that.workingTime) &&
+                Objects.equals(noloadingPower, that.noloadingPower) &&
+                Objects.equals(workingPower, that.workingPower) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                Objects.equals(remark, that.remark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, work, noloadingTime, workingTime, noloadingPower, workingPower, status, date, createTime, updateTime, remark);
+    }
+
+    @Override
+    public String toString() {
+        return "DataManage{" +
+                "id=" + id +
+                ", work=" + work +
+                ", noloadingTime=" + noloadingTime +
+                ", workingTime=" + workingTime +
+                ", noloadingPower=" + noloadingPower +
+                ", workingPower=" + workingPower +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
     }
 }

@@ -4,23 +4,25 @@ import java.util.Objects;
 
 public class EfficiencyStatisticsVo {
 
-    private String sonName;
+    private String workNo;
 
-    private String name_1; //车间
+    private String name; //派到生产部级的任务名
 
-    private String name_2; //工程队
+    private String name_1; //派到车间级的任务名
 
-    private String name_3; //班组
+    private String name_2; //派到工程队的任务名
 
-  private int sonTime;
+    private String name_3; //派到班组的任务名
 
-    private int sonWorkTime;
+    private String deptName;//生产部名称
 
-    private double sonPower;
+    private String deptName1;//车间名
 
-    private String name; //总厂
+    private String deptName2;//工程队名
 
-    private int time; //总厂
+    private String deptName3;//班组名
+
+    private int time;
 
     private int time1; //车间
 
@@ -44,8 +46,13 @@ public class EfficiencyStatisticsVo {
 
     private double power3;
 
-    private String workNo;
+    private String sonName;
 
+    private int sonTime;
+
+    private int sonWorkTime;
+
+    private double sonPower;
 
     public String getSonName() {
         return sonName;
@@ -74,6 +81,38 @@ public class EfficiencyStatisticsVo {
     public String getName_3() { return name_3; }
 
     public void setName_3(String name_3) { this.name_3 = name_3; }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
+    public String getDeptName1() {
+        return deptName1;
+    }
+
+    public void setDeptName1(String deptName1) {
+        this.deptName1 = deptName1;
+    }
+
+    public String getDeptName2() {
+        return deptName2;
+    }
+
+    public void setDeptName2(String deptName2) {
+        this.deptName2 = deptName2;
+    }
+
+    public String getDeptName3() {
+        return deptName3;
+    }
+
+    public void setDeptName3(String deptName3) {
+        this.deptName3 = deptName3;
+    }
 
     public int getSonWorkTime() {
         return sonWorkTime;
@@ -239,48 +278,6 @@ public class EfficiencyStatisticsVo {
                 '}';
     }*/
 
-  /*  @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        EfficiencyStatisticsVo that = (EfficiencyStatisticsVo) o;
-        return sonTime == that.sonTime &&
-                sonWorkTime == that.sonWorkTime &&
-                Double.compare(that.sonPower, sonPower) == 0 &&
-                time == that.time &&
-                workTime == that.workTime &&
-                Double.compare(that.power, power) == 0 &&
-                Objects.equals(sonName, that.sonName) &&
-                Objects.equals(name_1, that.name_1) &&
-                Objects.equals(name_2, that.name_2) &&
-                Objects.equals(name_3, that.name_3) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(workNo, that.workNo);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(sonName, name_1, name_2, name_3, sonTime, sonWorkTime, sonPower, name, time, workTime, power, workNo);
-    }
-
-    @Override
-    public String toString() {
-        return "EfficiencyStatisticsVo{" +
-                "sonName='" + sonName + '\'' +
-                ", name_1='" + name_1 + '\'' +
-                ", name_2='" + name_2 + '\'' +
-                ", name_3='" + name_3 + '\'' +
-                ", sonTime=" + sonTime +
-                ", sonWorkTime=" + sonWorkTime +
-                ", sonPower=" + sonPower +
-                ", name='" + name + '\'' +
-                ", time=" + time +
-                ", workTime=" + workTime +
-                ", power=" + power +
-                ", workNo='" + workNo + '\'' +
-                '}';
-    }*/
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -305,13 +302,17 @@ public class EfficiencyStatisticsVo {
                 Objects.equals(name_1, that.name_1) &&
                 Objects.equals(name_2, that.name_2) &&
                 Objects.equals(name_3, that.name_3) &&
+                Objects.equals(deptName, that.deptName) &&
+                Objects.equals(deptName1, that.deptName1) &&
+                Objects.equals(deptName2, that.deptName2) &&
+                Objects.equals(deptName3, that.deptName3) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(workNo, that.workNo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sonName, name_1, name_2, name_3, sonTime, sonWorkTime, sonPower, name, time, time1, time2, time3, workTime, workTime1, workTime2, workTime3, power, power1, power2, power3, workNo);
+        return Objects.hash(sonName, name_1, name_2, name_3, deptName, deptName1, deptName2, deptName3, sonTime, sonWorkTime, sonPower, name, time, time1, time2, time3, workTime, workTime1, workTime2, workTime3, power, power1, power2, power3, workNo);
     }
 
     @Override
@@ -321,6 +322,10 @@ public class EfficiencyStatisticsVo {
                 ", name_1='" + name_1 + '\'' +
                 ", name_2='" + name_2 + '\'' +
                 ", name_3='" + name_3 + '\'' +
+                ", deptName='" + deptName + '\'' +
+                ", deptName1='" + deptName1 + '\'' +
+                ", deptName2='" + deptName2 + '\'' +
+                ", deptName3='" + deptName3 + '\'' +
                 ", sonTime=" + sonTime +
                 ", sonWorkTime=" + sonWorkTime +
                 ", sonPower=" + sonPower +

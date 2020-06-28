@@ -177,5 +177,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteTaskById" parameterType="Integer">
 		delete from task where id = #{id}
 	</delete>
-	
+
+	<select id="selectPidById" parameterType="Integer" resultType="Integer">
+		select pid from task where id=#{id}
+	</select>
+
 </mapper>

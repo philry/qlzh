@@ -40,4 +40,7 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
 
     @Query(value = "select task_id from work where person_id=?1 and machine_id=?2 and operate=0 order by create_time desc limit 1 ",nativeQuery = true)
     Integer selectTaskIdByPersonAndMachine(Integer personId, Integer machineId);
+
+    @Query(value = "select * from work where task_id=?1 ",nativeQuery = true)
+    List<Work> getWorkByTaskId(int taskId);
 }

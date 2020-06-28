@@ -23,5 +23,6 @@ public interface DeptDao extends JpaRepository<Dept,Integer> {
     @Query(value = "select leader from dept where id = ?1",nativeQuery = true)
     Integer getLeaderById(int id);
 
-
+    @Query(value = "select name from dept where id = ?1",nativeQuery = true)
+    String getNameById(Integer id);
 }

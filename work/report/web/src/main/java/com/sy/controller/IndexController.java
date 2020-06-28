@@ -181,7 +181,8 @@ public class IndexController {
         System.out.println(efficiencyStatisticsVos);
         if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-                totalPower += vo.getPower();
+    //          totalPower = vo.getPower(); //totalPower += vo.getPower();原来错误的
+                totalPower += vo.getSonPower();//方法二
             }
         }
         String currentMonthUsedPower = String.format("%.2f", totalPower);
@@ -203,7 +204,8 @@ public class IndexController {
                 double power = 0.0;
                 if(!vos.isEmpty()){
                     for (EfficiencyStatisticsVo efficiencyStatisticsVo : vos) {
-                        power += efficiencyStatisticsVo.getPower();
+            //        power = efficiencyStatisticsVo.getPower(); //power += efficiencyStatisticsVo.getPower();原来错误的
+                      power += efficiencyStatisticsVo.getSonPower();//方法二
                     }
                 }
             //  vo.setPowerValue(String.valueOf(power));
@@ -418,7 +420,8 @@ public class IndexController {
         System.out.println(efficiencyStatisticsVos);
         if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-                totalPower += vo.getPower();
+        //      totalPower += vo.getPower();
+                totalPower += vo.getSonPower();
             }
         }
         String currentMonthUsedPower = String.format("%.2f", totalPower);

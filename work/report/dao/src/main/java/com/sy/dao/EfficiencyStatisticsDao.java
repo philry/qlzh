@@ -14,8 +14,8 @@ public interface EfficiencyStatisticsDao extends JpaRepository<EfficiencyStatist
 
     EfficiencyStatistics getById(int id);
 
-    @Query("delete from EfficiencyStatistics where  date = ?1")
-    @Modifying
+    /*@Query("delete from EfficiencyStatistics where  date = ?1")
+    @Modifying*/  //Spring Data JPA框架可以不用写sql，框架会按照标准名称自动生成对应sql
     int deleteByDate(Date time);
 
     @Query("select e.name from EfficiencyStatistics e where  e.taskId = ?1")

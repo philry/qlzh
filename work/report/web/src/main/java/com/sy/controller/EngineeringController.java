@@ -172,8 +172,7 @@ public class EngineeringController {
 				if (id != null) {
 					chartResultMap.put(name, chartResult);
 				}
-			}
-			if (deptName.equals(name)) {
+			}else if (deptName.equals(name)) {
 				chartResult.add(vo);
 				chartResultMap.put(name, chartResult);
 			}
@@ -222,7 +221,7 @@ public class EngineeringController {
 		Map<String,List<ChartVo>>  chartResultMap = new HashMap<>();
 		List<ChartVo> chartResult = new ArrayList<>();;
 
-//		list = engineeringService.getDataByLevel(2);
+	//	list = engineeringService.getDataByLevel(2);
 		for(Engineering engieering: list) {
 			ChartVo vo = new ChartVo();
 			Integer id = null;

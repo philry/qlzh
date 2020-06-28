@@ -49,7 +49,12 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     @Query("select t.workCode from Task t where t.id = ?1 and pid = 0")
     String getWorkNoById(Integer id);
 
+    //这种写法写映设的实体类的名称和属性名
     @Query("select t.projectName from Task t where t.workCode=?1 and pid = 0")
     String getNameByWorkNo(String workNo);
+
+    //这种写法直接写数据库的表名和数据库里的字段
+    @Query(value = "select dept_id from task where id=?1",nativeQuery = true)
+    Integer getDeptIdById(Integer id);
 
 }
