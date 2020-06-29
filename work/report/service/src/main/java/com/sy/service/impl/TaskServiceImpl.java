@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sy.constant.TaskStatus;
 import com.sy.dao.*;
 import com.sy.entity.*;
 import com.sy.service.MessageDataService;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sy.service.TaskService;
 
 @Service
+@Transactional
 public class TaskServiceImpl implements TaskService {
 
 	@Autowired
@@ -106,19 +108,31 @@ public class TaskServiceImpl implements TaskService {
 		task.setUpdateTime(new Timestamp(new Date().getTime()));
 		Integer pid = taskMapper.selectPidById(id);
 		Task fTask = taskMapper.selectTaskById(pid);
-		Integer id1 = fTask.getId();
-		Double fcount = fTask.getCount();
 		Double count = task.getCount();
-		Double restCount = fcount;
 		Task t1 = new Task();
 		List<Task> taskList = taskMapper.selectTaskList(t1);
+		Double totalCount = 0.0;
+		if(fTask!=null){
+			Integer id1 = fTask.getId();
+			Double fcount = fTask.getCount();
+			Double restCount = fcount;
+			for(Task t2: taskList){
+				if(t2.getPid().equals(id1) && t2.getId() != id){ //上级任务数量减去所有的直接下级任务数量后的剩余数量，填的数量与剩余数量对比
+					restCount = new BigDecimal(restCount).subtract(new BigDecimal(t2.getCount())).doubleValue();
+				}
+			}
+			if(count.compareTo(restCount)>0){ //count比restCount大
+				throw new RuntimeException("数量超出了上级任务的可分配数量，请重新修改数量");
+			}
+
+		}
 		for(Task t2: taskList){
-			if(t2.getPid().equals(id1)){ //上级任务数量减去所有的直接下级任务数量后的剩余数量，填的数量这个数量对比
-				restCount = new BigDecimal(restCount).subtract(new BigDecimal(t2.getCount())).doubleValue();
+			if(t2.getPid().equals(id)){
+				totalCount =  new BigDecimal(totalCount).add(new BigDecimal(t2.getCount())).doubleValue();
 			}
 		}
-		if(count.compareTo(restCount)>0){ //count比restCount大
-			throw new RuntimeException("数量超出了上级任务的可分配数量，请重新修改数量");
+		if(count.compareTo(totalCount)<0){ //count比totalCount小
+			throw new RuntimeException("数量小于下级任务数量总和，请重新修改数量");
 		}
 
 		return taskMapper.updateTask(task);
@@ -307,7 +321,7 @@ public class TaskServiceImpl implements TaskService {
 										/*if(task4.getStatus() == "3"){
 											throw new RuntimeException("任务已处于终止状态，不能被反完工(0)");
 										}*/
-										task4.setStatus("0");//0正常 1删除 2终止 3完工
+										task4.setStatus(TaskStatus.NORMAL);//0正常 1删除 2终止 3完工
 										taskMapper.updateTask(task4);//最高级到个人
 									}
 								}
@@ -344,11 +358,12 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
 	@Transactional
-	public int insertSonTask(Task task, Integer pid) {
+	public int insertSonTask(Task task, Integer pid) {//下派任务
 		Integer deptId = task.getDeptId();
-		Dept thisDept  =deptMapper.selectDeptById(deptId);
-		Integer leader  =thisDept.getLeader();
-		String flag = thisDept.getFlag();
+		Dept sonDept  =deptMapper.selectDeptById(deptId);
+		Integer leader = sonDept.getLeader();
+		Integer operator = sonDept.getOperator();
+		String flag = sonDept.getFlag();
 
 		/*if("0".equals(flag)&&personId!=leader){
 			throw new RuntimeException("新建与审核为同一人时只有总经理才能新建最高级派工单");
@@ -390,6 +405,7 @@ public class TaskServiceImpl implements TaskService {
 			MessageData messageData = new MessageData();
 			MessageType messageType = new MessageType(3);
 			messageData.setAccpetId(leader);
+			messageData.setAccpetId(operator);
 			messageData.setContext("你接到新的任务："+task.getProjectName()+"，请下派该任务");
 			messageData.setMessageType(messageType);
 			messageData.setCreateTime(new Timestamp(new Date().getTime()));
