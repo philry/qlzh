@@ -114,6 +114,11 @@ public class WorkServiceImpl implements WorkService {
         return workDao.selectTaskIdByPersonAndMachine(personId,machineId);
     }
 
+    @Override
+    public Date getLastOpenTimeByMachine(Integer machineId) {
+        return workDao.getLastOpenTimeByMachine(machineId);
+    }
+
 
     @Override
     public Page<Work> getAllWork(Integer page, Integer pageSize,String personName, Date beginTime,Date endTime) throws Exception {

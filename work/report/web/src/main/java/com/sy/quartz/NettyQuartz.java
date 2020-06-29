@@ -76,15 +76,19 @@ public class NettyQuartz extends QuartzJobBean {
 				Integer machineId = machineNow.getMachine().getId();
 				// 获取xpg信息
 				xpg = xpgMapper.selectXpgByMachineId(machineNow.getMachine().getId());
-				// 获取最新的netty数据
-				last = nettyMapper.getLastNettyByXpg(xpg.getName());
 				Integer personId = machineNow.getPerson().getId();
+				Date openTime = workService.getLastOpenTimeByMachine(machineId);//该焊机的最近开机时间
+
+				// 获取最新的netty数据
+		//		last = nettyMapper.getLastNettyByXpg(xpg.getName());//原来的
+				last = nettyMapper.getLastNettyByXpgAndOpenTime(xpg.getName(),openTime);//该焊机最近一次开机后的最新数据包
+
 				// 判断是否超限
-				/*原来的
-				boolean flag = true;
+				//原来的
+				/*boolean flag = true;//初始判断为超限
 				String[] currents = last.getCurrents().split(",");
 				for (String s : currents) {
-					if (Double.valueOf(s) < maxA) { //原来的对比方式
+					if (Double.valueOf(s) < maxA) { //原来的对比方式,底表该焊机对应的最新包有一秒的电流小于最大电流判断为不超限
 				//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //我改的对比方式
 						flag = false;
 						break;
@@ -92,10 +96,18 @@ public class NettyQuartz extends QuartzJobBean {
 				}*/
 
 				//我写的
-				boolean flag = false;
+				boolean flag = false;//初始判断为不超限
+				if(last == null){
+					try {
+						Thread.sleep(60*1000);//没包就等一分钟等包过来
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+
 				String[] currents = last.getCurrents().split(",");
 				for (String s : currents) {
-					if (Double.valueOf(s) > maxA) {
+					if (Double.valueOf(s) > maxA) { //底表该焊机对应的最新包有一秒的电流大于最大电流判断为超限
 						//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //我改的对比方式
 						flag = true;
 						break;

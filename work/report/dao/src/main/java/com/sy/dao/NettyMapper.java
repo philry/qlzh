@@ -1,5 +1,6 @@
 package com.sy.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -13,6 +14,8 @@ public interface NettyMapper {
 	List<Netty> selectAllXpg();
 	
 	Netty getLastNettyByXpg(String xpg);
+
+	Netty getLastNettyByXpgAndOpenTime(String xpg, Date openTime);
 	
 	List<Netty> selectAllNettyByXpgAndTime(@Param("xpg")String xpg,@Param("time")Integer time);
 }
