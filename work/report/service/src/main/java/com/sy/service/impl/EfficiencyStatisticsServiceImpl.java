@@ -134,10 +134,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             if(map0.get(taskId)!=null){
                 map0.get(taskId).add(efficiencyStatistics);
             }else {
-                List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
-                list1.add(efficiencyStatistics);
-           //   map0.put(name,list1);
-                map0.put(taskId,list1);
+                List<EfficiencyStatisticsNew> list0 = new ArrayList<>();
+                list0.add(efficiencyStatistics);
+           //   map0.put(name,list0);
+                map0.put(taskId,list0);//map0是不同船的生产部级的任务集合
             }
         }
         for(Integer s0 : set0) { //生产部级所有船任务id集合
@@ -169,7 +169,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                         List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
                         list1.add(efficiencyStatistics1);
                 //      map.put(name,list1);
-                        map.put(taskId, list1);
+                        map.put(taskId, list1);//map是相同生产部级任务下派的不同的车间级的任务集合
                     }
                 }
             }
@@ -191,19 +191,19 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 Map<Integer, List<EfficiencyStatisticsNew>> map1 = new HashMap<>();
                 for (EfficiencyStatisticsNew efficiencyStatistics : map.get(s)) {
 
-                    for (EfficiencyStatisticsNew efficiencyStatistics1 : efficiencyStatistics.getSonLsit()) {
+                    for (EfficiencyStatisticsNew efficiencyStatistics2 : efficiencyStatistics.getSonLsit()) {
 
                         /*String name = efficiencyStatistics1.getName();
                         set1.add(name);   //set1工程队级*/
-                        Integer taskId = efficiencyStatistics1.getTaskId();
+                        Integer taskId = efficiencyStatistics2.getTaskId();
                         set1.add(taskId);
                         if (map1.get(taskId) != null) {
-                            map1.get(taskId).add(efficiencyStatistics1);
+                            map1.get(taskId).add(efficiencyStatistics2);
                         } else {
-                            List<EfficiencyStatisticsNew> list1 = new ArrayList<>();
-                            list1.add(efficiencyStatistics1);
-                    //      map1.put(name, list1);
-                            map1.put(taskId, list1);
+                            List<EfficiencyStatisticsNew> list2 = new ArrayList<>();
+                            list2.add(efficiencyStatistics2);
+                    //      map1.put(name, list2);
+                            map1.put(taskId, list2);
                         }
 
                     }
@@ -228,19 +228,19 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                     Map<Integer, List<EfficiencyStatisticsNew>> map2 = new HashMap<>();
                     for (EfficiencyStatisticsNew efficiencyStatistics : map1.get(s1)) {
 
-                        for (EfficiencyStatisticsNew efficiencyStatistics2 : efficiencyStatistics.getSonLsit()) {
+                        for (EfficiencyStatisticsNew efficiencyStatistics3 : efficiencyStatistics.getSonLsit()) {
 
-                            /*String name = efficiencyStatistics2.getName();
+                            /*String name = efficiencyStatistics3.getName();
                             set2.add(name);   //set2 班组级*/
-                            Integer taskId = efficiencyStatistics2.getTaskId();
+                            Integer taskId = efficiencyStatistics3.getTaskId();
                             set2.add(taskId);
                             if (map2.get(taskId) != null) {
-                                map2.get(taskId).add(efficiencyStatistics2);
+                                map2.get(taskId).add(efficiencyStatistics3);
                             } else {
-                                List<EfficiencyStatisticsNew> list2 = new ArrayList<>();
-                                list2.add(efficiencyStatistics2);
-                            //  map2.put(name, list2);
-                                map2.put(taskId, list2);
+                                List<EfficiencyStatisticsNew> list3 = new ArrayList<>();
+                                list3.add(efficiencyStatistics3);
+                            //  map2.put(name, list3);
+                                map2.put(taskId, list3);
                             }
                         }
                     }
@@ -267,6 +267,9 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                         vo.setName_1(name1);//vo.setName(s);
                         vo.setName_2(name2);//vo.setName(s1);
                         vo.setName_3(name3);//vo.setName(s2);
+                        vo.setTaskId1(s);
+                        vo.setTaskId2(s1);
+                        vo.setTaskId3(s2);
                         vo.setDeptName(deptName);
                         vo.setDeptName1(deptName1);
                         vo.setDeptName2(deptName2);

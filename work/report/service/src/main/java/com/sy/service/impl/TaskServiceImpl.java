@@ -86,7 +86,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	@Transactional
 	public void deleteTaskById(Integer id) {
-		Task task = new Task();
+		/*Task task = new Task();
 		task.setPid(id);
 		List<Task> sTask = taskMapper.selectTaskList(task);
 		List<Work> work = workDao.getWorkByTaskId(id);//上工表里有该任务说明被引用过了就不能删除
@@ -94,13 +94,62 @@ public class TaskServiceImpl implements TaskService {
 			throw new RuntimeException("请先删除下级派工单");
 		} else if(work != null && work.size() > 0){
 			throw new RuntimeException("该派工单已经开工生产，无法删除");//第二种方法，可以状态改为1，名义上的删除
-		}else{
-			/*task.setId(id);
-			task.setStatus("1");
-			task.setPid(null);
-			return taskMapper.updateTask(task);*/
+		}else {
+//			task.setId(id);
+//			task.setStatus("1");
+//			task.setPid(null);
+//			return taskMapper.updateTask(task);
 			taskMapper.deleteTaskById(id);//建派工单时操作失误要删除，事实上的删除
+		}*/
+
+		//从上往下一键删
+		Task d2 = new Task();
+		List<Task> sTasks = new ArrayList<>();
+		d2.setPid(id);
+		sTasks = taskMapper.selectTaskList(d2);
+		if(sTasks!=null&sTasks.size()>0) {
+			for (Task task1 : sTasks) {//最高车间级任务
+				d2.setPid(task1.getId());
+				List<Task> sTasks2 = taskMapper.selectTaskList(d2);
+				if(sTasks2!=null&sTasks2.size()>0) {
+					for (Task task2 : sTasks2) {//最高工程队级任务
+						d2.setPid(task2.getId());
+						List<Task> sTasks3 = taskMapper.selectTaskList(d2);
+						if(sTasks3!=null&&sTasks3.size()>0) {
+							for(Task task3 : sTasks3){//最高班组级任务
+								d2.setPid(task3.getId());
+								List<Task> sTasks4 = taskMapper.selectTaskList(d2);
+								if(sTasks4!=null&&sTasks4.size()>0){
+									for(Task task4 : sTasks4){//最高焊工级任务
+										List<Work> work4 = workDao.getWorkByTaskId(task4.getId());//上工表里有该任务说明被引用过了就不能删除
+										if(work4 != null && work4.size() > 0){
+											throw new RuntimeException("该派工单已经开工生产，无法删除");
+										}
+										taskMapper.deleteTaskById(task4.getId());//最高级到个人
+									}
+								}
+								List<Work> work3 = workDao.getWorkByTaskId(task3.getId());
+								if(work3 != null && work3.size() > 0){
+									throw new RuntimeException("该派工单已经开工生产，无法删除");
+								}
+								taskMapper.deleteTaskById(task3.getId());//最高级到班组
+							}
+						}
+						List<Work> work2 = workDao.getWorkByTaskId(task2.getId());
+						if(work2 != null && work2.size() > 0){
+							throw new RuntimeException("该派工单已经开工生产，无法删除");
+						}
+						taskMapper.deleteTaskById(task2.getId());//最高级到工程队
+					}
+				}
+				List<Work> work1 = workDao.getWorkByTaskId(task1.getId());
+				if(work1 != null && work1.size() > 0){
+					throw new RuntimeException("该派工单已经开工生产，无法删除");
+				}
+				taskMapper.deleteTaskById(task1.getId());//最高级到车间
+			}
 		}
+		taskMapper.deleteTaskById(id);//最高级到生产部
 	}
 
 	@Override
@@ -112,6 +161,16 @@ public class TaskServiceImpl implements TaskService {
 		Task t1 = new Task();
 		List<Task> taskList = taskMapper.selectTaskList(t1);
 		Double totalCount = 0.0;
+		Date startTime = fTask.getBeginTime();//上级任务开工时间
+		Date endTime = fTask.getEndTime();//上级任务完工时间
+		Date startTime1 = task.getBeginTime();
+		Date endTime1 = task.getEndTime();
+		if(startTime1.before(startTime)){
+			throw new RuntimeException("开工时间超出了上级任务的开工时间，请重新修改开工时间");
+		}
+		if(endTime1.after(endTime)){
+			throw new RuntimeException("完工时间超出了上级任务的完工时间，请重新修改完工时间");
+		}
 		if(fTask!=null){
 			Integer id1 = fTask.getId();
 			Double fcount = fTask.getCount();
@@ -295,7 +354,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int unEndTaskById(Integer id) {
+	public int unStoporEndTaskById(Integer id) {
 
 		// 从上级往下级反完工，Status为0表示正常
 		Task d = taskMapper.selectTaskById(id);
@@ -405,7 +464,6 @@ public class TaskServiceImpl implements TaskService {
 			MessageData messageData = new MessageData();
 			MessageType messageType = new MessageType(3);
 			messageData.setAccpetId(leader);
-			messageData.setAccpetId(operator);
 			messageData.setContext("你接到新的任务："+task.getProjectName()+"，请下派该任务");
 			messageData.setMessageType(messageType);
 			messageData.setCreateTime(new Timestamp(new Date().getTime()));

@@ -74,7 +74,12 @@ public class MachineServiceImpl implements MachineService{
 		setMachine(machine);
 		return machine;
 	}
-	
+
+	@Override
+	public Machine selectMachineByXpgId(Integer xpgId) {
+		return machineMapper.selectMachineByXpgId(xpgId);
+	}
+
 	private void setMachine(List<Machine> list) {
 		for (Machine machine : list) {
 			setMachine(machine);

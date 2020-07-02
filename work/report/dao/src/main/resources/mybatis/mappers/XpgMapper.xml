@@ -26,22 +26,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="createTime != null "> and create_time = #{createTime}</if>
 			<if test="updateTime != null "> and update_time = #{updateTime}</if>
 			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			and status = 0
 		</where>
 	</select>
 	
 	<select id="selectXpgById" parameterType="Integer" resultMap="XpgResult">
 		<include refid="selectXpgVo" />
-		where id=#{id}
+		where id=#{id} and status = 0
 	</select>
 	
 	<select id="selectXpgByMachineId" parameterType="Integer" resultMap="XpgResult">
 		<include refid="selectXpgVo" />
-		where machine_id=#{machineId}
+		where machine_id=#{machineId} and status = 0
 	</select>
 	
 	<select id="selectXpgByName" parameterType="String" resultMap="XpgResult">
 		<include refid="selectXpgVo" />
-		where name=#{name}
+		where name=#{name} and status = 0
 	</select>
 
 	<insert id="insertXpg" parameterType="com.sy.entity.Xpg" useGeneratedKeys="true" keyProperty="id">
@@ -70,7 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update xpg
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="name != null and name !=''">name = #{name},</if>
-			<if test="machineId != null">machine_id = #{machineId},</if>
+			<!--<if test="machineId != null">machine_id = #{machineId},</if>-->
+			machine_id = #{machineId},
 			<if test="status != null and status !='' ">status = #{status},</if>
 			<if test="createTime != null ">create_time = #{createTime},</if>
 			<if test="updateTime != null ">update_time = #{updateTime},</if>

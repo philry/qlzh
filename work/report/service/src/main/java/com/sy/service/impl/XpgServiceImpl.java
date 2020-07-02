@@ -2,6 +2,7 @@ package com.sy.service.impl;
 
 import java.util.List;
 
+import com.sy.entity.Machine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,5 +36,26 @@ public class XpgServiceImpl implements XpgService {
 	@Override
 	public List<Xpg> selectXpgList(Xpg xpg) {
 		return xpgMapper.selectXpgList(xpg);
+	}
+
+	@Override
+	public int updateXpg(Xpg xpg) {
+		return xpgMapper.updateXpg(xpg);
+	}
+
+	@Override
+	public Xpg selectXpgByMachineId(Integer machineId) {
+		return xpgMapper.selectXpgByMachineId(machineId);
+	}
+
+	@Override
+	public int edit(Machine machine) {
+		Xpg xpg = xpgMapper.selectXpgByMachineId(machine.getId());
+		xpg.setMachineId(null);
+		//xpg.setStatus("1");
+		xpgMapper.updateXpg(xpg);//把焊机原来绑定的2G码信息status改为1,停用状态
+		xpg = xpgMapper.selectXpgById(machine.getXpgId());
+		xpg.setMachineId(machine.getId());
+		return xpgMapper.updateXpg(xpg);//把新的2G码和焊机关联
 	}
 }

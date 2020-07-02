@@ -2,6 +2,8 @@ package com.sy.controller;
 
 import java.util.List;
 
+import com.sy.entity.Xpg;
+import com.sy.service.XpgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +24,9 @@ public class MachineController {
 
 	@Autowired
 	private MachineService machineService;
+
+	@Autowired
+	private XpgService xpgService;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Machine machine) {
@@ -38,6 +43,10 @@ public class MachineController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public JsonResult add(Machine machine) {
+		Machine machine1 = machineService.selectMachineByXpgId(machine.getXpgId());
+		if(machine1 != null){
+			throw new RuntimeException("该2G码已经和其他焊机绑定，请选择其他2G码");
+		}
 		try {
 			return JsonResult.getJson(machineService.insertMachine(machine));
 		} catch (Exception e) {
@@ -48,6 +57,13 @@ public class MachineController {
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public JsonResult edit(Machine machine) {
+		/*Xpg xpg = xpgService.selectXpgByMachineId(machine.getId());
+		xpg.setMachineId(null);
+		xpgService.updateXpg(xpg);//把原来的2G码和焊机分离开
+		xpg = xpgService.selectXpgById(machine.getXpgId());
+		xpg.setMachineId(machine.getId());
+		xpgService.updateXpg(xpg);//把新的2G码和焊机关联*/
+		xpgService.edit(machine);
 		return JsonResult.getJson(machineService.updateMachine(machine));
 	}
 	

@@ -48,6 +48,11 @@ public class ManageDataServiceImpl implements ManageDataService {
     }
 
     @Override
+    public List<DataManage> getAllData(Date beginTime, Date endTime) {
+        return dataManageDao.findAllData(beginTime,endTime);
+    }
+
+    @Override
     public List<DataManage> getDataByWork(int workId, Date beginTime, Date endTime) {
 
         Specification querySpeci = new Specification() {

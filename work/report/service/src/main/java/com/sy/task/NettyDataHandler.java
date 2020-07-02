@@ -78,7 +78,7 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */6 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
@@ -127,67 +127,69 @@ public class NettyDataHandler {
                 Work work = workDao.getLastWorkByTime(DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime()), xpg.getMachineId());
                 //获取焊机的电流临界值
                 Machine machine = machineDao.getById(xpg.getMachineId());
-                Double maxA = machine.getMaxA();
-                Double minA = machine.getMinA();
+        //      if(machine != null) {
+                    Double maxA = machine.getMaxA();
+                    Double minA = machine.getMinA();
 
-                int noloadingTime = 0;
-                int workingTime = 0;
-                BigDecimal iWorking = new BigDecimal(0);
-                BigDecimal iNoloading = new BigDecimal(0);
+                    int noloadingTime = 0;
+                    int workingTime = 0;
+                    BigDecimal iWorking = new BigDecimal(0);
+                    BigDecimal iNoloading = new BigDecimal(0);
 
-                //定义境界次数，若60s内全部高于最大工作电流，则判定为超载
-                int warningCounts = 0;
+                    //定义境界次数，若60s内全部高于最大工作电流，则判定为超载
+                    int warningCounts = 0;
 
-                //处理电流数据，得出具体的工作时间（电量），空载时间（电量）
-                for (String current : currents) {
-                    double i = Double.parseDouble(current);
-                    if (i > maxA) {
-                        warningCounts++;
-                    } else if (i >= minA) {
-                        workingTime++;
-                        iWorking = iWorking.add(new BigDecimal(i));
-                    } else if (i >= 0) {
-                        noloadingTime++;
-                        iNoloading = iNoloading.add(new BigDecimal(i));
+                    //处理电流数据，得出具体的工作时间（电量），空载时间（电量）
+                    for (String current : currents) {
+                        double i = Double.parseDouble(current);
+                        if (i > maxA) {
+                            warningCounts++;
+                        } else if (i >= minA) {
+                            workingTime++;
+                            iWorking = iWorking.add(new BigDecimal(i));
+                        } else if (i >= 0) {
+                            noloadingTime++;
+                            iNoloading = iNoloading.add(new BigDecimal(i));
+                        }
                     }
-                }
 
 
-                //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
-                BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));//按2G码分组后减的就是相同2G码的前一条数据
+                    //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
+                    BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));//按2G码分组后减的就是相同2G码的前一条数据
 
-                /*String xpgId = netty.getXpg();
-                List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId,DateUtils.parseDate(day), DateUtils.getNextDay(day));
-                BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));*///减相同2G码的前一条数据
+                    /*String xpgId = netty.getXpg();
+                    List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId,DateUtils.parseDate(day), DateUtils.getNextDay(day));
+                    BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));*///减相同2G码的前一条数据
 
-                BigDecimal iTotal = iWorking.add(iNoloading);
-                BigDecimal workingPower = new BigDecimal("0");
+                    BigDecimal iTotal = iWorking.add(iNoloading);
+                    BigDecimal workingPower = new BigDecimal("0");
 
-                BigDecimal noloadingPower = new BigDecimal("0");
+                    BigDecimal noloadingPower = new BigDecimal("0");
 
-                try {
-                    //workingPower = power*（iWorking/iTotal 结果保留2位小数，结果采用四舍五入方式）
-                    workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
-                    noloadingPower = power.subtract(workingPower); //noloadingPower= power-workingPower
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    workingPower = power;
-                }
+                    try {
+                        //workingPower = power*（iWorking/iTotal 结果保留2位小数，结果采用四舍五入方式）
+                        workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
+                        noloadingPower = power.subtract(workingPower); //noloadingPower= power-workingPower
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        workingPower = power;
+                    }
 
-                data.setDate(DateUtils.parseDate(day));
-                data.setWork(work);
-                data.setNoloadingPower(noloadingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
-                data.setWorkingPower(workingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-                data.setWorkingTime(workingTime);
-                data.setNoloadingTime(noloadingTime);
+                    data.setDate(DateUtils.parseDate(day));
+                    data.setWork(work);
+                    data.setNoloadingPower(noloadingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
+                    data.setWorkingPower(workingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+                    data.setWorkingTime(workingTime);
+                    data.setNoloadingTime(noloadingTime);
 
-                if (warningCounts == 60) {
-                    data.setRemark("1");
-                } else {
-                    data.setRemark("0");
-                }
+                    if (warningCounts == 60) {
+                        data.setRemark("1");
+                    } else {
+                        data.setRemark("0");
+                    }
 
-                dataManageDao.save(data);
+                    dataManageDao.save(data);
+        //      }
             }
 
         }

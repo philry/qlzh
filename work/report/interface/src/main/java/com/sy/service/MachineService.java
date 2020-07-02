@@ -16,5 +16,5 @@ public interface MachineService {
 
 	Machine selectMachineById(Integer id);
 
-	
+	Machine selectMachineByXpgId(Integer xpgId);
 }

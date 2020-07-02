@@ -10,9 +10,15 @@ public class EfficiencyStatisticsVo {
 
     private String name_1; //派到车间级的任务名
 
+    private Integer taskId1;//派到车间级的任务id
+
     private String name_2; //派到工程队的任务名
 
+    private Integer taskId2;//派到工程队的任务id
+
     private String name_3; //派到班组的任务名
+
+    private Integer taskId3;//派到班组的任务id
 
     private String deptName;//生产部名称
 
@@ -81,6 +87,30 @@ public class EfficiencyStatisticsVo {
     public String getName_3() { return name_3; }
 
     public void setName_3(String name_3) { this.name_3 = name_3; }
+
+    public Integer getTaskId1() {
+        return taskId1;
+    }
+
+    public void setTaskId1(Integer taskId1) {
+        this.taskId1 = taskId1;
+    }
+
+    public Integer getTaskId2() {
+        return taskId2;
+    }
+
+    public void setTaskId2(Integer taskId2) {
+        this.taskId2 = taskId2;
+    }
+
+    public Integer getTaskId3() {
+        return taskId3;
+    }
+
+    public void setTaskId3(Integer taskId3) {
+        this.taskId3 = taskId3;
+    }
 
     public String getDeptName() {
         return deptName;
@@ -278,7 +308,7 @@ public class EfficiencyStatisticsVo {
                 '}';
     }*/
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -343,6 +373,80 @@ public class EfficiencyStatisticsVo {
                 ", power2=" + power2 +
                 ", power3=" + power3 +
                 ", workNo='" + workNo + '\'' +
+                '}';
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EfficiencyStatisticsVo that = (EfficiencyStatisticsVo) o;
+        return time == that.time &&
+                time1 == that.time1 &&
+                time2 == that.time2 &&
+                time3 == that.time3 &&
+                workTime == that.workTime &&
+                workTime1 == that.workTime1 &&
+                workTime2 == that.workTime2 &&
+                workTime3 == that.workTime3 &&
+                Double.compare(that.power, power) == 0 &&
+                Double.compare(that.power1, power1) == 0 &&
+                Double.compare(that.power2, power2) == 0 &&
+                Double.compare(that.power3, power3) == 0 &&
+                sonTime == that.sonTime &&
+                sonWorkTime == that.sonWorkTime &&
+                Double.compare(that.sonPower, sonPower) == 0 &&
+                Objects.equals(workNo, that.workNo) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(name_1, that.name_1) &&
+                Objects.equals(name_2, that.name_2) &&
+                Objects.equals(name_3, that.name_3) &&
+                Objects.equals(taskId1, that.taskId1) &&
+                Objects.equals(taskId2, that.taskId2) &&
+                Objects.equals(taskId3, that.taskId3) &&
+                Objects.equals(deptName, that.deptName) &&
+                Objects.equals(deptName1, that.deptName1) &&
+                Objects.equals(deptName2, that.deptName2) &&
+                Objects.equals(deptName3, that.deptName3) &&
+                Objects.equals(sonName, that.sonName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workNo, name, name_1, name_2, name_3, taskId1, taskId2, taskId3, deptName, deptName1, deptName2, deptName3, time, time1, time2, time3, workTime, workTime1, workTime2, workTime3, power, power1, power2, power3, sonName, sonTime, sonWorkTime, sonPower);
+    }
+
+    @Override
+    public String toString() {
+        return "EfficiencyStatisticsVo{" +
+                "workNo='" + workNo + '\'' +
+                ", name='" + name + '\'' +
+                ", name_1='" + name_1 + '\'' +
+                ", name_2='" + name_2 + '\'' +
+                ", name_3='" + name_3 + '\'' +
+                ", taskId1=" + taskId1 +
+                ", taskId2=" + taskId2 +
+                ", taskId3=" + taskId3 +
+                ", deptName='" + deptName + '\'' +
+                ", deptName1='" + deptName1 + '\'' +
+                ", deptName2='" + deptName2 + '\'' +
+                ", deptName3='" + deptName3 + '\'' +
+                ", time=" + time +
+                ", time1=" + time1 +
+                ", time2=" + time2 +
+                ", time3=" + time3 +
+                ", workTime=" + workTime +
+                ", workTime1=" + workTime1 +
+                ", workTime2=" + workTime2 +
+                ", workTime3=" + workTime3 +
+                ", power=" + power +
+                ", power1=" + power1 +
+                ", power2=" + power2 +
+                ", power3=" + power3 +
+                ", sonName='" + sonName + '\'' +
+                ", sonTime=" + sonTime +
+                ", sonWorkTime=" + sonWorkTime +
+                ", sonPower=" + sonPower +
                 '}';
     }
 }

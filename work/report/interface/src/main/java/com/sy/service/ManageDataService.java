@@ -10,6 +10,8 @@ public interface ManageDataService {
 
     List<DataManage> getAllByData(int personId,Date beginTime,Date endTime);
 
+    List<DataManage> getAllData(Date beginTime,Date endTime);
+
     List<DataManage> getDataByWork(int workId,Date beginTime,Date endTime);
 
 }
