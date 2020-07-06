@@ -116,10 +116,11 @@ public class NettyQuartz extends QuartzJobBean {
 
 				if (flag) {
 					// 如果超限,发送超限警告,并关闭焊机,删除machine_now中该焊机的数据
+                    //发给焊工
 					MessageData messageData = new MessageData();
 					messageData.setSendId(0);
-					Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
-					messageData.setAccpetId(leader);//原来的
+					/*Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
+					messageData.setAccpetId(leader);//原来的*/
 					messageData.setAccpetId(personId);//我改的
 					messageData.setContext(String.valueOf(machineNow.getMachine().getId()));
 					try {
@@ -128,6 +129,15 @@ public class NettyQuartz extends QuartzJobBean {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
+					//发给领导
+                    Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
+                    messageData.setAccpetId(leader);
+                    try {
+                        // 发送超限警告信息
+                        messageDataService.sendMessage(messageData, 2);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 				//	machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 					try {
 						nettyServerHandler.controlMachine(xpg.getName(), false);

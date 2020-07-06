@@ -102,7 +102,7 @@ public class TaskServiceImpl implements TaskService {
 			taskMapper.deleteTaskById(id);//建派工单时操作失误要删除，事实上的删除
 		}*/
 
-		//从上往下一键删
+		//从上往下一键删除
 		Task d2 = new Task();
 		List<Task> sTasks = new ArrayList<>();
 		d2.setPid(id);
@@ -125,6 +125,9 @@ public class TaskServiceImpl implements TaskService {
 										if(work4 != null && work4.size() > 0){
 											throw new RuntimeException("该派工单已经开工生产，无法删除");
 										}
+										task4.setStatus("1");//status为1表示删除
+										//发送消息给接到或审核该任务的人
+										messageDataService.sendMessageToPersonsByTask(task4);
 										taskMapper.deleteTaskById(task4.getId());//最高级到个人
 									}
 								}
@@ -132,6 +135,9 @@ public class TaskServiceImpl implements TaskService {
 								if(work3 != null && work3.size() > 0){
 									throw new RuntimeException("该派工单已经开工生产，无法删除");
 								}
+								task3.setStatus("1");
+								//发送消息给接到或审核该任务的人
+								messageDataService.sendMessageToPersonsByTask(task3);
 								taskMapper.deleteTaskById(task3.getId());//最高级到班组
 							}
 						}
@@ -139,6 +145,9 @@ public class TaskServiceImpl implements TaskService {
 						if(work2 != null && work2.size() > 0){
 							throw new RuntimeException("该派工单已经开工生产，无法删除");
 						}
+						task2.setStatus("1");
+						//发送消息给接到或审核该任务的人
+						messageDataService.sendMessageToPersonsByTask(task2);
 						taskMapper.deleteTaskById(task2.getId());//最高级到工程队
 					}
 				}
@@ -146,6 +155,9 @@ public class TaskServiceImpl implements TaskService {
 				if(work1 != null && work1.size() > 0){
 					throw new RuntimeException("该派工单已经开工生产，无法删除");
 				}
+				task1.setStatus("1");
+				//发送消息给接到或审核该任务的人
+				messageDataService.sendMessageToPersonsByTask(task1);
 				taskMapper.deleteTaskById(task1.getId());//最高级到车间
 			}
 		}
@@ -243,7 +255,7 @@ public class TaskServiceImpl implements TaskService {
                                         task4.setStatus("2");
                                         taskMapper.updateTask(task4);//最高级到个人
 
-										//发送消息给派到或审核该任务的人
+										//发送消息给接到或审核该任务的人
 										messageDataService.sendMessageToPersonsByTask(task4);
                                     }
                                 }
@@ -253,7 +265,7 @@ public class TaskServiceImpl implements TaskService {
 								task3.setStatus("2");
 								taskMapper.updateTask(task3);//最高级到班组
 
-								//发送消息给派到或审核该任务的人
+								//发送消息给接到或审核该任务的人
 								messageDataService.sendMessageToPersonsByTask(task3);
 								}
 							task2.setsTasks(sTasks3);
@@ -264,7 +276,7 @@ public class TaskServiceImpl implements TaskService {
 						task2.setStatus("2");
 						taskMapper.updateTask(task2);//最高级到工程队
 
-						//发送消息给派到或审核该任务的人
+						//发送消息给接到或审核该任务的人
 						messageDataService.sendMessageToPersonsByTask(task2);
 						}
 					task.setsTasks(sTasks2);
@@ -275,7 +287,7 @@ public class TaskServiceImpl implements TaskService {
 				task.setStatus("2");   //task的status字段为2表示任务停止
 				taskMapper.updateTask(task);//最高级到车间
 
-				//发送消息给派到或审核该任务的人
+				//发送消息给接到或审核该任务的人
 				messageDataService.sendMessageToPersonsByTask(task);
 				}
 			d.setsTasks(sTasks);
@@ -319,6 +331,8 @@ public class TaskServiceImpl implements TaskService {
                                         }
                                         task4.setStatus("3");
                                         taskMapper.updateTask(task4);//最高级到个人
+										//发送消息给接到或审核该任务的人
+										messageDataService.sendMessageToPersonsByTask(task4);
                                     }
                                 }
                                 if(task3.getStatus() == "2"){
@@ -326,6 +340,8 @@ public class TaskServiceImpl implements TaskService {
                                 }
                                 task3.setStatus("3");
                                 taskMapper.updateTask(task3);//最高级到班组
+								//发送消息给接到或审核该任务的人
+								messageDataService.sendMessageToPersonsByTask(task3);
                             }
                             task2.setsTasks(sTasks3);
                         }
@@ -334,6 +350,8 @@ public class TaskServiceImpl implements TaskService {
                         }
                         task2.setStatus("3");
                         taskMapper.updateTask(task2);//最高级到工程队
+						//发送消息给接到或审核该任务的人
+						messageDataService.sendMessageToPersonsByTask(task2);
                     }
                     task.setsTasks(sTasks2);
                 }
@@ -342,6 +360,8 @@ public class TaskServiceImpl implements TaskService {
                 }
                 task.setStatus("3");   //task的status字段为3表示任务完工
                 taskMapper.updateTask(task);//最高级到车间
+				//发送消息给接到或审核该任务的人
+				messageDataService.sendMessageToPersonsByTask(task);
             }
             d.setsTasks(sTasks);
         }
@@ -382,6 +402,8 @@ public class TaskServiceImpl implements TaskService {
 										}*/
 										task4.setStatus(TaskStatus.NORMAL);//0正常 1删除 2终止 3完工
 										taskMapper.updateTask(task4);//最高级到个人
+										//发送消息给接到或审核该任务的人
+										messageDataService.sendMessageToPersonsByTask(task4);
 									}
 								}
 								/*if(task3.getStatus() == "3"){
@@ -389,6 +411,8 @@ public class TaskServiceImpl implements TaskService {
 								}*/
 								task3.setStatus("0");
 								taskMapper.updateTask(task3);//最高级到班组
+								//发送消息给接到或审核该任务的人
+								messageDataService.sendMessageToPersonsByTask(task3);
 							}
 							task2.setsTasks(sTasks3);
 						}
@@ -397,6 +421,8 @@ public class TaskServiceImpl implements TaskService {
 						}*/
 						task2.setStatus("0");
 						taskMapper.updateTask(task2);//最高级到工程队
+						//发送消息给接到或审核该任务的人
+						messageDataService.sendMessageToPersonsByTask(task2);
 					}
 					task.setsTasks(sTasks2);
 				}
@@ -405,6 +431,8 @@ public class TaskServiceImpl implements TaskService {
 				}*/
 				task.setStatus("0"); // task的status字段为0表示任务正常
 				taskMapper.updateTask(task);//最高级到车间
+				//发送消息给接到或审核该任务的人
+				messageDataService.sendMessageToPersonsByTask(task);
 			}
 			d.setsTasks(sTasks);
 		}

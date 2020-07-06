@@ -78,7 +78,7 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */6 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
