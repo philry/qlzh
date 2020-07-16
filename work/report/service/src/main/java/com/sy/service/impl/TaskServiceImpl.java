@@ -295,7 +295,7 @@ public class TaskServiceImpl implements TaskService {
         if(d.getStatus() == "3"){
             throw new RuntimeException("任务已处于完工状态，不能被终止(4)");
         }
-//		d.setStatus("2"); //本身一级状态应产品要求不更改
+		d.setStatus("2");
 		return taskMapper.updateTask(d);//最高级到生产部
 	}
 
@@ -374,7 +374,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	@Transactional
-	public int unStoporEndTaskById(Integer id) {
+	public int unEndTaskById(Integer id) {
 
 		// 从上级往下级反完工，Status为0表示正常
 		Task d = taskMapper.selectTaskById(id);
@@ -469,7 +469,8 @@ public class TaskServiceImpl implements TaskService {
 		Double count  =task.getCount();
 		Double restCount = fcount;
 		Task t1 =new Task();
-		List<Task> taskList = taskMapper.selectTaskList(t1);
+		t1.setStatus("0");
+		List<Task> taskList = taskMapper.selectTaskList(t1);//status为0正常状态的任务
 		for(Task t2: taskList){
 			if(t2.getPid().equals(id1)){ //上级任务数量减去所有的直接下级任务数量后的剩余数量，填的数量这个数量对比
 				restCount = new BigDecimal(restCount).subtract(new BigDecimal(t2.getCount())).doubleValue();
@@ -550,6 +551,7 @@ public class TaskServiceImpl implements TaskService {
 			task2.setWorkCode(task.getWorkCode());
 			task2.setProjectName(task.getProjectName());
 			task2.setPersonId(Integer.valueOf(ids[i]));
+			task2.setStatus("0");
 			list = taskMapper.selectTaskList(task2);
 			if(list==null||list.size()==0) { //list里要是有数据表示派工单重复派给同一人,这里就跳过
 				//给分到任务的焊工发送消息提醒

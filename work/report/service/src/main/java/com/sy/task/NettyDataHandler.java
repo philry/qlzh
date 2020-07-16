@@ -29,6 +29,9 @@ public class NettyDataHandler {
     private DataManageDao dataManageDao;
 
     @Autowired
+    private DataManageMapper dataManageMapper;
+
+    @Autowired
     private ManageDataService manageDataService;
 
     @Autowired
@@ -136,14 +139,14 @@ public class NettyDataHandler {
                     BigDecimal iWorking = new BigDecimal(0);
                     BigDecimal iNoloading = new BigDecimal(0);
 
-                    //定义境界次数，若60s内全部高于最大工作电流，则判定为超载
+                    //定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
                     int warningCounts = 0;
 
                     //处理电流数据，得出具体的工作时间（电量），空载时间（电量）
                     for (String current : currents) {
                         double i = Double.parseDouble(current);
                         if (i > maxA) {
-                            warningCounts++;
+                            warningCounts++; //电流大于最大工作电流警戒次数加1
                         } else if (i >= minA) {
                             workingTime++;
                             iWorking = iWorking.add(new BigDecimal(i));
@@ -182,13 +185,15 @@ public class NettyDataHandler {
                     data.setWorkingTime(workingTime);
                     data.setNoloadingTime(noloadingTime);
 
-                    if (warningCounts == 60) {
+            //      if (warningCounts == 60) {//定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
+                    if(warningCounts >= 1){    //定义警戒次数，若60s内有1秒大于最大工作电流，则判定为超载
                         data.setRemark("1");
                     } else {
                         data.setRemark("0");
                     }
 
                     dataManageDao.save(data);
+        //          dataManageMapper.insertDataManage(data);
         //      }
             }
 

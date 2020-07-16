@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import com.sy.dao.*;
+import com.sy.entity.*;
 import com.sy.service.WorkService;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -12,17 +14,6 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
 import com.sy.core.netty.tcp.NettyServerHandler;
-import com.sy.dao.DeptMapper;
-import com.sy.dao.EnergyMapper;
-import com.sy.dao.MachineNowDao;
-import com.sy.dao.MachineNowMapper;
-import com.sy.dao.NettyMapper;
-import com.sy.dao.XpgMapper;
-import com.sy.entity.Energy;
-import com.sy.entity.MachineNow;
-import com.sy.entity.MessageData;
-import com.sy.entity.Netty;
-import com.sy.entity.Xpg;
 import com.sy.service.MessageDataService;
 
 
@@ -46,6 +37,9 @@ public class NettyQuartz extends QuartzJobBean {
 
 	@Autowired
 	private DeptMapper deptMapper;
+
+    @Autowired
+    private PersonMapper personMapper;
 
 	@Autowired
 	private MessageDataService messageDataService;
@@ -84,12 +78,19 @@ public class NettyQuartz extends QuartzJobBean {
 				last = nettyMapper.getLastNettyByXpgAndOpenTime(xpg.getName(),openTime);//该焊机最近一次开机后的最新数据包
 
 				// 判断是否超限
-				//原来的
-				/*boolean flag = true;//初始判断为超限
+				/*//原来的
+				boolean flag = true;//初始判断为超限
+				if(last == null){
+					try {
+						Thread.sleep(60*1000);//没包就等一分钟等包过来
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 				String[] currents = last.getCurrents().split(",");
 				for (String s : currents) {
-					if (Double.valueOf(s) < maxA) { //原来的对比方式,底表该焊机对应的最新包有一秒的电流小于最大电流判断为不超限
-				//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //我改的对比方式
+					if (Double.valueOf(s) < maxA) { //原来的对比方式,底表该焊机对应的最新包有一秒的电流小于最大电流判断为不超限，
+				//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //即60s内全部高于最大工作电流，则判定为超载
 						flag = false;
 						break;
 					}
@@ -129,12 +130,19 @@ public class NettyQuartz extends QuartzJobBean {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					//发给领导
-                    Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
-                    messageData.setAccpetId(leader);
+					/*//发给焊工所属班组部门领导
+                    Person person = personMapper.selectPersonById(personId);
+					Dept dept = deptMapper.selectDeptById(person.getDeptId());
+					Integer leader = dept.getLeader();*/
+                    //发给焊机所属部门领导
+                    MessageData messageData2 = new MessageData();
+                    messageData2.setSendId(0);
+					Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
+                    messageData2.setAccpetId(leader);
+                    messageData2.setContext(String.valueOf(machineNow.getMachine().getId()));
                     try {
                         // 发送超限警告信息
-                        messageDataService.sendMessage(messageData, 2);
+                        messageDataService.sendMessage(messageData2, 2);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -153,13 +161,13 @@ public class NettyQuartz extends QuartzJobBean {
 
 					boolean flag2 = true;//flag2为true表示处于非工作状态
 					for (String s : currents) {
-						if (Double.valueOf(s) > minA) { //有一个电流大于最小电流就表示在工作，处于非工作状态就为false
+						if (Double.valueOf(s) > minA) { //有一个电流大于最小电流就表示在工作，处于工作状态flag2就为false
 					//	if(new BigDecimal(s).compareTo(new BigDecimal(minA))>0){ //我改的对比方式
 							flag2 = false;
 							break;
 						}
 					}
-					if (flag2) {
+					if (flag2) {//非工作状态下定时关机
 						// 获取定时关机设定时间
 						List<Energy> energyList = energyMapper.selectEnergyList();
 						Integer time = energyList.get(0).getTime(); //time单位为min

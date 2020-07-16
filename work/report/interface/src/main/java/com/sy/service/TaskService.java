@@ -21,7 +21,7 @@ public interface TaskService {
 
 	int endTaskById(Integer id);
 
-	int unStoporEndTaskById(Integer id);
+	int unEndTaskById(Integer id);
 
 	int insertSonTask(Task task, Integer pid);
 

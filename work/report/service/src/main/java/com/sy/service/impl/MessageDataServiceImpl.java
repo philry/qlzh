@@ -87,7 +87,7 @@ public class MessageDataServiceImpl implements MessageDataService {
         messageData.setAccpetId(person);
         messageData.setMessageType(messageType);
         switch(task.getStatus()){
-            case "0" :messageData.setContext("施工项目："+task.getProjectName()+"已恢复");break;
+            case "0" :messageData.setContext("施工项目："+task.getProjectName()+"已恢复正常状态");break;
             case "1" :messageData.setContext("施工项目："+task.getProjectName()+"已删除");break;
             case "2" :messageData.setContext("施工项目："+task.getProjectName()+"已暂停");break;
             case "3" :messageData.setContext("施工项目："+task.getProjectName()+"已完工");break;

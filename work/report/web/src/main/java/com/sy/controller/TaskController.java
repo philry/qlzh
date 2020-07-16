@@ -167,7 +167,7 @@ public class TaskController {
 	}
 
 
-	@RequestMapping(value = "/stopTask/{id}",method = RequestMethod.GET)
+	@RequestMapping(value = "/stopTask/{id}",method = RequestMethod.GET)//终止任务
 	public JsonResult stopTask(@PathVariable("id") Integer id){
 		try {
 			taskService.stopTaskById(id);
@@ -180,7 +180,7 @@ public class TaskController {
 	@RequestMapping(value = "/unStopTask/{id}",method = RequestMethod.GET)
 	public JsonResult unStopTask(@PathVariable("id") Integer id){
 		try {
-			taskService.unStoporEndTaskById(id); //恢复正常状态
+			taskService.unEndTaskById(id); //恢复正常状态
 			return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
 		} catch (RuntimeException e) {
 			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
@@ -200,7 +200,7 @@ public class TaskController {
     @RequestMapping(value = "/unEndTask/{id}",method = RequestMethod.GET)
     public JsonResult unEndTask(@PathVariable("id") Integer id){
         try {
-            taskService.unStoporEndTaskById(id);//恢复正常状态
+            taskService.unEndTaskById(id);//恢复正常状态
             return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
         } catch (RuntimeException e) {
             return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());

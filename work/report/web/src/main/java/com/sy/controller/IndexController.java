@@ -6,6 +6,7 @@ import com.sy.entity.*;
 import com.sy.service.EfficiencyStatisticsService;
 import com.sy.service.EngineeringService;
 import com.sy.service.MachineNowService;
+import com.sy.service.NettyService;
 import com.sy.utils.DateUtils;
 import com.sy.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.*;
 
 @RestController
@@ -52,7 +54,17 @@ public class IndexController {
     private DeptDao deptDao;
 
     @Autowired
+    private NettyDao nettyDao;
+
+    @Autowired
     private DeptMapper deptMapper;
+
+    @Autowired
+    private NettyService nettyService;
+
+
+    @Autowired
+    private XpgDao xpgDao;
 
     @RequestMapping(value = "data",method = RequestMethod.GET)
 //    public AjaxResult getData(){ //原来的
@@ -143,8 +155,40 @@ public class IndexController {
         //实时焊机数(查询machineNow表,获取个数)
         List<MachineNow> machineNowList = machineNowDao.findAll();
         int machineNowCounts = machineNowDao.findAll().size();
-        //实时焊机工作数(根据实时打开的焊机的xpg,获取最新的netty同步数据,根据电流判定是否在工具)
-        int machineUseCounts = workDao.getMachineId(today).size();
+        //今日工作焊机台数
+    //  int machineUseCounts = workDao.getMachineId(today).size();//这是扫码开机的焊机台数，开机后不一定工作
+
+        //今日工作焊机台数(根据今日netty底表数据,根据所有xpg对应数据包的电流判定是否在工作)
+        int machineUseCounts = 0;//
+        List<String> xpgs = nettyDao.findAllXpgs(DateUtils.parseDate(today), DateUtils.parseDate(today));
+        for(String xpgId : xpgs) {
+            List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+
+            /*for (int a = 1; a < nettyList1.size(); a++) {
+                Netty netty = nettyList1.get(a);*/
+        a:  for (Netty netty : nettyList1) {
+                //将数据库存储的60s电流取出
+                String currentStr = netty.getCurrents();
+                List<String> currents = Arrays.asList(currentStr.split(","));
+                //根据2G码获取最新的扫码工作信息
+                Xpg xpg = xpgDao.getByName(netty.getXpg());
+                //获取焊机的电流临界值
+                Machine machine = machineDao.getById(xpg.getMachineId());
+        //      if(machine != null) {
+                    Double minA = machine.getMinA();
+
+                    //处理电流数据，超过最小工作电流machineUseCounts就自增并跳出当前xpgId的循环，进入下一个xpgId的判断
+                    for (String current : currents) {
+                        double i = Double.parseDouble(current);
+                        if (i >= minA) {
+                            machineUseCounts++;
+                            break a;
+                        }
+                    }
+    //          }
+            }
+        }
+
 
         //用电量(调用工程查询接口)
         List<EfficiencyStatisticsVo> efficiencyStatisticsVos = new ArrayList<>();
@@ -293,7 +337,7 @@ public class IndexController {
         result.put("todayWorkCount", work_day_counts);//今日在岗人数
         result.put("yesterdayWorkCount", pre_work_day_counts);//昨日在岗人数
         result.put("openCount", machineNowCounts);    //实时焊机开机台数
-        result.put("workCount", machineUseCounts);    //今天工作焊机台数
+        result.put("workCount", machineUseCounts);    //今天工作焊机台数(扫码开机后电流大于最小工作电流)
         result.put("totalCount", machineCounts);      //焊机总数
         result.put("todayUsedPower", todayPower);     //今日用电量
         result.put("totalWorkCount", person_counts);  //总人数

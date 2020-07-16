@@ -53,7 +53,7 @@ public class XpgServiceImpl implements XpgService {
 		Xpg xpg = xpgMapper.selectXpgByMachineId(machine.getId());
 		xpg.setMachineId(null);
 		//xpg.setStatus("1");
-		xpgMapper.updateXpg(xpg);//把焊机原来绑定的2G码信息status改为1,停用状态
+		xpgMapper.updateXpg(xpg);//把原来的2G码和焊机分离开
 		xpg = xpgMapper.selectXpgById(machine.getXpgId());
 		xpg.setMachineId(machine.getId());
 		return xpgMapper.updateXpg(xpg);//把新的2G码和焊机关联

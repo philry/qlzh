@@ -57,13 +57,7 @@ public class MachineController {
 	
 	@RequestMapping(value = "/edit", method = RequestMethod.POST)
 	public JsonResult edit(Machine machine) {
-		/*Xpg xpg = xpgService.selectXpgByMachineId(machine.getId());
-		xpg.setMachineId(null);
-		xpgService.updateXpg(xpg);//把原来的2G码和焊机分离开
-		xpg = xpgService.selectXpgById(machine.getXpgId());
-		xpg.setMachineId(machine.getId());
-		xpgService.updateXpg(xpg);//把新的2G码和焊机关联*/
-		xpgService.edit(machine);
+	//	xpgService.edit(machine);//这是用于焊机换采集器做数据迁移功能
 		return JsonResult.getJson(machineService.updateMachine(machine));
 	}
 	
