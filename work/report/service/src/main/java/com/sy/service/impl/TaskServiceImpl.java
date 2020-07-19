@@ -292,10 +292,10 @@ public class TaskServiceImpl implements TaskService {
 				}
 			d.setsTasks(sTasks);
 			}
-        if(d.getStatus() == "3"){
+        /*if(d.getStatus() == "3"){
             throw new RuntimeException("任务已处于完工状态，不能被终止(4)");
         }
-		d.setStatus("2");
+		d.setStatus("2");*/
 		return taskMapper.updateTask(d);//最高级到生产部
 	}
 

@@ -34,6 +34,6 @@ public class Starter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        nettyServer.run(95);
+        nettyServer.run(98);
     }
 }
