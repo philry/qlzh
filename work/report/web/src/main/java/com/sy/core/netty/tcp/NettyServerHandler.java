@@ -124,7 +124,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
 		// 报警设定值字段上传
-		/*if (cmd == 137) {//isrReg4gStr.equals("7b7b89")
+		/*if (cmd == 137) {//isrReg4gStr.equals("7b7b89")//十六进制89的十进制就是137
 
 		}*/
 
@@ -154,7 +154,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}*/
 		// 透传不用回复
 		/*原来的
-		if (cmd == 144) {//isrReg4gStr.equals("7b7b90") 90的16进制就是144
+		if (cmd == 144) {//isrReg4gStr.equals("7b7b90") 十六进制90的十进制就是144
 
 			returnHexStr = receiveStr;
 		}*/
@@ -163,101 +163,105 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		if (isrReg4gStr.equals("7b7b91")) {
 
 			if(receiveStr.length()>0){
-				Netty netty = new Netty();
-				netty.setCreateTime(new Timestamp(new Date().getTime()));
+				String errorinfoStart = "756e";//报文中含有756e就是异常报文
+				if(!receiveStr.contains(errorinfoStart)){//报文中没有756e就是正常报文
+					Netty netty = new Netty();
+					netty.setCreateTime(new Timestamp(new Date().getTime()));
 
-				String xpg = map.get(ctx.channel().id().asLongText());
-				netty.setXpg(xpg);//存放4G注册码
-				netty.setRemark(receiveStr);//存放原报文
+					String xpg = map.get(ctx.channel().id().asLongText());
+					netty.setXpg(xpg);//存放4G注册码
+					netty.setRemark(receiveStr);//存放原报文
 
-				//获取电压
+					//获取电压
 
-				String infoStart = "010360";
+					String infoStart = "010360";
 
-				int vStartIndex = receiveStr.indexOf(infoStart);
 
-				String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
-				double voltage = getDoubleValue(info.substring(8,12));
+					int vStartIndex = receiveStr.indexOf(infoStart);
 
-				if(voltage>100){
-					//获取电流信息，并解析合并存储
-					String iStart = "312d33";
+					String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
+					double voltage = getDoubleValue(info.substring(8,12));
 
-					int iStartIndex = receiveStr.indexOf(iStart);
-					String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
+					if(voltage>100){
+						//获取电流信息，并解析合并存储
+						String iStart = "312d33";
 
-					List<Double> doubles = new ArrayList<>();
+						int iStartIndex = receiveStr.indexOf(iStart);
+						String iInfo = receiveStr.substring(iStartIndex+10,iStartIndex+730);
 
-//				Double maxA = null;
-//				Xpg xpg2 = new Xpg();
-//				xpg2.setName(xpg);
-//				Integer deptId = null;
-//				Integer machineId = null;
-//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
-//				if(xpgList!=null&&xpgList.size()>0) {
-//					Machine machine = new Machine();
-//					machine.setXpgId(xpgList.get(0).getId());
-//					List<Machine> machineList = machineMapper.selectMachineList(machine);
-//					if(machineList!=null&&machineList.size()>0) {
-//						machineId = machineList.get(0).getId();
-//						maxA = machineList.get(0).getMaxA();
-//						deptId = machineList.get(0).getDeptId();
-//					}
-//				}
+						List<Double> doubles = new ArrayList<>();
 
-//				boolean flag = true;
+		//				Double maxA = null;
+		//				Xpg xpg2 = new Xpg();
+		//				xpg2.setName(xpg);
+		//				Integer deptId = null;
+		//				Integer machineId = null;
+		//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
+		//				if(xpgList!=null&&xpgList.size()>0) {
+		//					Machine machine = new Machine();
+		//					machine.setXpgId(xpgList.get(0).getId());
+		//					List<Machine> machineList = machineMapper.selectMachineList(machine);
+		//					if(machineList!=null&&machineList.size()>0) {
+		//						machineId = machineList.get(0).getId();
+		//						maxA = machineList.get(0).getMaxA();
+		//						deptId = machineList.get(0).getDeptId();
+		//					}
+		//				}
 
-					for (int i = 0; i <60 ; i++) {
-						int sIndex = i*12;
-						String str = iInfo.substring(sIndex+0,sIndex+4);
-						double iA  = getPowerValue(str);
-//					if(flag&maxA!=null&&iA<maxA) {
-//						flag=false;
-//					}
-						doubles.add(iA);
+		//				boolean flag = true;
+
+						for (int i = 0; i <60 ; i++) {
+							int sIndex = i*12;
+							String str = iInfo.substring(sIndex+0,sIndex+4);
+							double iA  = getPowerValue(str);
+		//					if(flag&maxA!=null&&iA<maxA) {
+		//						flag=false;
+		//					}
+							doubles.add(iA);
+						}
+
+		//				if(flag) {
+		//					MessageData messageData = new MessageData();
+		//					messageData.setSendId(0);
+		//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
+		//					messageData.setAccpetId(leader);
+		//					messageData.setContext(machineId.toString());
+		//					messageDataService.sendMessage(messageData, 2);
+		//					machineNowMapper.deleteMachineNowByMachineId(machineId);
+		//					controlMachine(xpg, false);
+		//				}
+
+						String currents = doubles.toString().substring(1,doubles.toString().length()-1);
+
+						netty.setCurrents(currents);
+
+
+
+						netty.setVoltage(voltage);
+
+						//获取电量
+						double power = getPowerValue(info.substring(88,96));
+
+						netty.setPower(String.valueOf(power));
+
+						nettyDao.save(netty);
+
+		//				List<Energy> energyList = energyMapper.selectEnergyList();
+		//				Integer time = energyList.get(0).getTime();
+		//				PageHelper.startPage(1, time);
+		//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
+		//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
+		//				String[] split = currents2.split(",");
+		//				boolean flag2 = true;
+		//				for (String str : split) {
+		//					if(flag2&Integer.valueOf(str)>minA) {
+		//						flag2=false;
+		//					}
+		//				}
+		//				if(flag2) {
+		//					controlMachine(xpg, false);
+		//				}
 					}
-
-//				if(flag) {
-//					MessageData messageData = new MessageData();
-//					messageData.setSendId(0);
-//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
-//					messageData.setAccpetId(leader);
-//					messageData.setContext(machineId.toString());
-//					messageDataService.sendMessage(messageData, 2);
-//					machineNowMapper.deleteMachineNowByMachineId(machineId);
-//					controlMachine(xpg, false);
-//				}
-
-					String currents = doubles.toString().substring(1,doubles.toString().length()-1);
-
-					netty.setCurrents(currents);
-
-
-
-					netty.setVoltage(voltage);
-
-					//获取电量
-					double power = getPowerValue(info.substring(88,96));
-
-					netty.setPower(String.valueOf(power));
-
-					nettyDao.save(netty);
-
-//				List<Energy> energyList = energyMapper.selectEnergyList();
-//				Integer time = energyList.get(0).getTime();
-//				PageHelper.startPage(1, time);
-//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
-//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
-//				String[] split = currents2.split(",");
-//				boolean flag2 = true;
-//				for (String str : split) {
-//					if(flag2&Integer.valueOf(str)>minA) {
-//						flag2=false;
-//					}
-//				}
-//				if(flag2) {
-//					controlMachine(xpg, false);
-//				}
 				}
 
 			}

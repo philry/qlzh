@@ -7,6 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="id" column="id" />
 		<result property="name" column="name" />
 		<result property="typeId" column="type_id" />
+		<result property="collectorName" column="collectorname" />
+		<result property="collectorType" column="collectortype" />
 		<result property="payTime" column="pay_time" />
 		<result property="lastMaintenanceTime" column="last_maintenance_time" />
 		<result property="maxA" column="max_a" />
@@ -20,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="remark" column="remark" />
 	</resultMap>
 	<sql id="selectMachineVo">
-		select id,name,type_id,pay_time,last_maintenance_time,max_a,min_a,xpg_id,dept_id,code,status,create_time,update_time,remark from machine
+		select id,name,type_id,collectorname,collectortype,pay_time,last_maintenance_time,max_a,min_a,xpg_id,dept_id,code,status,create_time,update_time,remark from machine
 	</sql>
 	
 	<select id="selectMachineList" parameterType="com.sy.entity.Machine" resultMap="MachineResult">
@@ -29,6 +31,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="id != null and id!=0 "> and id = #{id}</if>
 			<if test="name != null and name !=''"> and name = #{name}</if>
 			<if test="typeId != null"> and type_id = #{typeId}</if>
+			<if test="collectorName != null"> and collectorname = #{collectorName}</if>
+			<if test="collectorType != null"> and collectortype = #{collectorType}</if>
 			<if test="payTime != null"> and pay_time = #{payTime}</if>
 			<if test="lastMaintenanceTime != null"> and last_maintenance_time = #{lastMaintenanceTime}</if>
 			<if test="maxA != null"> and max_a = #{maxA}</if>
@@ -59,6 +63,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="id != null and id!=0 ">id,</if>
 			<if test="name != null and name !=''">name,</if>
 			<if test="typeId != null">type_id,</if>
+			<if test="collectorName != null">collectorname,</if>
+			<if test="collectorType != null">collectortype,</if>
 			<if test="payTime != null">pay_time,</if>
 			<if test="lastMaintenanceTime != null">last_maintenance_time,</if>
 			<if test="maxA != null">max_a, </if>
@@ -75,6 +81,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="id != null and id!=0 ">#{id},</if>
 			<if test="name != null and name !=''">#{name},</if>
 			<if test="typeId != null">#{typeId},</if>
+			<if test="collectorName != null"> #{collectorName},</if>
+			<if test="collectorType != null"> #{collectorType},</if>
 			<if test="payTime != null">#{payTime},</if>
 			<if test="lastMaintenanceTime != null">#{lastMaintenanceTime},</if>
 			<if test="maxA != null">#{maxA},</if>
@@ -94,6 +102,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="name != null and name !=''">name = #{name},</if>
 			<if test="typeId != null">type_id = #{typeId},</if>
+			<if test="collectorName != null">collectorname = #{collectorName},</if>
+			<if test="collectorType != null">collectortype = #{collectorType},</if>
 			<if test="payTime != null">pay_time = #{payTime},</if>
 			<if test="lastMaintenanceTime != null">last_maintenance_time = #{lastMaintenanceTime},</if>
 			<if test="maxA != null">max_a = #{maxA},</if>

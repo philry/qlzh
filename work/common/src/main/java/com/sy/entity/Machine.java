@@ -19,6 +19,8 @@ public class Machine {
     @Transient
     private Integer typeId;
     private MachineType machineType;
+    private String collectorName;
+    private String collectorType;
     private Date payTime;
     private Date lastMaintenanceTime;
     private Double maxA;
@@ -107,6 +109,22 @@ public class Machine {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
+
+    @Basic
+    @Column(name = "collectorname")
+    public String getCollectorName() {
+        return collectorName;
+    }
+
+    public void setCollectorName(String collectorName) { this.collectorName = collectorName; }
+
+    @Basic
+    @Column(name = "collectortype")
+    public String getCollectorType() {
+        return collectorType;
+    }
+
+    public void setCollectorType(String collectorType) { this.collectorType = collectorType; }
 
     @Basic
     @Column(name = "pay_time")

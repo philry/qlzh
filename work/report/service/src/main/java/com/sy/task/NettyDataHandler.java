@@ -159,6 +159,12 @@ public class NettyDataHandler {
 
                     //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
                     BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));//按2G码分组后减的就是相同2G码的前一条数据
+                    if(power.doubleValue() < 0){ //最新的包电量减去前一个包电量小于0，就是出现了包电量为0的情况，把这个异常的底表数据删除
+                        int id = netty.getId();
+                //      nettyDao.delete(netty);
+                        nettyDao.deleteById(id);
+                        continue;
+                    }
 
                     /*String xpgId = netty.getXpg();
                     List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId,DateUtils.parseDate(day), DateUtils.getNextDay(day));

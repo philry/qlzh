@@ -2,6 +2,7 @@ package com.sy.controller;
 
 import com.sy.entity.Machine;
 import com.sy.entity.MachineUse;
+import com.sy.service.MachineService;
 import com.sy.service.MachineUseService;
 import com.sy.utils.DateUtils;
 import com.sy.vo.JsonResult;
@@ -19,6 +20,9 @@ public class MachineUseController {
 
     @Autowired
     private MachineUseService machineUseService;
+
+    @Autowired
+    private MachineService machineService;
 
     @RequestMapping("init")
     public JsonResult getInitData(int machineId,String beginTime,String endTime){
@@ -59,7 +63,9 @@ public class MachineUseController {
                 power += Double.parseDouble(machineUse.getWorkingPower());
                 counts += Integer.parseInt(machineUse.getOvercounts());
             }
+            Machine machine = machineService.selectMachineById(map.get(set).get(0).getMachineId());
             MachineUse machineUse = new MachineUse();
+            machineUse.setMachineName(machine.getName());
             machineUse.setDepeName(map.get(set).get(0).getDepeName());
             machineUse.setMachineId(map.get(set).get(0).getMachineId());
             machineUse.setNoloadingTime(noloadingTime);

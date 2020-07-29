@@ -22,4 +22,5 @@ public interface NettyDao extends JpaRepository<Netty,Integer>, JpaSpecification
     @Query(value = "select distinct xpg from netty where create_time between ?1 and ?2",nativeQuery = true)
     List<String> findAllXpgs(Date beginTime, Date endTime);
 
+    void deleteById(Integer id);
 }

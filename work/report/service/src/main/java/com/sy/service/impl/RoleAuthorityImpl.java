@@ -103,6 +103,7 @@ public class RoleAuthorityImpl implements RoleAuthorityService{
 		for (RoleAuthority roleAuthority : list) {
 			if(roleAuthority.getAuthority().getPid()==17) {
 				id=roleAuthority.getAuthorityId();
+				break;
 			}
 		}
 		return id;

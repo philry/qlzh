@@ -9,6 +9,8 @@ import java.util.Objects;
 public class MachineUse {
     private int id;
     private Integer machineId;
+    @Transient
+    private String machineName;
     private String depeName;
     private Integer noloadingTime;
     private Integer workTime;
@@ -42,6 +44,11 @@ public class MachineUse {
     public void setMachineId(Integer machineId) {
         this.machineId = machineId;
     }
+
+    @Transient
+    public String getMachineName() { return machineName; }
+
+    public void setMachineName(String machineName) { this.machineName = machineName; }
 
     @Basic
     @Column(name = "depe_name")
