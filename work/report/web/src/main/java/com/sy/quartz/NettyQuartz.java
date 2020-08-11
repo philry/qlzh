@@ -78,7 +78,7 @@ public class NettyQuartz extends QuartzJobBean {
 				last = nettyMapper.getLastNettyByXpgAndOpenTime(xpg.getName(),openTime);//该焊机最近一次开机后的最新数据包
 
 				// 判断是否超限
-				/*//原来的
+				//原来的
 				boolean flag = true;//初始判断为超限
 				if(last == null){
 					try {
@@ -94,9 +94,9 @@ public class NettyQuartz extends QuartzJobBean {
 						flag = false;
 						break;
 					}
-				}*/
+				}
 
-				//我写的
+				/*//我写的
 				boolean flag = false;//初始判断为不超限
 				if(last == null){
 					try {
@@ -113,7 +113,7 @@ public class NettyQuartz extends QuartzJobBean {
 						flag = true;
 						break;
 					}
-				}
+				}*/
 
 				if (flag) {
 					// 如果超限,发送超限警告,并关闭焊机,删除machine_now中该焊机的数据

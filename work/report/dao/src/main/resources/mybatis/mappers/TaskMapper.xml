@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="com.sy.entity.Task" id="TaskResult">
 		<result property="id" column="id" />
 		<result property="workCode" column="work_code" />
+		<result property="number" column="number" />
 		<result property="pid" column="pid" />
 		<result property="projectName" column="project_name" />
 		<result property="count" column="count" />
@@ -27,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<sql id="selectTaskVo">
-		select id, work_code, pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
+		select id, work_code, number,pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
 		 status,create_time,update_time,remark,process from task
 	</sql>
 
@@ -36,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<where>
 			<if test="id != null and id !=0 "> and id = #{id}</if>
 			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			<if test="number != null"> and number = #{number}</if>
 			<if test="pid != null"> and pid = #{pid}</if>
 			<if test="projectName != null and projectName !='' "> and project_name = #{projectName}</if>
 			<if test="count != null "> and count = #{count}</if>
@@ -63,6 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<where>
 			<if test="id != null and id !=0 "> and id = #{id}</if>
 			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			<if test="number != null"> and number = #{number}</if>
 			<if test="pid != null"> and pid = #{pid}</if>
 			<if test="projectName != null and projectName !='' "> and project_name = #{projectName}</if>
 			<if test="count != null "> and count = #{count}</if>
@@ -110,6 +113,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into task
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="workCode != null and workCode !=''">work_code,</if>
+			<if test="number != null">number,</if>
 			<if test="pid != null">pid,</if>
 			<if test="projectName != null and projectName !='' ">project_name,</if>
 			<if test="count != null ">count,</if>
@@ -130,6 +134,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="workCode != null and workCode !=''">#{workCode},</if>
+			<if test="number != null">#{number},</if>
 			<if test="pid != null">#{pid},</if>
 			<if test="projectName != null and projectName !='' ">#{projectName},</if>
 			<if test="count != null ">#{count},</if>
@@ -154,6 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update task
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="workCode != null and workCode !=''">work_code = #{workCode},</if>
+			<if test="number != null">number = #{number},</if>
 			<if test="pid != null">pid = #{pid},</if>
 			<if test="projectName != null and projectName !='' ">project_name = #{projectName},</if>
 			<if test="count != null ">count = #{count},</if>

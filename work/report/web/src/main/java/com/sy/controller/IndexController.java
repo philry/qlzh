@@ -160,7 +160,9 @@ public class IndexController {
 
         //今日工作焊机台数(根据今日netty底表数据,根据所有xpg对应数据包的电流判定是否在工作)
         int machineUseCounts = 0;//
-        List<String> xpgs = nettyDao.findAllXpgs(DateUtils.parseDate(today), DateUtils.parseDate(today));
+        Date date = DateUtils.parseDate(today);
+
+        List<String> xpgs = nettyDao.findAllXpgs(DateUtils.parseDate(today), DateUtils.getNextDay(today));
         for(String xpgId : xpgs) {
             List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId, DateUtils.parseDate(day), DateUtils.getNextDay(day));
 
@@ -426,8 +428,39 @@ public class IndexController {
         //实时焊机数(查询machineNow表,获取个数)
         List<MachineNow> machineNowList = machineNowDao.findAll();
         int machineNowCounts = machineNowDao.findAll().size();
-        //实时焊机工作数(根据实时打开的焊机的xpg,获取最新的netty同步数据,根据电流判定是否在工具)
-        int machineUseCounts = workDao.getMachineId(today).size();
+        /*//今日焊机工作数
+        int machineUseCounts = workDao.getMachineId(today).size();*/
+
+        //今日工作焊机台数(根据今日netty底表数据,根据所有xpg对应数据包的电流判定是否在工作)
+        int machineUseCounts = 0;//
+        List<String> xpgs = nettyDao.findAllXpgs(DateUtils.parseDate(today), DateUtils.getNextDay(today));
+        for(String xpgId : xpgs) {
+            List<Netty> nettyList1 = nettyService.getAllByDateAndXpgId(xpgId, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+
+            /*for (int a = 1; a < nettyList1.size(); a++) {
+                Netty netty = nettyList1.get(a);*/
+            a:  for (Netty netty : nettyList1) {
+                //将数据库存储的60s电流取出
+                String currentStr = netty.getCurrents();
+                List<String> currents = Arrays.asList(currentStr.split(","));
+                //根据2G码获取最新的扫码工作信息
+                Xpg xpg = xpgDao.getByName(netty.getXpg());
+                //获取焊机的电流临界值
+                Machine machine = machineDao.getById(xpg.getMachineId());
+                //      if(machine != null) {
+                Double minA = machine.getMinA();
+
+                //处理电流数据，超过最小工作电流machineUseCounts就自增并跳出当前xpgId的循环，进入下一个xpgId的判断
+                for (String current : currents) {
+                    double i = Double.parseDouble(current);
+                    if (i >= minA) {
+                        machineUseCounts++;
+                        break a;
+                    }
+                }
+                //          }
+            }
+        }
 
         //用电量(调用工程查询接口)
         List<EfficiencyStatisticsVo> efficiencyStatisticsVos = new ArrayList<>();

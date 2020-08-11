@@ -11,6 +11,7 @@ import java.util.Objects;
 public class Netty {
     private int id;
     private String xpg;
+    private String machineName;
     private String power;
     private String currents;
     private Double voltage;
@@ -53,6 +54,13 @@ public class Netty {
     public void setXpg(String xpg) {
         this.xpg = xpg;
     }
+
+    /*@Basic
+    @Column(name = "machine_name")*/
+    @Transient
+    public String getMachineName() { return machineName; }
+
+    public void setMachineName(String machineName) { this.machineName = machineName; }
 
     @Basic
     @Column(name = "power")

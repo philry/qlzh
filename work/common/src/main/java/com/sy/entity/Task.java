@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Task {
     private int id;
     private String workCode;
+    private String number;
     private Integer pid;
     private String projectName;
     private Double count;
@@ -67,6 +68,12 @@ public class Task {
     public void setWorkCode(String workCode) {
         this.workCode = workCode;
     }
+
+    @Basic
+    @Column(name = "number")
+    public String getNumber() { return number; }
+
+    public void setNumber(String number) { this.number = number; }
 
     @Basic
     @Column(name = "pid")

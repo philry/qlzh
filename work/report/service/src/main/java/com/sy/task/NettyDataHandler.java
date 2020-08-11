@@ -191,8 +191,8 @@ public class NettyDataHandler {
                     data.setWorkingTime(workingTime);
                     data.setNoloadingTime(noloadingTime);
 
-            //      if (warningCounts == 60) {//定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
-                    if(warningCounts >= 1){    //定义警戒次数，若60s内有1秒大于最大工作电流，则判定为超载
+                    if (warningCounts == 60) {//定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
+            //      if(warningCounts >= 1){    //定义警戒次数，若60s内有1秒大于最大工作电流，则判定为超载
                         data.setRemark("1");
                     } else {
                         data.setRemark("0");

@@ -4,13 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.sy.core.netty.tcp.util.BytesUtils;
 import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
-import com.sy.dao.DeptMapper;
-import com.sy.dao.EnergyMapper;
-import com.sy.dao.MachineMapper;
-import com.sy.dao.MachineNowDao;
-import com.sy.dao.MachineNowMapper;
-import com.sy.dao.NettyDao;
-import com.sy.dao.XpgMapper;
+import com.sy.dao.*;
 import com.sy.entity.Energy;
 import com.sy.entity.Machine;
 import com.sy.entity.MessageData;
@@ -50,6 +44,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	
 	@Autowired
 	private MachineMapper machineMapper;
+
+	@Autowired
+	private MachineDao machineDao;
 	
 	@Autowired
 	private MachineNowDao machineNowDao;
@@ -243,6 +240,11 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 						double power = getPowerValue(info.substring(88,96));
 
 						netty.setPower(String.valueOf(power));
+
+						/*//加焊机编号字段               --已经在controller层实现，表不再加字段
+						Integer machineId = xpgMapper.selectXpgByName(xpg).getMachineId();
+						String machineName = machineDao.getNameById(machineId);
+						netty.setMachineName(machineName);*/
 
 						nettyDao.save(netty);
 
