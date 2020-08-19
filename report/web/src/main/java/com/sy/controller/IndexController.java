@@ -506,7 +506,7 @@ public class IndexController {
         System.out.println(efficiencyStatisticsVos);
         if(efficiencyStatisticsVos!=null&&!efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-        //      totalPower += vo.getPower();
+        //      totalPower = vo.getPower();
                 totalPower += vo.getSonPower();
             }
         }
