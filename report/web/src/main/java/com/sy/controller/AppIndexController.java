@@ -95,9 +95,6 @@ public class AppIndexController {
 
     @RequestMapping(value = "nowMachineCount",method = RequestMethod.GET)
     public AjaxResult getNowMachineCount() {
-        Date now = new Date();
-        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        String day = DateUtils.getPrevDay(today);
 
         //实时焊机数(查询machineNow表,获取个数)
         int machineNowCounts = machineNowDao.findAll().size();
@@ -169,7 +166,7 @@ public class AppIndexController {
                 double power = 0.0;
                 if(!vos.isEmpty()){
                     for (EfficiencyStatisticsVo efficiencyStatisticsVo : vos) {
-//                        power = efficiencyStatisticsVo.getPower(); //方法二
+//                        power = efficiencyStatisticsVo.getPower(); //方法一
                         power += efficiencyStatisticsVo.getSonPower();//方法二
                     }
                 }
