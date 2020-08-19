@@ -133,9 +133,8 @@ public class PcIndexController {
     }
 
 
-
     @RequestMapping(value = "todayRate",method = RequestMethod.GET)
-    public AjaxResult getTodayRate() { //今日工效
+    public AjaxResult getTodayRate() { //今日工人工作效率
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
