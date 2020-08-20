@@ -8,23 +8,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="be2979ed-4ba8-48e3-a041-33ecc937e3c9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonEfficiencyMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/82ee2a1c-f9f5-4e36-a17a-9c6724b42b24.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/82ee2a1c-f9f5-4e36-a17a-9c6724b42b24.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml.baiduyun.uploading.cfg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/constant/CodeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/constant/CodeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Netty.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Netty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/PersonEfficiency.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/PersonEfficiency.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" beforeDir="false" afterPath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties.baiduyun.uploading.cfg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/RoleAuthorityImpl.java.baiduyun.uploading.cfg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/NettyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/NettyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties.baiduyun.uploading.cfg" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/work/report/dao/target/" />
     <ignored path="$PROJECT_DIR$/work/report/service/target/" />
@@ -53,25 +51,34 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cxcc@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cxcc@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cxcc@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cxcc: schema" type="76f4a085:MysqlImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="cxcc@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="cxcc: schema" type="76f4a085:MysqlImplModel$Schema" />
+        <item name="person_efficiency: table" type="285a2a93:MysqlImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
         <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="qlzh2: schema" type="76f4a085:MysqlImplModel$Schema" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="mysql@localhost" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
-        <item name="qlzh2: schema" type="76f4a085:MysqlImplModel$Schema" />
-        <item name="machine: table" type="285a2a93:MysqlImplModel$Table" />
       </path>
     </expand>
     <select />
@@ -80,12 +87,12 @@
     <favorites_list name="qlzh" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" column="58" lean-forward="true" selection-start-line="6" selection-start-column="58" selection-end-line="6" selection-end-column="58" />
+            <state relative-caret-position="168">
+              <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -93,48 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/ManageDataServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="46" column="33" lean-forward="true" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/NettyController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="18" selection-start-line="18" selection-end-line="18" />
-              <folding>
-                <element signature="e#999#1000#0" expanded="true" />
-                <element signature="e#1056#1057#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/constant/CodeConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/NettyServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
+            <state relative-caret-position="165">
+              <caret line="26" column="53" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -142,98 +109,89 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1581">
-              <caret line="295" column="17" lean-forward="true" selection-start-line="295" selection-start-column="17" selection-end-line="295" selection-end-column="17" />
+            <state relative-caret-position="312">
+              <caret line="96" column="24" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/NettyMapper.xml">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+            <state relative-caret-position="322">
+              <caret line="36" column="28" lean-forward="true" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptDao.java">
+        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/ManageDataService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+            <state relative-caret-position="144">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
+        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="243" column="75" selection-start-line="243" selection-start-column="75" selection-end-line="243" selection-end-column="75" />
+            <state relative-caret-position="504">
+              <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineDao.java">
+        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+            <state relative-caret-position="144">
+              <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Netty.java">
+        <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="57" column="12" lean-forward="true" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
+            <state relative-caret-position="439">
+              <caret line="88" column="22" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/TaskService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/TaskController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java">
+        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/NettyService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="288">
-              <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+              <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskMapper.java">
+        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="14" column="18" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="18" />
+            <state relative-caret-position="168">
+              <caret line="132" column="48" selection-start-line="132" selection-start-column="48" selection-end-line="132" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3864">
-              <caret line="161" column="62" lean-forward="true" selection-start-line="161" selection-start-column="62" selection-end-line="161" selection-end-column="62" />
+            <state relative-caret-position="288">
+              <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -241,8 +199,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="60" column="44" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="44" />
+            <state relative-caret-position="474">
+              <caret line="38" column="23" lean-forward="true" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/JsonResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-859">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -250,8 +217,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+            <state relative-caret-position="264">
+              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -259,44 +226,110 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="160" column="42" lean-forward="true" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
+            <state relative-caret-position="253">
+              <caret line="155" column="61" lean-forward="true" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/DeptService.java">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+            <state relative-caret-position="360">
+              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EngineeringResult.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1368">
-              <caret line="69" column="35" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="35" />
+            <state relative-caret-position="-791">
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/WorkServiceImpl.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonMapper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="96">
-              <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/DeptServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
+            <state relative-caret-position="192">
+              <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/ProcessConditionMapper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/XpgDao.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="20" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/PersonEfficiency.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding>
+                <element signature="e#2358#2359#0" expanded="true" />
+                <element signature="e#2389#2390#0" expanded="true" />
+                <element signature="e#3868#3869#0" expanded="true" />
+                <element signature="e#3920#3921#0" expanded="true" />
+                <element signature="e#4370#4371#0" expanded="true" />
+                <element signature="e#4397#4398#0" expanded="true" />
+                <element signature="e#4810#4811#0" expanded="true" />
+                <element signature="e#4854#4855#0" expanded="true" />
+                <element signature="e#4939#4940#0" expanded="true" />
+                <element signature="e#4972#4973#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/MachineUse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-198">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatisticsNew.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -305,7 +338,7 @@
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
+              <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -314,7 +347,81 @@
         <entry file="file://$PROJECT_DIR$/work/report/service/src/main/resources/application-service-port.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="16" selection-start-column="16" selection-end-column="16" />
+              <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatistics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1992">
+              <caret line="138" column="25" selection-start-line="138" selection-start-column="25" selection-end-line="138" selection-end-column="25" />
+              <folding>
+                <element signature="e#2875#2876#0" expanded="true" />
+                <element signature="e#2907#2908#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-816">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Engineering.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="98">
+              <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/MachineUseService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/MachineUseServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-81">
+              <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-720" />
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonEfficiencyMapper.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-489">
+              <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -322,45 +429,25 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
+            <state relative-caret-position="241">
+              <caret line="329" column="66" selection-start-line="329" selection-start-column="48" selection-end-line="329" selection-end-column="66" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineNowDao.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineNowMapper.java">
+        <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EfficiencyStatisticsVo.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="96">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineNowController.java">
+        <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/ProcessConditionMapper.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="384">
-              <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/MachineNowService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-            </state>
+            <state relative-caret-position="-2016" />
           </provider>
         </entry>
       </file>
@@ -378,17 +465,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sendMessage</find>
-      <find>name</find>
-      <find>getLastNettyByXpgAndOpenTime</find>
-      <find>xpgs</find>
-      <find>findAllXpgs</find>
-      <find>calculateData</find>
-      <find>selectTaskList</find>
-      <find>selectNormalTaskList</find>
-      <find>pack</find>
-      <find>packa</find>
-      <find>Normal</find>
       <find>selectTaskLists</find>
       <find>taskService</find>
       <find>${mysql.version}</find>
@@ -408,6 +484,17 @@
       <find>machineNowCounts</find>
       <find>setMachineId</find>
       <find>machineNow</find>
+      <find>manageDataService</find>
+      <find>map</find>
+      <find>personDao.getPersonId</find>
+      <find>personEfficiency</find>
+      <find>personEfficiencyDao</find>
+      <find>sets</find>
+      <find>personEfficiencyService.calculateData</find>
+      <find>main</find>
+      <find>selectDataByPersonIdAndDate</find>
+      <find>addDeptId</find>
+      <find>chartResult.get(1)</find>
     </findStrings>
     <replaceStrings>
       <replace>handlerReport</replace>
@@ -441,12 +528,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DataManageMapper.java" />
-        <option value="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/DataManageMapper.xml" />
-        <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/TaskService.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/TaskController.java" />
-        <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/DataManage.java" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/resources/application-service.properties" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/wx/AesException.java" />
@@ -468,29 +549,35 @@
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyDao.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/MachineUse.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonServiceImpl.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineNowDao.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/resources/application-service-port.properties" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WxDemoController.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Netty.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptDao.java" />
-        <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptMapper.java" />
         <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/DeptServiceImpl.java" />
         <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/DeptService.java" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java" />
-        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java" />
         <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/NettyController.java" />
-        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" />
         <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineDao.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/constant/CodeConstants.java" />
+        <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyMapper.java" />
+        <option value="$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonEfficiencyMapper.xml" />
+        <option value="$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyDao.java" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/MachineUseServiceImpl.java" />
+        <option value="$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java" />
+        <option value="$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/PersonEfficiency.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties" />
+        <option value="$PROJECT_DIR$/work/report/service/src/main/resources/application-service-port.properties" />
+        <option value="$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java" />
         <option value="$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties" />
       </list>
     </option>
@@ -530,8 +617,8 @@
     <option name="vmOptions" value="-DarchetypeCatalog=internal" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="30" />
-    <option name="width" value="1847" />
+    <option name="x" value="-2" />
+    <option name="width" value="1894" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -544,8 +631,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -619,18 +704,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="sy" type="462c0819:PsiDirectoryNode" />
-              <item name="constant" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qlzh" type="462c0819:PsiDirectoryNode" />
-              <item name="work" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sy" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -652,26 +725,7 @@
               <item name="common" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sy" type="462c0819:PsiDirectoryNode" />
-              <item name="wx" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qlzh" type="462c0819:PsiDirectoryNode" />
-              <item name="work" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qlzh" type="462c0819:PsiDirectoryNode" />
-              <item name="work" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-              <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
@@ -1082,22 +1136,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="sy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="netty" type="462c0819:PsiDirectoryNode" />
-              <item name="tcp" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="qlzh" type="462c0819:PsiDirectoryNode" />
-              <item name="work" type="462c0819:PsiDirectoryNode" />
-              <item name="report" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="com" type="462c0819:PsiDirectoryNode" />
-              <item name="sy" type="462c0819:PsiDirectoryNode" />
               <item name="quartz" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -1138,134 +1176,362 @@
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-core-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-commons-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-commons-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-core-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-commons-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-core-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-core-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+              <item name="catalina" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-core-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+              <item name="catalina" type="462c0819:PsiDirectoryNode" />
+              <item name="core" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+              <item name="tomcat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+              <item name="tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="websocket" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.27" type="70bed36:NamedLibraryElementNode" />
+              <item name="tomcat-embed-websocket-9.0.27.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="apache" type="462c0819:PsiDirectoryNode" />
+              <item name="tomcat" type="462c0819:PsiDirectoryNode" />
+              <item name="websocket" type="462c0819:PsiDirectoryNode" />
+              <item name="server" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-aop-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-aop-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-aop-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-commons-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-aop-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="aop" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-commons:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-commons-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-aop:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-aop-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="aop" type="462c0819:PsiDirectoryNode" />
+              <item name="framework" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-core-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-core-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-core-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-core-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="cglib" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-core:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-core-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="cglib" type="462c0819:PsiDirectoryNode" />
+              <item name="proxy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="jpa" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="filter" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.springframework.data:spring-data-jpa:2.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
-              <item name="spring-data-jpa-2.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
               <item name="org" type="462c0819:PsiDirectoryNode" />
               <item name="springframework" type="462c0819:PsiDirectoryNode" />
-              <item name="data" type="462c0819:PsiDirectoryNode" />
-              <item name="jpa" type="462c0819:PsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="method" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-web:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-web-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="method" type="462c0819:PsiDirectoryNode" />
+              <item name="support" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+              <item name="mvc" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+              <item name="mvc" type="462c0819:PsiDirectoryNode" />
+              <item name="method" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="Maven: org.springframework:spring-webmvc:5.2.1.RELEASE" type="70bed36:NamedLibraryElementNode" />
+              <item name="spring-webmvc-5.2.1.RELEASE.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="springframework" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="servlet" type="462c0819:PsiDirectoryNode" />
+              <item name="mvc" type="462c0819:PsiDirectoryNode" />
+              <item name="method" type="462c0819:PsiDirectoryNode" />
+              <item name="annotation" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="qlzh" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="42d22893-7d74-4b02-8ecc-b9c2975b123a" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1280,34 +1546,34 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1597112617694" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1597906561327" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="Arquillian JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.Arquillian JUnit4" value="" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="database.console.LAST_STATE" value="true" />
-    <property name="last_opened_file_path" value="D:/work/答题类小程序" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../master备份(8.11)/qlzh" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.45245558" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="com.sy.wx" />
     </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
-    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.sy.dao" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\MyWork\master\qlzh\work\report\dao\src\main\resources\mybatis\mappers" />
       <recent name="D:\临时文件(解决原服务连接不上问题)\帮忙做微信公众号用的代码\项目代码(前后端分离)\后端代码\qlzh\work\lib" />
       <recent name="D:\临时文件(解决原服务连接不上问题)\帮忙做微信公众号用的代码\项目代码(前后端分离)\后端代码\qlzh\work\common\src\main\java\com\sy\wx" />
-      <recent name="D:\MyWork\master\qlzh\work\report\dao\src\main\resources\mybatis\mappers" />
       <recent name="D:\MyWork\qlzh\work\report\dao\src\main\resources\mybatis\mappers" />
     </key>
   </component>
@@ -1396,7 +1662,9 @@
       <workItem from="1595125594296" duration="408000" />
       <workItem from="1595127551454" duration="8920000" />
       <workItem from="1595830053839" duration="31575000" />
-      <workItem from="1596012683079" duration="84055000" />
+      <workItem from="1596012683079" duration="84695000" />
+      <workItem from="1597113311647" duration="2309000" />
+      <workItem from="1597115777964" duration="98811000" />
     </task>
     <task id="LOCAL-00001" summary="qlzh后端">
       <created>1587520543448</created>
@@ -1580,11 +1848,18 @@
       <option name="project" value="LOCAL" />
       <updated>1595984083819</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="接入澄西扬州微信公众号,task表增加number字段及数据同步报表页面新增焊机编号一列">
+      <created>1597112954098</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1597112954104</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1289864000" />
+    <option name="totallyTimeSpent" value="1391624000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1596,10 +1871,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="30" y="0" width="1847" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-2" y="0" width="1894" height="1047" extended-state="1" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.13822047" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4993865" visible="true" weight="0.13794984" />
       <window_info id="Structure" order="1" sideWeight="0.5016779" side_tool="true" weight="0.1106383" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -1607,32 +1881,32 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" sideWeight="0.5016779" side_tool="true" weight="0.1106383" />
       <window_info id="Web" order="7" sideWeight="0.5006135" side_tool="true" weight="0.09946808" />
-      <window_info anchor="bottom" id="Duplicate detector" weight="0.3295838" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.38132733" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7522837" visible="true" weight="0.042744655" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77393615" weight="0.03374578" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.7522837" visible="true" weight="0.23059617" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.77393615" weight="0.34047619" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49973276" weight="0.32845894" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49973276" weight="0.13048369" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.2519685" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49973276" weight="0.3295838" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.24771628" side_tool="true" weight="0.18897638" />
       <window_info anchor="bottom" id="Spring" order="12" weight="0.3295838" />
-      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.4986638" weight="0.115860514" />
+      <window_info anchor="bottom" id="Database Console" order="13" sideWeight="0.4986638" weight="0.11547619" />
       <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.3295838" />
-      <window_info anchor="bottom" id="Messages" order="15" sideWeight="0.49787235" weight="0.03374578" />
+      <window_info anchor="bottom" id="Messages" order="15" sideWeight="0.49787235" weight="0.23394495" />
+      <window_info anchor="bottom" id="Duplicate detector" order="16" weight="0.3295838" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.07050923" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" visible="true" weight="0.07050923" />
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Maven" order="5" weight="0.07890319" />
+      <window_info anchor="right" id="Maven" order="5" visible="true" weight="0.0785169" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="right" id="Database" order="8" weight="0.10910088" />
+      <window_info anchor="right" id="Database" order="8" weight="0.09760087" />
       <window_info anchor="right" id="Bean Validation" order="9" weight="0.20095949" />
     </layout>
   </component>
@@ -1695,7 +1969,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="部门api修改，新增了一级的展示" />
     <MESSAGE value="indexController新增&quot;/appdata&quot;接口（套用&quot;/data&quot;）" />
     <MESSAGE value="新增待机时间字段" />
     <MESSAGE value="新增待机时间字段noloading_time" />
@@ -1720,138 +1993,38 @@
     <MESSAGE value="暂停与重启功能改为终止和再分配功能，有效工作焊机台数，PC过载次数需要在人员详细功效中体现出来" />
     <MESSAGE value="微信公众号接入系统功能" />
     <MESSAGE value="去除底表发过来的异常数据,采集器档案增加采集器编号和采集器型号字段，焊机使用报表增加焊机编号字段" />
-    <option name="LAST_COMMIT_MESSAGE" value="去除底表发过来的异常数据,采集器档案增加采集器编号和采集器型号字段，焊机使用报表增加焊机编号字段" />
+    <MESSAGE value="接入澄西扬州微信公众号,task表增加number字段及数据同步报表页面新增焊机编号一列" />
+    <option name="LAST_COMMIT_MESSAGE" value="接入澄西扬州微信公众号,task表增加number字段及数据同步报表页面新增焊机编号一列" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java</url>
-          <line>563</line>
-          <properties />
-          <option name="timeStamp" value="204" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java</url>
-          <line>81</line>
-          <properties />
-          <option name="timeStamp" value="205" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WorkController.java</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="211" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java</url>
-          <line>600</line>
+          <line>232</line>
           <properties />
-          <option name="timeStamp" value="224" />
+          <option name="timeStamp" value="324" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java</url>
-          <line>427</line>
-          <properties />
-          <option name="timeStamp" value="225" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/DeptController.java</url>
-          <line>62</line>
-          <properties />
-          <option name="timeStamp" value="260" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/MachineServiceImpl.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="277" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/ManageDataServiceImpl.java</url>
-          <line>52</line>
-          <properties />
-          <option name="timeStamp" value="280" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/ManageDataServiceImpl.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="281" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java</url>
-          <line>292</line>
-          <properties />
-          <option name="timeStamp" value="282" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java</url>
-          <line>594</line>
+          <line>488</line>
           <properties />
-          <option name="timeStamp" value="286" />
+          <option name="timeStamp" value="327" />
         </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java</url>
-          <line>339</line>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java</url>
+          <line>525</line>
           <properties />
-          <option name="timeStamp" value="290" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java</url>
-          <line>60</line>
-          <properties />
-          <option name="timeStamp" value="292" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java</url>
-          <line>173</line>
-          <properties />
-          <option name="timeStamp" value="293" />
-        </line-breakpoint>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java</url>
-          <line>108</line>
-          <properties />
-          <option name="timeStamp" value="294" />
+          <option name="timeStamp" value="328" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java</url>
-          <line>30</line>
+          <line>65</line>
           <properties />
-          <option name="timeStamp" value="296" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java</url>
-          <line>179</line>
-          <properties />
-          <option name="timeStamp" value="298" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/WxDemoController.java</url>
-          <line>35</line>
-          <properties />
-          <option name="timeStamp" value="299" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java</url>
-          <line>386</line>
-          <properties />
-          <option name="timeStamp" value="300" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java</url>
-          <line>35</line>
-          <properties />
-          <option name="timeStamp" value="301" />
+          <option name="timeStamp" value="329" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="SpringBootApplicationConfigurationType">
-        <watch expression="xpg" language="JAVA" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -1863,371 +2036,360 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-webmvc/5.2.1.RELEASE/spring-webmvc-5.2.1.RELEASE.jar!/org/springframework/web/servlet/FrameworkServlet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="439" selection-start-line="439" selection-end-line="439" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-websocket/9.0.27/tomcat-embed-websocket-9.0.27.jar!/org/apache/tomcat/websocket/server/WsFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.2.1.RELEASE/spring-web-5.2.1.RELEASE.jar!/org/springframework/web/filter/RequestContextFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.2.1.RELEASE/spring-web-5.2.1.RELEASE.jar!/org/springframework/web/filter/FormContentFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.2.1.RELEASE/spring-web-5.2.1.RELEASE.jar!/org/springframework/web/filter/OncePerRequestFilter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.27/tomcat-embed-core-9.0.27.jar!/org/apache/catalina/core/ApplicationFilterChain.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/XpgDao.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
-          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/ControlController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="22" column="39" selection-start-line="22" selection-start-column="39" selection-end-line="22" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="672">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DataManageDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="16" column="17" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/MachineMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="74" column="67" selection-start-line="74" selection-start-column="67" selection-end-line="74" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Machine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2688">
-          <caret line="168" column="9" selection-start-line="168" selection-start-column="9" selection-end-line="168" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" column="10" selection-start-line="11" selection-start-column="10" selection-end-line="11" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/MachineUse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="95" column="40" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_162/src.zip!/java/util/Collections.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="4787" column="30" selection-start-line="4787" selection-start-column="30" selection-end-line="4787" selection-end-column="30" />
-          <folding>
-            <element signature="e#186747#186748#0" expanded="true" />
-            <element signature="e#186792#186793#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/MachineQuartzConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/MachineServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="89" column="40" selection-start-line="89" selection-start-column="40" selection-end-line="89" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/MachineService.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/AuthorityMapper.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="das://42d22893-7d74-4b02-8ecc-b9c2975b123a/schema/cxcc/table/person_efficiency">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonController.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="936">
-          <caret line="59" column="45" selection-start-line="59" selection-start-column="45" selection-end-line="59" selection-end-column="45" />
+        <state relative-caret-position="-720" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/ProcessConditionMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2016" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/RoleAuthorityMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/ProcessConditionMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="139" column="25" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+        <state relative-caret-position="5">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/TaskServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="82" column="31" selection-start-line="82" selection-start-column="31" selection-end-line="82" selection-end-column="31" />
+        <state relative-caret-position="192">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptDao.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/PersonEfficiencyMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+        <state relative-caret-position="-489">
+          <caret line="3" column="46" selection-start-line="3" selection-start-column="46" selection-end-line="3" selection-end-column="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java">
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskDao.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="60" column="44" selection-start-line="60" selection-start-column="44" selection-end-line="60" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="160" column="42" lean-forward="true" selection-start-line="160" selection-start-column="42" selection-end-line="160" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/DeptService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="16" column="9" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/DeptServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="94" column="42" selection-start-line="94" selection-start-column="42" selection-end-line="94" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/DeptMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="19" column="9" selection-start-line="19" selection-start-column="9" selection-end-line="19" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1879">
-          <caret line="124" column="52" selection-start-line="124" selection-start-column="44" selection-end-line="124" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/NettyServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="63" column="31" lean-forward="true" selection-start-line="63" selection-start-column="31" selection-end-line="63" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state relative-caret-position="96">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Task.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        <state relative-caret-position="-816">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/TaskController.java">
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="47" column="11" selection-start-line="47" selection-start-column="11" selection-end-line="47" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/TaskService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/TaskMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="14" column="18" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/TaskMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3864">
-          <caret line="161" column="62" lean-forward="true" selection-start-line="161" selection-start-column="62" selection-end-line="161" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+        <state relative-caret-position="-8">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/core/netty/tcp/NettyServerHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="243" column="75" selection-start-line="243" selection-start-column="75" selection-end-line="243" selection-end-column="75" />
+        <state relative-caret-position="-7272">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/NettyMapper.xml">
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EngineeringResult.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        <state relative-caret-position="-791">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/EfficiencyStatisticsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="44" column="43" selection-start-line="44" selection-start-column="43" selection-end-line="44" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonEfficiencyDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1992">
+          <caret line="138" column="25" selection-start-line="138" selection-start-column="25" selection-end-line="138" selection-end-column="25" />
+          <folding>
+            <element signature="e#2875#2876#0" expanded="true" />
+            <element signature="e#2907#2908#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/EfficiencyStatisticsNew.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/MachineUse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/vo/EfficiencyStatisticsVo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/ManageDataServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="26" column="53" selection-start-line="26" selection-start-column="45" selection-end-line="26" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/ManageDataService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/PersonDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/NettyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="16" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/PersonEfficiencyService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/WorkServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/PersonEfficiency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2389#2390#0" expanded="true" />
+            <element signature="e#3868#3869#0" expanded="true" />
+            <element signature="e#3920#3921#0" expanded="true" />
+            <element signature="e#4370#4371#0" expanded="true" />
+            <element signature="e#4397#4398#0" expanded="true" />
+            <element signature="e#4810#4811#0" expanded="true" />
+            <element signature="e#4854#4855#0" expanded="true" />
+            <element signature="e#4939#4940#0" expanded="true" />
+            <element signature="e#4972#4973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/resources/mybatis/mappers/Process.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/PersonEfficiencyServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="155" column="61" lean-forward="true" selection-start-line="155" selection-start-column="61" selection-end-line="155" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="29" column="59" selection-start-line="29" selection-start-column="59" selection-end-line="29" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/MachineUseService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/MachineUseServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-81">
+          <caret line="30" column="28" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/EfficiencyStatisticsService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/EfficiencyStatisticsServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="88" column="22" selection-start-line="88" selection-start-column="19" selection-end-line="88" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="329" column="66" selection-start-line="329" selection-start-column="48" selection-end-line="329" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/NettyMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="17" column="10" selection-start-line="17" selection-start-column="10" selection-end-line="17" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/quartz/NettyQuartz.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="132" column="48" selection-start-line="132" selection-start-column="48" selection-end-line="132" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/PersonEfficiencyController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="474">
+          <caret line="38" column="23" lean-forward="true" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="96" column="24" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/resources/application-web-port.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/entity/Netty.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="57" column="12" lean-forward="true" selection-start-line="57" selection-start-column="12" selection-end-line="57" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/NettyController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
+          <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/report/service/src/main/resources/application-service-port.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="16" selection-start-column="16" selection-end-column="16" />
+          <caret column="16" lean-forward="true" selection-start-column="16" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/common/src/main/resources/application-dao.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" column="58" lean-forward="true" selection-start-line="6" selection-start-column="58" selection-end-line="6" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/common/src/main/java/com/sy/constant/CodeConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        <state relative-caret-position="168">
+          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/starter/Starter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#999#1000#0" expanded="true" />
-            <element signature="e#1056#1057#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/task/NettyDataHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1581">
-          <caret line="295" column="17" lean-forward="true" selection-start-line="295" selection-start-column="17" selection-end-line="295" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="29" column="21" selection-start-line="29" selection-start-column="21" selection-end-line="29" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineNowDao.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/dao/src/main/java/com/sy/dao/MachineNowMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/interface/src/main/java/com/sy/service/MachineNowService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="15" column="21" selection-start-line="15" selection-start-column="21" selection-end-line="15" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineNowController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="21" column="75" selection-start-line="21" selection-start-column="75" selection-end-line="21" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/web/src/main/java/com/sy/controller/MachineUseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1368">
-          <caret line="69" column="35" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/work/report/service/src/main/java/com/sy/service/impl/WorkServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="74" column="21" lean-forward="true" selection-start-line="74" selection-start-column="21" selection-end-line="74" selection-end-column="21" />
+        <state relative-caret-position="322">
+          <caret line="36" column="28" lean-forward="true" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
         </state>
       </provider>
     </entry>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="mysql@localhost">
+<dataSource name="cxcc@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.14">
     <root id="1">
       <ServerVersion>5.5.61</ServerVersion>
@@ -8,6 +8,8 @@
       <DefaultCasing>lower/lower</DefaultCasing>
     </root>
     <schema id="2" parent="1" name="cxcc">
+      <Current>1</Current>
+      <Visible>1</Visible>
       <Collation>latin1_swedish_ci</Collation>
     </schema>
     <schema id="3" parent="1" name="elec-cloud">
@@ -41,8 +43,6 @@
       <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="13" parent="1" name="qlzh2">
-      <Current>1</Current>
-      <Visible>1</Visible>
       <Collation>latin1_swedish_ci</Collation>
     </schema>
     <schema id="14" parent="1" name="qlzh2test">
@@ -845,121 +845,121 @@
       <Charset>utf8mb4</Charset>
       <DefaultForCharset>0</DefaultForCharset>
     </collation>
-    <table id="215" parent="13" name="authority">
+    <table id="215" parent="2" name="authority">
       <Comment>权限表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="216" parent="13" name="company_info">
+    <table id="216" parent="2" name="company_info">
       <Comment>企业信息管理</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="217" parent="13" name="data_manage">
+    <table id="217" parent="2" name="data_manage">
       <Comment>数据处理表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="218" parent="13" name="dept">
+    <table id="218" parent="2" name="dept">
       <Comment>部门档案（此表相当于权限表中的角色或者岗位）</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="219" parent="13" name="efficiency_statistics">
+    <table id="219" parent="2" name="efficiency_statistics">
       <Comment>工程报表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="220" parent="13" name="efficiency_statistics_new">
+    <table id="220" parent="2" name="efficiency_statistics_new">
       <Comment>新工程报表(用于四级展示工程报表)</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="221" parent="13" name="energy">
+    <table id="221" parent="2" name="energy">
       <Comment>节能表&#xd;
 </Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="222" parent="13" name="engineering">
+    <table id="222" parent="2" name="engineering">
       <Comment>工效统计表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="223" parent="13" name="log">
+    <table id="223" parent="2" name="log">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="224" parent="13" name="machine">
+    <table id="224" parent="2" name="machine">
       <Comment>焊机表（设备表）</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="225" parent="13" name="machine_now">
+    <table id="225" parent="2" name="machine_now">
       <Comment>当前正在使用的焊机</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="226" parent="13" name="machine_type">
+    <table id="226" parent="2" name="machine_type">
       <Comment>焊机型号表（针对具体的型号表）</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="227" parent="13" name="machine_use">
+    <table id="227" parent="2" name="machine_use">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="228" parent="13" name="message_data">
+    <table id="228" parent="2" name="message_data">
       <Comment>消息数据表&#xd;
 </Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="229" parent="13" name="message_type">
+    <table id="229" parent="2" name="message_type">
       <Comment>消息类型数据表&#xd;
 </Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="230" parent="13" name="netty">
+    <table id="230" parent="2" name="netty">
       <Comment>同步数据表（2G传输的接收和存储）</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="231" parent="13" name="person">
+    <table id="231" parent="2" name="person">
       <Comment>人员表（用户表）</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="232" parent="13" name="person_efficiency">
+    <table id="232" parent="2" name="person_efficiency">
       <Comment>人员详细工效表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="233" parent="13" name="process">
+    <table id="233" parent="2" name="process">
       <Comment>工序表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="234" parent="13" name="process_run">
+    <table id="234" parent="2" name="process_run">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="235" parent="13" name="role">
-      <Comment>角色表</Comment>
+    <table id="235" parent="2" name="role">
+      <Comment>角色数据库</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="236" parent="13" name="role_authority">
-      <Comment>角色权限表</Comment>
+    <table id="236" parent="2" name="role_authority">
+      <Comment>岗位-权限表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="237" parent="13" name="sale">
+    <table id="237" parent="2" name="sale">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="238" parent="13" name="scan_work">
+    <table id="238" parent="2" name="scan_work">
       <Comment>扫码工作表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="239" parent="13" name="table_info">
+    <table id="239" parent="2" name="table_info">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="240" parent="13" name="table_type">
+    <table id="240" parent="2" name="table_type">
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="241" parent="13" name="task">
+    <table id="241" parent="2" name="task">
       <Comment>派工单表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="242" parent="13" name="work">
+    <table id="242" parent="2" name="work">
       <Comment>人员上工表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="243" parent="13" name="work_type">
+    <table id="243" parent="2" name="work_type">
       <Comment>工种表</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
-    <table id="244" parent="13" name="xpg">
-      <Comment>注册码表</Comment>
+    <table id="244" parent="2" name="xpg">
+      <Comment>2G码</Comment>
       <Collation>utf8_general_ci</Collation>
     </table>
     <column id="245" parent="215" name="id">
@@ -1302,17 +1302,16 @@ create_time</ColNames>
       <Position>3</Position>
       <Comment>任务id</Comment>
       <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="301" parent="219" name="level">
       <Position>4</Position>
-      <Comment>部门等级</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="302" parent="219" name="pid">
       <Position>5</Position>
-      <Comment>上级部门id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1336,7 +1335,6 @@ create_time</ColNames>
     </column>
     <column id="306" parent="219" name="power">
       <Position>9</Position>
-      <Comment>使用电量</Comment>
       <DataType>double(255,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -1348,7 +1346,7 @@ create_time</ColNames>
     </column>
     <column id="308" parent="219" name="status">
       <Position>11</Position>
-      <Comment>状态 0 正常，1 停用</Comment>
+      <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -2234,7 +2232,7 @@ accpet_id</ColNames>
     </column>
     <column id="462" parent="230" name="create_time">
       <Position>7</Position>
-      <Comment>创建时间，是接收到该数据包的时间,对应该分钟包的最后一个数据的时间</Comment>
+      <Comment>创建时间,是接收到该数据包的时间,对应该分钟包的最后一个数据的时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
@@ -2360,7 +2358,7 @@ create_time</ColNames>
     </column>
     <column id="484" parent="231" name="status">
       <Position>15</Position>
-      <Comment>0 正常，1 停用</Comment>
+      <Comment>0 正常，1 停用, 2 页面隐藏</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
@@ -2441,91 +2439,104 @@ pile_counts</ColNames>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="498" parent="232" name="name">
+    <column id="498" parent="232" name="person_id">
       <Position>7</Position>
+      <Comment>人员id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <DefaultExpression>0</DefaultExpression>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="499" parent="232" name="name">
+      <Position>8</Position>
       <Comment>员工姓名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="499" parent="232" name="time">
-      <Position>8</Position>
+    <column id="500" parent="232" name="time">
+      <Position>9</Position>
       <Comment>在岗时间（秒）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="500" parent="232" name="working_time">
-      <Position>9</Position>
+    <column id="501" parent="232" name="working_time">
+      <Position>10</Position>
       <Comment>有效时间（秒）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="501" parent="232" name="noloading_time">
-      <Position>10</Position>
+    <column id="502" parent="232" name="noloading_time">
+      <Position>11</Position>
       <Comment>待机时间（秒）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="502" parent="232" name="efficiency">
-      <Position>11</Position>
+    <column id="503" parent="232" name="efficiency">
+      <Position>12</Position>
       <Comment>工效</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="503" parent="232" name="working_power">
-      <Position>12</Position>
+    <column id="504" parent="232" name="working_power">
+      <Position>13</Position>
       <Comment>工作用电量</Comment>
       <DataType>double(16,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="504" parent="232" name="noloading_power">
-      <Position>13</Position>
+    <column id="505" parent="232" name="noloading_power">
+      <Position>14</Position>
       <Comment>空载用电量</Comment>
       <DataType>double(16,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="505" parent="232" name="counts">
-      <Position>14</Position>
+    <column id="506" parent="232" name="counts">
+      <Position>15</Position>
       <Comment>电流超限次数</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="506" parent="232" name="over_time">
-      <Position>15</Position>
+    <column id="507" parent="232" name="over_time">
+      <Position>16</Position>
       <Comment>超限时间（秒）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="507" parent="232" name="status">
-      <Position>16</Position>
-      <Comment>状态，0 正常，1 停用</Comment>
+    <column id="508" parent="232" name="date">
+      <Position>17</Position>
+      <Comment>报表数据的日期</Comment>
+      <DataType>date|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="509" parent="232" name="status">
+      <Position>18</Position>
+      <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="508" parent="232" name="create_time">
-      <Position>17</Position>
+    <column id="510" parent="232" name="create_time">
+      <Position>19</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="509" parent="232" name="update_time">
-      <Position>18</Position>
+    <column id="511" parent="232" name="update_time">
+      <Position>20</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="510" parent="232" name="remark">
-      <Position>19</Position>
+    <column id="512" parent="232" name="remark">
+      <Position>21</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="511" parent="232" name="PRIMARY">
+    <key id="513" parent="232" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="512" parent="233" name="id">
+    <column id="514" parent="233" name="id">
       <Position>1</Position>
       <Comment>主键（无实际意义）</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -2533,128 +2544,128 @@ pile_counts</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="513" parent="233" name="name">
+    <column id="515" parent="233" name="name">
       <Position>2</Position>
       <Comment>工序名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="514" parent="233" name="status">
+    <column id="516" parent="233" name="status">
       <Position>3</Position>
-      <Comment>状态，0 正常，1 停用</Comment>
+      <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="515" parent="233" name="create_time">
+    <column id="517" parent="233" name="create_time">
       <Position>4</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="516" parent="233" name="update_time">
+    <column id="518" parent="233" name="update_time">
       <Position>5</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="517" parent="233" name="remark">
+    <column id="519" parent="233" name="remark">
       <Position>6</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="518" parent="233" name="index_id">
+    <index id="520" parent="233" name="index_id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="519" parent="233" name="index_max">
+    <index id="521" parent="233" name="index_max">
       <ColNames>name
 create_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="520" parent="233" name="index_name">
+    <index id="522" parent="233" name="index_name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="521" parent="233" name="PRIMARY">
+    <key id="523" parent="233" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="522" parent="233" name="index_id">
+    <key id="524" parent="233" name="index_id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>index_id</UnderlyingIndexName>
     </key>
-    <column id="523" parent="234" name="id">
+    <column id="525" parent="234" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="524" parent="234" name="table_id">
+    <column id="526" parent="234" name="table_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="525" parent="234" name="role">
+    <column id="527" parent="234" name="role">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="526" parent="234" name="people">
+    <column id="528" parent="234" name="people">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="527" parent="234" name="operation">
+    <column id="529" parent="234" name="operation">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="528" parent="234" name="content">
+    <column id="530" parent="234" name="content">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="529" parent="234" name="step_level">
+    <column id="531" parent="234" name="step_level">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="530" parent="234" name="status">
+    <column id="532" parent="234" name="status">
       <Position>8</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="531" parent="234" name="result">
+    <column id="533" parent="234" name="result">
       <Position>9</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="532" parent="234" name="create_time">
+    <column id="534" parent="234" name="create_time">
       <Position>10</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="533" parent="234" name="update_time">
+    <column id="535" parent="234" name="update_time">
       <Position>11</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="534" parent="234" name="remark">
+    <column id="536" parent="234" name="remark">
       <Position>12</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="535" parent="234" name="PRIMARY">
+    <key id="537" parent="234" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="536" parent="235" name="id">
+    <column id="538" parent="235" name="id">
       <Position>1</Position>
       <Comment>主键(无实际意义)</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -2662,43 +2673,43 @@ create_time</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="537" parent="235" name="name">
+    <column id="539" parent="235" name="name">
       <Position>2</Position>
       <Comment>岗位名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="538" parent="235" name="status">
+    <column id="540" parent="235" name="status">
       <Position>3</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>varchar(255)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="539" parent="235" name="create_time">
+    <column id="541" parent="235" name="create_time">
       <Position>4</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="540" parent="235" name="update_time">
+    <column id="542" parent="235" name="update_time">
       <Position>5</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="541" parent="235" name="remark">
+    <column id="543" parent="235" name="remark">
       <Position>6</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="542" parent="235" name="PRIMARY">
+    <key id="544" parent="235" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="543" parent="236" name="id">
+    <column id="545" parent="236" name="id">
       <Position>1</Position>
       <Comment>主键(无实际意义)</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -2706,118 +2717,118 @@ create_time</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="544" parent="236" name="role_id">
+    <column id="546" parent="236" name="role_id">
       <Position>2</Position>
       <Comment>岗位id（岗位表外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="545" parent="236" name="authority_id">
+    <column id="547" parent="236" name="authority_id">
       <Position>3</Position>
       <Comment>权限表外键id（人员表外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="546" parent="236" name="status">
+    <column id="548" parent="236" name="status">
       <Position>4</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="547" parent="236" name="create_time">
+    <column id="549" parent="236" name="create_time">
       <Position>5</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="548" parent="236" name="update_time">
+    <column id="550" parent="236" name="update_time">
       <Position>6</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="549" parent="236" name="remark">
+    <column id="551" parent="236" name="remark">
       <Position>7</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="550" parent="236" name="PRIMARY">
+    <key id="552" parent="236" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="551" parent="237" name="id">
+    <column id="553" parent="237" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="552" parent="237" name="code">
+    <column id="554" parent="237" name="code">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="553" parent="237" name="type">
+    <column id="555" parent="237" name="type">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="554" parent="237" name="name">
+    <column id="556" parent="237" name="name">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="555" parent="237" name="price">
+    <column id="557" parent="237" name="price">
       <Position>5</Position>
       <DataType>decimal(10,2 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="556" parent="237" name="counts">
+    <column id="558" parent="237" name="counts">
       <Position>6</Position>
       <DataType>int(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="557" parent="237" name="test">
+    <column id="559" parent="237" name="test">
       <Position>7</Position>
       <DataType>int(251)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="558" parent="237" name="date">
+    <column id="560" parent="237" name="date">
       <Position>8</Position>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="559" parent="237" name="status">
+    <column id="561" parent="237" name="status">
       <Position>9</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="560" parent="237" name="flag">
+    <column id="562" parent="237" name="flag">
       <Position>10</Position>
       <DataType>varchar(255)|0s</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="561" parent="237" name="uq_code">
+    <index id="563" parent="237" name="uq_code">
       <ColNames>code</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="562" parent="237" name="PRIMARY">
+    <key id="564" parent="237" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="563" parent="237" name="uq_code">
+    <key id="565" parent="237" name="uq_code">
       <ColNames>code</ColNames>
       <UnderlyingIndexName>uq_code</UnderlyingIndexName>
     </key>
-    <column id="564" parent="238" name="id">
+    <column id="566" parent="238" name="id">
       <Position>1</Position>
       <Comment>主键（无实际意义）</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -2825,120 +2836,120 @@ create_time</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="565" parent="238" name="person_id">
+    <column id="567" parent="238" name="person_id">
       <Position>2</Position>
       <Comment>人员id（人员表外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="566" parent="238" name="machine_id">
+    <column id="568" parent="238" name="machine_id">
       <Position>3</Position>
       <Comment>焊机id（焊机表外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="567" parent="238" name="order_id">
+    <column id="569" parent="238" name="order_id">
       <Position>4</Position>
       <Comment>工单id（工单表外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="568" parent="238" name="operation">
+    <column id="570" parent="238" name="operation">
       <Position>5</Position>
       <Comment>0 开启，1 关闭</Comment>
       <DataType>char(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="569" parent="238" name="status">
+    <column id="571" parent="238" name="status">
       <Position>6</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="570" parent="238" name="create_time">
+    <column id="572" parent="238" name="create_time">
       <Position>7</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="571" parent="238" name="update_time">
+    <column id="573" parent="238" name="update_time">
       <Position>8</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="572" parent="238" name="remark">
+    <column id="574" parent="238" name="remark">
       <Position>9</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="573" parent="238" name="PRIMARY">
+    <key id="575" parent="238" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="574" parent="239" name="id">
+    <column id="576" parent="239" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="575" parent="239" name="type_table_name">
+    <column id="577" parent="239" name="type_table_name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="576" parent="239" name="type_table_filed">
+    <column id="578" parent="239" name="type_table_filed">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="577" parent="239" name="data_table_name">
+    <column id="579" parent="239" name="data_table_name">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="578" parent="239" name="role_table_name">
+    <column id="580" parent="239" name="role_table_name">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="579" parent="239" name="people_table_name">
+    <column id="581" parent="239" name="people_table_name">
       <Position>6</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="580" parent="239" name="remark">
+    <column id="582" parent="239" name="remark">
       <Position>7</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="581" parent="239" name="PRIMARY">
+    <key id="583" parent="239" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="582" parent="240" name="id">
+    <column id="584" parent="240" name="id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="583" parent="240" name="table_type_name">
+    <column id="585" parent="240" name="table_type_name">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="584" parent="240" name="PRIMARY">
+    <key id="586" parent="240" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="585" parent="241" name="id">
+    <column id="587" parent="241" name="id">
       <Position>1</Position>
       <Comment>主键</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -2946,152 +2957,152 @@ create_time</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="586" parent="241" name="work_code">
+    <column id="588" parent="241" name="work_code">
       <Position>2</Position>
       <Comment>工号</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="587" parent="241" name="number">
+    <column id="589" parent="241" name="number">
       <Position>3</Position>
       <Comment>派工单编号</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="588" parent="241" name="pid">
+    <column id="590" parent="241" name="pid">
       <Position>4</Position>
       <Comment>上级id</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="589" parent="241" name="project_name">
+    <column id="591" parent="241" name="project_name">
       <Position>5</Position>
       <Comment>项目名称</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="590" parent="241" name="process">
+    <column id="592" parent="241" name="process">
       <Position>6</Position>
       <Comment>工序</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="591" parent="241" name="count">
+    <column id="593" parent="241" name="count">
       <Position>7</Position>
       <Comment>物量</Comment>
       <DataType>double(16,10 digit)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="592" parent="241" name="dept_id">
+    <column id="594" parent="241" name="dept_id">
       <Position>8</Position>
       <Comment>部门id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="593" parent="241" name="begin_time">
+    <column id="595" parent="241" name="begin_time">
       <Position>9</Position>
       <Comment>项目计划开始时间</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="594" parent="241" name="end_time">
+    <column id="596" parent="241" name="end_time">
       <Position>10</Position>
       <Comment>项目计划结束时间</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="595" parent="241" name="actual_begin_time">
+    <column id="597" parent="241" name="actual_begin_time">
       <Position>11</Position>
       <Comment>实际开始时间</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="596" parent="241" name="actual_end_time">
+    <column id="598" parent="241" name="actual_end_time">
       <Position>12</Position>
       <Comment>实际结束时间</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="597" parent="241" name="note">
+    <column id="599" parent="241" name="note">
       <Position>13</Position>
       <Comment>工作内容</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="598" parent="241" name="checker">
+    <column id="600" parent="241" name="checker">
       <Position>14</Position>
       <Comment>派工单的审核人id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="599" parent="241" name="checking_status">
+    <column id="601" parent="241" name="checking_status">
       <Position>15</Position>
       <Comment>派工单审核状态 0通过 1未通过</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;1&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="600" parent="241" name="person_id">
+    <column id="602" parent="241" name="person_id">
       <Position>16</Position>
       <Comment>施工人员id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="601" parent="241" name="status">
+    <column id="603" parent="241" name="status">
       <Position>17</Position>
       <Comment>0正常 1停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="602" parent="241" name="create_time">
+    <column id="604" parent="241" name="create_time">
       <Position>18</Position>
       <Comment>派工单创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="603" parent="241" name="update_time">
+    <column id="605" parent="241" name="update_time">
       <Position>19</Position>
       <Comment>派工单更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="604" parent="241" name="remark">
+    <column id="606" parent="241" name="remark">
       <Position>20</Position>
       <Comment>预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="605" parent="241" name="index_id">
+    <index id="607" parent="241" name="index_id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="606" parent="241" name="index_max">
+    <index id="608" parent="241" name="index_max">
       <ColNames>work_code
 pid
 project_name</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="607" parent="241" name="index_pid">
+    <index id="609" parent="241" name="index_pid">
       <ColNames>pid</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="608" parent="241" name="index_name">
+    <index id="610" parent="241" name="index_name">
       <ColNames>project_name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="609" parent="241" name="PRIMARY">
+    <key id="611" parent="241" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="610" parent="241" name="index_id">
+    <key id="612" parent="241" name="index_id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>index_id</UnderlyingIndexName>
     </key>
-    <column id="611" parent="242" name="id">
+    <column id="613" parent="242" name="id">
       <Position>1</Position>
       <Comment>主键（无实际意义）</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -3099,84 +3110,84 @@ project_name</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="612" parent="242" name="person_id">
+    <column id="614" parent="242" name="person_id">
       <Position>2</Position>
       <Comment>人员表外键</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="613" parent="242" name="task_id">
+    <column id="615" parent="242" name="task_id">
       <Position>3</Position>
       <Comment>工单表外键</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="614" parent="242" name="machine_id">
+    <column id="616" parent="242" name="machine_id">
       <Position>4</Position>
       <Comment>焊机表外键</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="615" parent="242" name="operate">
+    <column id="617" parent="242" name="operate">
       <Position>5</Position>
       <Comment>0 打开，1 关闭</Comment>
       <DataType>char(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="616" parent="242" name="status">
+    <column id="618" parent="242" name="status">
       <Position>6</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="617" parent="242" name="create_time">
+    <column id="619" parent="242" name="create_time">
       <Position>7</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="618" parent="242" name="update_time">
+    <column id="620" parent="242" name="update_time">
       <Position>8</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="619" parent="242" name="remark">
+    <column id="621" parent="242" name="remark">
       <Position>9</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="620" parent="242" name="index_id">
+    <index id="622" parent="242" name="index_id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="621" parent="242" name="index_max">
+    <index id="623" parent="242" name="index_max">
       <ColNames>person_id
 task_id
 machine_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="622" parent="242" name="index_person">
+    <index id="624" parent="242" name="index_person">
       <ColNames>person_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="623" parent="242" name="index_task">
+    <index id="625" parent="242" name="index_task">
       <ColNames>task_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="624" parent="242" name="PRIMARY">
+    <key id="626" parent="242" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="625" parent="242" name="index_id">
+    <key id="627" parent="242" name="index_id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>index_id</UnderlyingIndexName>
     </key>
-    <column id="626" parent="243" name="id">
+    <column id="628" parent="243" name="id">
       <Position>1</Position>
       <Comment>主键（无实际意义）</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -3184,76 +3195,76 @@ machine_id</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="627" parent="243" name="name">
+    <column id="629" parent="243" name="name">
       <Position>2</Position>
       <Comment>工种名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="628" parent="243" name="level">
+    <column id="630" parent="243" name="level">
       <Position>3</Position>
       <Comment>等级，用于分级中判定类型</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>1</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="629" parent="243" name="pid">
+    <column id="631" parent="243" name="pid">
       <Position>4</Position>
       <Comment>子级绑定父级的id（表内外键）</Comment>
       <DataType>int(11)|0s</DataType>
       <DefaultExpression>0</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="630" parent="243" name="status">
+    <column id="632" parent="243" name="status">
       <Position>5</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="631" parent="243" name="create_time">
+    <column id="633" parent="243" name="create_time">
       <Position>6</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="632" parent="243" name="update_time">
+    <column id="634" parent="243" name="update_time">
       <Position>7</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="633" parent="243" name="remark">
+    <column id="635" parent="243" name="remark">
       <Position>8</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="634" parent="243" name="index_id">
+    <index id="636" parent="243" name="index_id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="635" parent="243" name="index_max">
+    <index id="637" parent="243" name="index_max">
       <ColNames>name
 pid
 create_time</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="636" parent="243" name="index_name">
+    <index id="638" parent="243" name="index_name">
       <ColNames>name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="637" parent="243" name="PRIMARY">
+    <key id="639" parent="243" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="638" parent="243" name="index_id">
+    <key id="640" parent="243" name="index_id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>index_id</UnderlyingIndexName>
     </key>
-    <column id="639" parent="244" name="id">
+    <column id="641" parent="244" name="id">
       <Position>1</Position>
       <Comment>主键（无实际意义）</Comment>
       <DataType>int(11) unsigned zerofill|0s</DataType>
@@ -3261,44 +3272,44 @@ create_time</ColNames>
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="640" parent="244" name="name">
+    <column id="642" parent="244" name="name">
       <Position>2</Position>
       <Comment>具体注册码</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="641" parent="244" name="machine_id">
+    <column id="643" parent="244" name="machine_id">
       <Position>3</Position>
       <Comment>焊机表id</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="642" parent="244" name="status">
+    <column id="644" parent="244" name="status">
       <Position>4</Position>
       <Comment>0 正常，1 停用</Comment>
       <DataType>char(1)|0s</DataType>
       <DefaultExpression>&apos;0&apos;</DefaultExpression>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="643" parent="244" name="create_time">
+    <column id="645" parent="244" name="create_time">
       <Position>5</Position>
       <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="644" parent="244" name="update_time">
+    <column id="646" parent="244" name="update_time">
       <Position>6</Position>
       <Comment>更新时间</Comment>
       <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="645" parent="244" name="remark">
+    <column id="647" parent="244" name="remark">
       <Position>7</Position>
       <Comment>备注，用于预留字段</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="646" parent="244" name="PRIMARY">
+    <key id="648" parent="244" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

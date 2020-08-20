@@ -56,6 +56,9 @@ public class NettyDataHandler {
     private TaskDao taskDao;
 
     @Autowired
+    private PersonEfficiencyDao personEfficiencyDao;
+
+    @Autowired
     private EfficiencyStatisticsDao efficiencyStatisticsDao;
 
     @Autowired
@@ -156,6 +159,30 @@ public class NettyDataHandler {
                         }
                     }
 
+                //新的连续3秒超过设定电流判定为超限(不是在这里判断,在nettyQuartz里判断)
+                    /*for(int j = 0; j < currents.size(); j++){
+                        double i = Double.parseDouble(currents.get(j));
+                        if(j < currents.size()-2){
+                            if (i > maxA) {
+                                warningCounts = 1;
+                                double i2 = Double.parseDouble(currents.get(j+1));
+                                if(i2 > maxA) {
+                                    warningCounts = 2;
+                                    double i3 = Double.parseDouble(currents.get(j + 2));
+                                    if (i3 > maxA) {
+                                        warningCounts = 3;
+                                    }
+                                }
+                            }
+                        }else if (i >= minA) {
+                            workingTime++;
+                            iWorking = iWorking.add(new BigDecimal(i));
+                        } else if (i >= 0) {
+                            noloadingTime++;
+                            iNoloading = iNoloading.add(new BigDecimal(i));
+                        }
+                    }
+*/
 
                     //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
                     BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));//按2G码分组后减的就是相同2G码的前一条数据
@@ -171,13 +198,17 @@ public class NettyDataHandler {
                     BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(nettyList1.get(a - 1).getPower()));*///减相同2G码的前一条数据
 
                     BigDecimal iTotal = iWorking.add(iNoloading);
-                    BigDecimal workingPower = new BigDecimal("0");
+                    BigDecimal workingPower = null;
 
                     BigDecimal noloadingPower = new BigDecimal("0");
 
                     try {
                         //workingPower = power*（iWorking/iTotal 结果保留2位小数，结果采用四舍五入方式）
-                        workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
+                        if(0 == iTotal.doubleValue()){
+                            workingPower = new BigDecimal("0");;
+                        }else{
+                            workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
+                        }
                         noloadingPower = power.subtract(workingPower); //noloadingPower= power-workingPower
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -191,7 +222,8 @@ public class NettyDataHandler {
                     data.setWorkingTime(workingTime);
                     data.setNoloadingTime(noloadingTime);
 
-                    if (warningCounts == 60) {//定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
+                    if (warningCounts == 3) {//定义警戒次数，若60s内有连续3秒大于最大工作电流，则判定为超载
+            //      if (warningCounts == 60) {//定义警戒次数，若60s内全部高于最大工作电流，则判定为超载（原来的）
             //      if(warningCounts >= 1){    //定义警戒次数，若60s内有1秒大于最大工作电流，则判定为超载
                         data.setRemark("1");
                     } else {
@@ -376,6 +408,63 @@ public class NettyDataHandler {
             machineUseDao.save(machineUse);
         }
 
+        //个人工效存储
+        //将所有的数据全部存储
+        List<DataManage> dataList2 = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+
+        System.out.println("当天日期的数据"+dataList2);
+
+        //分类数据,将数据按照人分类好
+        Map<Integer,List<DataManage>> map2 = new HashMap<>();
+        Set<Integer> sets = new HashSet<>();
+
+        for (DataManage dataManage : dataList2) {
+            Integer id = dataManage.getWork().getPerson().getId();
+            if(map2.get(id)==null){
+                List<DataManage> temp = new ArrayList<>();
+                temp.add(dataManage);
+                map2.put(id,temp);
+            }else {
+                map2.get(id).add(dataManage);
+            }
+            sets.add(id);
+        }
+        //计算处理数据,并入表
+        for (Integer set : sets) {
+            PersonEfficiency personEfficiency = new PersonEfficiency();
+
+            int time = 0 ;
+            int work_time = 0 ;
+            int noloading_time = 0;
+            int overCounts = 0;
+            BigDecimal wPower = new BigDecimal("0");
+            BigDecimal nPower = new BigDecimal("0");
+            for (DataManage dataManage : map2.get(set)) {
+                time += dataManage.getNoloadingTime();
+                time += dataManage.getWorkingTime();
+                work_time += dataManage.getWorkingTime();
+                noloading_time = time - work_time;
+                wPower = wPower.add(new BigDecimal(dataManage.getWorkingPower()));
+                nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                overCounts += Integer.parseInt(dataManage.getRemark());
+
+            }
+            personEfficiency.setPersonId(set);
+            personEfficiency.setName(map2.get(set).get(0).getWork().getPerson().getName());
+            personEfficiency.setDeptOne(map2.get(set).get(0).getWork().getPerson().getDept().getName());
+            personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setTime(time);
+            personEfficiency.setNoloadingTime(noloading_time);
+            personEfficiency.setWorkingTime(work_time);
+            personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
+            personEfficiency.setRemark(String.valueOf(set));
+            personEfficiency.setCounts(overCounts);
+            personEfficiency.setDate(DateUtils.parseDate(day));
+            personEfficiency.setCreateTime(new Timestamp(new Date().getTime()));
+            personEfficiencyDao.save(personEfficiency);
+        }
+
     }
 
     private void deleteDate(String day) {
@@ -385,6 +474,7 @@ public class NettyDataHandler {
         efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
         efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
+        personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
 
     }
 

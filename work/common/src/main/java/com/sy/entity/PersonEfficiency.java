@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -15,15 +16,18 @@ public class PersonEfficiency {
     private String deptOne;
     private String deptTwo;
     private String deptThree;
+    private Integer personId;
     private String name;
     private Integer time;
     private Integer workingTime;
     private Integer noloadingTime;
     private String efficiency;
-    private Double workingPower;
-    private Double noloadingPower;
+    private String workingPower;
+    private String noloadingPower;
     private Integer counts;
     private Integer overTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date date;
     private String status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp createTime;
@@ -100,6 +104,16 @@ public class PersonEfficiency {
     }
 
     @Basic
+    @Column(name = "person_id")
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
+    @Basic
     @Column(name = "name")
     public String getName() {
         return name;
@@ -147,21 +161,21 @@ public class PersonEfficiency {
 
     @Basic
     @Column(name = "working_power")
-    public Double getWorkingPower() {
+    public String getWorkingPower() {
         return workingPower;
     }
 
-    public void setWorkingPower(Double workingPower) {
+    public void setWorkingPower(String workingPower) {
         this.workingPower = workingPower;
     }
 
     @Basic
     @Column(name = "noloading_power")
-    public Double getNoloadingPower() {
+    public String getNoloadingPower() {
         return noloadingPower;
     }
 
-    public void setNoloadingPower(Double noloadingPower) {
+    public void setNoloadingPower(String noloadingPower) {
         this.noloadingPower = noloadingPower;
     }
 
@@ -184,6 +198,14 @@ public class PersonEfficiency {
     public void setOverTime(Integer overTime) {
         this.overTime = overTime;
     }
+
+    @Basic
+    @Column(name = "date")
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) { this.date = date; }
 
     @Basic
     @Column(name = "status")
@@ -254,7 +276,7 @@ public class PersonEfficiency {
         return Objects.hash(id, task, deptOne, deptTwo, deptThree, name, time, workingTime, efficiency, workingPower, noloadingPower, counts, overTime, status, createTime, updateTime, remark);
     }*/
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -283,5 +305,39 @@ public class PersonEfficiency {
     @Override
     public int hashCode() {
         return Objects.hash(id, task, deptId, deptOne, deptTwo, deptThree, name, time, workingTime, noloadingTime, efficiency, workingPower, noloadingPower, counts, overTime, status, createTime, updateTime, remark);
+    }*/
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonEfficiency that = (PersonEfficiency) o;
+        return id == that.id &&
+                Objects.equals(task, that.task) &&
+                Objects.equals(deptId, that.deptId) &&
+                Objects.equals(deptOne, that.deptOne) &&
+                Objects.equals(deptTwo, that.deptTwo) &&
+                Objects.equals(deptThree, that.deptThree) &&
+                Objects.equals(personId, that.personId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(time, that.time) &&
+                Objects.equals(workingTime, that.workingTime) &&
+                Objects.equals(noloadingTime, that.noloadingTime) &&
+                Objects.equals(efficiency, that.efficiency) &&
+                Objects.equals(workingPower, that.workingPower) &&
+                Objects.equals(noloadingPower, that.noloadingPower) &&
+                Objects.equals(counts, that.counts) &&
+                Objects.equals(overTime, that.overTime) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                Objects.equals(remark, that.remark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, task, deptId, deptOne, deptTwo, deptThree, personId, name, time, workingTime, noloadingTime, efficiency, workingPower, noloadingPower, counts, overTime, date, status, createTime, updateTime, remark);
     }
 }

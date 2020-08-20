@@ -211,7 +211,8 @@ public class IndexController {
                 IndexVo indexVo = new IndexVo();
                 indexVo.setName(vo.getName());
                 indexVo.setPower(String.valueOf(vo.getPower()));
-                indexVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));
+                indexVo.setWorkNo(vo.getWorkNo());
+    //            indexVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));//原来的
                 indexVosProject.add(indexVo);
             }
         }
@@ -324,7 +325,10 @@ public class IndexController {
         appScan.setEfficiency(chartResult.get(0).getRateValue());
         try {
             double dayEff = Double.parseDouble(chartResult.get(0).getRateValue());
-            double prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
+            double prevDayEff = 0.0;
+            if(chartResult.get(1) != null) {
+                prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
+            }
       //    appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff)); //环比
             appScan.setProportion(String.format("%.2f", (new BigDecimal(dayEff).subtract(new BigDecimal(prevDayEff))).doubleValue()*100));//应要求环比改成直接相减
         }catch (Exception e){
@@ -481,7 +485,8 @@ public class IndexController {
                 IndexVo indexVo = new IndexVo();
                 indexVo.setName(vo.getName());
                 indexVo.setPower(String.valueOf(vo.getPower()));
-                indexVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));
+                indexVo.setWorkNo(vo.getWorkNo());
+    //            indexVo.setWorkNo(taskDao.getWorkNoByName(vo.getName()));//原来的
                 indexVosProject.add(indexVo);
             }
         }
@@ -593,7 +598,10 @@ public class IndexController {
         appScan.setEfficiency(chartResult.get(0).getRateValue());
         try {
             double dayEff = Double.parseDouble(chartResult.get(0).getRateValue());
-            double prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
+            double prevDayEff = 0.0;
+            if(chartResult.get(1) != null){
+                 prevDayEff = Double.parseDouble(chartResult.get(1).getRateValue());
+            }
        //   appScan.setProportion(String.format("%.2f", (dayEff-prevDayEff)*100/prevDayEff));//环比
             appScan.setProportion(String.format("%.2f", (new BigDecimal(dayEff).subtract(new BigDecimal(prevDayEff))).doubleValue()*100));//应要求环比改成直接相减
         }catch (Exception e){

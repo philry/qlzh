@@ -56,7 +56,7 @@ public class NettyQuartz extends QuartzJobBean {
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		System.out.println("开始查询netty");
-		// 查询出当前正在工作的所以焊机
+		// 查询出当前正在工作的所有焊机
 		List<MachineNow> list = machineNowDao.findAll();
 		if (list != null && list.size() > 0) {
 			Xpg xpg = null;
@@ -78,7 +78,7 @@ public class NettyQuartz extends QuartzJobBean {
 				last = nettyMapper.getLastNettyByXpgAndOpenTime(xpg.getName(),openTime);//该焊机最近一次开机后的最新数据包
 
 				// 判断是否超限
-				//原来的
+				/*//原来的start
 				boolean flag = true;//初始判断为超限
 				if(last == null){
 					try {
@@ -95,8 +95,9 @@ public class NettyQuartz extends QuartzJobBean {
 						break;
 					}
 				}
+				//原来的end*/
 
-				/*//我写的
+				//我写的
 				boolean flag = false;//初始判断为不超限
 				if(last == null){
 					try {
@@ -107,13 +108,41 @@ public class NettyQuartz extends QuartzJobBean {
 				}
 
 				String[] currents = last.getCurrents().split(",");
-				for (String s : currents) {
+				/*for (String s : currents) {
 					if (Double.valueOf(s) > maxA) { //底表该焊机对应的最新包有一秒的电流大于最大电流判断为超限
 						//	if(new BigDecimal(s).compareTo(new BigDecimal(maxA)) < 0){ //我改的对比方式
 						flag = true;
 						break;
 					}
 				}*/
+				/*for(int j = 0; j < currents.length; j++) { //这个判断方式有问题，经常不起作用
+					if(j < (currents.length-2)){
+						double i = Double.parseDouble(currents[j]);
+						if (i > maxA) {
+							double i2 = Double.parseDouble(currents[j+1]);
+							if(i2 > maxA) {
+								double i3 = Double.parseDouble(currents[j+2]);
+								if (i3 > maxA) {  //底表该焊机对应的最新包有连续3秒的电流大于最大电流判断为超限
+									flag = true;
+									break;
+								}
+							}
+						}
+					}
+				}*/
+				//底表该焊机对应的最新包有连续3秒的电流大于最大电流判断为超限
+				for(int j = 0; j < (currents.length-2); j++) {
+					double i = Double.parseDouble(currents[j]);
+					if(i > maxA){
+						double i2 = Double.parseDouble(currents[j+1]);
+						double i3 = Double.parseDouble(currents[j+2]);
+						if (i2 > maxA && i3 > maxA) {
+							flag = true;
+							break;
+						}
+					}
+				}
+
 
 				if (flag) {
 					// 如果超限,发送超限警告,并关闭焊机,删除machine_now中该焊机的数据

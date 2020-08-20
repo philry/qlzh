@@ -83,10 +83,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
                 handleVo(unit, vos);
             }
 
-            if(!vos.isEmpty()){
+            /*if(!vos.isEmpty()){
                 return vos;
-            }
-            return null;
+            }*/
+            return vos;
         }
 
     }
