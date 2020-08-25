@@ -134,7 +134,10 @@ public class NettyNewQuartz extends QuartzJobBean {
                 //我写的
                 boolean flag = false;//初始判断为不超限
                 Date now = new Date();
-                long jgtime = now.getTime()-openTime.getTime();//现在距这台焊机开机时间的间隔
+                long jgtime = 0;
+                if(openTime != null){
+                    jgtime = now.getTime()-openTime.getTime();//现在距这台焊机开机时间的间隔
+                }
                 if(jgtime <= 1*60*1000){ //距这台焊机开机时间间隔小于1分钟先跳过这台焊机的判断
                     //	if(last == null){
                     //	while(last == null){

@@ -248,7 +248,7 @@ public class PcIndexController {
         double todayPower = 0.0;
         if(efficiencyStatisticsVos != null && !efficiencyStatisticsVos.isEmpty()){
             for (EfficiencyStatisticsVo vo : efficiencyStatisticsVos) {
-                todayPower += vo.getPower3();//今日所有班组级用电量总和就是今日用电量
+                todayPower += vo.getPower3(); //今日所有班组级用电量总和就是今日用电量
             }
         }
 

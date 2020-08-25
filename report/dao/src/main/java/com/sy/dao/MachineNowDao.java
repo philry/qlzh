@@ -26,4 +26,7 @@ public interface MachineNowDao extends JpaRepository<MachineNow,Integer> {
     @Modifying
     int deleteByMachineId(int machineId);
 
+    @Query(value = "select count(1) from machine_now where machine_id in ?1",nativeQuery = true)
+    Integer getCountByMachineids(List<Integer> machineids);
+
 }
