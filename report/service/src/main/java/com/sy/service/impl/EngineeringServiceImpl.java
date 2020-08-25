@@ -197,6 +197,46 @@ public class EngineeringServiceImpl implements EngineeringService {
 
     }
 
+    @Override
+    public EngineeringVo getInitDataByDeptId(Integer deptId, Date beginTime, Date endTime) {
+        List<Engineering> list = getDataByDeptId(deptId,beginTime,endTime);
+        BigDecimal power = new BigDecimal("0");
+        int time = 0;
+        int workTime = 0;
+        if(list != null && list.size() != 0){
+            for(Engineering engineering : list){
+                power = power.add(new BigDecimal(engineering.getPower()));
+                time += engineering.getTime();
+                workTime += engineering.getWorkingTime();
+            }
+        }
+
+        EngineeringVo vo = new EngineeringVo();
+        vo.setTime(time);
+        vo.setWorkTime(workTime);
+        vo.setPower(String.valueOf(power.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue()));
+        return vo;
+    }
+
+
+    public List<Engineering> getDataByDeptId(Integer deptId,Date beginTime, Date endTime) {
+
+        Specification querySpeci = new Specification() {
+            @Override
+            public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
+                List<Predicate> predicates = Lists.newArrayList();
+
+                predicates.add(criteriaBuilder.equal(root.get("deptId"), deptId));
+
+                if (beginTime != null && endTime != null) {
+                    predicates.add(criteriaBuilder.between(root.get("date"), beginTime, endTime));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            }
+        };
+        return engineeringDao.findAll(querySpeci);
+    }
 
     public List<Engineering> getData(int pid,Date beginTime, Date endTime) {
 

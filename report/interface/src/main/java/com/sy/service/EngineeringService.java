@@ -13,6 +13,8 @@ public interface EngineeringService {
 
     List<EngineeringVo> getInitData(Date beginTime, Date endTime);
 
+    EngineeringVo getInitDataByDeptId(Integer deptId,Date beginTime, Date endTime);
+
     List<Engineering> getData(int pid,Date beginTime, Date endTime);
 
     List<Engineering> getDataByLevel(int level,Date beginTime, Date endTime);
