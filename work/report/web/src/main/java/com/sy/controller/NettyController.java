@@ -5,6 +5,7 @@ import com.sy.dao.MachineDao;
 import com.sy.dao.XpgMapper;
 import com.sy.entity.Netty;
 import com.sy.service.NettyService;
+import com.sy.utils.DateUtils;
 import com.sy.vo.JsonResult;
 import com.sy.vo.PageJsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,9 @@ public class NettyController {
 
 
     @RequestMapping("select")
-    public JsonResult getSelect(String xpg,int page,int pageSize){
+    public JsonResult getSelect(String xpg,int page,int pageSize,String beginTime,String endTime){
 
-        Page<Netty> pages =  nettyService.getAllByName(xpg,page,pageSize);
+        Page<Netty> pages =  nettyService.getAllByName(xpg,page,pageSize,beginTime =="" ?null: DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
 
         List<Netty> list = pages.getContent();
 

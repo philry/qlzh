@@ -73,6 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<foreach item="deptId" collection="list" open="(" separator="," close=")">
             #{deptId}
         </foreach>
+        and status = 0
 	</select>
 	
 	<insert id="insertPerson" parameterType="com.sy.entity.Person" useGeneratedKeys="true" keyProperty="id">

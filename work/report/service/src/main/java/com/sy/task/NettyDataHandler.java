@@ -430,7 +430,7 @@ public class NettyDataHandler {
             sets.add(id);
         }
         //计算处理数据,并入表
-        for (Integer set : sets) {
+        for (Integer set : sets) { //当天
             PersonEfficiency personEfficiency = new PersonEfficiency();
 
             int time = 0 ;

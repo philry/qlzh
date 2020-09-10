@@ -2,7 +2,9 @@ package com.sy.controller;
 
 import java.util.List;
 
-import com.sy.entity.Xpg;
+import com.sy.core.netty.tcp.NettyServerHandler;
+import com.sy.entity.*;
+import com.sy.service.EnergyService;
 import com.sy.service.XpgService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sy.constant.HttpStatusConstant;
-import com.sy.entity.Machine;
 import com.sy.service.MachineService;
 import com.sy.vo.JsonResult;
 import com.sy.vo.PageResult;
@@ -27,6 +28,12 @@ public class MachineController {
 
 	@Autowired
 	private XpgService xpgService;
+
+	@Autowired
+	private EnergyService energyService;
+
+	@Autowired
+	private NettyServerHandler nettyServerHandler;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Machine machine) {
@@ -69,5 +76,39 @@ public class MachineController {
 	@RequestMapping(value = "/querybyid/{id}", method = RequestMethod.GET)
 	public JsonResult selectMachineById(@PathVariable("id")Integer id) {
 		return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, machineService.selectMachineById(id));
+	}
+
+	@RequestMapping(value = "onEmergencyState",method = RequestMethod.GET) //打开应急状态
+	public JsonResult onEmergencyState(){
+		try {
+			Xpg xpg = new Xpg();
+			List<Xpg> list = xpgService.selectXpgList(xpg);
+			for(Xpg xpg1 : list){
+				String xpgName = xpg1.getName();
+				nettyServerHandler.controlMachine(xpgName,true);//应急状态打开所有焊机
+			}
+			Energy energy = new Energy();
+			energy.setTime(120000);
+			energyService.updateEnergy(energy);
+		}catch (Exception e){
+			e.printStackTrace();
+			return JsonResult.buildFailure(404,e.getMessage());
+		}
+
+		return JsonResult.buildSuccess(200,"操作成功");
+	}
+
+	@RequestMapping(value = "offEmergencyState",method = RequestMethod.GET) //关闭应急状态
+	public JsonResult offEmergencyState(){
+		try {
+			Energy energy = new Energy();
+			energy.setTime(15);
+			energyService.updateEnergy(energy);
+		}catch (Exception e){
+			e.printStackTrace();
+			return JsonResult.buildFailure(404,e.getMessage());
+		}
+
+		return JsonResult.buildSuccess(200,"操作成功");
 	}
 }

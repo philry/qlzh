@@ -302,37 +302,7 @@ public class Person {
 		this.remark = remark;
 	}
 
-	@Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return id == person.id &&
-                Objects.equals(name, person.name) &&
-                Objects.equals(sex, person.sex) &&
-                Objects.equals(age, person.age) &&
-                Objects.equals(deptId, person.deptId) &&
-                Objects.equals(roleId, person.roleId) &&
-                Objects.equals(phone, person.phone) &&
-                Objects.equals(password, person.password) &&
-                Objects.equals(birthday, person.birthday) &&
-                Objects.equals(hiredate, person.hiredate) &&
-                Objects.equals(email, person.email) &&
-                Objects.equals(workType, person.workType) &&
-                Objects.equals(skillLevel, person.skillLevel) &&
-                Objects.equals(pileCounts, person.pileCounts) &&
-                Objects.equals(status, person.status) &&
-                Objects.equals(createTime, person.createTime) &&
-                Objects.equals(updateTime, person.updateTime) &&
-                Objects.equals(remark, person.remark);
-    }
-
     @Override
-    public int hashCode() {
-        return Objects.hash(id, name, sex, age, deptId, roleId, phone, password, birthday, hiredate, email, workType, skillLevel, pileCounts, status, createTime, updateTime, remark);
-    }
-
-	@Override
 	public String toString() {
 		return "Person [id=" + id + ", name=" + name + ", sex=" + sex + ", age=" + age + ", deptId=" + deptId
 				+ ", roleId=" + roleId + ", phone=" + phone + ", password=" + password + ", birthday=" + birthday
@@ -340,5 +310,7 @@ public class Person {
 				+ skillLevel + ", pileCounts=" + pileCounts + ", status=" + status + ", createTime=" + createTime
 				+ ", updateTime=" + updateTime + ", remark=" + remark + "]";
 	}
+
+
 
 }

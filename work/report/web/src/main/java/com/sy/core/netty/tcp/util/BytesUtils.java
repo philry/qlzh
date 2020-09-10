@@ -347,7 +347,7 @@ public class BytesUtils {
     /**
      * 将16进制字符串转换为字节数组
      * 
-     * @param hex
+     * @param hexStr
      * @return
      */
    
@@ -596,7 +596,7 @@ public class BytesUtils {
     }
     /**
      * 字节数组转16进制字符串
-     * @param bs
+     * @param b
      * @return
      */
     public static String byteToHex(byte b) {
@@ -706,7 +706,7 @@ public class BytesUtils {
     /**
      * 将字节转换为二进制字符串
      * 
-     * @param items
+     * @param item
      * @return
      */
     public static String byteToBinaryString(byte item) {
@@ -775,7 +775,7 @@ public class BytesUtils {
     /**
      * 将字节数组转为整型
      * 
-     * @param num
+     * @param arr
      * @return
      */
     public static int bytesToShort(byte[] arr) {

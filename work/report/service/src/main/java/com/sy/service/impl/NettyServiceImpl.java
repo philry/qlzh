@@ -88,7 +88,7 @@ public class NettyServiceImpl implements NettyService {
 
 
     @Override
-    public Page<Netty> getAllByName(String xpg, int page, int pageSize) {
+    public Page<Netty> getAllByName(String xpg, int page, int pageSize,Date beginTime,Date endTime) {
 
         Pageable pageable = PageRequest.of(page,pageSize,Sort.by(Sort.Direction.DESC,"createTime"));
 
@@ -99,6 +99,10 @@ public class NettyServiceImpl implements NettyService {
 
                 if(!"".equals(xpg)){
                     predicates.add(criteriaBuilder.equal(root.get("xpg"),xpg));
+                }
+
+                if (beginTime!=null&&endTime!=null){
+                    predicates.add(criteriaBuilder.between(root.get("date"),beginTime,endTime));
                 }
 
                 return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

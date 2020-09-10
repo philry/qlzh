@@ -12,6 +12,7 @@ import com.sy.entity.Netty;
 import com.sy.entity.Xpg;
 import com.sy.service.MessageDataService;
 
+import com.sy.utils.DateUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -158,11 +159,15 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
-
 			if(receiveStr.length()>0){
+				//获取指定日期
+				Date now = new Date();
+				String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+
 				String errorinfoStart = "756e";//报文中含有756e就是异常报文
 				if(!receiveStr.contains(errorinfoStart)){//报文中没有756e就是正常报文
 					Netty netty = new Netty();
+					netty.setDate(DateUtils.parseDate(today));
 					netty.setCreateTime(new Timestamp(new Date().getTime()));
 
 					String xpg = map.get(ctx.channel().id().asLongText());
@@ -342,7 +347,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		if(isopen){
 			hex16 =  hex16 + "ff00"; //打开
 		}else{
-			hex16 =  hex16 + "0000"; //关闭
+			hex16 = hex16 + "0000"; //关闭
 		}
 		byte[] modbusBytes = BytesUtils.hexString2Bytes(hex16);
 		String modbusCrc16 = CRC16Util.getCRC(modbusBytes);

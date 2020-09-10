@@ -40,7 +40,7 @@ public class PersonEfficiencyController {
      * @param endTime
      * @return
      */
-    @RequestMapping(value = "all",method = RequestMethod.GET)
+    @RequestMapping(value = "all",method = RequestMethod.GET)  //pc查询个人工效
     public JsonResult getAllData(String personName,int deptId,Integer page,Integer pageSize,String beginTime,String endTime){
        /* if(deptId!=0&&!"".equals(personName)){
             Integer leader = deptDao.getLeaderById(deptId);
@@ -62,7 +62,7 @@ public class PersonEfficiencyController {
 
         try {
 
-            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, personEfficiencyService.initDeptData(personName, deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.getNextDay(endTime)));
+            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, personEfficiencyService.initDeptData(personName, deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime)));
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
@@ -82,7 +82,7 @@ public class PersonEfficiencyController {
         return PageJsonResult.buildSuccessPage(HttpStatusConstant.SUCCESS,personEfficiencyService.initAllData(page,pageSize));*/
 
         try {
-            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, personEfficiencyService.initDeptData(personName, deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.getNextDay(endTime)));
+            return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, personEfficiencyService.initDeptData(personName, deptId,beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime)));
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());

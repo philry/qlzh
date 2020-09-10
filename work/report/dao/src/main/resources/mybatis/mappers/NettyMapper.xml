@@ -10,35 +10,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="currents" column="currents" />
 		<result property="voltage" column="voltage" />
 		<result property="status" column="status" />
+		<result property="date" column="date" />
 		<result property="createTime" column="create_time" />
 		<result property="updateTime" column="update_time" />
 		<result property="remark" column="remark" />
 	</resultMap>
 	<sql id="NettyVo">
-		id,xpg,power,currents,voltage,status,create_time,update_time,remark
+		id,xpg,power,currents,voltage,status,date,create_time,update_time,remark
 	</sql>
 	
 	<select id="selectNettyByXpgAndTime"  resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
-		from (select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark
+		from (select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark
 		from netty where xpg=#{xpg} ORDER BY create_time desc limit #{time})as t ORDER BY create_time LIMIT 1
 	</select>
 	
 	<select id="getLastNettyByXpg" parameterType="String" resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from netty where xpg = #{xpg} ORDER BY create_time desc LIMIT 1
+		select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark from netty where xpg = #{xpg} ORDER BY create_time desc LIMIT 1
 	</select>
 
 	<select id="getLastNettyByXpgAndOpenTime"  resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from netty where xpg = #{xpg} and create_time >= #{openTime} ORDER BY create_time desc LIMIT 1
+		select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark from netty where xpg = #{xpg} and create_time >= #{openTime} ORDER BY create_time desc LIMIT 1
 	</select>
 	
 	<select id="selectAllXpg" resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark from (select * from netty ORDER BY create_time desc)as t GROUP BY xpg
+		select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark from (select * from netty ORDER BY create_time desc)as t GROUP BY xpg
 	</select>
 	
 	<select id="selectAllNettyByXpgAndTime" resultMap="NettyResult">
-		select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
-		from (select id,xpg,power,currents,voltage,status,create_time,update_time,remark 
+		select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark
+		from (select id,xpg,power,currents,voltage,status,date,create_time,update_time,remark
 		from netty where xpg=#{xpg} ORDER BY create_time desc) as t LIMIT #{time}
 	</select>
 	

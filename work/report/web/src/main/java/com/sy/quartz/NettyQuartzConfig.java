@@ -26,9 +26,10 @@ public class NettyQuartzConfig {
 		/*SimpleScheduleBuilder builder = SimpleScheduleBuilder.simpleSchedule()
 				.withIntervalInMinutes(1)	//定义时间周期
 				.repeatForever();*/
-		CronScheduleBuilder scheduleBuilder 
-			= CronScheduleBuilder.cronSchedule("45 * * * * ? ");
-		return TriggerBuilder
+		CronScheduleBuilder scheduleBuilder
+			= CronScheduleBuilder.cronSchedule("45 * * * * ? ");//nettyQuartz 每分钟的第45秒执行一次,原来的
+	//		= CronScheduleBuilder.cronSchedule("45 1/1 * * * ?");//nettyQuartz 从第1分钟0秒开始执行，每1分钟执行一次,我改的
+		return TriggerBuilder                                //从第1分钟30秒开始执行是为了获得底表数据包(采集器开机1分钟后才发包过来)
 				.newTrigger()
 				.forJob(nettyjobDetail())
 				.withIdentity("nettyQuartz")
