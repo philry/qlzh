@@ -2,8 +2,10 @@ package com.sy.starter;
 
 
 import com.sy.core.netty.tcp.NettyServer;
+import com.sy.service.WorkService;
 import com.sy.utils.DateUtils;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,6 +27,9 @@ import java.util.Date;
 @MapperScan("com.sy.dao")
 public class Starter implements CommandLineRunner {
 
+    @Autowired
+    WorkService workService;
+
     @Resource
     private NettyServer nettyServer;
 
@@ -34,6 +39,13 @@ public class Starter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*Date date = new Date();
+        System.out.println("--------------"+date+"----------------");
+        System.out.println("------------");*/
+
+        /*Date openTime = workService.getLastOpenTimeByMachine(28);
+        System.out.println("--------------"+openTime+"----------------");*/
+
         nettyServer.run(98);
     }
 }

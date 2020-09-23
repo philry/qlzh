@@ -12,11 +12,9 @@ import java.util.List;
 @Repository
 public interface MachineNowDao extends JpaRepository<MachineNow,Integer> {
 
-
     @Query("delete from MachineNow m where m.person.id=?1 and m.machine.id = ?2")
     @Modifying
     int deleteByPersonAndMachine(Integer personId,Integer machineId);
-
 
     @Query(value = "select * from machine_now where person_id=?1",nativeQuery = true)
     List<MachineNow> getByPersonId(int personId);

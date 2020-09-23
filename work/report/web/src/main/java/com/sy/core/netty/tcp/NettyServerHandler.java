@@ -26,6 +26,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -81,8 +82,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	}
 
 	@Override	  //正常发包给我是数据域上传(数据域上传：仪表发数据包给我，我给仪表个回复)
-	@Transactional//开关机透传时他给我的回复不用再回复他了(数据透传：我发指令给仪表，仪表给我个回复)
+//	@Transactional//开关机透传时他给我的回复不用再回复他了(数据透传：我发指令给仪表，仪表给我个回复)
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        long startTime = System.currentTimeMillis();
+        String startDateStr = dateformat.format(startTime);
+        System.out.println("channelRead程序开始时间是："+startDateStr);
 
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];
@@ -159,13 +164,16 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
+            System.out.println("##############运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"##############");
 			if(receiveStr.length()>0){
+                System.out.println("##############运行到if(receiveStr.length()>0)之后一步了"+"##############");
 				//获取指定日期
 				Date now = new Date();
 				String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
 
 				String errorinfoStart = "756e";//报文中含有756e就是异常报文
 				if(!receiveStr.contains(errorinfoStart)){//报文中没有756e就是正常报文
+                    System.out.println("##############运行到报文里不含756e了"+"##############");
 					Netty netty = new Netty();
 					netty.setDate(DateUtils.parseDate(today));
 					netty.setCreateTime(new Timestamp(new Date().getTime()));
@@ -185,6 +193,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 					double voltage = getDoubleValue(info.substring(8,12));
 
 					if(voltage>100){
+                        System.out.println("##############运行到if(voltage>100)之后一步了"+"##############");
 						//获取电流信息，并解析合并存储
 						String iStart = "312d33";
 
@@ -238,7 +247,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 						netty.setCurrents(currents);
 
 
-
 						netty.setVoltage(voltage);
 
 						//获取电量
@@ -251,7 +259,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 						String machineName = machineDao.getNameById(machineId);
 						netty.setMachineName(machineName);*/
 
+                        System.out.println("##############运行到nettyDao.save方法之前一步了，netty:"+netty.getRemark()+"##############");
 						nettyDao.save(netty);
+                        System.out.println("##############运行到nettyDao.save方法之后一步了,netty:"+netty.getRemark()+"##############");
 
 		//				List<Energy> energyList = energyMapper.selectEnergyList();
 		//				Integer time = energyList.get(0).getTime();
@@ -283,6 +293,10 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 			Thread.sleep(1000);
 		}
+
+        long endTime=System.currentTimeMillis();
+        System.out.println("channelRead程序结束时间是："+dateformat.format(endTime));
+        System.out.println("#########channelRead程序运行时间： "+(endTime-startTime)+"ms ############");
 	}
 
 	private double getDoubleValue(String handleStr) {
@@ -387,13 +401,16 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		hex16 = "7b7b"+hex16+modbusCrc16+"7d7d";
 
 		Channel ctx = ClientChannel.getChannel(xpg);
+		System.out.println("----------------------");
+		System.out.println("-----------ctx = "+ctx+"-----------");
+		System.out.println("----------------------");
 
 		if(ctx==null){
-			throw new Exception("连接尚未建立,请稍后再试");
+			throw new Exception(xpg+"连接尚未建立,请稍后再试");
 		}
 
 		if(!ctx.isActive()){
-			throw new Exception("连接尚未建立,请稍后再试");
+			throw new Exception(xpg+"连接尚未建立,请稍后再试");
 		}
 
 		writeToClient(hex16,ctx);

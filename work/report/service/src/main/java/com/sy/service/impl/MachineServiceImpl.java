@@ -2,17 +2,11 @@ package com.sy.service.impl;
 
 import java.util.List;
 
+import com.sy.dao.*;
+import com.sy.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sy.dao.DeptMapper;
-import com.sy.dao.MachineMapper;
-import com.sy.dao.MachineTypeMapper;
-import com.sy.dao.XpgMapper;
-import com.sy.entity.Dept;
-import com.sy.entity.Machine;
-import com.sy.entity.MachineType;
-import com.sy.entity.Xpg;
 import com.sy.service.MachineService;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +67,18 @@ public class MachineServiceImpl implements MachineService{
 		Machine machine = machineMapper.selectMachineById(id);
 		setMachine(machine);
 		return machine;
+	}
+
+	@Override
+	public List<Machine> selectMachineByIdAndName(Integer id ,String name) {
+		Machine machine = new Machine();
+		if(id != null){
+			machine.setId(id);
+		}
+		machine.setName(name);
+		List<Machine> list = machineMapper.selectMachineByIdAndName(machine);
+		setMachine(list);
+		return list;
 	}
 
 	@Override

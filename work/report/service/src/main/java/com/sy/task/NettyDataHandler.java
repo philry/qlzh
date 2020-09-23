@@ -124,7 +124,6 @@ public class NettyDataHandler {
                 DataManage data = new DataManage();
                 data.setCreateTime(new Timestamp(DateUtils.parseDate(day).getTime()));//时分秒为00:00:00
 
-
                 //将数据库存储的60s电流取出
                 String currentStr = netty.getCurrents();
                 List<String> currents = Arrays.asList(currentStr.split(","));

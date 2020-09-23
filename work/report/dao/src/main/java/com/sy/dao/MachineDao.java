@@ -13,5 +13,4 @@ public interface MachineDao extends JpaRepository<Machine,Integer> {
 
     @Query(value = "select name from machine where id=?1",nativeQuery = true)
     String getNameById(Integer id);
-
 }

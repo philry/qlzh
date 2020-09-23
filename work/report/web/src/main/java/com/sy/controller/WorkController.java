@@ -2,13 +2,8 @@ package com.sy.controller;
 
 import com.sy.constant.HttpStatusConstant;
 import com.sy.core.netty.tcp.NettyServerHandler;
-import com.sy.dao.MachineDao;
-import com.sy.dao.MachineNowDao;
-import com.sy.dao.PersonDao;
-import com.sy.entity.Machine;
-import com.sy.entity.MachineNow;
-import com.sy.entity.Person;
-import com.sy.entity.Work;
+import com.sy.dao.*;
+import com.sy.entity.*;
 import com.sy.service.WorkService;
 import com.sy.utils.DateUtils;
 import com.sy.vo.JsonResult;
@@ -40,6 +35,12 @@ public class WorkController {
 
     @Autowired
     private MachineNowDao machineNowDao;
+
+    @Autowired
+    private NettyMapper nettyMapper;
+
+    @Autowired
+    private XpgMapper xpgMapper;
 
     @RequestMapping(value = "all",method = RequestMethod.GET)
     public PageJsonResult getAllWorks(Integer pageNum, Integer pageSize, String personName, String beginTime, String endTime){
@@ -76,7 +77,30 @@ public class WorkController {
                 throw new Exception("可开焊机达到最大数量,请关闭其他焊机后在尝试");
             }else{
                 nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
-                workService.startWork(personId,taskId,machineIndex);
+                workService.startWork(personId,taskId,machineIndex);//原来的
+
+                /*//新增的start
+                Thread.sleep(1*60*1000);
+                String xpgName = xpgMapper.selectXpgByMachineId(machineIndex).getName();
+                Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                if(netty == null){ //没包说明开机失败
+                    System.out.println(xpgName+"---------------第一次开机失败，尝试第二次开机-----------------");
+                    nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+                    Thread.sleep(1*60*1000);
+                    Netty netty2 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                    if(netty2 == null){ //还有包说明第二次关机失败
+                        System.out.println(xpgName+"---------------第二次开机失败，尝试第三次开机----------------");
+                        nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+                        Thread.sleep(1*60*1000);
+                        Netty netty3 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                        if(netty3 == null){ //还有包说明第三次关机失败
+                            System.out.println(xpgName+"---------------第三次开机失败----------------");
+                        }
+                    }
+                }else { //有包说明开机成功
+                    workService.startWork(personId, taskId, machineIndex);
+                }
+                //新增的end*/
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -92,7 +116,30 @@ public class WorkController {
             int machineIndex = Integer.parseInt(machineId);
             Machine machine = machineDao.getById(machineIndex);
             nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
-            workService.endWork(personId,taskId,machineIndex);
+            workService.endWork(personId,taskId,machineIndex);//原来的
+
+            /*//新增的start
+            Thread.sleep(1*60*1000);
+            String xpgName = xpgMapper.selectXpgByMachineId(machineIndex).getName();
+            Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+            if(netty != null){ //还有包说明第一次关机失败
+                System.out.println(xpgName+"---------------第一次关机失败,尝试第二次关机-----------------");
+                nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                Thread.sleep(1*60*1000);
+                Netty netty2 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                if(netty2 != null){ //还有包说明第二次关机失败
+                    System.out.println(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                    nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                    Thread.sleep(1*60*1000);
+                    Netty netty3 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                    if(netty3 != null){ //还有包说明第三次关机失败
+                        System.out.println(xpgName+"---------------第三次关机失败----------------");
+                    }
+                }
+            }else { //没包说明关机成功
+                workService.endWork(personId,taskId,machineIndex);
+            }
+            //新增的end*/
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());
@@ -100,6 +147,5 @@ public class WorkController {
 
         return JsonResult.buildSuccess(200,"操作成功");
     }
-
 
 }

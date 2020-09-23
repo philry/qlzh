@@ -38,8 +38,8 @@ public class NettyQuartz extends QuartzJobBean {
 	@Autowired
 	private DeptMapper deptMapper;
 
-    @Autowired
-    private PersonMapper personMapper;
+	@Autowired
+	private PersonMapper personMapper;
 
 	@Autowired
 	private MessageDataService messageDataService;
@@ -55,8 +55,7 @@ public class NettyQuartz extends QuartzJobBean {
 
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-
-		/*测试
+		/*//测试
 		try {
 			Thread.sleep(2*60*1000);//
 			System.out.println("-----------------------");
@@ -66,7 +65,7 @@ public class NettyQuartz extends QuartzJobBean {
 			e.printStackTrace();
 		}*/
 
-		System.out.println("开始查询netty");
+		System.out.println("--------------开始运行nettyQuartz-----------------");
 		// 查询出当前正在工作的所有焊机
 		List<MachineNow> list = machineNowDao.findAll();
 		if (list != null && list.size() > 0) {
@@ -85,9 +84,10 @@ public class NettyQuartz extends QuartzJobBean {
 				Date openTime = workService.getLastOpenTimeByMachine(machineId);//该焊机的最近开机时间
 
 				// 获取最新的netty数据
-		//		last = nettyMapper.getLastNettyByXpg(xpg.getName());//原来的
-		//		Date openTimerollOneMinute= new Date(openTime.getTime() - 1 * 60 * 1000);//将OpenTime往前减1分钟
+				//		last = nettyMapper.getLastNettyByXpg(xpg.getName());//原来的
+				//		Date openTimerollOneMinute= new Date(openTime.getTime() - 1 * 60 * 1000); //将OpenTime往前减1分钟
 				last = nettyMapper.getLastNettyByXpgAndOpenTime(xpg.getName(),openTime);//该焊机最近一次开机后的最新数据包
+
 
 				// 判断是否超限
 				/*//原来的start
@@ -116,20 +116,22 @@ public class NettyQuartz extends QuartzJobBean {
 				if(jgtime <= 60*1000){ //距这台焊机开机时间间隔小于1分钟并且没包才会等1分钟
 					if(last == null){
 						//	while(last == null){
-						try {
+						/*try {
 							//TODO
-							Thread.sleep(60*1000);//现在时间距开始开机时间小于1分钟时没包就等一分钟等包过来
+							Thread.sleep(60*1000);//现在时间距开机时间小于1分钟时没包就等一分钟等包过来
 							break; //需要跳出循环，不然下面沿用的还是为null的last值
 						} catch (InterruptedException e) {
 							e.printStackTrace();
-						}
+						}*/
+						continue;//跳出这台焊机的自动关机,先判断其他焊机，不然下面沿用的还是为null的last值
 					}
 				}
-				if(last == null){ //等一分钟还是没包过来
+				//TODO 逻辑有问题，少了last不为null，但已经断开连接现在没包的情况，已用了新的nettyNewQuartz
+				if(last == null){ //距这台焊机开机时间间隔大于1分钟后还是没包过来，那就是断开连接了
 					System.out.println("----------------------------");
-					System.out.println(("---------"+machineNow.getMachine().getName()+"没底表数据包导致自动关机失败"+"---------"));
+					System.out.println(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机失败"+"---------"));
 					System.out.println("------------------------------");
-					try {
+					/*try {
 						nettyServerHandler.controlMachine(xpg.getName(), false);
 						Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
 						workService.endWork(personId, taskId, machineId);
@@ -137,11 +139,11 @@ public class NettyQuartz extends QuartzJobBean {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-					System.out.println(machineNow.getMachine().getName() + "已自动关机(1)");
+					System.out.println(machineNow.getMachine().getName() + "已自动关机(1)");*/
 					continue;//跳出这台焊机的自动关机，继续下一台的判断
 				}
 
-				if(last != null) {//新增的
+				if(last != null) { //新增的
 
 					String[] currents = last.getCurrents().split(",");
 					/*for (String s : currents) {

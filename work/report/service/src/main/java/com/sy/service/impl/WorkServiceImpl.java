@@ -2,10 +2,7 @@ package com.sy.service.impl;
 
 
 import com.google.common.collect.Lists;
-import com.sy.dao.MachineDao;
-import com.sy.dao.MachineNowDao;
-import com.sy.dao.PersonDao;
-import com.sy.dao.WorkDao;
+import com.sy.dao.*;
 import com.sy.entity.*;
 import com.sy.service.MachineNowService;
 import com.sy.service.WorkService;
@@ -38,13 +35,23 @@ public class WorkServiceImpl implements WorkService {
     @Autowired
     private PersonDao personDao;
 
-
     @Autowired
     private MachineDao machineDao;
 
     @Autowired
     private MachineNowDao machineNowDao;
 
+    @Autowired
+    private MachineNowMapper machineNowMapper;
+
+    @Autowired
+    private NettyMapper nettyMapper;
+
+    @Autowired
+    private XpgMapper xpgMapper;
+
+    @Autowired
+    private WorkService workService;
 
     @Override
     @Transactional
@@ -66,22 +73,30 @@ public class WorkServiceImpl implements WorkService {
        if(openCounts>=counts){
             throw new Exception("可开焊机达到最大数量,请关闭其他焊机后在尝试");
         }else{*/
-            //TODO 控制合闸
+            //TODO
 
+            /*Thread.sleep(2*60*1000);
+            String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
+            Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 2*60*1000));//往前1分钟之后有没包
+            if(netty == null){ //没包说明开机失败
+                System.out.println("---------------开机失败----------------");
+                throw new RuntimeException("开机失败");
+            }else{ //有包说明开机成功*/
 
-            //插入工作表
-            inseretWork(personId, taskId, machineId,"0");
+                //插入工作表0
+                System.out.println("---------------开机成功----------------");
+                inseretWork(personId, taskId, machineId,"0");
 
-            //插入焊机使用表
-            MachineNow machineNow = new MachineNow();
-            machineNow.setPerson(new Person(personId));
-            machineNow.setMachine(new Machine(machineId));
-            machineNow.setBeginTime(new Timestamp(new Date().getTime()));
-            machineNow.setStatus("0");
-            machineNow.setCreateTime(new Timestamp(new Date().getTime()));
-            machineNow.setRemark(String.valueOf(taskId));
-            machineNowDao.save(machineNow);
-
+                //插入焊机使用表
+                MachineNow machineNow = new MachineNow();
+                machineNow.setPerson(new Person(personId));
+                machineNow.setMachine(new Machine(machineId));
+                machineNow.setBeginTime(new Timestamp(new Date().getTime()));
+                machineNow.setStatus("0");
+                machineNow.setCreateTime(new Timestamp(new Date().getTime()));
+                machineNow.setRemark(String.valueOf(taskId));
+                machineNowDao.save(machineNow);
+    //        }
 
             return null;
 //        }
@@ -104,7 +119,8 @@ public class WorkServiceImpl implements WorkService {
         inseretWork(personId, taskId, machineId,"1");
 
         //删除焊机使用表相关数据
-        machineNowDao.deleteByPersonAndMachine(personId,machineId);
+    //    machineNowDao.deleteByPersonAndMachine(personId,machineId);
+        machineNowMapper.deleteMachineNowByMachineId(machineId);
 
         return false;
     }
@@ -178,7 +194,5 @@ public class WorkServiceImpl implements WorkService {
 
         workDao.save(work);
     }
-
-
 
 }

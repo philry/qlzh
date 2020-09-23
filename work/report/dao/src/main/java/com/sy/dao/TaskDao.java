@@ -40,6 +40,12 @@ public interface TaskDao extends JpaRepository<Task,Integer> {
     @Query("select t.id from Task t where t.pid=?1")
     List<Integer> getIdsByPid(Integer pid);
 
+    @Query(value = "select id from task where person_id=?1 order by create_time desc",nativeQuery=true)
+    List<Integer> getIdsByPersonIdDesc(Integer pid);
+
+    @Query(value = "select id from task where pid=?1 order by create_time desc",nativeQuery=true)
+    List<Integer> getIdsByPidDesc(Integer pid);
+
     @Query("select t.projectName from Task t where t.id = ?1")
     String getNameById(int id);
 

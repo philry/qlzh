@@ -51,6 +51,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectMachineVo" />
 		where id=#{id} and #{id}!=0
 	</select>
+
+	<select id="selectMachineByIdAndName" parameterType="com.sy.entity.Machine" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		<where>
+			<if test="id != null and id!=0 "> and id = #{id}</if>
+			<if test="name != null and name !=''"> and name = #{name}</if>
+			<if test="typeId != null"> and type_id = #{typeId}</if>
+			<if test="collectorName != null"> and collectorname = #{collectorName}</if>
+			<if test="collectorType != null"> and collectortype = #{collectorType}</if>
+			<if test="payTime != null"> and pay_time = #{payTime}</if>
+			<if test="lastMaintenanceTime != null"> and last_maintenance_time = #{lastMaintenanceTime}</if>
+			<if test="maxA != null"> and max_a = #{maxA}</if>
+			<if test="minA != null"> and min_a = #{minA}</if>
+			<if test="xpgId != null"> and xpg_id = #{xpgId}</if>
+			<if test="deptId != null"> and dept_id = #{deptId}</if>
+			<if test="code != null"> and code = #{code}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
 	
 	<select id="selectMachineByXpgId" parameterType="Integer" resultMap="MachineResult">
 		<include refid="selectMachineVo" />
