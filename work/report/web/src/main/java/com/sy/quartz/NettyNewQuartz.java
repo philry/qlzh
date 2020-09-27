@@ -40,6 +40,9 @@ public class NettyNewQuartz extends QuartzJobBean {
     private DeptMapper deptMapper;
 
     @Autowired
+    private PersonDao personDao;
+
+    @Autowired
     private PersonMapper personMapper;
 
     @Autowired
@@ -53,6 +56,9 @@ public class NettyNewQuartz extends QuartzJobBean {
 
     @Autowired
     private WorkService workService;
+
+    @Autowired
+    private WorkTypeMapper workTypeMapper;
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
@@ -238,6 +244,8 @@ public class NettyNewQuartz extends QuartzJobBean {
                             if (flag2) {//非工作状态下定时关机
                                 // 获取定时关机设定时间
                                 List<Energy> energyList = energyMapper.selectEnergyList();
+                            //    pers
+                            //    workTypeMapper.selectWorkTypeById();
                                 Integer time = energyList.get(0).getTime(); //time单位为min
                                 Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time); //当前正在工作的焊机当前时间往前{time}个的底表数据
                                 //距该xpg对应最新包的时间未超过2分钟内

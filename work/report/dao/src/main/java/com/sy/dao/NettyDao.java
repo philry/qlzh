@@ -23,4 +23,6 @@ public interface NettyDao extends JpaRepository<Netty,Integer>, JpaSpecification
     List<String> findAllXpgs(Date beginTime, Date endTime);
 
     void deleteById(Integer id);
+
+    int deleteByDate(Date time);
 }

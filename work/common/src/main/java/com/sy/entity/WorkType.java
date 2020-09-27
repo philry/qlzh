@@ -11,6 +11,7 @@ public class WorkType {
 
     private int id;
     private String name;
+    private Integer time;
     private Integer level;
     private Integer pid;
     private String status;
@@ -19,6 +20,21 @@ public class WorkType {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
+
+    public WorkType() {
+    }
+
+    public WorkType(int id, String name, Integer time, Integer level, Integer pid, String status, Timestamp createTime, Timestamp updateTime, String remark) {
+        this.id = id;
+        this.name = name;
+        this.time = time;
+        this.level = level;
+        this.pid = pid;
+        this.status = status;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.remark = remark;
+    }
 
     @Id
     @Column(name = "id")
@@ -39,6 +55,16 @@ public class WorkType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "time")
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 
     @Basic
@@ -106,9 +132,10 @@ public class WorkType {
         return "WorkType{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", time=" + time +
                 ", level=" + level +
                 ", pid=" + pid +
-                ", stataus='" + status + '\'' +
+                ", status='" + status + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", remark='" + remark + '\'' +
@@ -122,6 +149,7 @@ public class WorkType {
         WorkType workType = (WorkType) o;
         return id == workType.id &&
                 Objects.equals(name, workType.name) &&
+                Objects.equals(time, workType.time) &&
                 Objects.equals(level, workType.level) &&
                 Objects.equals(pid, workType.pid) &&
                 Objects.equals(status, workType.status) &&
@@ -132,6 +160,6 @@ public class WorkType {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, level, pid, status, createTime, updateTime, remark);
+        return Objects.hash(id, name, time, level, pid, status, createTime, updateTime, remark);
     }
 }

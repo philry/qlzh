@@ -19,15 +19,14 @@ import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -35,7 +34,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ChannelHandler.Sharable
 public class NettyServerHandler extends ChannelHandlerAdapter {
 
-	protected final Logger logger = LoggerFactory.getLogger(NettyServerHandler.class);
+	Logger logger = Logger.getLogger(NettyServerHandler.class);
+//	Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
 	private static Map<String, String> map = new ConcurrentHashMap<>();
 
@@ -89,6 +89,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
         long startTime = System.currentTimeMillis();
         String startDateStr = dateformat.format(startTime);
         System.out.println("channelRead程序开始时间是："+startDateStr);
+        logger.info("---------[logger]channelRead程序开始时间是："+startDateStr);
 
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];
@@ -165,31 +166,23 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
-            System.out.println("-------------运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"----------");
+            System.out.println("-----------运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"-----------");
 			if(receiveStr.length()>0){
-                System.out.println("-----------运行到if(receiveStr.length()>0)之后一步了"+"-----------");
+                System.out.println("-----------运行到if(receiveStr.length()>0)之后一步了"+"------------");
 				//获取指定日期
 				Date now = new Date();
 				String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
 
 				String errorinfoStart = "756e";//报文中含有756e就是异常报文
 				if(!receiveStr.contains(errorinfoStart)){//报文中没有756e就是正常报文
-                    System.out.println("-------------运行到报文里不含756e了"+"-------------");
+                    System.out.println("-----------运行到报文里不含756e了"+"-------------");
 					Netty netty = new Netty();
 					netty.setDate(DateUtils.parseDate(today));
+					netty.setCreateTime(new Timestamp(new Date().getTime()));
+
 					String xpg = map.get(ctx.channel().id().asLongText());
-
-					Date date = new Date();
-					Timestamp timestamp = new Timestamp(date.getTime());
-					SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.YYYY_MM_DD_HH_MM_SS);
-					netty.setCreateTime(timestamp);
-					String dateStr = sdf.format(date);
-
 					netty.setXpg(xpg);//存放4G注册码
 					netty.setRemark(receiveStr);//存放原报文
-
-					System.out.println("------------CreateTime是:"+timestamp+"4G码是:"+xpg+",报文是:"+netty.getRemark()+"------------");
-					System.out.println("------------CreateTime是:"+dateStr+"4G码是:"+xpg+",报文是:"+netty.getRemark()+"------------");
 
 					//获取电压
 
@@ -202,7 +195,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 					double voltage = getDoubleValue(info.substring(8,12));
 
 					if(voltage>100){
-                        System.out.println("-----------运行到if(voltage>100)之后一步了"+"------------");
+                        System.out.println("------------运行到if(voltage>100)之后一步了"+"------------");
 						//获取电流信息，并解析合并存储
 						String iStart = "312d33";
 
@@ -268,9 +261,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 						String machineName = machineDao.getNameById(machineId);
 						netty.setMachineName(machineName);*/
 
-                        System.out.println("------------运行到nettyDao.save方法之前一步了,4G码是:"+xpg+",报文是:"+netty.getRemark()+"-------------");
+                        System.out.println("-----------运行到nettyDao.save方法之前一步了，netty:"+netty.getRemark()+"--------------");
 						nettyDao.save(netty);
-                        System.out.println("------------运行到nettyDao.save方法之后一步了,4G码是:"+xpg+",报文是:"+netty.getRemark()+"-------------");
+                        System.out.println("------------运行到nettyDao.save方法之后一步了,netty:"+netty.getRemark()+"-------------");
 
 		//				List<Energy> energyList = energyMapper.selectEnergyList();
 		//				Integer time = energyList.get(0).getTime();
@@ -304,8 +297,8 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
         long endTime=System.currentTimeMillis();
-        System.out.println("----------channelRead程序结束时间是："+dateformat.format(endTime)+"--------");
-        System.out.println("----------channelRead程序运行时间： "+(endTime-startTime)+"ms -------------");
+        System.out.println("-------channelRead程序结束时间是："+dateformat.format(endTime)+"--------");
+        System.out.println("---------channelRead程序运行时间： "+(endTime-startTime)+"ms ----------");
 	}
 
 	private double getDoubleValue(String handleStr) {

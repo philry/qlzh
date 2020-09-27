@@ -1,8 +1,10 @@
 package com.sy.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
+/*import org.mybatis.logging.LoggerFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory;*/
 
 import javax.net.ssl.*;
 import javax.servlet.http.HttpServletResponse;
@@ -18,7 +20,8 @@ import java.security.cert.X509Certificate;
  */
 public class HttpUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
+//    private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
+    private static final Logger log = Logger.getLogger(HttpUtils.class);
     /**
      * 私有构造，防止外部直接实例化
      */
@@ -63,7 +66,8 @@ public class HttpUtils {
         try
         {
             String urlNameString = url + "?" + param;
-            log.info("sendGet - {}", urlNameString);
+//            log.info("sendGet - {}", urlNameString);
+            log.info("sendGet - {}"+ urlNameString);
             URL realUrl = new URL(urlNameString);
             URLConnection connection = realUrl.openConnection();
             connection.setRequestProperty("accept", "*/*");
@@ -76,7 +80,8 @@ public class HttpUtils {
             {
                 result.append(line);
             }
-            log.info("recv - {}", result);
+//            log.info("recv - {}", result);
+            log.info("recv - {}"+ result);
         }
         catch (ConnectException e)
         {
@@ -126,7 +131,8 @@ public class HttpUtils {
         try
         {
             String urlNameString = url + "?" + param;
-            log.info("sendPost - {}", urlNameString);
+//            log.info("sendPost - {}", urlNameString);
+            log.info("sendPost - {}"+ urlNameString);
             URL realUrl = new URL(urlNameString);
             URLConnection conn = realUrl.openConnection();
             conn.setRequestProperty("accept", "*/*");
@@ -145,7 +151,8 @@ public class HttpUtils {
             {
                 result.append(line);
             }
-            log.info("recv - {}", result);
+//            log.info("recv - {}", result);
+            log.info("recv - {}"+ result);
         }
         catch (ConnectException e)
         {
@@ -190,7 +197,8 @@ public class HttpUtils {
         String urlNameString = url + "?" + param;
         try
         {
-            log.info("sendSSLPost - {}", urlNameString);
+//            log.info("sendSSLPost - {}", urlNameString);
+            log.info("sendSSLPost - {}"+ urlNameString);
             SSLContext sc = SSLContext.getInstance("SSL");
             sc.init(null, new TrustManager[] { new TrustAnyTrustManager() }, new java.security.SecureRandom());
             URL console = new URL(urlNameString);
@@ -216,7 +224,8 @@ public class HttpUtils {
                     result.append(new String(ret.getBytes("ISO-8859-1"), "utf-8"));
                 }
             }
-            log.info("recv - {}", result);
+//            log.info("recv - {}", result);
+            log.info("recv - {}"+ result);
             conn.disconnect();
             br.close();
         }

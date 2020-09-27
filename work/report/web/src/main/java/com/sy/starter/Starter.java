@@ -4,6 +4,7 @@ package com.sy.starter;
 import com.sy.core.netty.tcp.NettyServer;
 import com.sy.service.WorkService;
 import com.sy.utils.DateUtils;
+import org.apache.log4j.Logger;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -33,19 +34,24 @@ public class Starter implements CommandLineRunner {
     @Resource
     private NettyServer nettyServer;
 
+//    Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+    Logger logger = Logger.getLogger(Starter.class);
+
     public static void main(String[] args) {
        SpringApplication.run(Starter.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        /*Date date = new Date();
-        System.out.println("--------------"+date+"----------------");
-        System.out.println("------------");*/
+        /*Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        String day = DateUtils.getPrevDay(today);
+        System.out.println("--------------today:"+today+"----------------");
+        System.out.println("--------------day:"+day+"----------------");*/
 
         /*Date openTime = workService.getLastOpenTimeByMachine(28);
         System.out.println("--------------"+openTime+"----------------");*/
-
-        nettyServer.run(95);
+        logger.info("--------Start启动了-------");
+        nettyServer.run(98);
     }
 }

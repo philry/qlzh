@@ -5,8 +5,7 @@ package com.sy.utils;
 import com.sy.config.Global;
 import com.sy.json.JSON;
 import com.sy.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 获取地址类
@@ -15,7 +14,8 @@ import org.slf4j.LoggerFactory;
  */
 public class AddressUtils
 {
-    private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
+//    private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
+    private static final Logger log = Logger.getLogger(AddressUtils.class);
 
     public static final String IP_URL = "http://ip.taobao.com/service/getIpInfo.php";
 
@@ -33,7 +33,8 @@ public class AddressUtils
             String rspStr = HttpUtils.sendPost(IP_URL, "ip=" + ip);
             if (StringUtils.isEmpty(rspStr))
             {
-                log.error("获取地理位置异常 {}", ip);
+            //    log.error("获取地理位置异常 {}", ip);
+                log.error("获取地理位置异常 {}"+ ip);
                 return address;
             }
             JSONObject obj;
@@ -47,7 +48,8 @@ public class AddressUtils
             }
             catch (Exception e)
             {
-                log.error("获取地理位置异常 {}", ip);
+//                log.error("获取地理位置异常 {}", ip);
+                log.error("获取地理位置异常 {}"+ ip);
             }
         }
         return address;
