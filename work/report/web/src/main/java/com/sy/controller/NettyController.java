@@ -45,8 +45,13 @@ public class NettyController {
             netty.setList(strings);
 
             //页面显示加焊机编号一列
-            Integer machineId = xpgMapper.selectXpgByName(netty.getXpg()).getMachineId();
-            String machineName = machineDao.getNameById(machineId);
+            String nettyName = netty.getXpg();
+            String machineName = null;
+            if(nettyName != null){
+                Integer machineId = xpgMapper.selectXpgByName(nettyName).getMachineId();
+                machineName = machineDao.getNameById(machineId);
+
+            }
             netty.setMachineName(machineName);
         }
 

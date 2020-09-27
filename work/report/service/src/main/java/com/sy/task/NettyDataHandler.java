@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Component
@@ -474,6 +476,16 @@ public class NettyDataHandler {
         efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
         personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
+        //删除8天前底表数据
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println("------now:"+now+"-------");
+        System.out.println("现在时间格式化后：" + now.format(DateTimeFormatter.ofPattern(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+        String nowTime = now.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDateTime minusTime = now.minusDays(8);//8天前时间
+        String eightDaysAgoTime = minusTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        System.out.println("现在时间是:"+nowTime);
+        System.out.println("8天前时间是:"+eightDaysAgoTime);
+//        nettyDao.deleteByDate(DateUtils.parseDate(eightDaysAgoTime));
 
     }
 

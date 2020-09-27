@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -176,11 +177,19 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
                     System.out.println("-------------运行到报文里不含756e了"+"-------------");
 					Netty netty = new Netty();
 					netty.setDate(DateUtils.parseDate(today));
-					netty.setCreateTime(new Timestamp(new Date().getTime()));
-
 					String xpg = map.get(ctx.channel().id().asLongText());
+
+					Date date = new Date();
+					Timestamp timestamp = new Timestamp(date.getTime());
+					SimpleDateFormat sdf = new SimpleDateFormat(DateUtils.YYYY_MM_DD_HH_MM_SS);
+					netty.setCreateTime(timestamp);
+					String dateStr = sdf.format(date);
+
 					netty.setXpg(xpg);//存放4G注册码
 					netty.setRemark(receiveStr);//存放原报文
+
+					System.out.println("------------CreateTime是:"+timestamp+"4G码是:"+xpg+",报文是:"+netty.getRemark()+"------------");
+					System.out.println("------------CreateTime是:"+dateStr+"4G码是:"+xpg+",报文是:"+netty.getRemark()+"------------");
 
 					//获取电压
 
@@ -259,9 +268,9 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 						String machineName = machineDao.getNameById(machineId);
 						netty.setMachineName(machineName);*/
 
-                        System.out.println("------------运行到nettyDao.save方法之前一步了，netty:"+netty.getRemark()+"-------------");
+                        System.out.println("------------运行到nettyDao.save方法之前一步了,4G码是:"+xpg+",报文是:"+netty.getRemark()+"-------------");
 						nettyDao.save(netty);
-                        System.out.println("------------运行到nettyDao.save方法之后一步了,netty:"+netty.getRemark()+"-------------");
+                        System.out.println("------------运行到nettyDao.save方法之后一步了,4G码是:"+xpg+",报文是:"+netty.getRemark()+"-------------");
 
 		//				List<Energy> energyList = energyMapper.selectEnergyList();
 		//				Integer time = energyList.get(0).getTime();
