@@ -11,6 +11,7 @@ import com.sy.dao.TaskDao;
 import com.sy.dao.XpgMapper;
 import com.sy.entity.*;
 import com.sy.service.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,6 +57,8 @@ public class MachineController {
 
 	@Autowired
 	private XpgMapper xpgMapper;
+
+	Logger logger = Logger.getLogger(MachineController.class);
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public PageResult getList(Machine machine) {
@@ -150,7 +153,7 @@ public class MachineController {
 				String xpgName = xpg1.getName();*/
 				try{
 					nettyServerHandler.controlMachine(machine1.getXpg().getName(),true);//打开所有焊机
-					workService.startWork(personId, taskId, machine1.getId());//原来的
+//					workService.startWork(personId, taskId, machine1.getId());//原来的
 				}catch (Exception e){
 					e.printStackTrace();
 				}
@@ -184,30 +187,33 @@ public class MachineController {
 			}
 			//新增的end*/
 
-			/*//新增的start2
+			//新增的start2
 			Thread.sleep(1*60*1000);
 			for(Machine machine1: machineList){
 				String xpgName = xpgMapper.selectXpgByMachineId(machine1.getId()).getName();
 				Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
 				if(netty == null){ //没包说明开机失败
-					System.out.println(xpgName+"---------------第一次开机失败，尝试第二次开机-----------------");
-					nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+//					System.out.println(xpgName+"---------------第一次开机失败，尝试第二次开机-----------------");
+					logger.info(xpgName+"---------------第一次开机失败，尝试第二次开机-----------------");
+					nettyServerHandler.controlMachine(machine1.getXpg().getName(),true);
 			//		Thread.sleep(1*60*1000);
 					Netty netty2 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
 					if(netty2 == null){ //还没包说明第二次开机失败
-						System.out.println(xpgName+"---------------第二次开机失败，尝试第三次开机----------------");
-						nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
+//						System.out.println(xpgName+"---------------第二次开机失败，尝试第三次开机----------------");
+						logger.info(xpgName+"---------------第二次开机失败，尝试第三次开机----------------");
+						nettyServerHandler.controlMachine(machine1.getXpg().getName(),true);
 				//		Thread.sleep(1*60*1000);
 						Netty netty3 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
 						if(netty3 == null){ //还没包说明第三次开机失败
-							System.out.println(xpgName+"---------------第三次开机失败----------------");
+//							System.out.println(xpgName+"---------------第三次开机失败----------------");
+							logger.info(xpgName+"---------------第三次开机失败----------------");
 						}
 					}
 				}else { //有包说明开机成功
 					workService.startWork(personId, taskId, machine1.getId());
 				}
 			}
-			//新增的end2*/
+			//新增的end2
 
 			Emergency emergency = new Emergency();
 			emergency.setStatus("1");//设置成处于应急状态打开的状态

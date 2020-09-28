@@ -6,6 +6,7 @@ import com.sy.service.ManageDataService;
 import com.sy.service.NettyService;
 import com.sy.utils.DateUtils;
 import com.sy.vo.Unit;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -69,6 +70,7 @@ public class NettyDataHandler {
     @Autowired
     private MachineUseDao machineUseDao;
 
+    Logger logger = Logger.getLogger(NettyDataHandler.class);
 
     @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
@@ -480,11 +482,15 @@ public class NettyDataHandler {
         LocalDateTime now = LocalDateTime.now();
         System.out.println("------now:"+now+"-------");
         System.out.println("现在时间格式化后：" + now.format(DateTimeFormatter.ofPattern(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+        logger.info("------now:"+now+"-------");
+        logger.info("现在时间格式化后：" + now.format(DateTimeFormatter.ofPattern(DateUtils.YYYY_MM_DD_HH_MM_SS)));
         String nowTime = now.format(DateTimeFormatter.ISO_LOCAL_DATE);
         LocalDateTime minusTime = now.minusDays(8);//8天前时间
         String eightDaysAgoTime = minusTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
         System.out.println("现在时间是:"+nowTime);
         System.out.println("8天前时间是:"+eightDaysAgoTime);
+        logger.info("现在时间是:"+nowTime);
+        logger.info("8天前时间是:"+eightDaysAgoTime);
 //        nettyDao.deleteByDate(DateUtils.parseDate(eightDaysAgoTime));
     }
 

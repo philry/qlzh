@@ -2,18 +2,18 @@ package com.sy.quartz;
 
 import com.sy.core.netty.tcp.NettyServerHandler;
 import com.sy.dao.*;
-import com.sy.entity.Energy;
-import com.sy.entity.MachineNow;
-import com.sy.entity.Netty;
-import com.sy.entity.Xpg;
+import com.sy.entity.*;
 import com.sy.service.MessageDataService;
 import com.sy.service.WorkService;
+import com.sy.starter.Starter;
+import org.apache.log4j.Logger;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -55,10 +55,15 @@ public class NettyNewQuartz extends QuartzJobBean {
     private MachineNowDao machineNowDao;
 
     @Autowired
+    private  MachineDao machineDao;
+
+    @Autowired
     private WorkService workService;
 
     @Autowired
     private WorkTypeMapper workTypeMapper;
+
+    Logger logger = Logger.getLogger(NettyNewQuartz.class);
 
     @Override
     protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
@@ -72,7 +77,9 @@ public class NettyNewQuartz extends QuartzJobBean {
 			e.printStackTrace();
 		}*/
 
-        System.out.println("--------------开始运行nettyNewQuartz-----------------");
+//        System.out.println("--------------开始运行nettyNewQuartz-----------------");
+        logger.info("--------------"+new Date()+"--------------");
+        logger.info("--------------"+new Timestamp(new Date().getTime())+"开始运行nettyNewQuartz-----------------");
         // 查询出当前正在工作的所有焊机
         List<MachineNow> list = machineNowDao.findAll();
         if (list != null && list.size() > 0) {
@@ -86,12 +93,14 @@ public class NettyNewQuartz extends QuartzJobBean {
                 maxA = machineNow.getMachine().getMaxA();
                 minA = machineNow.getMachine().getMinA();
                 Integer machineId = machineNow.getMachine().getId();
+                Machine machine =  machineDao.getById(machineId);
                 // 获取xpg信息
                 xpg = xpgMapper.selectXpgByMachineId(machineNow.getMachine().getId());
                 Integer personId = machineNow.getPerson().getId();
                 Date openTime = workService.getLastOpenTimeByMachine(machineId);//该焊机的最近开机时间
                 Date thisTimeRollOneMinute = new Date(new Date().getTime() - 1 * 60 * 1000);
-                System.out.println("-------------前一分钟时间是:"+thisTimeRollOneMinute+"------------------");
+//                System.out.println("-------------前一分钟时间是:"+thisTimeRollOneMinute+"------------------");
+                logger.info("-------------前一分钟时间是:"+thisTimeRollOneMinute+"------------------");
 
                 // 获取最新的netty数据
                 //		last = nettyMapper.getLastNettyByXpg(xpg.getName());//原来的
@@ -137,10 +146,9 @@ public class NettyNewQuartz extends QuartzJobBean {
                     //	}
                 }else{ //距这台焊机开机时间间隔大于1分钟
 
-                    if(newLast == null){ //距这台焊机开机时间间隔大于1分钟后没包过来，那就是断开连接了
-                        System.out.println("----------------------------");
-                        System.out.println(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机和电流超限关机失败"+"---------"));
-                        System.out.println("------------------------------");
+                    if(newLast == null){ //距这台焊机开机时间间隔大于1分钟后没包过来，那就是断开连接了\
+//                        System.out.println(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机和电流超限关机失败"+"---------"));
+                        logger.info(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机和电流超限关机失败"+"---------"));
 					/*try {
 						nettyServerHandler.controlMachine(xpg.getName(), false);
 						Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
@@ -190,47 +198,72 @@ public class NettyNewQuartz extends QuartzJobBean {
                         }
 
                         if (flag) {
-//						// 如果超限,发送超限警告,并关闭焊机,删除machine_now中该焊机的数据
-//						//发给焊工
-//						MessageData messageData = new MessageData();
-//						messageData.setSendId(0);
-//						/*Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
-//						messageData.setAccpetId(leader);//原来的*/
-//						messageData.setAccpetId(personId);//我改的
-//						messageData.setContext(String.valueOf(machineNow.getMachine().getId()));
-//						try {
-//							// 发送超限警告信息
-//							messageDataService.sendMessage(messageData, 2);
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//						/*//发给焊工所属班组部门领导
-//                    	Person person = personMapper.selectPersonById(personId);
-//						Dept dept = deptMapper.selectDeptById(person.getDeptId());
-//						Integer leader = dept.getLeader();*/
-//						//发给焊机所属部门领导
-//						MessageData messageData2 = new MessageData();
-//						messageData2.setSendId(0);
-//						Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
-//						messageData2.setAccpetId(leader);
-//						messageData2.setContext(String.valueOf(machineNow.getMachine().getId()));
-//						try {
-//							// 发送超限警告信息
-//							messageDataService.sendMessage(messageData2, 2);
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
-//						//	machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
-//						try {
-//							nettyServerHandler.controlMachine(xpg.getName(), false);
-//							Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
-//							workService.endWork(personId, taskId, machineId);
-//							machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
-//						} catch (Exception e) {
-//							e.printStackTrace();
-//						}
+						// 如果超限,发送超限警告,并关闭焊机,删除machine_now中该焊机的数据
+						//发给焊工
+						MessageData messageData = new MessageData();
+						messageData.setSendId(0);
+						/*Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
+						messageData.setAccpetId(leader);//原来的*/
+						messageData.setAccpetId(personId);//我改的
+						messageData.setContext(String.valueOf(machineNow.getMachine().getId()));
+						try {
+							// 发送超限警告信息
+							messageDataService.sendMessage(messageData, 2);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						/*//发给焊工所属班组部门领导
+                    	Person person = personMapper.selectPersonById(personId);
+						Dept dept = deptMapper.selectDeptById(person.getDeptId());
+						Integer leader = dept.getLeader();*/
+						//发给焊机所属部门领导
+						MessageData messageData2 = new MessageData();
+						messageData2.setSendId(0);
+						Integer leader = deptMapper.selectDeptById(machineNow.getMachine().getDept().getId()).getLeader();
+						messageData2.setAccpetId(leader);
+						messageData2.setContext(String.valueOf(machineNow.getMachine().getId()));
+						try {
+							// 发送超限警告信息
+							messageDataService.sendMessage(messageData2, 2);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						//	machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
+						try {
+							nettyServerHandler.controlMachine(xpg.getName(), false);
+							Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
+//							workService.endWork(personId, taskId, machineId);//原来的
+                            //新增的start
+                            String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
+                            Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                            if(netty != null){ //还有包说明第一次关机失败
+//                                System.out.println(xpgName+"---------------第一次关机失败,尝试第二次关机-----------------");
+                                logger.info(xpgName+"---------------第一次关机失败,尝试第二次关机----------------");
+                                nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                Thread.sleep(1*60*1000);
+                                Netty netty2 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                                if(netty2 != null){ //还有包说明第二次关机失败
+//                                    System.out.println(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                    logger.info(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                    nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                    Thread.sleep(1*60*1000);
+                                    Netty netty3 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                                    if(netty3 != null){ //还有包说明第三次关机失败
+//                                        System.out.println(xpgName+"---------------第三次关机失败----------------");
+                                        logger.info(xpgName+"---------------第三次关机失败----------------");
+                                    }
+                                }
+                            }else { //没包说明关机成功
+                                workService.endWork(personId,taskId,machineId);
+                            }
+                            //新增的end
+							machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 //						System.out.println(machineNow.getMachine().getName() + "已超限");
-//						// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
+                            logger.info("----------"+machineNow.getMachine().getName() + "已超限------------");
+						// 如果没有超限,则判断是否在工作,如果处于非工作状态,判断其未工作时间是否达到设定的定时关机时间
                         }  else {
 
                             boolean flag2 = true;//flag2为true表示处于非工作状态
@@ -288,12 +321,39 @@ public class NettyNewQuartz extends QuartzJobBean {
                                                 try {
                                                     nettyServerHandler.controlMachine(xpg.getName(), false);
                                                     Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
-                                                    workService.endWork(personId, taskId, machineId);
+//                                                    workService.endWork(personId, taskId, machineId);//原来的
+
+                                                    //新增的start
+                                                    String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
+                                                    Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                                                    if(netty != null){ //还有包说明第一次关机失败
+//                                                        System.out.println(xpgName+"---------------第一次关机失败,尝试第二次关机-----------------");
+                                                        logger.info(xpgName + "---------------第一次关机失败,尝试第二次关机-----------------");
+                                                        nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                                        Thread.sleep(1*60*1000);
+                                                        Netty netty2 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                                                        if(netty2 != null){ //还有包说明第二次关机失败
+//                                                            System.out.println(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                                            logger.info(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                                            nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                                            Thread.sleep(1*60*1000);
+                                                            Netty netty3 = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
+                                                            if(netty3 != null){ //还有包说明第三次关机失败
+//                                                                System.out.println(xpgName+"---------------第三次关机失败----------------");
+                                                                logger.info(xpgName+"---------------第三次关机失败----------------");
+                                                            }
+                                                        }
+                                                    }else { //没包说明关机成功
+                                                        workService.endWork(personId,taskId,machineId);
+                                                    }
+                                                    //新增的end
+
                                                     machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
-                                                System.out.println(machineNow.getMachine().getName() + "已自动关机(2)");
+//                                                System.out.println(machineNow.getMachine().getName() + "已自动关机(2)");
+                                                logger.info(machineNow.getMachine().getName() + "已自动关机(2)");
                                             }
                                         }
                                     }
