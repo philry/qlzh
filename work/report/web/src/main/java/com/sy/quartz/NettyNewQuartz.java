@@ -233,6 +233,7 @@ public class NettyNewQuartz extends QuartzJobBean {
 							nettyServerHandler.controlMachine(xpg.getName(), false);
 							Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
 //							workService.endWork(personId, taskId, machineId);//原来的
+
                             //新增的start
                             String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
                             Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.WorkMapper">
+	<resultMap type="com.sy.entity.Work" id="WorkResult">
+		<id property="id" column="id" />
+		<result property="operate" column="operate" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+		<association property="person" javaType="com.sy.entity.Person">
+			<id property="id" column="person_id"></id>
+		</association>
+		<association property="task" javaType="com.sy.entity.Task">
+			<id property="id" column="task_id"></id>
+		</association>
+		<association property="machine" javaType="com.sy.entity.Machine">
+			<id property="id" column="machine_id"></id>
+		</association>
+	</resultMap>
+
+	<sql id="selectWorkVo">
+		select id,person_id,task_id,machine_id,operate,status,create_time,update_time,remark from work
+	</sql>
+
+	<select id="getCloseWorkByCreateTime1" parameterType="String" resultMap="WorkResult">
+		<include refid="selectWorkVo" />
+		where create_time >= #{time} and operate = 1 order by create_time desc
+	</select>
+
+</mapper>

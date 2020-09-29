@@ -43,6 +43,7 @@ public class Starter implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        Date statrtDate = new Date();
         /*Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
@@ -52,6 +53,6 @@ public class Starter implements CommandLineRunner {
         /*Date openTime = workService.getLastOpenTimeByMachine(28);
         System.out.println("--------------"+openTime+"----------------");*/
         logger.info("--------Start启动了-------");
-        nettyServer.run(98);
+        nettyServer.run(95);
     }
 }

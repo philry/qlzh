@@ -7,6 +7,7 @@ import com.sy.entity.*;
 import com.sy.service.MachineNowService;
 import com.sy.service.WorkService;
 import com.sy.task.NettyDataHandler;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,6 +54,8 @@ public class WorkServiceImpl implements WorkService {
     @Autowired
     private WorkService workService;
 
+    Logger logger = Logger.getLogger(WorkServiceImpl.class);
+
     @Override
     @Transactional
     public Work startWork(int personId, int taskId, int machineId) throws Exception {
@@ -84,7 +87,8 @@ public class WorkServiceImpl implements WorkService {
             }else{ //有包说明开机成功*/
 
                 //插入工作表0
-                System.out.println("---------------开机成功----------------");
+//                System.out.println("---------------开机成功----------------");
+                logger.info("---------------开机成功----------------");
                 inseretWork(personId, taskId, machineId,"0");
 
                 //插入焊机使用表
@@ -116,9 +120,12 @@ public class WorkServiceImpl implements WorkService {
 
 
         //插入工作表
+//        System.out.println("---------------关机成功----------------");
+        logger.info("---------------关机成功----------------");
         inseretWork(personId, taskId, machineId,"1");
 
         //删除焊机使用表相关数据
+
     //    machineNowDao.deleteByPersonAndMachine(personId,machineId);
         machineNowMapper.deleteMachineNowByMachineId(machineId);
 

@@ -1,15 +1,10 @@
 package com.sy.core.netty.tcp;
 
-import com.github.pagehelper.PageHelper;
 import com.sy.core.netty.tcp.util.BytesUtils;
 import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
 import com.sy.dao.*;
-import com.sy.entity.Energy;
-import com.sy.entity.Machine;
-import com.sy.entity.MessageData;
 import com.sy.entity.Netty;
-import com.sy.entity.Xpg;
 import com.sy.service.MessageDataService;
 
 import com.sy.utils.DateUtils;
@@ -23,7 +18,6 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -354,9 +348,11 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if (future.isSuccess()) {
-						System.out.println("BBBB回写成功:"+receiveStr);
+//						System.out.println("BBBB回写成功:"+receiveStr);
+						logger.info("BBBB回写成功:"+receiveStr);
 					} else {
-						System.out.println("BBBB回写失败:"+receiveStr);
+//						System.out.println("BBBB回写失败:"+receiveStr);
+						logger.info("BBBB回写失败:"+receiveStr);
 					}
 				}
 			});
@@ -364,6 +360,31 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			e.printStackTrace();
 			System.out.println("调用通用writeToClient()异常"+e.getMessage());
 		}
+	}
+
+	//一般在用户手动回复或者透传指令时进行使用
+	private String writeToClient1(String receiveStr, Channel channel) {
+		String returnStr = null;
+		try {
+			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输
+			bufff.writeBytes(BytesUtils.hexString2Bytes(receiveStr));//对接需要16进制
+			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (future.isSuccess()) {
+//						System.out.println("BBBB回写成功:"+receiveStr);
+						logger.info("BBBB回写成功:"+receiveStr);
+					} else {
+//						System.out.println("BBBB回写失败:"+receiveStr);
+						logger.info("BBBB回写失败:"+receiveStr);
+					}
+				}
+			});
+			returnStr = receiveStr;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("调用通用writeToClient()异常"+e.getMessage());
+		}
+		return returnStr;
 	}
 
 	private String genCmdMsg(String slaveId , String offset , boolean isopen){
@@ -411,9 +432,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		hex16 = "7b7b"+hex16+modbusCrc16+"7d7d";
 
 		Channel ctx = ClientChannel.getChannel(xpg);
-		System.out.println("----------------------");
 		System.out.println("-----------ctx = "+ctx+"-----------");
-		System.out.println("----------------------");
 
 		if(ctx==null){
 			throw new Exception(xpg+"连接尚未建立,请稍后再试");

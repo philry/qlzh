@@ -133,7 +133,11 @@ public class NettyDataHandler {
                 List<String> currents = Arrays.asList(currentStr.split(","));
                 //根据2G码获取最新的扫码工作信息信息
                 Xpg xpg = xpgDao.getByName(netty.getXpg());
-                Work work = workDao.getLastWorkByTime(DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime()), xpg.getMachineId());
+                String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
+                Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
+                if(work.getOperate() == "1"){ //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
+                    continue;
+                }
                 //获取焊机的电流临界值
                 Machine machine = machineDao.getById(xpg.getMachineId());
         //      if(machine != null) {
