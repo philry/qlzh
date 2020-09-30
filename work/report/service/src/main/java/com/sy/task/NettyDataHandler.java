@@ -83,7 +83,7 @@ public class NettyDataHandler {
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
         //删除指定日期的输出
-        deleteDate(day);
+        deleteData(day);
         //插入数据
         insertData(day);
     }
@@ -98,7 +98,7 @@ public class NettyDataHandler {
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         //删除指定日期的输出
-        deleteDate(today);
+        deleteData(today);
         //插入数据
         insertData(today);
     }
@@ -474,7 +474,7 @@ public class NettyDataHandler {
 
     }
 
-    private void deleteDate(String day) {
+    private void deleteData(String day) {
 
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
         engineeringDao.deleteByDate(DateUtils.parseDate(day));
@@ -482,6 +482,11 @@ public class NettyDataHandler {
         efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
         personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
+//        deleteEightDaysAgoNettyData();//删除8天前底表数据
+    }
+
+
+    public void deleteEightDaysAgoNettyData(){
         //删除8天前底表数据
         LocalDateTime now = LocalDateTime.now();
         System.out.println("------now:"+now+"-------");
@@ -497,7 +502,6 @@ public class NettyDataHandler {
         logger.info("8天前时间是:"+eightDaysAgoTime);
 //        nettyDao.deleteByDate(DateUtils.parseDate(eightDaysAgoTime));
     }
-
 
     //处理数据，将数据根据personId或者taskId进行存储
     private void handleDataManage(List<DataManage> dataList, Set<Integer> taskIds, Map<Integer, List<DataManage>> map, String type) {
