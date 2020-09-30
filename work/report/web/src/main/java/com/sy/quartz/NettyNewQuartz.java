@@ -232,9 +232,9 @@ public class NettyNewQuartz extends QuartzJobBean {
 						try {
 							nettyServerHandler.controlMachine(xpg.getName(), false);
 							Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
-//							workService.endWork(personId, taskId, machineId);//原来的
+							workService.endWork(personId, taskId, machineId);//原来的
 
-                            //新增的start
+                            /*//新增的start
                             String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
                             Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
                             if(netty != null){ //还有包说明第一次关机失败
@@ -257,7 +257,7 @@ public class NettyNewQuartz extends QuartzJobBean {
                             }else { //没包说明关机成功
                                 workService.endWork(personId,taskId,machineId);
                             }
-                            //新增的end
+                            //新增的end*/
 							machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -322,9 +322,9 @@ public class NettyNewQuartz extends QuartzJobBean {
                                                 try {
                                                     nettyServerHandler.controlMachine(xpg.getName(), false);
                                                     Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
-//                                                    workService.endWork(personId, taskId, machineId);//原来的
+                                                    workService.endWork(personId, taskId, machineId);//原来的
 
-                                                    //新增的start
+                                                   /* //新增的start
                                                     String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
                                                     Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
                                                     if(netty != null){ //还有包说明第一次关机失败
@@ -347,7 +347,7 @@ public class NettyNewQuartz extends QuartzJobBean {
                                                     }else { //没包说明关机成功
                                                         workService.endWork(personId,taskId,machineId);
                                                     }
-                                                    //新增的end
+                                                    //新增的end*/
 
                                                     machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
                                                 } catch (Exception e) {

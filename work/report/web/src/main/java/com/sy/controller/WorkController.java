@@ -81,9 +81,9 @@ public class WorkController {
                 throw new Exception("可开焊机达到最大数量,请关闭其他焊机后在尝试");
             }else{
                 nettyServerHandler.controlMachine(machine.getXpg().getName(),true);
-//                workService.startWork(personId,taskId,machineIndex);//原来的
+                workService.startWork(personId,taskId,machineIndex);//原来的
 
-                //新增的start
+                /*//新增的start
                 Thread.sleep(1*60*1000);
                 String xpgName = xpgMapper.selectXpgByMachineId(machineIndex).getName();
                 Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
@@ -107,7 +107,7 @@ public class WorkController {
                 }else { //有包说明开机成功
                     workService.startWork(personId, taskId, machineIndex);
                 }
-                //新增的end
+                //新增的end*/
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -123,9 +123,9 @@ public class WorkController {
             int machineIndex = Integer.parseInt(machineId);
             Machine machine = machineDao.getById(machineIndex);
             nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
-//            workService.endWork(personId,taskId,machineIndex);//原来的
+            workService.endWork(personId,taskId,machineIndex);//原来的
 
-            //新增的start
+            /*//新增的start
             Thread.sleep(1*60*1000);
             String xpgName = xpgMapper.selectXpgByMachineId(machineIndex).getName();
             Netty netty = nettyMapper.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1*60*1000));//往前1分钟之后有没包
@@ -149,7 +149,7 @@ public class WorkController {
             }else { //没包说明关机成功
                 workService.endWork(personId,taskId,machineIndex);
             }
-            //新增的end
+            //新增的end*/
         }catch (Exception e){
             e.printStackTrace();
             return JsonResult.buildFailure(404,e.getMessage());

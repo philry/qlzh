@@ -153,7 +153,7 @@ public class MachineController {
 				String xpgName = xpg1.getName();*/
 				try{
 					nettyServerHandler.controlMachine(machine1.getXpg().getName(),true);//打开所有焊机
-//					workService.startWork(personId, taskId, machine1.getId());//原来的
+					workService.startWork(personId, taskId, machine1.getId());//原来的
 				}catch (Exception e){
 					e.printStackTrace();
 				}
@@ -170,7 +170,7 @@ public class MachineController {
 
 			//TODO machineList  重新统计遍历
 
-			/*//新增的start
+			/*//新增的start(不用这个)
 			Thread.sleep(1*60*1000);
 			for(Machine machine1: machineList){
 				String xpgName = xpgMapper.selectXpgByMachineId(machine1.getId()).getName();
@@ -187,7 +187,7 @@ public class MachineController {
 			}
 			//新增的end*/
 
-			//新增的start2
+			/*//新增的start2
 			Thread.sleep(1*60*1000);
 			for(Machine machine1: machineList){
 				String xpgName = xpgMapper.selectXpgByMachineId(machine1.getId()).getName();
@@ -213,7 +213,7 @@ public class MachineController {
 					workService.startWork(personId, taskId, machine1.getId());
 				}
 			}
-			//新增的end2
+			//新增的end2*/
 
 			Emergency emergency = new Emergency();
 			emergency.setStatus("1");//设置成处于应急状态打开的状态

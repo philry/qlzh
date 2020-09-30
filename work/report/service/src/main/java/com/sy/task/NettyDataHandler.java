@@ -135,7 +135,7 @@ public class NettyDataHandler {
                 Xpg xpg = xpgDao.getByName(netty.getXpg());
                 String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
                 Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
-                if(work.getOperate() == "1"){ //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
+                if("1".equals(work.getOperate())){ //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
                     continue;
                 }
                 //获取焊机的电流临界值
