@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.TaskMapper">
+
+	<resultMap type="com.sy.entity.Task" id="TaskResult">
+		<result property="id" column="id" />
+		<result property="workCode" column="work_code" />
+		<result property="number" column="number" />
+		<result property="pid" column="pid" />
+		<result property="projectName" column="project_name" />
+		<result property="count" column="count" />
+		<result property="deptId" column="dept_id" />
+		<result property="beginTime" column="begin_time" />
+		<result property="endTime" column="end_time" />
+		<result property="actualBeginTime" column="actual_begin_time" />
+		<result property="actualEndTime" column="actual_end_time" />
+		<result property="note" column="note" />
+		<result property="checker" column="checker" />
+		<result property="checkingStatus" column="checking_status" />
+		<result property="personId" column="person_id" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+		<result property="process" column="process" />
+	</resultMap>
+
+	<sql id="selectTaskVo">
+		select id, work_code, number,pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
+		 status,create_time,update_time,remark,process from task
+	</sql>
+
+	<select id="selectTaskList" parameterType="com.sy.entity.Task" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		<where>
+			<if test="id != null and id !=0 "> and id = #{id}</if>
+			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			<if test="number != null"> and number = #{number}</if>
+			<if test="pid != null"> and pid = #{pid}</if>
+			<if test="projectName != null and projectName !='' "> and project_name = #{projectName}</if>
+			<if test="count != null "> and count = #{count}</if>
+			<if test="deptId != null "> and dept_id = #{deptId}</if>
+			<if test="beginTime != null "> and begin_time = #{beginTime}</if>
+			<if test="endTime != null "> and end_time = #{endTime}</if>
+			<if test="actualBeginTime != null "> and actual_begin_time = #{actualBeginTime}</if>
+			<if test="actualEndTime != null "> and actual_end_time = #{actualEndTime}</if>
+			<if test="note != null and note !='' "> and note = #{note}</if>
+			<if test="checker != null "> and checker = #{checker}</if>
+			<if test="checkingStatus != null and checkingStatus !='' "> and checking_status = #{checkingStatus}</if>
+			<if test="personId != null "> and person_id = #{personId}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			<if test="process != null and process !='' "> and process = #{process}</if>
+		</where>
+		order by status asc,create_time desc
+	</select>
+
+	
+	<select id="selectTaskLists" parameterType="com.sy.entity.Task" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		<where>
+			<if test="id != null and id !=0 "> and id = #{id}</if>
+			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			<if test="number != null"> and number = #{number}</if>
+			<if test="pid != null"> and pid = #{pid}</if>
+			<if test="projectName != null and projectName !='' "> and project_name = #{projectName}</if>
+			<if test="count != null "> and count = #{count}</if>
+			<if test="deptId != null "> and dept_id = #{deptId}</if>
+			<if test="beginTime != null "> and begin_time = #{beginTime}</if>
+			<if test="endTime != null "> and end_time = #{endTime}</if>
+			<if test="actualBeginTime != null "> and actual_begin_time = #{actualBeginTime}</if>
+			<if test="actualEndTime != null "> and actual_end_time = #{actualEndTime}</if>
+			<if test="note != null and note !='' "> and note = #{note}</if>
+			<if test="checker != null "> and checker = #{checker}</if>
+			<if test="checkingStatus != null and checkingStatus !='' "> and checking_status = #{checkingStatus}</if>
+			<if test="personId != null "> and person_id = #{personId}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+			<if test="process != null and process !='' "> and process = #{process}</if>
+			and dept_id>=0
+		</where>
+		order by status asc,create_time desc
+	</select>
+	
+	<select id="selectTaskById" parameterType="Integer" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		where id=#{id} and #{id}!=0
+	</select>
+	
+	<select id="selectTaskByProjectName" parameterType="String" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		where project_name=#{projectName}
+	</select>
+	
+	<select id="selectTaskByDeptIds" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+			<where>
+			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
+			and dept_id in
+			<foreach item="deptId" collection="list" open="(" separator="," close=")">
+            #{deptId}
+        	</foreach>
+		</where>
+	</select>
+	
+	<insert id="insertTask" parameterType="com.sy.entity.Task" useGeneratedKeys="true" keyProperty="id">
+		insert into task
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="workCode != null and workCode !=''">work_code,</if>
+			<if test="number != null">number,</if>
+			<if test="pid != null">pid,</if>
+			<if test="projectName != null and projectName !='' ">project_name,</if>
+			<if test="count != null ">count,</if>
+			<if test="deptId != null ">dept_id,</if>
+			<if test="beginTime != null ">begin_time,</if>
+			<if test="endTime != null ">end_time,</if>
+			<if test="actualBeginTime != null ">actual_begin_time,</if>
+			<if test="actualEndTime != null ">actual_end_time,</if>
+			<if test="note != null and note !='' ">note,</if>
+			<if test="checker != null ">checker,</if>
+			<if test="checkingStatus != null and checkingStatus !='' ">checking_status,</if>
+			<if test="personId != null ">person_id,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="createTime != null ">create_time,</if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
+			<if test="process != null and process !='' ">process,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="workCode != null and workCode !=''">#{workCode},</if>
+			<if test="number != null">#{number},</if>
+			<if test="pid != null">#{pid},</if>
+			<if test="projectName != null and projectName !='' ">#{projectName},</if>
+			<if test="count != null ">#{count},</if>
+			<if test="deptId != null ">#{deptId},</if>
+			<if test="beginTime != null ">#{beginTime},</if>
+			<if test="endTime != null ">#{endTime},</if>
+			<if test="actualBeginTime != null "> #{actualBeginTime},</if>
+			<if test="actualEndTime != null ">#{actualEndTime},</if>
+			<if test="note != null and note !='' ">#{note},</if>
+			<if test="checker != null ">#{checker},</if>
+			<if test="checkingStatus != null and checkingStatus !='' ">#{checkingStatus},</if>
+			<if test="personId != null ">#{personId},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null ">#{updateTime},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
+			<if test="process != null and process !='' ">#{process},</if>
+		</trim>
+	</insert>
+
+	<update id="updateTask" parameterType="com.sy.entity.Task">
+		update task
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="workCode != null and workCode !=''">work_code = #{workCode},</if>
+			<if test="number != null">number = #{number},</if>
+			<if test="pid != null">pid = #{pid},</if>
+			<if test="projectName != null and projectName !='' ">project_name = #{projectName},</if>
+			<if test="count != null ">count = #{count},</if>
+			<if test="deptId != null ">dept_id = #{deptId},</if>
+			<if test="beginTime != null ">begin_time = #{beginTime},</if>
+			<if test="endTime != null ">end_time = #{endTime},</if>
+			<if test="actualBeginTime != null ">actual_begin_time = #{actualBeginTime},</if>
+			<if test="actualEndTime != null ">actual_end_time = #{actualEndTime},</if>
+			<if test="note != null and note !='' ">note = #{note},</if>
+			<if test="checker != null ">checker = #{checker},</if>
+			<if test="checkingStatus != null and checkingStatus !='' ">checking_status = #{checkingStatus},</if>
+			<if test="personId != null ">person_id = #{personId},</if>
+			<if test="status != null and status !='' ">status = #{status},</if>
+			<if test="createTime != null ">create_time = #{createTime},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
+			<if test="process != null and process !='' ">process = #{process},</if>
+		</trim>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteTaskById" parameterType="Integer">
+		delete from task where id = #{id}
+	</delete>
+
+	<select id="selectPidById" parameterType="Integer" resultType="Integer">
+		select pid from task where id=#{id}
+	</select>
+
+</mapper>

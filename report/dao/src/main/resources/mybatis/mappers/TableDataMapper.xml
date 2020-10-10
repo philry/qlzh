@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.TableDataMapper">
+
+    <select id="getFiled" resultType="com.sy.entity.DataType">
+        SELECT
+            COLUMN_NAME as `name`,DATA_TYPE as `type`
+        FROM
+            information_schema.COLUMNS
+        WHERE
+            table_name = #{tableName};
+    </select>
+
+    <select id="getUncheckedOrder" parameterType="string" resultType="com.sy.entity.DataType">
+        select code,`type` from ${dataName} where status = '0' and flag = ''
+    </select>
+
+    <select id="getNumberByField" parameterType="string" resultType="double">
+        select ${field} from ${dataName} where code = #{code}
+    </select>
+
+    <update id="updateFlag" parameterType="string">
+        update ${dataName} set flag = '1' where code = #{code};
+    </update>
+    
+</mapper>
