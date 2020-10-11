@@ -77,7 +77,7 @@ public class NettyDataHandler {
     @Transactional
     public void handleData() {
 
-
+        logger.info(">>>>>>>>>>>进入0点30定时任务方法");
         //获取指定日期（前一天）
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
@@ -89,12 +89,12 @@ public class NettyDataHandler {
         insertData(day);
     }
 
-    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */1 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
 
-
+        logger.info(">>>>>>>>>>>进入5分钟定时任务方法");
         //获取指定日期
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
