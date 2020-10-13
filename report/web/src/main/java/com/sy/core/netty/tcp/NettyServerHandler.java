@@ -433,6 +433,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		Channel ctx = ClientChannel.getChannel(xpg);
 		System.out.println("-----------ctx = "+ctx+"-----------");
+		logger.info("-----------ctx = "+ctx+"-----------");
 
 		if(ctx==null){
 			throw new Exception(xpg+"连接尚未建立,请稍后再试");

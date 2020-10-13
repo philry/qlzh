@@ -1,13 +1,16 @@
 package com.sy.core.netty.tcp.util;
 
+import com.sy.core.netty.tcp.NettyServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
+import org.apache.log4j.Logger;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ClientChannel {
 
+	static Logger logger = Logger.getLogger(ClientChannel.class);
 	
 	private static Map<String, Channel> map = new ConcurrentHashMap<>();
 
@@ -22,6 +25,7 @@ public class ClientChannel {
 	    }
 
 	public static Channel getChannel(String id){
+		logger.info("================Channel的map："+map.keySet()+"=================");
 	        return map.get(id);
 	    }
 	    

@@ -122,6 +122,8 @@ public class WorkController {
         try {
             int machineIndex = Integer.parseInt(machineId);
             Machine machine = machineDao.getById(machineIndex);
+            logger.info("------------------machineId是："+machineIndex+"------------------");
+            logger.info("------------------machine:"+machine.toString()+"------------------");
             nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
             workService.endWork(personId,taskId,machineIndex);//原来的
 
