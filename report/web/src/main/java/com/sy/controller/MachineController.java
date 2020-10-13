@@ -41,6 +41,9 @@ public class MachineController {
 	private WorkService workService;
 
 	@Autowired
+	private WorkTypeService workTypeService;
+
+	@Autowired
 	private EnergyService energyService;
 
 	@Autowired
@@ -117,6 +120,13 @@ public class MachineController {
 			Energy energy = new Energy();
 			energy.setTime(120000);
 			energyService.updateEnergy(energy);
+			
+			/*WorkType workType = new WorkType();
+			List<WorkType> WorkTypeLists = workTypeService.selectWorkTypeList(workType);
+			for(WorkType workType1 : WorkTypeLists){
+				workType1.setTime(120000);
+				workTypeService.changeWorkType(workType1);
+			}*/
 
 			/*Xpg xpg = new Xpg();
 			List<Xpg> list = xpgService.selectXpgList(xpg);*/
@@ -233,6 +243,13 @@ public class MachineController {
 			Energy energy = new Energy();
 			energy.setTime(15);
 			energyService.updateEnergy(energy);
+
+			/*WorkType workType = new WorkType();
+			List<WorkType> WorkTypeLists = workTypeService.selectWorkTypeList(workType);
+			for(WorkType workType1 : WorkTypeLists){
+				workType1.setTime(15);
+				workTypeService.changeWorkType(workType1);
+			}*/
 
 			/*Xpg xpg = new Xpg();
 			List<Xpg> list = xpgService.selectXpgList(xpg);*/

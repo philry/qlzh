@@ -280,14 +280,14 @@ public class NettyNewQuartz extends QuartzJobBean {
                             }
                             if (flag2) {//非工作状态下定时关机
                                 // 获取定时关机设定时间
-                               /* List<Energy> energyList = energyMapper.selectEnergyList();
-                                Integer time = energyList.get(0).getTime(); //time单位为min,原来的*/
+                                List<Energy> energyList = energyMapper.selectEnergyList();
+                                Integer time = energyList.get(0).getTime(); //time单位为min,原来的
 
                                //自动关机时间按工种取值
-                                Integer personId1 = machineNowDao.getDataByMachineId(machineId).get(0).getPerson().getId();
+                                /*Integer personId1 = machineNowDao.getDataByMachineId(machineId).get(0).getPerson().getId();
                                 String workTypeName = personDao.getById(personId1).getWorkType();
                                 WorkType workType = workTypeDao.getByName(workTypeName);
-                                Integer time = workType.getTime();
+                                Integer time = workType.getTime();*/
 
                                 Netty pre = nettyMapper.selectNettyByXpgAndTime(xpg.getName(), time); //当前正在工作的焊机当前时间往前{time}个的底表数据
                                 //距该xpg对应最新包的时间未超过2分钟内
