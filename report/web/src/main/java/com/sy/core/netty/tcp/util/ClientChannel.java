@@ -25,7 +25,9 @@ public class ClientChannel {
 	    }
 
 	public static Channel getChannel(String id){
-		logger.info("================Channel的map："+map.keySet()+"=================");
+		for(String key :map.keySet()){
+			logger.info("================Channel的map："+key+"=================");
+		}
 	        return map.get(id);
 	    }
 	    
