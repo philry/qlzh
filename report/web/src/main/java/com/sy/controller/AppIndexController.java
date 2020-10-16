@@ -54,7 +54,9 @@ public class AppIndexController {
     private DeptDao deptDao;
 
     @RequestMapping(value = "todayWorkCount",method = RequestMethod.GET)
-    public AjaxResult getTodayWorkCount(Integer deptId, Integer personId){ //今日上班人数(显示本级部门级及以下部门的扫码人员人数)
+    public AjaxResult getTodayWorkCount(Integer personId){ //今日上班人数(显示本级部门级及以下部门的扫码人员人数)
+
+        Integer deptId = personDao.getById(personId).getDept().getId();
 
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
@@ -104,12 +106,16 @@ public class AppIndexController {
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日上班人数(显示本级部门级及以下部门的扫码人员人数)
         return result;
+
+//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
     @RequestMapping(value = "nowMachineCount",method = RequestMethod.GET)
-    public AjaxResult getNowMachineCount(Integer deptId, Integer personId) {
+    public AjaxResult getNowMachineCount(Integer personId) {
 
-        /*List<Integer> machineids = new ArrayList<>();
+        Integer deptId = personDao.getById(personId).getDept().getId();
+
+        List<Integer> machineids = new ArrayList<>();
 
         //最高到生产部级
         List<Integer> machineids0 = machineDao.getMachineIdByDeptId(deptId);
@@ -142,7 +148,7 @@ public class AppIndexController {
                     }
                 }
             }
-        }*/
+        }
 
         //实时焊机数(查询machineNow表,获取个数)
         int machineNowCounts = machineNowDao.findAll().size();
@@ -154,13 +160,16 @@ public class AppIndexController {
         result.setCode(200);
         result.put("nowMachineCount", machineNowCounts);   //实时焊机开机台数
         return result;
+//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
     @RequestMapping(value = "todayRate",method = RequestMethod.GET)
-    public AjaxResult getTodayRate(Integer deptId, Integer personId) { //今日工效(按不同部门不同展示)
+    public AjaxResult getTodayRate(Integer personId) { //今日工效(按不同部门不同展示)
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
+
+        Integer deptId = personDao.getById(personId).getDept().getId();
 
         EngineeringVo engineeringVo = null;
         double rateValue = 0.00;
@@ -185,6 +194,7 @@ public class AppIndexController {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+//                return JsonResult.buildFailure(404,e.getMessage());
             }
         }
         double rateValueValue = new BigDecimal(rateValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); //四舍五入保留两位小数的值
@@ -194,11 +204,12 @@ public class AppIndexController {
         result.put("todayRate", String.format("%.2f",rateValue));//保留两位小数方法一
 //        result.put("todayRate", rateValueValue);//保留两位小数方法二
         return result;
+//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
 
     @RequestMapping(value = "todayPower",method = RequestMethod.GET)
-    public AjaxResult getTodayPower(Integer deptId, Integer personId) { //今日能耗(按不同部门不同展示)
+    public AjaxResult getTodayPower(Integer personId) { //今日能耗(按不同部门不同展示)
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
@@ -206,6 +217,7 @@ public class AppIndexController {
         EngineeringVo engineeringVo = null;
         double todayPower = 0.00;
 
+        Integer deptId = personDao.getById(personId).getDept().getId();
 
         Dept dept = deptService.selectDeptById(deptId);
         Integer leader = dept.getLeader();
@@ -223,6 +235,7 @@ public class AppIndexController {
                 todayPower = Double.valueOf(engineeringVo.getPower()).doubleValue();
             } catch (Exception e) {
                 e.printStackTrace();
+//                return JsonResult.buildFailure(404,e.getMessage());
             }
         }
 
@@ -231,5 +244,6 @@ public class AppIndexController {
         result.setCode(200);
         result.put("todayPower", String.format("%.2f",todayPower));
         return result;
+//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 }
