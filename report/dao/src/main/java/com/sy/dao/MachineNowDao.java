@@ -29,4 +29,6 @@ public interface MachineNowDao extends JpaRepository<MachineNow,Integer> {
     @Query(value = "select count(1) from machine_now where machine_id in ?1",nativeQuery = true)
     Integer getCountByMachineids(List<Integer> machineids);
 
+    @Query(value = "select count(1) from machine_now where person_id in ?1",nativeQuery = true)
+    Integer getCountByPersonids(List<Integer> personids);
 }

@@ -115,45 +115,44 @@ public class AppIndexController {
 
         Integer deptId = personDao.getById(personId).getDept().getId();
 
-        List<Integer> machineids = new ArrayList<>();
+        List<Integer> personids = new ArrayList<>();
 
         //最高到生产部级
-        List<Integer> machineids0 = machineDao.getMachineIdByDeptId(deptId);
-        for(Integer machineId : machineids0){
-            machineids.add(machineId);
+        List<Integer> personids0 = personDao.getPersonIdByDeptId(deptId);
+        for(Integer personId1 : personids0){
+            personids.add(personId1);
         }
 
         //下级部门(最高到车间级)
         List<Integer> deptIds1 = deptDao.getIdByPid(deptId);
         for(Integer deptId1 : deptIds1){
-            List<Integer> machineids1 = machineDao.getMachineIdByDeptId(deptId1);
-            for(Integer machineId : machineids1){
-                machineids.add(machineId);//最高到车间级的部门所有焊机放入machineids
+            List<Integer> personids1 = personDao.getPersonIdByDeptId(deptId1);
+            for(Integer personId1 : personids1){
+                personids.add(personId1);//最高到车间级的部门所有人员放入personids
             }
 
             //每个部门的下级部门(最高到工程队级)
             List<Integer> deptIds2 = deptDao.getIdByPid(deptId1);
             for(Integer deptId2 : deptIds2){
-                List<Integer> machineids2 = machineDao.getMachineIdByDeptId(deptId2);
-                for(Integer machineId : machineids2){
-                    machineids.add(machineId);//最高到工程队级的部门所有焊机放入machineids
+                List<Integer> personids2 = personDao.getPersonIdByDeptId(deptId2);
+                for(Integer personId1 : personids2){
+                    personids.add(personId1);//最高到工程队级的部门所有人员放入personids
                 }
 
                 //每个部门的下级部门(最高到班组级)
                 List<Integer> deptIds3 = deptDao.getIdByPid(deptId2);
                 for(Integer deptId3 : deptIds3){
-                    List<Integer> machineids3 = machineDao.getMachineIdByDeptId(deptId3);
-                    for(Integer machineId : machineids3){
-                        machineids.add(machineId); //最高到班组级的部门所有焊机放入machineids
+                    List<Integer> personids3 = personDao.getPersonIdByDeptId(deptId3);
+                    for(Integer personId1 : personids3){
+                        personids.add(personId1); //最高到班组级的部门所有人员放入personids
                     }
                 }
             }
         }
 
         //实时焊机数(查询machineNow表,获取个数)
-        int machineNowCounts = machineNowDao.findAll().size();
-//        int machineNowCounts = machineNowDao.getCountByMachineids(machineids);//实时焊机开机台数(按不同部门不同展示)
-
+//        int machineNowCounts = machineNowDao.findAll().size();
+        int machineNowCounts = machineNowDao.getCountByPersonids(personids);//实时焊机开机台数(按人员所属不同部门不同展示)
 
         AjaxResult result = new AjaxResult();
         result.setMsg("操作成功");
@@ -175,7 +174,7 @@ public class AppIndexController {
         double rateValue = 0.00;
         double newRateValue = 0.00;
         Dept dept = deptService.selectDeptById(deptId);
-        Integer leader = dept.getLeader();
+        /*Integer leader = dept.getLeader();
         if(!personId.equals(leader) && personId != 1){ //不是部门负责人并且不是admin就只显示自己的工效
             List<PersonEfficiency> list = personEfficiencyService.getDataByIdAndTime(personId, DateUtils.parseDate(today),DateUtils.getNextDay(today));
             if(list != null && list.size() != 0){
@@ -186,7 +185,7 @@ public class AppIndexController {
                 }
             }
 
-        }else{
+        }else{*/
             try {
                 engineeringVo = engineeringService.getInitDataByDeptId(deptId,DateUtils.parseDate(today), DateUtils.getNextDay(today));
                 if(engineeringVo.getTime() != 0){
@@ -196,13 +195,13 @@ public class AppIndexController {
                 e.printStackTrace();
 //                return JsonResult.buildFailure(404,e.getMessage());
             }
-        }
-        double rateValueValue = new BigDecimal(rateValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); //四舍五入保留两位小数的值
+//        }
+//        double newRateValue = new BigDecimal(rateValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); //四舍五入保留两位小数的值
         AjaxResult result = new AjaxResult();
         result.setMsg("操作成功");
         result.setCode(200);
         result.put("todayRate", String.format("%.2f",rateValue));//保留两位小数方法一
-//        result.put("todayRate", rateValueValue);//保留两位小数方法二
+//        result.put("todayRate", newRateValue);//保留两位小数方法二
         return result;
 //        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
@@ -220,7 +219,7 @@ public class AppIndexController {
         Integer deptId = personDao.getById(personId).getDept().getId();
 
         Dept dept = deptService.selectDeptById(deptId);
-        Integer leader = dept.getLeader();
+       /* Integer leader = dept.getLeader();
         if(!personId.equals(leader)  && personId != 1){ //不是部门负责人并且不是admin就只显示自己的能耗
             List<PersonEfficiency> list = personEfficiencyService.getDataByIdAndTime(personId, DateUtils.parseDate(today), DateUtils.getNextDay(today));
             if(list != null && list.size() != 0){
@@ -229,7 +228,7 @@ public class AppIndexController {
                     todayPower +=  Double.valueOf(personEfficiency.getWorkingPower()).doubleValue();
                 }
             }
-        }else{
+        }else{*/
             try {
                 engineeringVo = engineeringService.getInitDataByDeptId(deptId,DateUtils.parseDate(today), DateUtils.getNextDay(today));
                 todayPower = Double.valueOf(engineeringVo.getPower()).doubleValue();
@@ -237,7 +236,7 @@ public class AppIndexController {
                 e.printStackTrace();
 //                return JsonResult.buildFailure(404,e.getMessage());
             }
-        }
+//        }
 
         AjaxResult result = new AjaxResult();
         result.setMsg("操作成功");
