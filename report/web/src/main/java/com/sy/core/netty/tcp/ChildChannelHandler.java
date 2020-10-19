@@ -9,8 +9,12 @@ import javax.annotation.Resource;
 
 @Component
 public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
+
     @Resource
-    private NettyServerHandler nettyServerHandler;
+	private NettyServerHandler nettyServerHandler;
+
+	@Resource
+	private NewNettyServerHandler newNettyServerHandler;
 
     public void initChannel(SocketChannel socketChannel) throws Exception {
         
@@ -25,7 +29,8 @@ public class ChildChannelHandler extends ChannelInitializer<SocketChannel> {
 		/*pipeline.addLast(new MsgEncoder());
 		pipeline.addLast(new MsgDecoder());*/
 		//注意 我这里并没有设置管道的编码/解码
-		pipeline.addLast("handler", nettyServerHandler);
+		pipeline.addLast("handler", nettyServerHandler);//对接安科瑞设备
+//		pipeline.addLast("newHandler", newNettyServerHandler);//对接国电格朗设备
 
     }
 }
