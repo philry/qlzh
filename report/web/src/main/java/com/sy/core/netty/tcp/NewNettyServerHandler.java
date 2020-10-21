@@ -6,7 +6,6 @@ import com.sy.core.netty.tcp.util.ClientChannel;
 import com.sy.dao.*;
 import com.sy.entity.Netty;
 import com.sy.service.MessageDataService;
-
 import com.sy.utils.DateUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -14,7 +13,6 @@ import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,9 +24,9 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @ChannelHandler.Sharable
-public class NettyServerHandler extends ChannelHandlerAdapter {
+public class NewNettyServerHandler extends ChannelHandlerAdapter { //对接国电格朗设备
 
-	Logger logger = Logger.getLogger(NettyServerHandler.class);
+	Logger logger = Logger.getLogger(NewNettyServerHandler.class);
 //	Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
 	private static Map<String, String> map = new ConcurrentHashMap<>();
@@ -84,9 +82,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
         String startDateStr = dateformat.format(startTime);
         System.out.println("channelRead程序开始时间是："+startDateStr);
         logger.info("---------[logger]channelRead程序开始时间是："+startDateStr);
-		logger.info(">---------channelRead方法获得的参数ctx是:"+ctx);
-		logger.info(">---------channelRead方法获得的参数msg是:"+msg);
-
 
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];

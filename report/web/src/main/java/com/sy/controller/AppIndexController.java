@@ -39,6 +39,9 @@ public class AppIndexController {
     private MachineDao machineDao;
 
     @Autowired
+    private PersonService personService;
+
+    @Autowired
     private PersonDao personDao;
 
     @Autowired
@@ -60,7 +63,6 @@ public class AppIndexController {
 
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        String day = DateUtils.getPrevDay(today);
 
         List<Integer> personids = new ArrayList<>();
 
@@ -106,12 +108,10 @@ public class AppIndexController {
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日上班人数(显示本级部门级及以下部门的扫码人员人数)
         return result;
-
-//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
     @RequestMapping(value = "nowMachineCount",method = RequestMethod.GET)
-    public AjaxResult getNowMachineCount(Integer personId) {
+    public AjaxResult getNowMachineCount(Integer personId) { //实时焊机开机台数(显示本级部门级及以下部门的实时用焊机的人员人数)
 
         Integer deptId = personDao.getById(personId).getDept().getId();
 
@@ -151,7 +151,6 @@ public class AppIndexController {
         }
 
         //实时焊机数(查询machineNow表,获取个数)
-//        int machineNowCounts = machineNowDao.findAll().size();
         int machineNowCounts = machineNowDao.getCountByPersonids(personids);//实时焊机开机台数(按人员所属不同部门不同展示)
 
         AjaxResult result = new AjaxResult();
@@ -159,33 +158,17 @@ public class AppIndexController {
         result.setCode(200);
         result.put("nowMachineCount", machineNowCounts);   //实时焊机开机台数
         return result;
-//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
     @RequestMapping(value = "todayRate",method = RequestMethod.GET)
     public AjaxResult getTodayRate(Integer personId) { //今日工效(按不同部门不同展示)
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        String day = DateUtils.getPrevDay(today);
 
         Integer deptId = personDao.getById(personId).getDept().getId();
 
         EngineeringVo engineeringVo = null;
         double rateValue = 0.00;
-        double newRateValue = 0.00;
-        Dept dept = deptService.selectDeptById(deptId);
-        /*Integer leader = dept.getLeader();
-        if(!personId.equals(leader) && personId != 1){ //不是部门负责人并且不是admin就只显示自己的工效
-            List<PersonEfficiency> list = personEfficiencyService.getDataByIdAndTime(personId, DateUtils.parseDate(today),DateUtils.getNextDay(today));
-            if(list != null && list.size() != 0){
-                PersonEfficiency personEfficiency = list.get(0);
-                if(personEfficiency.getTime() != 0){
-//                    rateValue = (double)(personEfficiency.getWorkingTime())/personEfficiency.getTime()*100;//方法一
-                    rateValue = Double.valueOf(personEfficiency.getEfficiency());//方法二
-                }
-            }
-
-        }else{*/
             try {
                 engineeringVo = engineeringService.getInitDataByDeptId(deptId,DateUtils.parseDate(today), DateUtils.getNextDay(today));
                 if(engineeringVo.getTime() != 0){
@@ -193,17 +176,12 @@ public class AppIndexController {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-//                return JsonResult.buildFailure(404,e.getMessage());
             }
-//        }
-//        double newRateValue = new BigDecimal(rateValue).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue(); //四舍五入保留两位小数的值
         AjaxResult result = new AjaxResult();
         result.setMsg("操作成功");
         result.setCode(200);
-        result.put("todayRate", String.format("%.2f",rateValue));//保留两位小数方法一
-//        result.put("todayRate", newRateValue);//保留两位小数方法二
+        result.put("todayRate", String.format("%.2f",rateValue));
         return result;
-//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 
 
@@ -211,38 +189,23 @@ public class AppIndexController {
     public AjaxResult getTodayPower(Integer personId) { //今日能耗(按不同部门不同展示)
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        String day = DateUtils.getPrevDay(today);
 
         EngineeringVo engineeringVo = null;
         double todayPower = 0.00;
 
         Integer deptId = personDao.getById(personId).getDept().getId();
 
-        Dept dept = deptService.selectDeptById(deptId);
-       /* Integer leader = dept.getLeader();
-        if(!personId.equals(leader)  && personId != 1){ //不是部门负责人并且不是admin就只显示自己的能耗
-            List<PersonEfficiency> list = personEfficiencyService.getDataByIdAndTime(personId, DateUtils.parseDate(today), DateUtils.getNextDay(today));
-            if(list != null && list.size() != 0){
-                for(PersonEfficiency personEfficiency : list){
-                    todayPower +=  Double.valueOf(personEfficiency.getNoloadingPower()).doubleValue();
-                    todayPower +=  Double.valueOf(personEfficiency.getWorkingPower()).doubleValue();
-                }
-            }
-        }else{*/
             try {
                 engineeringVo = engineeringService.getInitDataByDeptId(deptId,DateUtils.parseDate(today), DateUtils.getNextDay(today));
                 todayPower = Double.valueOf(engineeringVo.getPower()).doubleValue();
             } catch (Exception e) {
                 e.printStackTrace();
-//                return JsonResult.buildFailure(404,e.getMessage());
             }
-//        }
 
         AjaxResult result = new AjaxResult();
         result.setMsg("操作成功");
         result.setCode(200);
         result.put("todayPower", String.format("%.2f",todayPower));
         return result;
-//        return JsonResult.buildSuccess(200,result);//带状态码的返回形式
     }
 }
