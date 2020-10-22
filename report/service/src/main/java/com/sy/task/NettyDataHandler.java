@@ -94,7 +94,9 @@ public class NettyDataHandler {
     @Transactional
     public void handleTodayData() {
 
-        logger.info(">>>>>>>>>>>进入5分钟定时任务方法");
+        logger.info(">>>>>>>>>>>进入5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
         //获取指定日期
         Date now = new Date();
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
@@ -102,6 +104,9 @@ public class NettyDataHandler {
         deleteData(today);
         //插入数据
         insertData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) );
     }
 
     private void insertData(String day) {
