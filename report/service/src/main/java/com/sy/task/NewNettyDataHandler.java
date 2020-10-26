@@ -91,7 +91,7 @@ public class NewNettyDataHandler {
     //######### 5分钟定时任务拆分 start
 
     //---->>>>>>>> 中间表 dataManage 5分钟定时任务
-    @Scheduled(cron = "0 */1 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
     @Transactional
     public void handleTodayDataManageData() {
 
@@ -224,7 +224,7 @@ public class NewNettyDataHandler {
 
 
     //原来的5分钟定时任务start
-    @Scheduled(cron = "0 */1 * * * ?") // 5分钟
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
 //    @Scheduled(fixedRate = 30 * 60 * 1000)
     @Transactional
     public void handleTodayData() {
