@@ -1,1 +1,0 @@
-#logging:#  level:#    com.sy.dao: debug#log4j2:#  rootCategory: INFO, stdout, file#  appender:#    file: org.apache.log4j2.DailyRollingFileAppender#      file: D:\MyWork\logs\all.log#      DatePattern: '.'yyyy-MM-dd#      layout: org.apache.log4j2.PatternLayout#        ConversionPattern: %d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n
