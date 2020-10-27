@@ -17,10 +17,9 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
-public class NewNettyDataHandler {
+public class NewNettyDataHandler2 {
 
     @Autowired
     private NettyDao nettyDao;
@@ -70,7 +69,7 @@ public class NewNettyDataHandler {
     @Autowired
     private MachineUseDao machineUseDao;
 
-    Logger logger = Logger.getLogger(NewNettyDataHandler.class);
+    Logger logger = Logger.getLogger(NewNettyDataHandler2.class);
 
     @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
     @Transactional
@@ -82,16 +81,16 @@ public class NewNettyDataHandler {
         String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
         String day = DateUtils.getPrevDay(today);
         //删除指定日期的输出
-        deleteData2(day);
+        deleteData(day);
         deleteEightDaysAgoNettyData();//删除8天前底表数据
         //插入数据
-        insertData2(day);
+        insertData(day);
     }
 
 
     //######### 5分钟定时任务拆分 start
 
-    //---->>>>>>>> 中间表 dataManage 5分钟定时任务
+    //---->>>>>>>> 中间表dataManage 5分钟定时任务
     @Scheduled(cron = "0 */5 * * * ?") // 5分钟
     @Transactional
     public void handleTodayDataManageData() {
@@ -108,7 +107,67 @@ public class NewNettyDataHandler {
         insertDataManageData(today);
 
         long endTime = System.currentTimeMillis();
-        logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) + "ms");
+        logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
+    }
+
+    //---->>>>>>>> 工效报表engineering 5分钟定时任务
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Transactional
+    public void handleTodayEngineeringData() {
+
+        logger.info(">>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
+        //获取指定日期
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        engineeringDao.deleteByDate(DateUtils.parseDate(today));
+        //插入数据
+        insertEngineeringData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
+    }
+
+    //---->>>>>>>> 工程报表efficiency_statistics_new 5分钟定时任务
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Transactional
+    public void handleTodayEfficiencyStatisticsNewData() {
+
+        logger.info(">>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
+        //获取指定日期
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(today));
+        //插入数据
+        insertEfficiencyStatisticsNewData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
+    }
+
+    //---->>>>>>>> 焊机使用报表machineUse 5分钟定时任务
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Transactional
+    public void handleTodayMachineUseData() {
+
+        logger.info(">>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
+        //获取指定日期
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        machineUseDao.deleteByRemark(today);
+        //插入数据
+        insertMachineUseData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
     }
 
     //---->>>>>>>> 个人工效报表personEfficiency 5分钟定时任务
@@ -131,6 +190,7 @@ public class NewNettyDataHandler {
         logger.info(">>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
     }
 
+
     private void insertDataManageData(String day) {
         //获取指定日期区间内netty表中的所有netty数据列表
         List<Netty> nettyList = nettyService.getAllByDate(DateUtils.parseDate(day), DateUtils.getNextDay(day)); //所有底表数据
@@ -140,7 +200,8 @@ public class NewNettyDataHandler {
             return;
         }
 
-        //减少数据库查询的资源消耗在map中分组 start2
+
+        //新的start2
         Map<String, List<Netty>> result = new HashMap<String, List<Netty>>();
         for (Netty netty : nettyList) {
             String xpg = netty.getXpg();
@@ -169,7 +230,6 @@ public class NewNettyDataHandler {
             machineMap.put(xpgId, machine);
         }
 
-
         for (String xpgId : result.keySet()) {
             if (result.get(xpgId).size() >= 2) {
                 for (int a = 1; a < result.get(xpgId).size(); a++) { //按2G码分组
@@ -180,7 +240,7 @@ public class NewNettyDataHandler {
                     if (netty == null) {
                         continue;
                     }
-                    //减少数据库查询的资源消耗在map中分组 end2
+                    //新的end2
 
                     //存储处理数据对象
                     DataManage data = new DataManage();
@@ -189,7 +249,7 @@ public class NewNettyDataHandler {
                     //将数据库存储的60s电流取出
                     String currentStr = netty.getCurrents();
                     List<String> currents = Arrays.asList(currentStr.split(","));
-                    //根据2G码获取最新的扫码工作信息
+                    //根据2G码获取最新的扫码工作信息信息
                     Xpg xpg = xpgDao.getByName(netty.getXpg());
                     String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
                     Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
@@ -197,7 +257,7 @@ public class NewNettyDataHandler {
                         continue;
                     }
                     //获取焊机的电流临界值
-//                    Machine machine = machineDao.getById(xpg.getMachineId());
+                    //                   Machine machine = machineDao.getById(xpg.getMachineId());
                     Machine machine = machineMap.get(xpg.getMachineId());
                     if (machine != null) {
                         Double maxA = machine.getMaxA();
@@ -227,7 +287,6 @@ public class NewNettyDataHandler {
 
                         //BigDecimal（str1）.subtract（str2）当条netty记录的电量1减去上条netty记录的电量2得到使用的电量
                         BigDecimal power = new BigDecimal(netty.getPower()).subtract(new BigDecimal(result.get(xpgId).get(a - 1).getPower()));//按2G码分组后减的就是相同2G码的前一条数据
-
                         if (power.doubleValue() < 0) { //最新的包电量减去前一个包电量小于0，就是出现了包电量为0的情况，把这个异常的底表数据删除
                             int id = netty.getId();
                             nettyDao.deleteById(id);
@@ -243,6 +302,7 @@ public class NewNettyDataHandler {
                         try {
                             if (0 == iTotal.doubleValue()) {
                                 workingPower = new BigDecimal("0");
+                                ;
                             } else {
                                 workingPower = power.multiply(iWorking.divide(iTotal, 2, BigDecimal.ROUND_HALF_UP));
                             }
@@ -274,171 +334,20 @@ public class NewNettyDataHandler {
         }
     }
 
-    private void insertPersonEfficiencyData(String day) {
+    private void insertEngineeringData(String day) {
 
-        //个人工效存储
-        //将所有的数据全部存储
         List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
-
-        System.out.println("当天日期的数据"+dataList);
-
-        //分类数据,将数据按照人分类好
-        Map<Integer,List<DataManage>> map = new HashMap<>();
-        Set<Integer> sets = new HashSet<>();
-
-        for (DataManage dataManage : dataList) {
-            Integer id = dataManage.getWork().getPerson().getId();
-            if(map.get(id)==null){
-                List<DataManage> temp = new ArrayList<>();
-                temp.add(dataManage);
-                map.put(id,temp);
-            }else {
-                map.get(id).add(dataManage);
-            }
-            sets.add(id);
-        }
-        //计算处理数据,并入表
-        for (Integer set : sets) { //当天
-            PersonEfficiency personEfficiency = new PersonEfficiency();
-
-            int time = 0 ;
-            int work_time = 0 ;
-            int noloading_time = 0;
-            int overCounts = 0;
-            BigDecimal wPower = new BigDecimal("0");
-            BigDecimal nPower = new BigDecimal("0");
-            for (DataManage dataManage : map.get(set)) {
-                time += dataManage.getNoloadingTime();
-                time += dataManage.getWorkingTime();
-                work_time += dataManage.getWorkingTime();
-                noloading_time = time - work_time;
-                wPower = wPower.add(new BigDecimal(dataManage.getWorkingPower()));
-                nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
-                overCounts += Integer.parseInt(dataManage.getRemark());
-
-            }
-            personEfficiency.setPersonId(set);
-            personEfficiency.setName(map.get(set).get(0).getWork().getPerson().getName());
-            personEfficiency.setDeptOne(map.get(set).get(0).getWork().getPerson().getDept().getName());
-            personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
-            personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
-            personEfficiency.setTime(time);
-            personEfficiency.setNoloadingTime(noloading_time);
-            personEfficiency.setWorkingTime(work_time);
-            personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
-            personEfficiency.setRemark(String.valueOf(set));
-            personEfficiency.setCounts(overCounts);
-            personEfficiency.setDate(DateUtils.parseDate(day));
-            personEfficiency.setCreateTime(new Timestamp(new Date().getTime()));
-            personEfficiencyDao.save(personEfficiency);
-        }
-    }
-
-
-    //#########  5分钟定时任务拆分 end
-
-
-    //原来的5分钟定时任务start
-    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
-//    @Scheduled(fixedRate = 30 * 60 * 1000)
-    @Transactional
-    public void handleTodayData() {
-
-        logger.info(">>>>>>>>>>>进入5分钟定时任务方法-开始");
-        long beginTime = System.currentTimeMillis();
-
-        //获取指定日期
-        Date now = new Date();
-        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        //删除指定日期的输出
-        deleteData(today);
-        //插入数据
-        insertData(today);
-
-        long endTime = System.currentTimeMillis();
-        logger.info(">>>>>>>>>>>进入5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) + "ms");
-    }
-    //原来的5分钟定时任务end
-
-    private void deleteData(String day) {
-
-        engineeringDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
-        machineUseDao.deleteByRemark(day);
-    }
-
-    private void deleteData2(String day) {
-
-        dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
-        engineeringDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
-        machineUseDao.deleteByRemark(day);
-        personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
-    }
-
-    public void deleteEightDaysAgoNettyData() {
-        //删除8天前底表数据
-        LocalDateTime now = LocalDateTime.now();
-        logger.info("------now:" + now + "-------");
-        logger.info("现在时间格式化后：" + now.format(DateTimeFormatter.ofPattern(DateUtils.YYYY_MM_DD_HH_MM_SS)));
-        String nowTime = now.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        LocalDateTime minusTime = now.minusDays(8);//8天前时间
-        String eightDaysAgoTime = minusTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        logger.info("现在时间是:" + nowTime);
-        logger.info("8天前时间是:" + eightDaysAgoTime);
-        nettyDao.deleteByDate(DateUtils.parseDate(eightDaysAgoTime));
-    }
-
-    private void insertData(String day) {
-
-        //对报表数据进行存储
-        //获取指定日期区间内data_manage表中的所有数据列表
-        List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
-
-        //开始计算部门报表（以部门作为判定依据）
-
         handleDeptReport(day, dataList);
+    }
 
-        //开始计算工程报表（以派工单作为判定依据，数据放入新工程报表）
-        handleEfficiencyStatisticsReport(day, dataList);//新增的
+    private void insertEfficiencyStatisticsNewData(String day) {
 
-        //原来的工程报表存储start
-        Set<Integer> taskIds = new HashSet<>();
+        List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+        handleEfficiencyStatisticsReport(day, dataList);
+    }
 
-        Map<Integer, List<DataManage>> map = new HashMap<>();
+    private void insertMachineUseData(String day) {
 
-        handleDataManage(dataList, taskIds, map, "部门");
-
-        for (Integer taskId : taskIds) { //taskIds是所有焊工开机扫码选择的任务id
-
-            EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
-            String name = taskDao.getById(taskId).getProjectName();
-            int time = 0;
-            int working_time = 0;
-            BigDecimal ePower = new BigDecimal("0");
-            for (DataManage dataManage : map.get(taskId)) {
-                time += dataManage.getWorkingTime();
-                time += dataManage.getNoloadingTime();
-                working_time += dataManage.getWorkingTime();
-                ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
-                ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
-            }
-            efficiencyStatistics.setTime(time);
-            efficiencyStatistics.setWorkingTime(working_time);
-            efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
-            efficiencyStatistics.setDate(DateUtils.parseDate(day));
-            efficiencyStatistics.setName(name);
-            efficiencyStatistics.setTaskId(taskId); //新加的字段,任务id
-            efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
-            efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            efficiencyStatisticsDao.save(efficiencyStatistics); //存储的是焊工一级的数据
-
-        }
-        //原来的工程报表存储end
-
-        //开始计算设备使用报表
         List<Integer> ids = workDao.getMachineId(day);
 
         for (Integer id : ids) {
@@ -483,7 +392,70 @@ public class NewNettyDataHandler {
         }
     }
 
-    private void insertData2(String day) {
+    private void insertPersonEfficiencyData(String day) {
+
+        //个人工效存储
+        //将所有的数据全部存储
+        List<DataManage> dataList2 = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+
+        System.out.println("当天日期的数据"+dataList2);
+
+        //分类数据,将数据按照人分类好
+        Map<Integer,List<DataManage>> map2 = new HashMap<>();
+        Set<Integer> sets = new HashSet<>();
+
+        for (DataManage dataManage : dataList2) {
+            Integer id = dataManage.getWork().getPerson().getId();
+            if(map2.get(id)==null){
+                List<DataManage> temp = new ArrayList<>();
+                temp.add(dataManage);
+                map2.put(id,temp);
+            }else {
+                map2.get(id).add(dataManage);
+            }
+            sets.add(id);
+        }
+        //计算处理数据,并入表
+        for (Integer set : sets) { //当天
+            PersonEfficiency personEfficiency = new PersonEfficiency();
+
+            int time = 0 ;
+            int work_time = 0 ;
+            int noloading_time = 0;
+            int overCounts = 0;
+            BigDecimal wPower = new BigDecimal("0");
+            BigDecimal nPower = new BigDecimal("0");
+            for (DataManage dataManage : map2.get(set)) {
+                time += dataManage.getNoloadingTime();
+                time += dataManage.getWorkingTime();
+                work_time += dataManage.getWorkingTime();
+                noloading_time = time - work_time;
+                wPower = wPower.add(new BigDecimal(dataManage.getWorkingPower()));
+                nPower = nPower.add(new BigDecimal(dataManage.getNoloadingPower()));
+                overCounts += Integer.parseInt(dataManage.getRemark());
+
+            }
+            personEfficiency.setPersonId(set);
+            personEfficiency.setName(map2.get(set).get(0).getWork().getPerson().getName());
+            personEfficiency.setDeptOne(map2.get(set).get(0).getWork().getPerson().getDept().getName());
+            personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setTime(time);
+            personEfficiency.setNoloadingTime(noloading_time);
+            personEfficiency.setWorkingTime(work_time);
+            personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
+            personEfficiency.setRemark(String.valueOf(set));
+            personEfficiency.setCounts(overCounts);
+            personEfficiency.setDate(DateUtils.parseDate(day));
+            personEfficiency.setCreateTime(new Timestamp(new Date().getTime()));
+            personEfficiencyDao.save(personEfficiency);
+        }
+    }
+
+    //#########  5分钟定时任务拆分 end
+
+
+    private void insertData(String day) {
         //获取指定日期区间内netty表中的所有netty数据列表
         List<Netty> nettyList = nettyService.getAllByDate(DateUtils.parseDate(day), DateUtils.getNextDay(day)); //所有底表数据
 
@@ -526,16 +498,6 @@ public class NewNettyDataHandler {
             Map<String, List<Netty>> result =
                     nettyList.stream().collect(Collectors.groupingBy(Netty::getXpg));*/
 
-        List<Machine> machineLists = machineDao.findAll();
-        Map<Integer, Machine> machineMap = new HashMap<Integer, Machine>();
-        for (Machine machine : machineLists) {
-            Integer xpgId = machine.getXpg().getId();
-            if (xpgId == null) {
-                continue;
-            }
-            machineMap.put(xpgId, machine);
-        }
-
         for (String xpgId : result.keySet()) {
             if (result.get(xpgId).size() >= 2) {
                 for (int a = 1; a < result.get(xpgId).size(); a++) { //按2G码分组
@@ -560,8 +522,7 @@ public class NewNettyDataHandler {
                         continue;
                     }
                     //获取焊机的电流临界值
-//                   Machine machine = machineDao.getById(xpg.getMachineId());
-                    Machine machine = machineMap.get(xpg.getMachineId());
+                    Machine machine = machineDao.getById(xpg.getMachineId());
                     if (machine != null) {
                         Double maxA = machine.getMaxA();
                         Double minA = machine.getMinA();
@@ -728,19 +689,19 @@ public class NewNettyDataHandler {
         //将所有的数据全部存储
         List<DataManage> dataList2 = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
 
-        System.out.println("当天日期的数据" + dataList2);
+        System.out.println("当天日期的数据"+dataList2);
 
         //分类数据,将数据按照人分类好
-        Map<Integer, List<DataManage>> map2 = new HashMap<>();
+        Map<Integer,List<DataManage>> map2 = new HashMap<>();
         Set<Integer> sets = new HashSet<>();
 
         for (DataManage dataManage : dataList2) {
             Integer id = dataManage.getWork().getPerson().getId();
-            if (map2.get(id) == null) {
+            if(map2.get(id)==null){
                 List<DataManage> temp = new ArrayList<>();
                 temp.add(dataManage);
-                map2.put(id, temp);
-            } else {
+                map2.put(id,temp);
+            }else {
                 map2.get(id).add(dataManage);
             }
             sets.add(id);
@@ -749,8 +710,8 @@ public class NewNettyDataHandler {
         for (Integer set : sets) { //当天
             PersonEfficiency personEfficiency = new PersonEfficiency();
 
-            int time = 0;
-            int work_time = 0;
+            int time = 0 ;
+            int work_time = 0 ;
             int noloading_time = 0;
             int overCounts = 0;
             BigDecimal wPower = new BigDecimal("0");
@@ -768,18 +729,43 @@ public class NewNettyDataHandler {
             personEfficiency.setPersonId(set);
             personEfficiency.setName(map2.get(set).get(0).getWork().getPerson().getName());
             personEfficiency.setDeptOne(map2.get(set).get(0).getWork().getPerson().getDept().getName());
-            personEfficiency.setWorkingPower(wPower.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
-            personEfficiency.setNoloadingPower(nPower.setScale(2, BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setWorkingPower(wPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
+            personEfficiency.setNoloadingPower(nPower.setScale(2,BigDecimal.ROUND_HALF_UP).toString());
             personEfficiency.setTime(time);
             personEfficiency.setNoloadingTime(noloading_time);
             personEfficiency.setWorkingTime(work_time);
-            personEfficiency.setEfficiency(String.format("%.2f", (double) work_time / time * 100));
+            personEfficiency.setEfficiency(String.format("%.2f", (double)work_time/time*100));
             personEfficiency.setRemark(String.valueOf(set));
             personEfficiency.setCounts(overCounts);
             personEfficiency.setDate(DateUtils.parseDate(day));
             personEfficiency.setCreateTime(new Timestamp(new Date().getTime()));
             personEfficiencyDao.save(personEfficiency);
         }
+
+    }
+
+    private void deleteData(String day) {
+
+        dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
+        engineeringDao.deleteByDate(DateUtils.parseDate(day));
+        efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
+        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
+        machineUseDao.deleteByRemark(day);
+        personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
+    }
+
+
+    public void deleteEightDaysAgoNettyData(){
+        //删除8天前底表数据
+        LocalDateTime now = LocalDateTime.now();
+        logger.info("------now:"+now+"-------");
+        logger.info("现在时间格式化后：" + now.format(DateTimeFormatter.ofPattern(DateUtils.YYYY_MM_DD_HH_MM_SS)));
+        String nowTime = now.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        LocalDateTime minusTime = now.minusDays(8);//8天前时间
+        String eightDaysAgoTime = minusTime.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        logger.info("现在时间是:"+nowTime);
+        logger.info("8天前时间是:"+eightDaysAgoTime);
+        nettyDao.deleteByDate(DateUtils.parseDate(eightDaysAgoTime));
     }
 
     //处理数据，将数据根据personId或者taskId进行存储
