@@ -1,21 +1,20 @@
 package com.sy.controller;
 
 
-import com.sy.core.netty.tcp.util.BytesUtils;
-import com.sy.vo.JsonResult;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import com.sy.vo.JsonResult;
 
 @RequestMapping("/test")
 @RestController
 public class TestController {
 
+	@Autowired
+	private Environment env;
 
     @RequestMapping("/test01")
     public JsonResult getTest(){
@@ -28,7 +27,14 @@ public class TestController {
         return null;
 
     }
-
+    
+	@GetMapping("testEnvVar")
+	public String testEnvVar()  {
+		
+		String envVar = env.getProperty("ql.iee.env");
+		
+		return String.format(envVar);
+	}
 
 
 }
