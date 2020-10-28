@@ -4,12 +4,17 @@ import com.sy.dao.*;
 import com.sy.entity.*;
 import com.sy.service.ManageDataService;
 import com.sy.service.NettyService;
+import com.sy.starter.Starter;
 import com.sy.utils.DateUtils;
 import com.sy.vo.Unit;
 import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -18,8 +23,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+
+@SpringBootTest(classes = Starter.class)
+@RunWith(SpringRunner.class)
 @Component
-public class NewNettyDataHandler2 {
+public class NewNettyDataHandlerTest {
 
     @Autowired
     private NettyDao nettyDao;
@@ -69,7 +77,7 @@ public class NewNettyDataHandler2 {
     @Autowired
     private MachineUseDao machineUseDao;
 
-    Logger logger = Logger.getLogger(NewNettyDataHandler2.class);
+    Logger logger = Logger.getLogger(NewNettyDataHandlerTest.class);
 
     @Scheduled(cron = "0 30 0 * * ?") // 每天夜晚十二点半处理前天的数据
     @Transactional
@@ -104,7 +112,7 @@ public class NewNettyDataHandler2 {
         //删除指定日期的输出
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(today));
         //插入数据
-        insertDataManageData(today);
+//        insertDataManageData(today);
 
         long endTime = System.currentTimeMillis();
         logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
@@ -190,9 +198,11 @@ public class NewNettyDataHandler2 {
         logger.info(">>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
     }
 
-
-    private void insertDataManageData(String day) {
+    @Test
+    public void insertDataManageData() {
+//    private void insertDataManageData(String day) {
         //获取指定日期区间内netty表中的所有netty数据列表
+        String day = "2020-10-27";
         List<Netty> nettyList = nettyService.getAllByDate(DateUtils.parseDate(day), DateUtils.getNextDay(day)); //所有底表数据
 
         if (nettyList.size() <= 0) {
@@ -223,11 +233,11 @@ public class NewNettyDataHandler2 {
         List<Machine> machineLists = machineDao.findAll();
         Map<Integer, Machine> machineMap = new HashMap<Integer, Machine>();
         for (Machine machine : machineLists) {
-            Integer xpgId = machine.getXpg().getId();
-            if (xpgId == null) {
+            Integer machineId = machine.getId();
+            if (machineId == null) {
                 continue;
             }
-            machineMap.put(xpgId, machine);
+            machineMap.put(machineId, machine);
         }
 
         for (String xpgId : result.keySet()) {
@@ -253,6 +263,9 @@ public class NewNettyDataHandler2 {
                     Xpg xpg = xpgDao.getByName(netty.getXpg());
                     String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
                     Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
+                    long endTime0 = System.currentTimeMillis();
+                    logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法【单条数据处理】-【到1处】。【单条数据处理到1处】耗时：" + (endTime0 - beginTime) + "ms");
+                    long beginTime0 = System.currentTimeMillis();
                     if ("1".equals(work.getOperate())) { //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
                         continue;
                     }
@@ -498,6 +511,16 @@ public class NewNettyDataHandler2 {
             Map<String, List<Netty>> result =
                     nettyList.stream().collect(Collectors.groupingBy(Netty::getXpg));*/
 
+        List<Machine> machineLists = machineDao.findAll();
+        Map<Integer, Machine> machineMap = new HashMap<Integer, Machine>();
+        for (Machine machine : machineLists) {
+            Integer machineId = machine.getId();
+            if (machineId == null) {
+                continue;
+            }
+            machineMap.put(machineId, machine);
+        }
+
         for (String xpgId : result.keySet()) {
             if (result.get(xpgId).size() >= 2) {
                 for (int a = 1; a < result.get(xpgId).size(); a++) { //按2G码分组
@@ -522,7 +545,8 @@ public class NewNettyDataHandler2 {
                         continue;
                     }
                     //获取焊机的电流临界值
-                    Machine machine = machineDao.getById(xpg.getMachineId());
+//                   Machine machine = machineDao.getById(xpg.getMachineId());
+                    Machine machine = machineMap.get(xpg.getMachineId());
                     if (machine != null) {
                         Double maxA = machine.getMaxA();
                         Double minA = machine.getMinA();

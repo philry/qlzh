@@ -141,7 +141,7 @@ public class NewNettyDataHandler {
         }
 
         //减少数据库查询的资源消耗在map中分组 start2
-        Map<String, List<Netty>> result = new HashMap<String, List<Netty>>();
+       /* Map<String, List<Netty>> result = new HashMap<String, List<Netty>>();
         for (Netty netty : nettyList) {
             String xpg = netty.getXpg();
             if (xpg == null) {
@@ -153,20 +153,32 @@ public class NewNettyDataHandler {
                 result.put(xpg, nettys);
             }
             nettys.add(netty);
-        }
+        }*/
 
-        /*//java8流式操作
+        //java8流式操作
         Map<String, List<Netty>> result =
-                nettyList.stream().collect(Collectors.groupingBy(Netty::getXpg));*/
+                nettyList.stream().collect(Collectors.groupingBy(Netty::getXpg));
+
 
         List<Machine> machineLists = machineDao.findAll();
         Map<Integer, Machine> machineMap = new HashMap<Integer, Machine>();
         for (Machine machine : machineLists) {
-            Integer xpgId = machine.getXpg().getId();
-            if (xpgId == null) {
+            Integer machineId = machine.getId();
+            if (machineId == null) {
                 continue;
             }
-            machineMap.put(xpgId, machine);
+            machineMap.put(machineId, machine);
+        }
+
+
+        List<Xpg> xpgLists = xpgDao.findAll();
+        Map<String, Xpg> xpgMap = new HashMap<String, Xpg>();
+        for (Xpg xpg : xpgLists) {
+            String xpgName = xpg.getName();
+            if (xpgName == null) {
+                continue;
+            }
+            xpgMap.put(xpgName, xpg);
         }
 
 
@@ -189,16 +201,23 @@ public class NewNettyDataHandler {
                     //将数据库存储的60s电流取出
                     String currentStr = netty.getCurrents();
                     List<String> currents = Arrays.asList(currentStr.split(","));
+
                     //根据2G码获取最新的扫码工作信息
-                    Xpg xpg = xpgDao.getByName(netty.getXpg());
+//                    Xpg xpg = xpgDao.getByName(netty.getXpg());
+                    Xpg xpg = xpgMap.get(netty.getXpg());
                     String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
+
                     Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
                     if ("1".equals(work.getOperate())) { //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
                         continue;
                     }
+
+
+
                     //获取焊机的电流临界值
 //                    Machine machine = machineDao.getById(xpg.getMachineId());
                     Machine machine = machineMap.get(xpg.getMachineId());
+
                     if (machine != null) {
                         Double maxA = machine.getMaxA();
                         Double minA = machine.getMinA();
@@ -507,7 +526,7 @@ public class NewNettyDataHandler {
             for (int a = 1; a < nettyList1.size(); a++) {
                 Netty netty = nettyList1.get(a);*/
 
-        //新的start2
+        //start2
         Map<String, List<Netty>> result = new HashMap<String, List<Netty>>();
         for (Netty netty : nettyList) {
             String xpg = netty.getXpg();
@@ -529,11 +548,11 @@ public class NewNettyDataHandler {
         List<Machine> machineLists = machineDao.findAll();
         Map<Integer, Machine> machineMap = new HashMap<Integer, Machine>();
         for (Machine machine : machineLists) {
-            Integer xpgId = machine.getXpg().getId();
-            if (xpgId == null) {
+            Integer machineId = machine.getId();
+            if (machineId == null) {
                 continue;
             }
-            machineMap.put(xpgId, machine);
+            machineMap.put(machineId, machine);
         }
 
         for (String xpgId : result.keySet()) {
@@ -543,7 +562,7 @@ public class NewNettyDataHandler {
                     if (netty == null) {
                         continue;
                     }
-                    //新的end2
+                    //end2
 
                     //存储处理数据对象
                     DataManage data = new DataManage();

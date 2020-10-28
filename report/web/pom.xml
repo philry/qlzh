@@ -190,5 +190,32 @@
                 </configuration>
             </plugin>
         </plugins>
+        <filters>
+            <filter>src/main/resources/application-${env}.properties</filter>
+        </filters>
     </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>dev</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>prd</id>
+            <properties>
+                <env>prd</env>
+            </properties>
+        </profile>
+        <profile>
+            <id>tst</id>
+            <properties>
+                <env>tst</env>
+            </properties>
+        </profile>
+    </profiles>
 </project>
