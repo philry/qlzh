@@ -154,7 +154,7 @@ public class NettyNewQuartz extends QuartzJobBean {
 
                     if(newLast == null){ //距这台焊机开机时间间隔大于1分钟后没包过来，那就是断开连接了\
 //                        System.out.println(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机和电流超限关机失败"+"---------"));
-                        logger.info(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接导致自动关机和电流超限关机失败"+"---------"));
+                        logger.info(("---------"+machineNow.getMachine().getName()+"的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法"+"---------"));
 					/*try {
 						nettyServerHandler.controlMachine(xpg.getName(), false);
 						Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);

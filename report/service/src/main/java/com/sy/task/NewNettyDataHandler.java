@@ -111,6 +111,26 @@ public class NewNettyDataHandler {
         logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) + "ms");
     }
 
+    //---->>>>>>>> 工程报表efficiency_statistics_new 5分钟定时任务
+    @Scheduled(cron = "0 */5 * * * ?") // 5分钟
+    @Transactional
+    public void handleTodayEfficiencyStatisticsNewData() {
+
+        logger.info(">>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
+        //获取指定日期
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(today));
+        //插入数据
+        insertEfficiencyStatisticsNewData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
+    }
+
     //---->>>>>>>> 工效报表engineering 5分钟定时任务
     @Scheduled(cron = "0 */5 * * * ?") // 5分钟
     @Transactional
@@ -340,8 +360,15 @@ public class NewNettyDataHandler {
                 }
             }
             long groupEndTime = System.currentTimeMillis();
+            logger.info(">>>>>>>>>>>中间表dataManage 5分钟定时任务方法【单组数据处理】处理了"+nettyListMap.get(xpgId).size()+"条数据");
             logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法【单组数据处理】-结束。【单组数据处理】耗时：" + (groupEndTime - groupBeginTime) + "ms");
         }
+    }
+
+    private void insertEfficiencyStatisticsNewData(String day) {
+
+        List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
+        handleEfficiencyStatisticsReport(day, dataList);
     }
 
     private void insertEngineeringData(String day) {
@@ -355,9 +382,6 @@ public class NewNettyDataHandler {
         //个人工效存储
         //将所有的数据全部存储
         List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
-
-        System.out.println("当天日期的数据"+dataList);
-        logger.info("当天日期的数据"+dataList);
 
         //分类数据,将数据按照人分类好
         Map<Integer,List<DataManage>> map = new HashMap<>();
@@ -440,7 +464,6 @@ public class NewNettyDataHandler {
     private void deleteData(String day) {
 
         efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
     }
 
@@ -472,9 +495,6 @@ public class NewNettyDataHandler {
         //对报表数据进行存储
         //获取指定日期区间内data_manage表中的所有数据列表
         List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
-
-        //开始计算工程报表（以派工单作为判定依据，数据放入新工程报表）
-        handleEfficiencyStatisticsReport(day, dataList);//新增的
 
         //原来的工程报表存储start
         Set<Integer> taskIds = new HashSet<>();
@@ -784,8 +804,6 @@ public class NewNettyDataHandler {
         //个人工效存储
         //将所有的数据全部存储
         List<DataManage> dataList2 = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
-
-        System.out.println("当天日期的数据" + dataList2);
 
         //分类数据,将数据按照人分类好
         Map<Integer, List<DataManage>> map2 = new HashMap<>();
