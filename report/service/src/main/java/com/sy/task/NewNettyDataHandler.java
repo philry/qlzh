@@ -115,7 +115,7 @@ public class NewNettyDataHandler {
     }
 
     //---->>>>>>>> 工程报表efficiency_statistics_new 5分钟定时任务
-    @Scheduled(cron = "0 1/5 * * * ?") // 每5分钟运行一次，从偏移1分钟后开始运行
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
     @Transactional
     public void handleTodayEfficiencyStatisticsNewData() {
 
@@ -135,7 +135,7 @@ public class NewNettyDataHandler {
     }
 
     //---->>>>>>>> 工程报表efficiency_statistics 5分钟定时任务
-    @Scheduled(cron = "0 1/5 * * * ?") // 每5分钟运行一次，从偏移1分钟后开始运行
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
 //    @Scheduled(fixedRate = 5 * 60 * 1000) // 每5分钟
     @Transactional
     public void handleTodayData() {
@@ -156,7 +156,7 @@ public class NewNettyDataHandler {
     }
 
     //---->>>>>>>> 工效报表engineering 5分钟定时任务
-    @Scheduled(cron = "0 1/5 * * * ?") // 每5分钟运行一次，从偏移1分钟后开始运行
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
     @Transactional
     public void handleTodayEngineeringData() {
 
@@ -176,7 +176,7 @@ public class NewNettyDataHandler {
     }
 
     //---->>>>>>>> 个人工效报表personEfficiency 5分钟定时任务
-    @Scheduled(cron = "0 1/5 * * * ?") // 每5分钟运行一次，从偏移1分钟后开始运行
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
     @Transactional
     public void handleTodayPersonEfficiencyData() {
 
@@ -196,7 +196,7 @@ public class NewNettyDataHandler {
     }
 
     //---->>>>>>>> 焊机使用报表machineUse 5分钟定时任务
-    @Scheduled(cron = "0 1/5 * * * ?") // 每5分钟运行一次，从偏移1分钟后开始运行
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
     @Transactional
     public void handleTodayMachineUseData() {
 
