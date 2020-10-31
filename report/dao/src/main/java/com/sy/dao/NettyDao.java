@@ -25,7 +25,8 @@ public interface NettyDao extends JpaRepository<Netty,Integer>, JpaSpecification
 
     void deleteById(Integer id);
 
-    @Query(value = "delete from netty where date < ?1",nativeQuery = true)
+//    @Query(value = "delete from netty where date < ?1",nativeQuery = true)
+    @Query(value = "delete from netty where create_time < ?1",nativeQuery = true)
     @Modifying()
     void deleteByDate(Date time);
 }

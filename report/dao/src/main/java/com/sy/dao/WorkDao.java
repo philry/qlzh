@@ -20,6 +20,12 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
 
     Page<Work> getAllByPerson(Person person, Pageable pageable);
 
+    @Query(value =" select * from work where operate = 0 ORDER BY create_time desc limit 1",nativeQuery = true)
+    Work getLastOnWork(); //最近的开机记录
+
+    @Query(value =" select * from work where operate = 1 ORDER BY create_time desc limit 1",nativeQuery = true)
+    Work getLastOffWork(); //最近的关机记录
+
     @Query(value =" select * from work where create_time <= :s_time and machine_id = :machineId ORDER BY create_time desc limit 1",nativeQuery = true)
     Work getLastWorkByTime(@Param("s_time")String s_time,@Param("machineId")Integer machineId);
 
