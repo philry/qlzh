@@ -3,14 +3,14 @@ package com.sy.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "efficiency_statistics", schema = "qlzh2", catalog = "")
-public class EfficiencyStatistics {
+@Table(name = "statistics", schema = "qlzh2", catalog = "")
+public class Statistics {
     private int id;
     private String name;
     private Integer taskId;
@@ -28,13 +28,13 @@ public class EfficiencyStatistics {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Timestamp updateTime;
     private String remark;
-    private List<EfficiencyStatistics> sonLsit;
+    private List<Statistics> sonLsit;
 
-    public EfficiencyStatistics() {
+    public Statistics() {
 
     }
 
-    public EfficiencyStatistics(int id) {
+    public Statistics(int id) {
         this.id = id;
     }
 
@@ -180,11 +180,11 @@ public class EfficiencyStatistics {
     }
 
     @Transient
-    public List<EfficiencyStatistics> getSonLsit() {
+    public List<Statistics> getSonLsit() {
         return sonLsit;
     }
 
-    public void setSonLsit(List<EfficiencyStatistics> sonLsit) {
+    public void setSonLsit(List<Statistics> sonLsit) {
         this.sonLsit = sonLsit;
     }
 
@@ -231,7 +231,7 @@ public class EfficiencyStatistics {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EfficiencyStatistics that = (EfficiencyStatistics) o;
+        Statistics that = (Statistics) o;
         return id == that.id;
     }
 

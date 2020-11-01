@@ -2,10 +2,11 @@ package com.sy.service.impl;
 
 import com.google.common.collect.Lists;
 import com.sy.dao.DeptDao;
-import com.sy.dao.EfficiencyStatisticsDao;
+import com.sy.dao.StatisticsDao;
 import com.sy.dao.EfficiencyStatisticsNewDao;
+import com.sy.dao.StatisticsDao;
 import com.sy.dao.TaskDao;
-import com.sy.entity.EfficiencyStatistics;
+import com.sy.entity.Statistics;
 import com.sy.entity.EfficiencyStatisticsNew;
 import com.sy.entity.Engineering;
 import com.sy.entity.Task;
@@ -24,12 +25,11 @@ import javax.persistence.criteria.Root;
 import java.math.BigDecimal;
 import java.util.*;
 
-
 @Service
 public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsService {
 
     @Autowired
-    private EfficiencyStatisticsDao efficiencyStatisticsDao;
+    private StatisticsDao statisticsDao;
 
     @Autowired
     private EfficiencyStatisticsNewDao efficiencyStatisticsNewDao;
@@ -43,20 +43,19 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     @Override
     public List<EfficiencyStatisticsVo> getAllData(String taskName, Date beginTime, Date endTime) throws Exception {
 
-
-        List<EfficiencyStatistics> list = getEfficiencyStatistics(taskName,beginTime, endTime);//所有的工程报表数据(所有数据都是焊工级的)
+        List<Statistics> list = getEfficiencyStatistics(taskName,beginTime, endTime);//所有的工程报表数据(所有数据都是焊工级的)
 
         //根据项目名称获取顶级上级项目
         Set<String> taskNames = new HashSet<>();
-        Map<String,List<EfficiencyStatistics>> map = new HashMap<>();
+        Map<String,List<Statistics>> map = new HashMap<>();
 
-        for (EfficiencyStatistics efficiencyStatistics : list) {
+        for (Statistics efficiencyStatistics : list) {
       //    String name = getFirstTaskName(efficiencyStatistics.getName());
             String name = getFirstTaskName1(efficiencyStatistics.getTaskId());//name为生产部级的projectName
 
             taskNames.add(name); //taskNames是所有生产部级的projectName
             if(map.get(name)==null){
-                List<EfficiencyStatistics> tempList = new ArrayList<>();
+                List<Statistics> tempList = new ArrayList<>();
                 tempList.add(efficiencyStatistics);
                 map.put(name,tempList);
             }else {
@@ -316,7 +315,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         return efficiencyStatisticsNewDao.findAll(querySpeci);
     }
 
-    public List<EfficiencyStatistics> getEfficiencyStatistics(String taskName,Date beginTime, Date endTime) {
+    public List<Statistics> getEfficiencyStatistics(String taskName,Date beginTime, Date endTime) {
         Specification querySpeci = new Specification() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -332,7 +331,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         };
 
-        return efficiencyStatisticsDao.findAll(querySpeci);
+        return statisticsDao.findAll(querySpeci);
     }
 
     private void handleVo(Unit unit, List<EfficiencyStatisticsVo> vos) {
@@ -439,10 +438,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     private void handleVo2(Unit unit, List<EfficiencyStatisticsVo> vos) {
         Set<String> set = new HashSet<>();
         Map<String,List<Unit>> map = new HashMap<>();
-        Map<Integer,List<EfficiencyStatistics>> map2 = new HashMap<>();
+        Map<Integer,List<Statistics>> map2 = new HashMap<>();
         List<Integer> banzupids = new ArrayList<>();
 
-        List<EfficiencyStatistics> lists =  efficiencyStatisticsDao.findAll();
+        List<Statistics> lists =  statisticsDao.findAll();
         for (Unit son : unit.getSonList()) {
             String name = son.getName();
             set.add(name); //焊工级别的project_name
@@ -455,10 +454,10 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         }
 
-        for(EfficiencyStatistics efficiencyStatistics : lists){
+        for(Statistics efficiencyStatistics : lists){
             Integer taskId = efficiencyStatistics.getTaskId();
             if(map2.get(taskId)==null){
-                List<EfficiencyStatistics> list = new ArrayList<>();
+                List<Statistics> list = new ArrayList<>();
                 list.add(efficiencyStatistics);
                 map2.put(taskId,list);
             }else {
@@ -466,7 +465,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
             }
         }
 
-        for(EfficiencyStatistics efficiencyStatistics : lists){
+        for(Statistics efficiencyStatistics : lists){
             Integer taskId = efficiencyStatistics.getTaskId();
             Integer pid = taskDao.getPidById(taskId);
             banzupids.add(pid);
@@ -560,7 +559,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         }
     }
 
-    private Unit calculateData(String taskName, Map<String, List<EfficiencyStatistics>> map) {
+    private Unit calculateData(String taskName, Map<String, List<Statistics>> map) {
         Integer id = taskDao.getIdByName(taskName);//生产部级别任务的id
         Unit unit = new Unit();
         unit.setId(id);
@@ -569,7 +568,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         int work_time = 0 ;
         BigDecimal ePower = new BigDecimal("0");
         List<Unit> sonList = new ArrayList<>();
-        for (EfficiencyStatistics efficiencyStatistics : map.get(taskName)) {
+        for (Statistics efficiencyStatistics : map.get(taskName)) {
             Unit sonUnit = new Unit();
             sonUnit.setName(efficiencyStatistics.getName());
             sonUnit.setPower(efficiencyStatistics.getPower());
@@ -589,7 +588,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     }
 
 
-    private Unit calculateData01(String taskName, Map<String, List<EfficiencyStatistics>> map) {
+    private Unit calculateData01(String taskName, Map<String, List<Statistics>> map) {
         Integer id = taskDao.getIdByName(taskName);//生产部级别任务的id
         Unit unit = new Unit();
         unit.setId(id);
@@ -598,7 +597,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         int work_time = 0 ;
         BigDecimal ePower = new BigDecimal("0");
         List<Unit> sonList = new ArrayList<>();
-        for (EfficiencyStatistics efficiencyStatistics : map.get(taskName)) {
+        for (Statistics efficiencyStatistics : map.get(taskName)) {
             Unit sonUnit = new Unit();
             sonUnit.setName(efficiencyStatistics.getName());
             sonUnit.setPower(efficiencyStatistics.getPower());
@@ -618,7 +617,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
     }
 
 
-    private Unit calculateData2(String taskName, Map<String, List<EfficiencyStatistics>> map) {
+    private Unit calculateData2(String taskName, Map<String, List<Statistics>> map) {
         Unit unit = new Unit();
         unit.setName(taskName);
         int time = 0;
@@ -639,7 +638,7 @@ public class EfficiencyStatisticsServiceImpl implements EfficiencyStatisticsServ
         int workingtime3=0;
         Integer id = null;
         Map<Integer,EfficiencyStatistics> map2 = new HashMap<>();*/
-        for (EfficiencyStatistics efficiencyStatistics : map.get(taskName)) {
+        for (Statistics efficiencyStatistics : map.get(taskName)) {
             /*if(ids.size() == 0){ //
                 taskId = efficiencyStatistics.getTaskId();
                 Integer pid = taskDao.getPidById(taskId);

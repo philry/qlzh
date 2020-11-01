@@ -1,6 +1,6 @@
 package com.sy.service;
 
-import com.sy.entity.EfficiencyStatistics;
+import com.sy.entity.Statistics;
 import com.sy.vo.EfficiencyStatisticsVo;
 import com.sy.vo.EngineeringVo;
 import com.sy.vo.Unit;
@@ -14,7 +14,7 @@ public interface EfficiencyStatisticsService {
 
     List<EfficiencyStatisticsVo> getInitData(String taskName,Date beginTime, Date endTime);
 
-    List<EfficiencyStatistics> getEfficiencyStatistics(String taskName, Date beginTime, Date endTime) throws Exception;
+    List<Statistics> getEfficiencyStatistics(String taskName, Date beginTime, Date endTime) throws Exception;
 
     String getFirstTaskName(String taskName);
 
