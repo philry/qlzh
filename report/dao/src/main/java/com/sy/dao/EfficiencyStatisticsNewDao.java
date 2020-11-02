@@ -1,6 +1,5 @@
 package com.sy.dao;
 
-import com.sy.entity.EfficiencyStatistics;
 import com.sy.entity.EfficiencyStatisticsNew;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -12,8 +11,6 @@ import java.util.Date;
 
 @Repository
 public interface EfficiencyStatisticsNewDao extends JpaRepository<EfficiencyStatisticsNew,Integer>, JpaSpecificationExecutor {
-
-    EfficiencyStatistics getById(int id);
 
     /*//这种写法表能直接写表名
     @Query(value="delete from efficiency_statistics_new where  date = ?1",nativeQuery = true)

@@ -3,7 +3,7 @@ package com.sy.controller;
 
 import com.sy.dao.TaskDao;
 import com.sy.dao.WorkDao;
-import com.sy.entity.EfficiencyStatistics;
+import com.sy.entity.Statistics;
 import com.sy.service.EfficiencyStatisticsService;
 import com.sy.utils.DateUtils;
 import com.sy.vo.*;
@@ -147,7 +147,7 @@ public class EfficiencyStatisticsController {
                 projectVo.setWorkNo(taskDao.getWorkNoByName(list.get(0).getName()));
                 projectVo.setAppVos(appVos);
                 //获取当前项目的昨天工作人数和今日工作人数
-                List<EfficiencyStatistics> tempList = null;
+                List<Statistics> tempList = null;
                 try {
                     tempList = statisticsService.getEfficiencyStatistics(taskName, beginTime =="" ?null:DateUtils.parseDate(beginTime),endTime =="" ?null:DateUtils.parseDate(endTime));
                 } catch (Exception e) {

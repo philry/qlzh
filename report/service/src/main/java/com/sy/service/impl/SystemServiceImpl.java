@@ -13,8 +13,11 @@ public class SystemServiceImpl implements SystemService {
 
     //导入所有数据相关表的数据库接口,删除所有数据
 
-    @Autowired //工程表
-    private EfficiencyStatisticsDao efficiencyStatisticsDao;
+    @Autowired //数据表
+    private EfficiencyStatisticsNewDao efficiencyStatisticsNewDao;
+
+    @Autowired //数据表
+    private StatisticsDao StatisticsDao;
 
     @Autowired //工效表
     private EngineeringDao engineeringDao;
@@ -38,13 +41,14 @@ public class SystemServiceImpl implements SystemService {
     @Transactional
     public void resetData() {
 
-        efficiencyStatisticsDao.deleteAll();
+        dataManageDao.deleteAll();
+        efficiencyStatisticsNewDao.deleteAll();
         engineeringDao.deleteAll();
         machineUseDao.deleteAll();
         nettyDao.deleteAll();
         personEfficiencyDao.deleteAll();
         workDao.deleteAll();
-        dataManageDao.deleteAll();
+        StatisticsDao.deleteAll();
 
     }
 

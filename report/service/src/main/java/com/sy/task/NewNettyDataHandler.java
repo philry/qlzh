@@ -62,7 +62,7 @@ public class NewNettyDataHandler {
     private PersonEfficiencyDao personEfficiencyDao;
 
     @Autowired
-    private EfficiencyStatisticsDao efficiencyStatisticsDao;
+    private StatisticsDao statisticsDao;
 
     @Autowired
     private EfficiencyStatisticsNewDao efficiencyStatisticsNewDao;
@@ -134,26 +134,6 @@ public class NewNettyDataHandler {
         logger.info(">>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
     }
 
-    //---->>>>>>>> 工程报表efficiency_statistics 5分钟定时任务
-    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
-//    @Scheduled(fixedRate = 5 * 60 * 1000) // 每5分钟
-    @Transactional
-    public void handleTodayData() {
-
-        logger.info(">>>>>>>>>>>进入efficiency_statistics 5分钟定时任务方法-开始");
-        long beginTime = System.currentTimeMillis();
-
-        //获取指定日期
-        Date now = new Date();
-        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
-        //删除指定日期的输出
-        efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(today));
-        //插入数据
-        insertEfficiencyStatisticsData(today);
-
-        long endTime = System.currentTimeMillis();
-        logger.info(">>>>>>>>>>>进入efficiency_statistics 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
-    }
 
     //---->>>>>>>> 工效报表engineering 5分钟定时任务
     @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
@@ -213,6 +193,27 @@ public class NewNettyDataHandler {
 
         long endTime = System.currentTimeMillis();
         logger.info(">>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
+    }
+
+    //---->>>>>>>> 数据表 5分钟定时任务
+    @Scheduled(cron = "0 2/5 * * * ?") // 每5分钟运行一次，从偏移2分钟后开始运行
+//    @Scheduled(fixedRate = 5 * 60 * 1000) // 每5分钟
+    @Transactional
+    public void handleTodayData() {
+
+        logger.info(">>>>>>>>>>>进入statistics 5分钟定时任务方法-开始");
+        long beginTime = System.currentTimeMillis();
+
+        //获取指定日期
+        Date now = new Date();
+        String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+        //删除指定日期的输出
+        statisticsDao.deleteByDate(DateUtils.parseDate(today));
+        //插入数据
+        insertStatisticsData(today);
+
+        long endTime = System.currentTimeMillis();
+        logger.info(">>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：" + (endTime - beginTime) +"ms");
     }
 
     private void insertDataManageData(String day) {
@@ -325,7 +326,7 @@ public class NewNettyDataHandler {
                     Work offWork = lastOffWorkMap.get(xpg.getMachineId());//最近的关机记录
                     if( onWork != null && offWork != null
                             && offWork.getCreateTime().after(onWork.getCreateTime())     //最近一次上工记录是关机，并且关机之后还有包
-                            && netty.getCreateTime().after(onWork.getCreateTime()) ){ //那就是关机之后其他原因接收到的包,跳过不统计
+                            && netty.getCreateTime().after(offWork.getCreateTime()) ){ //那就是关机之后其他原因接收到的包,跳过不统计
                         continue;
                     }
 
@@ -415,13 +416,11 @@ public class NewNettyDataHandler {
         handleEfficiencyStatisticsReport(day, dataList);
     }
 
-    private void insertEfficiencyStatisticsData(String day) {
+    private void insertStatisticsData(String day) {
 
-        //对报表数据进行存储
         //获取指定日期区间内data_manage表中的所有数据列表
         List<DataManage> dataList = manageDataService.getAllByData(0, DateUtils.parseDate(day), DateUtils.getNextDay(day));
 
-        //原来的工程报表存储start
         Set<Integer> taskIds = new HashSet<>();
 
         Map<Integer, List<DataManage>> map = new HashMap<>();
@@ -430,7 +429,7 @@ public class NewNettyDataHandler {
 
         for (Integer taskId : taskIds) { //taskIds是所有焊工开机扫码选择的任务id
 
-            EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
+            Statistics statistics = new Statistics();
             String name = taskDao.getById(taskId).getProjectName();
             int time = 0;
             int working_time = 0;
@@ -442,18 +441,16 @@ public class NewNettyDataHandler {
                 ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
                 ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
             }
-            efficiencyStatistics.setTime(time);
-            efficiencyStatistics.setWorkingTime(working_time);
-            efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
-            efficiencyStatistics.setDate(DateUtils.parseDate(day));
-            efficiencyStatistics.setName(name);
-            efficiencyStatistics.setTaskId(taskId); //新加的字段,任务id
-            efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
-            efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            efficiencyStatisticsDao.save(efficiencyStatistics); //存储的是焊工一级的数据
-
+            statistics.setTime(time);
+            statistics.setWorkingTime(working_time);
+            statistics.setCreateTime(new Timestamp(new Date().getTime()));
+            statistics.setDate(DateUtils.parseDate(day));
+            statistics.setName(name);
+            statistics.setTaskId(taskId); //新加的字段,任务id
+            statistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
+            statistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            statisticsDao.save(statistics); //存储的是焊工一级的数据
         }
-        //原来的工程报表存储end
     }
 
     private void insertEngineeringData(String day) {
@@ -1047,7 +1044,7 @@ public class NewNettyDataHandler {
 
         dataManageDao.deleteByCreateTime(DateUtils.parseDate(day));
         engineeringDao.deleteByDate(DateUtils.parseDate(day));
-        efficiencyStatisticsDao.deleteByDate(DateUtils.parseDate(day));
+        statisticsDao.deleteByDate(DateUtils.parseDate(day));
         efficiencyStatisticsNewDao.deleteByDate(DateUtils.parseDate(day));
         machineUseDao.deleteByRemark(day);
         personEfficiencyDao.deleteByDate(DateUtils.parseDate(day));
@@ -1091,6 +1088,16 @@ public class NewNettyDataHandler {
             machineMap.put(machineId, machine);
         }
 
+        List<Xpg> xpgLists = xpgDao.findAll();
+        Map<String, Xpg> xpgMap = new HashMap<String, Xpg>();
+        for (Xpg xpg : xpgLists) {
+            String xpgName = xpg.getName();
+            if (xpgName == null) {
+                continue;
+            }
+            xpgMap.put(xpgName, xpg);
+        }
+
         for (String xpgId : result.keySet()) {
             if (result.get(xpgId).size() >= 2) {
                 for (int a = 1; a < result.get(xpgId).size(); a++) { //按2G码分组
@@ -1108,7 +1115,8 @@ public class NewNettyDataHandler {
                     String currentStr = netty.getCurrents();
                     List<String> currents = Arrays.asList(currentStr.split(","));
                     //根据2G码获取最新的扫码工作信息信息
-                    Xpg xpg = xpgDao.getByName(netty.getXpg());
+//                    Xpg xpg = xpgDao.getByName(netty.getXpg());
+                    Xpg xpg = xpgMap.get(netty.getXpg());
                     String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
                     Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
                     if ("1".equals(work.getOperate())) { //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
@@ -1210,7 +1218,7 @@ public class NewNettyDataHandler {
 
         for (Integer taskId : taskIds) { //taskIds是所有焊工开机扫码选择的任务id
 
-            EfficiencyStatistics efficiencyStatistics = new EfficiencyStatistics();
+            Statistics statistics = new Statistics();
             String name = taskDao.getById(taskId).getProjectName();
             int time = 0;
             int working_time = 0;
@@ -1222,15 +1230,15 @@ public class NewNettyDataHandler {
                 ePower = ePower.add(new BigDecimal(dataManage.getNoloadingPower()));
                 ePower = ePower.add(new BigDecimal(dataManage.getWorkingPower()));
             }
-            efficiencyStatistics.setTime(time);
-            efficiencyStatistics.setWorkingTime(working_time);
-            efficiencyStatistics.setCreateTime(new Timestamp(new Date().getTime()));
-            efficiencyStatistics.setDate(DateUtils.parseDate(day));
-            efficiencyStatistics.setName(name);
-            efficiencyStatistics.setTaskId(taskId); //新加的字段,任务id
-            efficiencyStatistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
-            efficiencyStatistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
-            efficiencyStatisticsDao.save(efficiencyStatistics); //存储的是焊工一级的数据
+            statistics.setTime(time);
+            statistics.setWorkingTime(working_time);
+            statistics.setCreateTime(new Timestamp(new Date().getTime()));
+            statistics.setDate(DateUtils.parseDate(day));
+            statistics.setName(name);
+            statistics.setTaskId(taskId); //新加的字段,任务id
+            statistics.setEfficiency(String.format("%.2f", (double) working_time / time * 100));
+            statistics.setPower(ePower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
+            statisticsDao.save(statistics); //存储的是焊工一级的数据
 
         }
         //原来的工程报表存储end
