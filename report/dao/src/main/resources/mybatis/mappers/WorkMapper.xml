@@ -30,4 +30,17 @@
 		where create_time >= #{time} and operate = 1 order by create_time desc
 	</select>
 
+	<!--小于等于写法一-->
+	<select id="getLastWorkByTime"   resultMap="WorkResult">
+		<include refid="selectWorkVo" />
+		where create_time &lt;= #{createTime} and machine_id = #{machineId} ORDER BY create_time desc limit 1
+	</select>
+
+	 <!--小于等于写法二-->
+	<!--<select id="getLastWorkByTime"   resultMap="WorkResult">
+		<include refid="selectWorkVo" />
+		where create_time <![CDATA[<=]]> #{createTime} and machine_id = #{machineId} ORDER BY create_time desc limit 1
+	</select>-->
+
+
 </mapper>
