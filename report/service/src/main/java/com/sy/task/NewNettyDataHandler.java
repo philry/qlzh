@@ -41,6 +41,9 @@ public class NewNettyDataHandler {
     private WorkDao workDao;
 
     @Autowired
+    private WorkMapper workMapper;
+
+    @Autowired
     private XpgDao xpgDao;
 
     @Autowired
@@ -264,7 +267,7 @@ public class NewNettyDataHandler {
             xpgMap.put(xpgName, xpg);
         }
 
-        Map<Integer,Work> lastOnWorkMap = new HashMap<>();
+        /*Map<Integer,Work> lastOnWorkMap = new HashMap<>();
         for (Machine machine : machineLists) {
             Integer machineId = machine.getId();
             Work lastOnWork = workDao.getLastOnWork();  //最近的开机记录
@@ -282,17 +285,17 @@ public class NewNettyDataHandler {
                 continue;
             }
             lastOffWorkMap.put(machineId,lastOffWork);
-        }
+        }*/
 
 
         for (String xpgId : nettyListMap.keySet()) {
             logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法【单组数据处理】-开始");
             long groupBeginTime = System.currentTimeMillis();
             if (nettyListMap.get(xpgId).size() >= 2) {
-                Netty netty0 = nettyListMap.get(xpgId).get(0);
+                /*Netty netty0 = nettyListMap.get(xpgId).get(0);
                 Xpg xpg0 = xpgMap.get(netty0.getXpg());
                 String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty0.getCreateTime());
-                Work work = workDao.getLastWorkByTime(dataStr, xpg0.getMachineId());
+                Work work = workDao.getLastWorkByTime(dataStr, xpg0.getMachineId());//有问题,同一台机器换人开机后时间只统计在第一个开机的人身上*/
 
                 for (int a = 1; a < nettyListMap.get(xpgId).size(); a++) { //按2G码分组
                     /*logger.info(">>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法【单条数据处理】-开始");
@@ -315,20 +318,21 @@ public class NewNettyDataHandler {
                     //根据2G码获取最新的扫码工作信息
 //                    Xpg xpg = xpgDao.getByName(netty.getXpg());
                     Xpg xpg = xpgMap.get(netty.getXpg());
-                    /*String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
-                    Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
+                    String dataStr = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD_HH_MM_SS, netty.getCreateTime());
+//                    Work work = workDao.getLastWorkByTime(dataStr, xpg.getMachineId());
+                    Work work = workMapper.getLastWorkByTime(dataStr, xpg.getMachineId());
 
-                    if ("1".equals(work.getOperate())) { //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
+                    if (work != null && "1".equals(work.getOperate())) { //底表包对应采集器的最近一次上工记录是关机那就是关机之后其他原因接收到的包,跳过不统计
                         continue;
-                    }*/
+                    }
 
-                    Work onWork = lastOnWorkMap.get(xpg.getMachineId());//最近的开机记录
+                    /*Work onWork = lastOnWorkMap.get(xpg.getMachineId());//最近的开机记录
                     Work offWork = lastOffWorkMap.get(xpg.getMachineId());//最近的关机记录
                     if( onWork != null && offWork != null
                             && offWork.getCreateTime().after(onWork.getCreateTime())     //最近一次上工记录是关机，并且关机之后还有包
                             && netty.getCreateTime().after(offWork.getCreateTime()) ){ //那就是关机之后其他原因接收到的包,跳过不统计
                         continue;
-                    }
+                    }*/
 
                     //获取焊机的电流临界值
 //                    Machine machine = machineDao.getById(xpg.getMachineId());
