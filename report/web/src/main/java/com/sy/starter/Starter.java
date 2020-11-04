@@ -53,6 +53,6 @@ public class Starter implements CommandLineRunner {
         /*Date openTime = workService.getLastOpenTimeByMachine(28);
         System.out.println("--------------"+openTime+"----------------");*/
         logger.info("--------Start启动了-------");
-        nettyServer.run(95);
+        nettyServer.run(98);
     }
 }
