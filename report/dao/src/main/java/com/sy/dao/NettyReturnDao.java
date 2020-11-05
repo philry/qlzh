@@ -14,10 +14,10 @@ import java.util.List;
 @Repository
 public interface NettyReturnDao extends JpaRepository<NettyReturn,Integer>, JpaSpecificationExecutor {
 
-    List<Netty> getAllByCreateTimeBetween(Date beginTime, Date endTime);
+    List<NettyReturn> getAllByCreateTimeBetween(Date beginTime, Date endTime);
     
     @Query(value = "select * from netty_return  where xpg = ?1 ORDER BY create_time desc",nativeQuery = true)
-    List<Netty> getNettyByXpg(String xpg);
+    List<NettyReturn> getNettyByXpg(String xpg);
 
     @Query(value = "select distinct xpg from netty_return where create_time between ?1 and ?2",nativeQuery = true)
     List<String> findAllXpgs(Date beginTime, Date endTime);
@@ -30,5 +30,5 @@ public interface NettyReturnDao extends JpaRepository<NettyReturn,Integer>, JpaS
     void deleteByDate(Date time);
 
     @Query(value = "select * from netty_return where xpg = ?1 and create_time >= ?2 ORDER BY create_time desc LIMIT 1",nativeQuery = true)
-    Netty getLastNettyByXpgAndOpenTime(String xpg, Date openTime);
+    NettyReturn getLastNettyByXpgAndOpenTime(String xpg, Date openTime);
 }
