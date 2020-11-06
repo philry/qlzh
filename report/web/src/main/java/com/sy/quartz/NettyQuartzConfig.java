@@ -1,10 +1,6 @@
 package com.sy.quartz;
 
-import org.quartz.CronScheduleBuilder;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import org.quartz.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -49,9 +45,9 @@ public class NettyQuartzConfig {
 
 	@Bean
 	public Trigger nettyTrigger() {
-		/*SimpleScheduleBuilder builder = SimpleScheduleBuilder.simpleSchedule()
+		SimpleScheduleBuilder builder = SimpleScheduleBuilder.simpleSchedule()
 				.withIntervalInMinutes(1)	//定义时间周期
-				.repeatForever();*/
+				.repeatForever();
 		CronScheduleBuilder scheduleBuilder
 				= CronScheduleBuilder.cronSchedule("45 * * * * ? ");//nettyNewQuartz 每分钟的第45秒执行一次,原来的
 		//		= CronScheduleBuilder.cronSchedule("45 1/1 * * * ?");//nettyNewQuartz 从第1分钟45秒开始执行，每1分钟执行一次,我改的
