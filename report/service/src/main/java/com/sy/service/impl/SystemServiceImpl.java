@@ -28,6 +28,9 @@ public class SystemServiceImpl implements SystemService {
     @Autowired //数据同步表
     private NettyDao nettyDao;
 
+    @Autowired //响应数据表
+    private NettyReturnDao nettyReturnDao;
+
     @Autowired //人员工效表
     private PersonEfficiencyDao personEfficiencyDao;
 
@@ -46,6 +49,7 @@ public class SystemServiceImpl implements SystemService {
         engineeringDao.deleteAll();
         machineUseDao.deleteAll();
         nettyDao.deleteAll();
+        nettyReturnDao.deleteAll();
         personEfficiencyDao.deleteAll();
         workDao.deleteAll();
         StatisticsDao.deleteAll();
