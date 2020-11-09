@@ -31,6 +31,9 @@ public class NettyNewQuartz extends QuartzJobBean {
     private NettyMapper nettyMapper;
 
     @Autowired
+    private NettyReturnDao nettyReturnDao;
+
+    @Autowired
     private EnergyMapper energyMapper;
 
     @Autowired
@@ -238,7 +241,7 @@ public class NettyNewQuartz extends QuartzJobBean {
 						try {
 							nettyServerHandler.controlMachine(xpg.getName(), false);
 							Integer taskId = workService.selectTaskIdByPersonAndMachine(personId, machineId);
-							workService.endWork(personId, taskId, machineId);//原来的
+//							workService.endWork(personId, taskId, machineId);//原来的
 
                             /*//新增的start
                             String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
@@ -264,6 +267,30 @@ public class NettyNewQuartz extends QuartzJobBean {
                                 workService.endWork(personId,taskId,machineId);
                             }
                             //新增的end*/
+
+                            //国电格朗对接start
+                            Thread.sleep(1000);
+                            String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
+                            NettyReturn nettyReturn = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                            if(nettyReturn == null){ //没7b7b90包说明第一次关机失败
+                                logger.info(xpgName + "---------------第一次关机失败,尝试第二次关机-----------------");
+                                nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                Thread.sleep(1000);
+                                NettyReturn nettyReturn2 = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                                if(nettyReturn2 == null){ //还没7b7b90包说明第二次关机失败
+                                    logger.info(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                    nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                    Thread.sleep(1000);
+                                    NettyReturn nettyReturn3 = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                                    if(nettyReturn3 == null){ //还没7b7b90包说明第三次关机失败
+                                        logger.info(xpgName+"---------------第三次关机失败----------------");
+                                    }
+                                }
+                            }else { //有7b7b90包说明关机成功
+                                workService.endWork(personId,taskId,machineId);
+                            }
+                            //国电格朗对接end
+
 //							machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -359,6 +386,29 @@ public class NettyNewQuartz extends QuartzJobBean {
                                                         workService.endWork(personId,taskId,machineId);
                                                     }
                                                     //新增的end*/
+
+                                                    //国电格朗对接start
+                                                    Thread.sleep(1000);
+                                                    String xpgName = xpgMapper.selectXpgByMachineId(machineId).getName();
+                                                    NettyReturn nettyReturn = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                                                    if(nettyReturn == null){ //没7b7b90包说明第一次关机失败
+                                                        logger.info(xpgName + "---------------第一次关机失败,尝试第二次关机-----------------");
+                                                        nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                                        Thread.sleep(1000);
+                                                        NettyReturn nettyReturn2 = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                                                        if(nettyReturn2 == null){ //还没7b7b90包说明第二次关机失败
+                                                            logger.info(xpgName+"---------------第二次关机失败，尝试第三次关机----------------");
+                                                            nettyServerHandler.controlMachine(machine.getXpg().getName(),false);
+                                                            Thread.sleep(1000);
+                                                            NettyReturn nettyReturn3 = nettyReturnDao.getLastNettyByXpgAndOpenTime(xpgName,new Date(new Date().getTime() - 1000));//往前1秒钟之后有没7b7b90包
+                                                            if(nettyReturn3 == null){ //还没7b7b90包说明第三次关机失败
+                                                                logger.info(xpgName+"---------------第三次关机失败----------------");
+                                                            }
+                                                        }
+                                                    }else { //有7b7b90包说明关机成功
+                                                        workService.endWork(personId,taskId,machineId);
+                                                    }
+                                                    //国电格朗对接end
 
 //                                                    machineNowMapper.deleteMachineNowByMachineId(machineNow.getMachine().getId());
                                                 } catch (Exception e) {

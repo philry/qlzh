@@ -5,8 +5,8 @@ import com.sy.core.netty.tcp.util.CRC16Util;
 import com.sy.core.netty.tcp.util.ClientChannel;
 import com.sy.dao.*;
 import com.sy.entity.Netty;
+import com.sy.entity.NettyReturn;
 import com.sy.service.MessageDataService;
-
 import com.sy.utils.DateUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -14,7 +14,6 @@ import io.netty.channel.*;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 @ChannelHandler.Sharable
-public class NettyServerHandler extends ChannelHandlerAdapter {
+public class NettyServerHandler extends ChannelHandlerAdapter { //对接国电格朗设备
 
 	Logger logger = Logger.getLogger(NettyServerHandler.class);
 //	Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
@@ -35,28 +34,31 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 	@Autowired
 	private NettyDao nettyDao;
-	
+
+	@Autowired
+	private NettyReturnDao nettyReturnDao;
+
 	@Autowired
 	private XpgMapper xpgMapper;
-	
+
 	@Autowired
 	private MachineMapper machineMapper;
 
 	@Autowired
 	private MachineDao machineDao;
-	
+
 	@Autowired
 	private MachineNowDao machineNowDao;
-	
+
 	@Autowired
 	private MachineNowMapper machineNowMapper;
-	
+
 	@Autowired
 	private DeptMapper deptMapper;
-	
+
 	@Autowired
 	private MessageDataService messageDataService;
-	
+
 	private static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
 	@Override
@@ -79,14 +81,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 	@Override	  //正常发包给我是数据域上传(数据域上传：仪表发数据包给我，我给仪表个回复)
 //	@Transactional//开关机透传时他给我的回复不用再回复他了(数据透传：我发指令给仪表，仪表给我个回复)
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        long startTime = System.currentTimeMillis();
-        String startDateStr = dateformat.format(startTime);
-        System.out.println("channelRead程序开始时间是："+startDateStr);
-        logger.info("---------[logger]channelRead程序开始时间是："+startDateStr);
+		SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long startTime = System.currentTimeMillis();
+		String startDateStr = dateformat.format(startTime);
+		logger.info("---------[logger]channelRead程序开始时间是："+startDateStr);
 		logger.info(">---------channelRead方法获得的参数ctx是:"+ctx);
 		logger.info(">---------channelRead方法获得的参数msg是:"+msg);
-
 
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];
@@ -102,6 +102,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 		// 返回16进制到客户端
 		String returnHexStr = "7b7b84bf237d7d";
+		logger.info(">>>>>>>>>>>>>>>>>>>>channelRead方法中ctx.channel()是"+ctx.channel());
 		// 设备注册
 		if (isrReg4gStr.equals("7b7b84")) { //原来的写法是：cmd == 132 ，84的16进制就是132 ，这里面有问题，主要是接到的报文会有00db84的情况
 			byte[] xsf = Arrays.copyOfRange(bytes, 0, 2);// 起始符
@@ -114,15 +115,17 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			// 保存会话，通过4g注册号
 			ClientChannel.addChannel(zcxlhStr.trim(), ctx.channel());
 
+
 			map.put(ctx.channel().id().asLongText(), zcxlhStr.trim());
 
 			byte[] kh = Arrays.copyOfRange(bytes, 23, 53);// 卡号
 			// logger.info(">>>>>>>>卡号为："+BytesUtils.getString(kh));
 
-			byte[] dssjjg = Arrays.copyOfRange(bytes, 60, 61);// 定时上传间隔
+//			byte[] dssjjg = Arrays.copyOfRange(bytes, 60, 61);// 定时上传间隔
 			// logger.info(">>>>>>>>定时上传间隔为："+BytesUtils.getInt(dssjjg));
 
 			returnHexStr = "7b7b84bf237d7d";
+			logger.info("注册包响应值"+returnHexStr);
 		}
 
 		// 报警设定值字段上传
@@ -154,16 +157,30 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //
 //			returnHexStr = "7b7b"+s+modbusCrc16+"7d7d";
 		}*/
-		// 透传不用回复
-		/*原来的
-		if (cmd == 144) {//isrReg4gStr.equals("7b7b90") 十六进制90的十进制就是144
+		// 透传收到的仪表响应包
+		//原来的
+		if (isrReg4gStr.equals("7b7b90")) { //cmd == 144十六进制90的十进制就是144
 
 			returnHexStr = receiveStr;
-		}*/
+			logger.info("数据透传的响应值是:"+returnHexStr);
+
+			//获取指定日期
+			Date now = new Date();
+			String today = DateUtils.parseDateToStr(DateUtils.YYYY_MM_DD, now);
+			NettyReturn nettyReturn = new NettyReturn();
+			nettyReturn.setDate(DateUtils.parseDate(today));
+			nettyReturn.setCreateTime(new Timestamp(new Date().getTime()));
+
+			String xpg = map.get(ctx.channel().id().asLongText());
+			nettyReturn.setXpg(xpg);//存放4G注册码
+			nettyReturn.setRemark(receiveStr);//存放原报文
+			nettyReturnDao.save(nettyReturn);//
+
+		}
 
 		// Modbus数据域上传
 		if (isrReg4gStr.equals("7b7b91")) {
-        //    System.out.println("-----------运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"-----------");
+			//    System.out.println("-----------运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"-----------");
 			logger.info("-----------运行到if (isrReg4gStr.equals(\"7b7b91\"))之后一步了"+"-----------");
 			if(receiveStr.length()>0){
 //                System.out.println("-----------运行到if(receiveStr.length()>0)之后一步了"+"------------");
@@ -188,7 +205,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 					String infoStart = "010360";
 
-
 					int vStartIndex = receiveStr.indexOf(infoStart);
 
 					String info = receiveStr.substring(vStartIndex+2,vStartIndex+202);
@@ -205,45 +221,45 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 
 						List<Double> doubles = new ArrayList<>();
 
-		//				Double maxA = null;
-		//				Xpg xpg2 = new Xpg();
-		//				xpg2.setName(xpg);
-		//				Integer deptId = null;
-		//				Integer machineId = null;
-		//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
-		//				if(xpgList!=null&&xpgList.size()>0) {
-		//					Machine machine = new Machine();
-		//					machine.setXpgId(xpgList.get(0).getId());
-		//					List<Machine> machineList = machineMapper.selectMachineList(machine);
-		//					if(machineList!=null&&machineList.size()>0) {
-		//						machineId = machineList.get(0).getId();
-		//						maxA = machineList.get(0).getMaxA();
-		//						deptId = machineList.get(0).getDeptId();
-		//					}
-		//				}
+						//				Double maxA = null;
+						//				Xpg xpg2 = new Xpg();
+						//				xpg2.setName(xpg);
+						//				Integer deptId = null;
+						//				Integer machineId = null;
+						//				List<Xpg> xpgList = xpgMapper.selectXpgList(xpg2);
+						//				if(xpgList!=null&&xpgList.size()>0) {
+						//					Machine machine = new Machine();
+						//					machine.setXpgId(xpgList.get(0).getId());
+						//					List<Machine> machineList = machineMapper.selectMachineList(machine);
+						//					if(machineList!=null&&machineList.size()>0) {
+						//						machineId = machineList.get(0).getId();
+						//						maxA = machineList.get(0).getMaxA();
+						//						deptId = machineList.get(0).getDeptId();
+						//					}
+						//				}
 
-		//				boolean flag = true;
+						//				boolean flag = true;
 
 						for (int i = 0; i <60 ; i++) {
 							int sIndex = i*12;
 							String str = iInfo.substring(sIndex+0,sIndex+4);
 							double iA  = getPowerValue(str);
-		//					if(flag&maxA!=null&&iA<maxA) {
-		//						flag=false;
-		//					}
+							//					if(flag&maxA!=null&&iA<maxA) {
+							//						flag=false;
+							//					}
 							doubles.add(iA);
 						}
 
-		//				if(flag) {
-		//					MessageData messageData = new MessageData();
-		//					messageData.setSendId(0);
-		//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
-		//					messageData.setAccpetId(leader);
-		//					messageData.setContext(machineId.toString());
-		//					messageDataService.sendMessage(messageData, 2);
-		//					machineNowMapper.deleteMachineNowByMachineId(machineId);
-		//					controlMachine(xpg, false);
-		//				}
+						//				if(flag) {
+						//					MessageData messageData = new MessageData();
+						//					messageData.setSendId(0);
+						//					Integer leader = deptMapper.selectDeptById(deptId).getLeader();
+						//					messageData.setAccpetId(leader);
+						//					messageData.setContext(machineId.toString());
+						//					messageDataService.sendMessage(messageData, 2);
+						//					machineNowMapper.deleteMachineNowByMachineId(machineId);
+						//					controlMachine(xpg, false);
+						//				}
 
 						String currents = doubles.toString().substring(1,doubles.toString().length()-1);
 
@@ -268,38 +284,40 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 //                        System.out.println("------------运行到nettyDao.save方法之后一步了,netty:"+netty.getRemark()+"-------------");
 						logger.info("------------运行到nettyDao.save方法之后一步了,netty:"+netty.getRemark()+"-------------");
 
-		//				List<Energy> energyList = energyMapper.selectEnergyList();
-		//				Integer time = energyList.get(0).getTime();
-		//				PageHelper.startPage(1, time);
-		//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
-		//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
-		//				String[] split = currents2.split(",");
-		//				boolean flag2 = true;
-		//				for (String str : split) {
-		//					if(flag2&Integer.valueOf(str)>minA) {
-		//						flag2=false;
-		//					}
-		//				}
-		//				if(flag2) {
-		//					controlMachine(xpg, false);
-		//				}
+						//				List<Energy> energyList = energyMapper.selectEnergyList();
+						//				Integer time = energyList.get(0).getTime();
+						//				PageHelper.startPage(1, time);
+						//				List<Netty> nettyList = nettyDao.getNettyByXpg(xpg);
+						//				String currents2 = nettyList.get(nettyList.size()-1).getCurrents();
+						//				String[] split = currents2.split(",");
+						//				boolean flag2 = true;
+						//				for (String str : split) {
+						//					if(flag2&Integer.valueOf(str)>minA) {
+						//						flag2=false;
+						//					}
+						//				}
+						//				if(flag2) {
+						//					controlMachine(xpg, false);
+						//				}
 					}
 				}
 
 			}
 
 			returnHexStr = "7b7b917eec7d7d";
+			logger.info("数据域包响应值:"+returnHexStr);
 
 		}
 
-		if(isrReg4gStr.equals("7b7b93")||isrReg4gStr.equals("7b7b91") //7b7b93,7b7b91,7b7b84,7b7b89这些才要回复
-				||isrReg4gStr.equals("7b7b84")||isrReg4gStr.equals("7b7b89")){
+		if(isrReg4gStr.equals("7b7b91") ||isrReg4gStr.equals("7b7b84")){//7b7b91,7b7b84要响应仪表
+			logger.info("已运行到writeToClient前一步");
 			writeToClient(returnHexStr, ctx);
+			logger.info("已运行到writeToClient后一步");
 
 			Thread.sleep(1000);
 		}
 
-        long endTime=System.currentTimeMillis();
+		long endTime=System.currentTimeMillis();
         /*System.out.println("-------channelRead程序结束时间是："+dateformat.format(endTime)+"--------");
         System.out.println("---------channelRead程序运行时间： "+(endTime-startTime)+"ms ----------");*/
 		logger.info("-------channelRead程序结束时间是："+dateformat.format(endTime)+"--------");
@@ -331,31 +349,33 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if (future.isSuccess()) {
-						System.out.println("AAAA回写成功:" + receiveStr);
+//						System.out.println("AAAA回写成功:" + receiveStr);
+						logger.info("服务响应仪表成功,响应值是:"+receiveStr);
 					} else {
-						System.out.println("AAAA回写失败:" + receiveStr);
+//						System.out.println("AAAA回写失败:" + receiveStr);
+						logger.info("服务响应仪表失败,响应值是:"+receiveStr);
 					}
 				}
 			});
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("调用通用writeToClient()异常" + e.getMessage());
+			logger.info("调用通用writeToClient()异常" + e.getMessage());
 		}
 	}
 
 	//一般在用户手动回复或者透传指令时进行使用
 	private void writeToClient(final String receiveStr, Channel channel) {
 		try {
-			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输
+			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输;
 			bufff.writeBytes(BytesUtils.hexString2Bytes(receiveStr));//对接需要16进制
 			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
 				public void operationComplete(ChannelFuture future) throws Exception {
 					if (future.isSuccess()) {
 //						System.out.println("BBBB回写成功:"+receiveStr);
-						logger.info("BBBB回写成功:"+receiveStr);
+						logger.info("透传指令下发成功:"+receiveStr);
 					} else {
 //						System.out.println("BBBB回写失败:"+receiveStr);
-						logger.info("BBBB回写失败:"+receiveStr);
+						logger.info("透传指令下发失败:"+receiveStr);
 					}
 				}
 			});
@@ -363,31 +383,6 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 			e.printStackTrace();
 			System.out.println("调用通用writeToClient()异常"+e.getMessage());
 		}
-	}
-
-	//一般在用户手动回复或者透传指令时进行使用
-	private String writeToClient1(String receiveStr, Channel channel) {
-		String returnStr = null;
-		try {
-			ByteBuf bufff = Unpooled.buffer();//netty需要用ByteBuf传输
-			bufff.writeBytes(BytesUtils.hexString2Bytes(receiveStr));//对接需要16进制
-			channel.writeAndFlush(bufff).addListener(new ChannelFutureListener() {
-				public void operationComplete(ChannelFuture future) throws Exception {
-					if (future.isSuccess()) {
-//						System.out.println("BBBB回写成功:"+receiveStr);
-						logger.info("BBBB回写成功:"+receiveStr);
-					} else {
-//						System.out.println("BBBB回写失败:"+receiveStr);
-						logger.info("BBBB回写失败:"+receiveStr);
-					}
-				}
-			});
-			returnStr = receiveStr;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("调用通用writeToClient()异常"+e.getMessage());
-		}
-		return returnStr;
 	}
 
 	private String genCmdMsg(String slaveId , String offset , boolean isopen){
@@ -435,11 +430,12 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		hex16 = "7b7b"+hex16+modbusCrc16+"7d7d";
 
 		Channel ctx = ClientChannel.getChannel(xpg);
-		System.out.println("-----------ctx = "+ctx+"-----------");
+		System.out.println(">>>>>>>>-------controlMachine方法里的Channel是 "+ctx+"-----------");
+		logger.info(">>>>>>>>-------controlMachine方法里的Channel是 "+ctx+"-----------");
 		System.out.println("-----------hex16 = "+hex16+"-----------");
-        logger.info("-----------hex16 = "+hex16+"-----------");
+		logger.info("-----------开关机中hex16 = "+hex16+"-----------");
 		if(ctx==null){
-			throw new Exception(xpg+"连接尚未建立,请稍后再试");
+			throw new Exception(xpg+"连接为null,请稍后再试");
 		}
 
 		if(!ctx.isActive()){
@@ -447,6 +443,7 @@ public class NettyServerHandler extends ChannelHandlerAdapter {
 		}
 
 		writeToClient(hex16,ctx);
+
 	}
 
 
