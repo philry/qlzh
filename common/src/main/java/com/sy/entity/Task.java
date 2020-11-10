@@ -243,30 +243,30 @@ public class Task {
 
     @Transient
     public List<Task> getsTasks() {
-		return sTasks;
-	}
+        return sTasks;
+    }
 
-	public void setsTasks(List<Task> sTasks) {
-		this.sTasks = sTasks;
-	}
+    public void setsTasks(List<Task> sTasks) {
+        this.sTasks = sTasks;
+    }
 
-	@Transient
-	public Person getPerson() {
-		return person;
-	}
+    @Transient
+    public Person getPerson() {
+        return person;
+    }
 
-	public void setPerson(Person person) {
-		this.person = person;
-	}
+    public void setPerson(Person person) {
+        this.person = person;
+    }
 
-	@Transient
-	public Dept getDept() {
-		return dept;
-	}
+    @Transient
+    public Dept getDept() {
+        return dept;
+    }
 
-	public void setDept(Dept dept) {
-		this.dept = dept;
-	}
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
 
     @Transient
     public Person getWorkingPerson() {
@@ -276,7 +276,6 @@ public class Task {
     public void setWorkingPerson(Person workingPerson) {
         this.workingPerson = workingPerson;
     }
-
 
 	@Override
     public boolean equals(Object o) {
@@ -318,5 +317,4 @@ public class Task {
 				+ status + ", createTime=" + createTime + ", updateTime=" + updateTime + ", remark=" + remark + ", " +
                 "process=" + process + "]";
 	}
-
 }
