@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.TaskDataMapper">
+
+	<resultMap type="com.sy.entity.TaskData" id="TaskDataResult">
+		<result property="id" column="id" />
+		<result property="taskId" column="task_id" />
+		<result property="personId" column="person_id" />
+		<result property="workCode" column="work_code" />
+		<result property="number" column="number" />
+		<result property="pid" column="pid" />
+		<result property="projectName" column="project_name" />
+		<result property="count" column="count" />
+		<result property="time" column="time" />
+		<result property="deptId" column="dept_id" />
+		<result property="beginTime" column="begin_time" />
+		<result property="endTime" column="end_time" />
+		<result property="actualBeginTime" column="actual_begin_time" />
+		<result property="actualEndTime" column="actual_end_time" />
+		<result property="note" column="note" />
+		<result property="checker" column="checker" />
+		<result property="checkingStatus" column="checking_status" />
+		<result property="status" column="status" />
+		<result property="date" column="date" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+		<result property="process" column="process" />
+	</resultMap>
+
+	<sql id="selectTaskDataVo">
+		select id, task_id, person_id, work_code, number, pid, project_name, count, time, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,
+		 status,date, create_time,update_time,remark,process from task_data
+	</sql>
+
+	<insert id="insertTaskData" parameterType="com.sy.entity.TaskData" useGeneratedKeys="true" keyProperty="id">
+		insert into task_data
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="taskId != null ">task_id,</if>
+			<if test="personId != null ">person_id,</if>
+			<if test="workCode != null and workCode !=''">work_code,</if>
+			<if test="number != null">number,</if>
+			<if test="pid != null">pid,</if>
+			<if test="projectName != null and projectName !='' ">project_name,</if>
+			<if test="count != null ">count,</if>
+			<if test="time != null ">time,</if>
+			<if test="deptId != null ">dept_id,</if>
+			<if test="beginTime != null ">begin_time,</if>
+			<if test="endTime != null ">end_time,</if>
+			<if test="actualBeginTime != null ">actual_begin_time,</if>
+			<if test="actualEndTime != null ">actual_end_time,</if>
+			<if test="note != null and note !='' ">note,</if>
+			<if test="checker != null ">checker,</if>
+			<if test="checkingStatus != null and checkingStatus !='' ">checking_status,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="date != null ">date,</if>
+			<if test="createTime != null ">create_time,</if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
+			<if test="process != null and process !='' ">process,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="taskId != null ">#{taskId},</if>
+			<if test="personId != null ">#{personId},</if>
+			<if test="workCode != null and workCode !=''">#{workCode},</if>
+			<if test="number != null">#{number},</if>
+			<if test="pid != null">#{pid},</if>
+			<if test="projectName != null and projectName !='' ">#{projectName},</if>
+			<if test="count != null ">#{count},</if>
+			<if test="time != null ">#{time},</if>
+			<if test="deptId != null ">#{deptId},</if>
+			<if test="beginTime != null ">#{beginTime},</if>
+			<if test="endTime != null ">#{endTime},</if>
+			<if test="actualBeginTime != null "> #{actualBeginTime},</if>
+			<if test="actualEndTime != null ">#{actualEndTime},</if>
+			<if test="note != null and note !='' ">#{note},</if>
+			<if test="checker != null ">#{checker},</if>
+			<if test="checkingStatus != null and checkingStatus !='' ">#{checkingStatus},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="date != null ">#{date},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null ">#{updateTime},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
+			<if test="process != null and process !='' ">#{process},</if>
+		</trim>
+	</insert>
+
+</mapper>
