@@ -63,6 +63,12 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
+	public List<Task> selectTaskByPid(Integer id) {
+		List<Task> list = taskMapper.selectTaskByPid(id);
+		setTask(list);
+		return list;
+	}
+	@Override
 	@Transactional
 	public int insertTask(Task task) {
 		Integer deptId = task.getDeptId();
@@ -538,6 +544,7 @@ public class TaskServiceImpl implements TaskService {
 		String[] ids = personIds.split(",");
 		task.setWorkCode(pTask.getWorkCode());
 		task.setCount(pTask.getCount());
+//		task.setLevel(5);
 		task.setPid(id);
 		task.setCheckingStatus("0");
 		task.setDeptId(null);

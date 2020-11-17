@@ -43,4 +43,14 @@
 	</select>-->
 
 
+	<select id="getFirstWorkTimeByTaskIds" resultMap="WorkResult">
+		<include refid="selectWorkVo" />
+		WHERE task_id IN
+		<foreach collection="list" item="taskId" index="index" open="(" close=")" separator=",">
+			#{taskId}
+		</foreach>
+		ORDER BY
+		create_time asc limit 1
+	</select>
+
 </mapper>

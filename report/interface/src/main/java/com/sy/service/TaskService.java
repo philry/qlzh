@@ -11,6 +11,8 @@ public interface TaskService {
 
 	Task selectTaskById(Integer id);
 
+	List<Task> selectTaskByPid(Integer id);
+
 	int insertTask(Task task);
 
 	void deleteTaskById(Integer id);

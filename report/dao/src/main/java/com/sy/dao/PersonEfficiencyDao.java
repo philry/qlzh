@@ -17,7 +17,6 @@ public interface PersonEfficiencyDao extends JpaRepository<PersonEfficiency,Inte
     @Modifying
     int deleteAllData();
 
-
     @Query("select p from PersonEfficiency p where p.deptId = ?1 ")
     List<PersonEfficiency> selectDeptData(Integer deptId);
 

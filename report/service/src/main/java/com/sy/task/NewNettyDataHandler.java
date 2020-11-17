@@ -391,6 +391,8 @@ public class NewNettyDataHandler {
 
                         data.setDate(DateUtils.parseDate(day));
                         data.setWork(work);
+                        data.setTaskId(work.getTask().getId());
+                        data.setPersonId(work.getPerson().getId());
                         data.setNoloadingPower(noloadingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());//BigDecimal小数点后四舍五入保留2位小数转为Double类型
                         data.setWorkingPower(workingPower.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue());
                         data.setWorkingTime(workingTime);

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public interface EfficiencyStatisticsNewDao extends JpaRepository<EfficiencyStatisticsNew,Integer>, JpaSpecificationExecutor {
@@ -20,5 +21,8 @@ public interface EfficiencyStatisticsNewDao extends JpaRepository<EfficiencyStat
     //这种写法表只能用实体类EfficiencyStatisticsNew来表示
     @Query("select distinct e.name from EfficiencyStatisticsNew e where  e.taskId = ?1")
     String getNameByTaskId(int taskId);
+
+    @Query("select e from EfficiencyStatisticsNew e where  e.taskId = ?1")
+    List<EfficiencyStatisticsNew> selectDataByTaskId(int taskId);
 
 }

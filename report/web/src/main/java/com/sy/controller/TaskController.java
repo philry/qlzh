@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.sy.entity.Person;
 import com.sy.service.PersonService;
+import com.sy.service.TaskDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,9 @@ public class TaskController {
 
 	@Autowired
 	private TaskService taskService;
+
+	@Autowired
+	private TaskDataService taskDataService;
 	
 	@Autowired
 	private DeptService deptService;
@@ -191,8 +195,10 @@ public class TaskController {
 	public JsonResult endTask(@PathVariable("id") Integer id){
 		try {
 			taskService.endTaskById(id);
+			// TODO 点击完工就统计该任务派到的人员每个人每天的分摊到的物量
+			taskDataService.insertTaskData(id);
 			return JsonResult.buildSuccess(HttpStatusConstant.SUCCESS, taskService.selectTaskById(id));
-		} catch (RuntimeException e) {
+		} catch (Exception e) {
 			return JsonResult.buildFailure(HttpStatusConstant.FAIL, e.getMessage());
 		}
 	}

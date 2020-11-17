@@ -12,6 +12,8 @@ public interface TaskMapper {
 
 	Task selectTaskById(Integer id);
 
+	List<Task> selectTaskByPid(Integer id);
+
 	int insertTask(Task task);
 
 	int deleteTaskById(Integer id);

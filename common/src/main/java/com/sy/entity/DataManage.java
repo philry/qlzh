@@ -15,6 +15,8 @@ public class DataManage {
     private int id;
 //    private Integer workId;
     private Work work;
+    private Integer taskId;
+    private Integer personId;
     private Integer noloadingTime;
     private Integer workingTime;
     private Double noloadingPower;
@@ -55,6 +57,26 @@ public class DataManage {
 
     public void setWork(Work work) {
         this.work = work;
+    }
+
+    @Basic
+    @Column(name = "task_id")
+    public Integer getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(Integer taskId) {
+        this.taskId = taskId;
+    }
+
+    @Basic
+    @Column(name = "person_id")
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
     }
 
     @Basic
@@ -153,43 +175,6 @@ public class DataManage {
         if (o == null || getClass() != o.getClass()) return false;
         DataManage that = (DataManage) o;
         return id == that.id &&
-                Objects.equals(noloadingTime, that.noloadingTime) &&
-                Objects.equals(workingTime, that.workingTime) &&
-                Objects.equals(noloadingPower, that.noloadingPower) &&
-                Objects.equals(workingPower, that.workingPower) &&
-                Objects.equals(status, that.status) &&
-                Objects.equals(createTime, that.createTime) &&
-                Objects.equals(updateTime, that.updateTime) &&
-                Objects.equals(remark, that.remark);
-    }
-
-    @Override
-    public String toString() {
-        return "DataManage{" +
-                "id=" + id +
-                ", work=" + work +
-                ", noloadingTime=" + noloadingTime +
-                ", workingTime=" + workingTime +
-                ", noloadingPower=" + noloadingPower +
-                ", workingPower=" + workingPower +
-                ", status='" + status + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", remark='" + remark + '\'' +
-                '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, noloadingTime, workingTime, noloadingPower, workingPower, status, createTime, updateTime, remark);
-    }*/
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DataManage that = (DataManage) o;
-        return id == that.id &&
                 Objects.equals(work, that.work) &&
                 Objects.equals(noloadingTime, that.noloadingTime) &&
                 Objects.equals(workingTime, that.workingTime) &&
@@ -212,6 +197,50 @@ public class DataManage {
         return "DataManage{" +
                 "id=" + id +
                 ", work=" + work +
+                ", noloadingTime=" + noloadingTime +
+                ", workingTime=" + workingTime +
+                ", noloadingPower=" + noloadingPower +
+                ", workingPower=" + workingPower +
+                ", status='" + status + '\'' +
+                ", date=" + date +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", remark='" + remark + '\'' +
+                '}';
+    }*/
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataManage that = (DataManage) o;
+        return id == that.id &&
+                Objects.equals(work, that.work) &&
+                Objects.equals(taskId, that.taskId) &&
+                Objects.equals(personId, that.personId) &&
+                Objects.equals(noloadingTime, that.noloadingTime) &&
+                Objects.equals(workingTime, that.workingTime) &&
+                Objects.equals(noloadingPower, that.noloadingPower) &&
+                Objects.equals(workingPower, that.workingPower) &&
+                Objects.equals(status, that.status) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(createTime, that.createTime) &&
+                Objects.equals(updateTime, that.updateTime) &&
+                Objects.equals(remark, that.remark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, work, taskId, personId, noloadingTime, workingTime, noloadingPower, workingPower, status, date, createTime, updateTime, remark);
+    }
+
+    @Override
+    public String toString() {
+        return "DataManage{" +
+                "id=" + id +
+                ", work=" + work +
+                ", taskId=" + taskId +
+                ", personId=" + personId +
                 ", noloadingTime=" + noloadingTime +
                 ", workingTime=" + workingTime +
                 ", noloadingPower=" + noloadingPower +

@@ -21,4 +21,7 @@ public interface DataManageDao extends JpaRepository<DataManage,Integer>, JpaSpe
 
     @Query("select d from DataManage d where d.createTime between ?1 and ?2")
     List<DataManage> findAllData(Date beginTime,Date endTime);
+
+    @Query(value = "select * from data_manage where person_id = ?1 and date = ?2",nativeQuery = true)
+    List<DataManage> getByPersonIdAndDate(Integer personId, String date);
 }

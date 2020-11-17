@@ -59,9 +59,13 @@ public interface WorkDao extends JpaRepository<Work,Integer>, JpaSpecificationEx
     @Query(value = "select * from work where task_id=?1 ",nativeQuery = true)
     List<Work> getWorkByTaskId(int taskId);
 
+    @Query(value = "select create_time from work where task_id=?1 order by create_time asc limit 1 ",nativeQuery = true)
+    Timestamp getFirstWorkTimeByTaskId(int taskId);
+
     @Query(value = "select * from work where create_time>?1 and operate = 1 order by create_time desc",nativeQuery = true)
     List<Work> getCloseWorkByCreateTime(Date time);
 
     @Query(value = "select * from work where create_time >= :time and operate = 1 order by create_time desc",nativeQuery = true)
     List<Work> getCloseWorkByCreateTime1(@Param("time")String time);
+
 }

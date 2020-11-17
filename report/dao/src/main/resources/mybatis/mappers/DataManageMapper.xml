@@ -6,6 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<resultMap type="com.sy.entity.DataManage" id="DataManageResult">
 		<result property="id" column="id" />
 		<result property="noloadingTime" column="noloading_time" />
+		<result property="taskId" column="task_id" />
+		<result property="personId" column="person_id" />
 		<result property="workingTime" column="working_time" />
 		<result property="noloadingPower" column="noloading_power" />
 		<result property="workingPower" column="working_power" />
@@ -19,11 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select  from data_manage
 	</sql>
 
-	
 	<insert id="insertDataManage" parameterType="com.sy.entity.DataManage" useGeneratedKeys="true" keyProperty="id">
 		insert into data_manage
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null and id!=0">id,</if>
+			<if test="taskId != null and taskId!=0">task_id,</if>
+			<if test="personId != null and personId!=0">person_id,</if>
 			<if test="noloadingTime != null and noloadingTime != ''"> noloading_time,</if>
 			<if test="workingTime != null"> working_time,</if>
 			<if test="noloadingPower != null">noloading_power,</if>
@@ -36,6 +39,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null and id!=0 ">#{id},</if>
+			<if test="taskId != null and taskId!=0 ">#{taskId},</if>
+			<if test="personId != null and personId!=0 ">#{personId},</if>
 			<if test="noloadingTime != null and noloadingTime != ''">#{noloadingTime},</if>
 			<if test="workingTime != null">#{workingTime},</if>
 			<if test="noloadingPower != null">#{noloadingPower},</if>

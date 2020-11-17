@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<sql id="selectTaskVo">
-		select id, work_code, number,pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
+		select id, work_code, number, pid, project_name, count, dept_id,begin_time,end_time, actual_begin_time,actual_end_time,note,checker,checking_status,person_id,
 		 status,create_time,update_time,remark,process from task
 	</sql>
 
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by status asc,create_time desc
 	</select>
 
-	
+
 	<select id="selectTaskLists" parameterType="com.sy.entity.Task" resultMap="TaskResult">
 		<include refid="selectTaskVo" />
 		<where>
@@ -87,28 +87,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 		order by status asc,create_time desc
 	</select>
-	
+
 	<select id="selectTaskById" parameterType="Integer" resultMap="TaskResult">
 		<include refid="selectTaskVo" />
 		where id=#{id} and #{id}!=0
 	</select>
-	
+
+	<select id="selectTaskByPid" parameterType="Integer" resultMap="TaskResult">
+		<include refid="selectTaskVo" />
+		where pid=#{pid} and #{id}!=0
+	</select>
+
 	<select id="selectTaskByProjectName" parameterType="String" resultMap="TaskResult">
 		<include refid="selectTaskVo" />
 		where project_name=#{projectName}
 	</select>
-	
+
 	<select id="selectTaskByDeptIds" resultMap="TaskResult">
 		<include refid="selectTaskVo" />
-			<where>
+		<where>
 			<if test="workCode != null and workCode !=''"> and work_code = #{workCode}</if>
 			and dept_id in
 			<foreach item="deptId" collection="list" open="(" separator="," close=")">
-            #{deptId}
-        	</foreach>
+				#{deptId}
+			</foreach>
 		</where>
 	</select>
-	
+
 	<insert id="insertTask" parameterType="com.sy.entity.Task" useGeneratedKeys="true" keyProperty="id">
 		insert into task
 		<trim prefix="(" suffix=")" suffixOverrides=",">
