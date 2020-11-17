@@ -118,7 +118,7 @@ public class PcIndexController {
 
         String workerProportion = null;
 //        if(person_counts==0){
-            workerProportion = (String.format("%.2f", (double)(work_day_counts-pre_work_day_counts)*100));//应产品要求,环比是今日减昨日差值
+            workerProportion = (String.format("%.2f", (double)(work_day_counts-pre_work_day_counts)));//应产品要求,环比是今日减昨日差值
         /*}else {
             workerProportion = (String.format("%.2f", (double)(work_day_counts-pre_work_day_counts)/pre_work_day_counts*100));
         }*/
@@ -127,6 +127,7 @@ public class PcIndexController {
         result.setMsg("操作成功");
         result.setCode(200);
         result.put("todayWorkCount", work_day_counts);//今日在岗人数(显示本级部门级及以下部门的扫码人员人数)
+        result.put("yesterdayWorkCount", pre_work_day_counts);//昨日在岗人数
         result.put("totalWorkCount", person_counts);  //总人数
         result.put("countCompare", workerProportion);  //人数环比
         return result;
