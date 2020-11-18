@@ -133,6 +133,20 @@ public class PcIndexController {
         return result;
     }
 
+    @RequestMapping(value = "nowMachineCount",method = RequestMethod.GET)
+    public AjaxResult getNowMachineCount() {
+        //实时焊机数(查询machineNow表,获取个数)
+        int machineNowCounts = machineNowDao.findAll().size();
+        //焊机总数
+        int machineCounts = machineDao.findAll().size();
+
+        AjaxResult result = new AjaxResult();
+        result.setMsg("操作成功");
+        result.setCode(200);
+        result.put("nowMachineCount", machineNowCounts);   //实时焊机开机台数
+        result.put("totalCount", machineCounts);      //焊机总数
+        return result;
+    }
 
     @RequestMapping(value = "todayRate",method = RequestMethod.GET)
     public AjaxResult getTodayRate() { //今日工人工作效率
@@ -169,20 +183,7 @@ public class PcIndexController {
         return result;
     }
 
-    @RequestMapping(value = "nowMachineCount",method = RequestMethod.GET)
-    public AjaxResult getNowMachineCount() {
-        //实时焊机数(查询machineNow表,获取个数)
-        int machineNowCounts = machineNowDao.findAll().size();
-        //焊机总数
-        int machineCounts = machineDao.findAll().size();
 
-        AjaxResult result = new AjaxResult();
-        result.setMsg("操作成功");
-        result.setCode(200);
-        result.put("nowMachineCount", machineNowCounts);   //实时焊机开机台数
-        result.put("totalCount", machineCounts);      //焊机总数
-        return result;
-    }
 
     @RequestMapping(value = "todayMachineUseCount",method = RequestMethod.GET)
     public AjaxResult getTodayMachineUseCount() {
