@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.EmpMapper">
+
+    <select id="getEmp" resultType="com.sy.entity.Emp">
+        select id,`name`,dept_id as roleId from ${emp}
+        <where>
+            <if test="roleId != null  and roleId  != 0"> dept_id = ${roleId}</if>
+        </where>
+    </select>
+    
+</mapper>

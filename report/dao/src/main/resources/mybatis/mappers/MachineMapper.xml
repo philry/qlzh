@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.MachineMapper">
+	<resultMap type="com.sy.entity.Machine" id="MachineResult">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="typeId" column="type_id" />
+		<result property="collectorName" column="collectorname" />
+		<result property="collectorType" column="collectortype" />
+		<result property="payTime" column="pay_time" />
+		<result property="lastMaintenanceTime" column="last_maintenance_time" />
+		<result property="maxA" column="max_a" />
+		<result property="minA" column="min_a" />
+		<result property="xpgId" column="xpg_id" />
+		<result property="deptId" column="dept_id" />
+		<result property="code" column="code" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+	</resultMap>
+	<sql id="selectMachineVo">
+		select id,name,type_id,collectorname,collectortype,pay_time,last_maintenance_time,max_a,min_a,xpg_id,dept_id,code,status,create_time,update_time,remark from machine
+	</sql>
+	
+	<select id="selectMachineList" parameterType="com.sy.entity.Machine" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		<where>
+			<if test="id != null and id!=0 "> and id = #{id}</if>
+			<if test="name != null and name !=''"> and name = #{name}</if>
+			<if test="typeId != null"> and type_id = #{typeId}</if>
+			<if test="collectorName != null"> and collectorname = #{collectorName}</if>
+			<if test="collectorType != null"> and collectortype = #{collectorType}</if>
+			<if test="payTime != null"> and pay_time = #{payTime}</if>
+			<if test="lastMaintenanceTime != null"> and last_maintenance_time = #{lastMaintenanceTime}</if>
+			<if test="maxA != null"> and max_a = #{maxA}</if>
+			<if test="minA != null"> and min_a = #{minA}</if>
+			<if test="xpgId != null"> and xpg_id = #{xpgId}</if>
+			<if test="deptId != null"> and dept_id = #{deptId}</if>
+			<if test="code != null"> and code = #{code}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
+	
+	<select id="selectMachineById" parameterType="Integer" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		where id=#{id} and #{id}!=0
+	</select>
+
+	<select id="selectMachineByIdAndName" parameterType="com.sy.entity.Machine" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		<where>
+			<if test="id != null and id!=0 "> and id = #{id}</if>
+			<if test="name != null and name !=''"> and name = #{name}</if>
+			<if test="typeId != null"> and type_id = #{typeId}</if>
+			<if test="collectorName != null"> and collectorname = #{collectorName}</if>
+			<if test="collectorType != null"> and collectortype = #{collectorType}</if>
+			<if test="payTime != null"> and pay_time = #{payTime}</if>
+			<if test="lastMaintenanceTime != null"> and last_maintenance_time = #{lastMaintenanceTime}</if>
+			<if test="maxA != null"> and max_a = #{maxA}</if>
+			<if test="minA != null"> and min_a = #{minA}</if>
+			<if test="xpgId != null"> and xpg_id = #{xpgId}</if>
+			<if test="deptId != null"> and dept_id = #{deptId}</if>
+			<if test="code != null"> and code = #{code}</if>
+			<if test="status != null and status !='' "> and status = #{status}</if>
+			<if test="createTime != null "> and create_time = #{createTime}</if>
+			<if test="updateTime != null "> and update_time = #{updateTime}</if>
+			<if test="remark != null and remark !='' "> and remark = #{remark}</if>
+		</where>
+	</select>
+	
+	<select id="selectMachineByXpgId" parameterType="Integer" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		where xpg_id=#{xpgId}
+	</select>
+	
+	<insert id="insertMachine" parameterType="com.sy.entity.Machine" useGeneratedKeys="true" keyProperty="id">
+		insert into machine
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0 ">id,</if>
+			<if test="name != null and name !=''">name,</if>
+			<if test="typeId != null">type_id,</if>
+			<if test="collectorName != null">collectorname,</if>
+			<if test="collectorType != null">collectortype,</if>
+			<if test="payTime != null">pay_time,</if>
+			<if test="lastMaintenanceTime != null">last_maintenance_time,</if>
+			<if test="maxA != null">max_a, </if>
+			<if test="minA != null"> min_a,</if>
+			<if test="xpgId != null">xpg_id,</if>
+			<if test="deptId != null">dept_id,</if>
+			<if test="code != null">code,</if>
+			<if test="status != null and status !='' ">status,</if>
+			<if test="createTime != null ">create_time,</if>
+			<if test="updateTime != null ">update_time,</if>
+			<if test="remark != null and remark !='' ">remark,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null and id!=0 ">#{id},</if>
+			<if test="name != null and name !=''">#{name},</if>
+			<if test="typeId != null">#{typeId},</if>
+			<if test="collectorName != null"> #{collectorName},</if>
+			<if test="collectorType != null"> #{collectorType},</if>
+			<if test="payTime != null">#{payTime},</if>
+			<if test="lastMaintenanceTime != null">#{lastMaintenanceTime},</if>
+			<if test="maxA != null">#{maxA},</if>
+			<if test="minA != null">#{minA},</if>
+			<if test="xpgId != null">#{xpgId},</if>
+			<if test="deptId != null">#{deptId},</if>
+			<if test="code != null">#{code},</if>
+			<if test="status != null and status !='' ">#{status},</if>
+			<if test="createTime != null ">#{createTime},</if>
+			<if test="updateTime != null "> #{updateTime},</if>
+			<if test="remark != null and remark !='' ">#{remark},</if>
+		</trim>
+	</insert>
+	
+	<update id="updateMachine" parameterType="com.sy.entity.Machine">
+		update machine
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="name != null and name !=''">name = #{name},</if>
+			<if test="typeId != null">type_id = #{typeId},</if>
+			<if test="collectorName != null">collectorname = #{collectorName},</if>
+			<if test="collectorType != null">collectortype = #{collectorType},</if>
+			<if test="payTime != null">pay_time = #{payTime},</if>
+			<if test="lastMaintenanceTime != null">last_maintenance_time = #{lastMaintenanceTime},</if>
+			<if test="maxA != null">max_a = #{maxA},</if>
+			<if test="minA != null">min_a = #{minA},</if>
+			<if test="xpgId != null">xpg_id = #{xpgId},</if>
+			<if test="deptId != null">dept_id = #{deptId},</if>
+			<if test="code != null">code = #{code},</if>
+			<if test="status != null and status !='' ">status = #{status},</if>
+			<if test="createTime != null ">create_time = #{createTime},</if>
+			<if test="updateTime != null ">update_time = #{updateTime},</if>
+			<if test="remark != null and remark !='' ">remark = #{remark},</if>
+		</trim>
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteMachineById" parameterType="Integer">
+		delete from machine where id=#{id}
+	</delete>
+
+	<select id="selectLastMachine" resultMap="MachineResult">
+		<include refid="selectMachineVo" />
+		where id in (select max(id) from machine)
+	</select>
+	
+</mapper>

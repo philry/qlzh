@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.ProcessConditionMapper">
+    
+    <resultMap type="com.sy.entity.ProcessCondition" id="ProcessConditionResult">
+        <result property="id"    column="id"    />
+        <result property="tableType"    column="table_type"    />
+        <result property="conditionField"    column="condition_field"    />
+        <result property="moreValue"    column="more_value"    />
+        <result property="moreOperationId"    column="more_operation_id"    />
+        <result property="lessValue"    column="less_value"    />
+        <result property="lessOperationId"    column="less_operation_id"    />
+        <result property="equalValue"    column="equal_value"    />
+        <result property="equalOperationId"    column="equal_operation_id"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectProcessConditionVo">
+        select id, table_type, condition_field, more_value, more_operation_id, less_value, less_operation_id, equal_value, equal_operation_id, status, create_time, update_time, remark from process_condition
+    </sql>
+
+    <select id="selectProcessConditionList" parameterType="com.sy.entity.ProcessCondition" resultMap="ProcessConditionResult">
+        <include refid="selectProcessConditionVo"/>
+        <where>  
+            <if test="tableType != null  and tableType != ''"> and table_type = #{tableType}</if>
+            <if test="conditionField != null  and conditionField != ''"> and condition_field = #{conditionField}</if>
+            <if test="moreValue != null  and moreValue != ''"> and more_value = #{moreValue}</if>
+            <if test="moreOperationId != null "> and more_operation_id = #{moreOperationId}</if>
+            <if test="lessValue != null  and lessValue != ''"> and less_value = #{lessValue}</if>
+            <if test="lessOperationId != null "> and less_operation_id = #{lessOperationId}</if>
+            <if test="equalValue != null  and equalValue != ''"> and equal_value = #{equalValue}</if>
+            <if test="equalOperationId != null "> and equal_operation_id = #{equalOperationId}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectProcessConditionById" parameterType="Long" resultMap="ProcessConditionResult">
+        <include refid="selectProcessConditionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProcessCondition" parameterType="com.sy.entity.ProcessCondition" useGeneratedKeys="true" keyProperty="id">
+        insert into process_condition
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">table_type,</if>
+            <if test="conditionField != null  and conditionField != ''">condition_field,</if>
+            <if test="moreValue != null  and moreValue != ''">more_value,</if>
+            <if test="moreOperationId != null ">more_operation_id,</if>
+            <if test="lessValue != null  and lessValue != ''">less_value,</if>
+            <if test="lessOperationId != null ">less_operation_id,</if>
+            <if test="equalValue != null  and equalValue != ''">equal_value,</if>
+            <if test="equalOperationId != null ">equal_operation_id,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="createTime != null ">create_time,</if>
+            <if test="updateTime != null ">update_time,</if>
+            <if test="remark != null  and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">#{tableType},</if>
+            <if test="conditionField != null  and conditionField != ''">#{conditionField},</if>
+            <if test="moreValue != null  and moreValue != ''">#{moreValue},</if>
+            <if test="moreOperationId != null ">#{moreOperationId},</if>
+            <if test="lessValue != null  and lessValue != ''">#{lessValue},</if>
+            <if test="lessOperationId != null ">#{lessOperationId},</if>
+            <if test="equalValue != null  and equalValue != ''">#{equalValue},</if>
+            <if test="equalOperationId != null ">#{equalOperationId},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="createTime != null ">#{createTime},</if>
+            <if test="updateTime != null ">#{updateTime},</if>
+            <if test="remark != null  and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProcessCondition" parameterType="com.sy.entity.ProcessCondition">
+        update process_condition
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableType != null  and tableType != ''">table_type = #{tableType},</if>
+            <if test="conditionField != null  and conditionField != ''">condition_field = #{conditionField},</if>
+            <if test="moreValue != null  and moreValue != ''">more_value = #{moreValue},</if>
+            <if test="moreOperationId != null ">more_operation_id = #{moreOperationId},</if>
+            <if test="lessValue != null  and lessValue != ''">less_value = #{lessValue},</if>
+            <if test="lessOperationId != null ">less_operation_id = #{lessOperationId},</if>
+            <if test="equalValue != null  and equalValue != ''">equal_value = #{equalValue},</if>
+            <if test="equalOperationId != null ">equal_operation_id = #{equalOperationId},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProcessConditionById" parameterType="Long">
+        delete from process_condition where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessConditionByIds" parameterType="String">
+        delete from process_condition where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="selectConditionByType" parameterType="string" resultMap="ProcessConditionResult">
+        <include refid="selectProcessConditionVo"/>
+        where table_type = #{tableType}
+    </select>
+    
+</mapper>

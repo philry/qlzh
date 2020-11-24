@@ -1,0 +1,71 @@
+2020-11-19 13:06:27,327  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:06:30,707  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:06:30,936  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:06:31,014  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:06:31,159  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:06:31,290  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:06:31,293  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:06:31,297  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:16:51,491  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:16:54,685  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:16:54,879  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:16:54,972  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:16:55,112  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:16:55,231  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:16:55,235  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:16:55,237  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:17:58,443  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:18:01,538  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:18:01,727  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:18:01,810  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:18:01,960  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:18:02,091  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:18:02,094  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:18:02,097  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:21:32,228  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:21:35,406  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:21:35,572  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:21:35,654  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:21:35,795  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:21:35,920  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:21:35,923  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:21:35,927  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:30:46,365  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:30:49,639  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:30:49,801  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:30:49,885  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:30:50,024  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:30:50,148  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:30:50,152  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:30:50,155  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:31:59,628  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:32:02,548  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:32:02,708  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:32:02,782  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:32:02,919  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:32:03,035  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:32:03,038  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:32:03,041  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 13:38:07,269  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 13:38:10,140  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 13:38:10,344  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 13:38:10,454  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 13:38:10,648  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 13:38:10,768  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 13:38:10,771  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 13:38:10,774  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 14:01:11,629  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 14:01:14,568  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 14:01:14,760  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 14:01:14,841  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 14:01:14,991  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 14:01:15,111  WARN JdbcEnvironmentInitiator:132 - HHH000342: Could not obtain connection to query metadata : Unable to resolve name [org.hibernate.dialect.MySQL5Dialecté¢] as strategy [org.hibernate.dialect.Dialect]
+2020-11-19 14:01:15,114  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-19 14:01:15,116  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-19 14:02:45,610  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-19 14:02:48,530  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-19 14:02:48,689  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-19 14:02:48,763  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-19 14:02:48,916  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-19 14:02:49,037  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-19 14:02:50,146  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.MessageDataMapper">
+    <resultMap type="com.sy.entity.MessageData" id="MessageDataResult">
+        <result property="id" column="id" />
+        <result property="send_id" column="sendId" />
+        <result property="accpet_id" column="accpetId" />
+    </resultMap>
+    <sql id="selectMessageDataVo">
+		select  from
+	</sql>
+</mapper>

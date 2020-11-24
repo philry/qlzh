@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.ProcessRunMapper">
+    
+    <resultMap type="com.sy.entity.ProcessRun" id="ProcessRunResult">
+        <result property="id"    column="id"    />
+        <result property="tableId"    column="table_id"    />
+        <result property="role"    column="role"    />
+        <result property="people"    column="people"    />
+        <result property="operation"    column="operation"    />
+        <result property="content"    column="content"    />
+        <result property="stepLevel"    column="step_level"    />
+        <result property="status"    column="status"    />
+        <result property="result"    column="result"    />
+    </resultMap>
+
+    <sql id="selectProcessRunVo">
+        select id, table_id, role, people, operation, content, step_level, status, result, create_time, update_time, remark from process_run
+    </sql>
+
+    <select id="selectProcessRunList" parameterType="com.sy.entity.ProcessRun" resultMap="ProcessRunResult">
+        <include refid="selectProcessRunVo"/>
+        <where>  
+            <if test="tableId != null "> and table_id = #{tableId}</if>
+            <if test="role != null  and role != ''"> and role = #{role}</if>
+            <if test="people != null  and people != ''"> and people = #{people}</if>
+            <if test="operation != null  and operation != ''"> and operation = #{operation}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="stepLevel != null  and stepLevel != ''"> and step_level = #{stepLevel}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="result != null  and result != ''"> and result = #{result}</if>
+        </where>
+    </select>
+    
+    <select id="selectProcessRunById" parameterType="Long" resultMap="ProcessRunResult">
+        <include refid="selectProcessRunVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertProcessRun" parameterType="com.sy.entity.ProcessRun" useGeneratedKeys="true" keyProperty="id">
+        insert into process_run
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tableId != null ">table_id,</if>
+            <if test="role != null  and role != ''">role,</if>
+            <if test="people != null  and people != ''">people,</if>
+            <if test="operation != null  and operation != ''">operation,</if>
+            <if test="content != null  and content != ''">content,</if>
+            <if test="stepLevel != null  and stepLevel != ''">step_level,</if>
+            <if test="status != null  and status != ''">status,</if>
+            <if test="result != null  and result != ''">result,</if>
+            <if test="createTime == null ">create_time,</if>
+            <if test="updateTime == null ">update_time,</if>
+            <if test="remark != null  and remark != ''">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tableId != null ">#{tableId},</if>
+            <if test="role != null  and role != ''">#{role},</if>
+            <if test="people != null  and people != ''">#{people},</if>
+            <if test="operation != null  and operation != ''">#{operation},</if>
+            <if test="content != null  and content != ''">#{content},</if>
+            <if test="stepLevel != null  and stepLevel != ''">#{stepLevel},</if>
+            <if test="status != null  and status != ''">#{status},</if>
+            <if test="result != null  and result != ''">#{result},</if>
+            <if test="createTime == null ">now(),</if>
+            <if test="updateTime == null ">now(),</if>
+            <if test="remark != null  and remark != ''">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateProcessRun" parameterType="com.sy.entity.ProcessRun">
+        update process_run
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tableId != null ">table_id = #{tableId},</if>
+            <if test="role != null  and role != ''">role = #{role},</if>
+            <if test="people != null  and people != ''">people = #{people},</if>
+            <if test="operation != null  and operation != ''">operation = #{operation},</if>
+            <if test="content != null  and content != ''">content = #{content},</if>
+            <if test="stepLevel != null  and stepLevel != ''">step_level = #{stepLevel},</if>
+            <if test="status != null  and status != ''">status = #{status},</if>
+            <if test="result != null  and result != ''">result = #{result},</if>
+            <if test="createTime != null ">create_time = #{createTime},</if>
+            <if test="updateTime != null ">update_time = #{updateTime},</if>
+            <if test="remark != null  and remark != ''">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteProcessRunById" parameterType="Long">
+        delete from process_run where id = #{id}
+    </delete>
+
+    <delete id="deleteProcessRunByIds" parameterType="String">
+        delete from process_run where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getNeedRunRemark" resultType="string">
+        select distinct remark from process_run where result is null;
+    </select>
+
+    <select id="getOperationStep" parameterType="string" resultMap="ProcessRunResult">
+        <include refid="selectProcessRunVo"/>
+        where remark = #{remark} and result is null order by step_level asc limit 1;
+    </select>
+
+    <update id="updateResult">
+        update process_run set `result` = #{result} where id = #{id};
+    </update>
+
+
+    <select id="selectOperationById" parameterType="_int" resultType="_int">
+        select id from process_run
+        where remark in (select remark from process_run where id = #{id})
+    </select>
+</mapper>

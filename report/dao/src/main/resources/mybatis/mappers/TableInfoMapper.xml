@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.TableInfoMapper">
+    
+    <resultMap type="com.sy.entity.TableInfo" id="TableInfoResult">
+        <result property="id"    column="id"    />
+        <result property="typeTableName"    column="type_table_name"    />
+        <result property="typeTableFiled"    column="type_table_filed"    />
+        <result property="dataTableName"    column="data_table_name"    />
+        <result property="roleTableName"    column="role_table_name"    />
+        <result property="peopleTableName"    column="people_table_name"    />
+    </resultMap>
+
+    <sql id="selectTableInfoVo">
+        select id, type_table_name, type_table_filed, data_table_name, role_table_name, people_table_name, remark from table_info
+    </sql>
+
+    <select id="getInfo" resultType="com.sy.entity.TableInfo">
+        select * from table_info limit 1
+    </select>
+    
+</mapper>

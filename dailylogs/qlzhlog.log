@@ -1,0 +1,7 @@
+2020-11-24 11:10:05,272  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-24 11:10:10,142  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-24 11:10:10,512  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-24 11:10:10,649  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-24 11:10:10,967  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-24 11:10:11,174  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-24 11:10:12,475  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]

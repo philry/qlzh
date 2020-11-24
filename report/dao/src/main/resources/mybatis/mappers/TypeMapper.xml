@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.TableTypeMapper">
+
+    <select id="getType" resultType="com.sy.entity.ProcessType">
+        select id,${typeName} as `name` from ${tableName}
+    </select>
+    
+</mapper>

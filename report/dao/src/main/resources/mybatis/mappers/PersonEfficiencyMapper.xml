@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.PersonEfficiencyMapper">
+
+	<resultMap type="com.sy.entity.PersonEfficiency" id="PersonEfficiencyResult">
+		<result property="id" column="id" />
+		<result property="task" column="task" />
+		<result property="deptId" column="dept_id" />
+		<result property="deptOne" column="dept_one" />
+		<result property="deptTwo" column="dept_two" />
+		<result property="deptThree" column="dept_three" />
+		<result property="personId" column="person_id" />
+		<result property="name" column="name" />
+		<result property="time" column="time" />
+		<result property="workingTime" column="working_time" />
+		<result property="noloadingTime" column="noloading_time" />
+		<result property="efficiency" column="efficiency" />
+		<result property="workingPower" column="working_power" />
+		<result property="noloadingPower" column="noloading_power" />
+		<result property="counts" column="counts" />
+		<result property="overTime" column="over_time" />
+		<result property="date" column="date" />
+		<result property="status" column="status" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="remark" column="remark" />
+	</resultMap>
+
+	<sql id="selectPersonEfficiencyVo">
+		select id,task,dept_id,dept_one,dept_two,dept_three,person_id,name,time,working_time,noloading_time,efficiency,working_power,
+				noloading_power,counts,over_time,date,status,create_time,update_time,remark from person_efficiency
+	</sql>
+
+	
+	<select id="selectDataByPersonId" parameterType="Integer" resultMap="PersonEfficiencyResult">
+		<include refid="selectPersonEfficiencyVo" />
+		where person_id=#{personId}
+	</select>
+
+</mapper>

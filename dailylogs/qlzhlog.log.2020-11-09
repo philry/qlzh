@@ -1,0 +1,579 @@
+2020-11-09 14:18:50,481  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:18:58,907  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:18:59,187  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:18:59,378  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:18:59,714  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:18:59,913  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:19:01,345  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:19:02,381  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-09 14:19:02,386  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-09 14:22:16,606  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:22:19,411  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:22:19,573  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:22:19,648  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:22:19,784  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:22:19,919  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:22:20,999  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:22:21,752  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-09 14:22:21,754  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-09 14:27:13,268  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:27:16,218  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:27:16,383  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:27:16,463  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:27:16,607  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:27:16,739  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:27:17,790  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:27:18,545  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-09 14:27:18,548  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-09 14:27:58,493  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:28:01,382  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:28:01,540  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:28:01,616  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:28:01,756  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:28:01,887  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:28:02,876  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:28:03,591  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-09 14:28:03,593  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-09 14:36:13,469  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:36:16,473  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:36:16,642  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:36:16,727  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:36:16,876  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:36:17,000  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:36:18,017  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:36:18,707  INFO DruidDataSource:1948 - {dataSource-1} closing ...
+2020-11-09 14:36:18,710  INFO DruidDataSource:2020 - {dataSource-1} closed
+2020-11-09 14:44:17,973  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 14:44:20,849  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 14:44:21,011  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 14:44:21,089  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 14:44:21,232  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 14:44:21,354  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 14:44:22,404  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 14:44:25,156  INFO Starter:55 - --------Start启动了-------
+2020-11-09 14:44:45,018  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:44:45 CST 2020--------------
+2020-11-09 14:44:45,018  INFO NettyNewQuartz:88 - --------------2020-11-09 14:44:45.018开始运行nettyNewQuartz-----------------
+2020-11-09 14:44:45,238  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:43:45 CST 2020------------------
+2020-11-09 14:44:45,247  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:44:45,253  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:43:45 CST 2020------------------
+2020-11-09 14:44:45,256  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:44:45,261  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:43:45 CST 2020------------------
+2020-11-09 14:44:45,263  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:45:00,054  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 14:45:00,080  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：25ms
+2020-11-09 14:45:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:45:45 CST 2020--------------
+2020-11-09 14:45:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 14:45:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 14:45:45,033  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:44:45 CST 2020------------------
+2020-11-09 14:45:45,037  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:45:45,048  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:44:45 CST 2020------------------
+2020-11-09 14:45:45,052  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:45:45,058  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:44:45 CST 2020------------------
+2020-11-09 14:45:45,063  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:46:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:46:45 CST 2020--------------
+2020-11-09 14:46:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 14:46:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 14:46:45,033  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:45:45 CST 2020------------------
+2020-11-09 14:46:45,035  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:46:45,041  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:45:45 CST 2020------------------
+2020-11-09 14:46:45,046  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:46:45,053  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:45:45 CST 2020------------------
+2020-11-09 14:46:45,055  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:47:00,001  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 14:47:00,008  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：6ms
+2020-11-09 14:47:00,012  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 14:47:00,018  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：6ms
+2020-11-09 14:47:00,020  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 14:47:00,030  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：10ms
+2020-11-09 14:47:00,031  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 14:47:00,042  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：11ms
+2020-11-09 14:47:00,045  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 14:47:00,051  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：4ms
+2020-11-09 14:47:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:47:45 CST 2020--------------
+2020-11-09 14:47:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:47:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:47:45,022  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:46:45 CST 2020------------------
+2020-11-09 14:47:45,024  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:47:45,032  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:46:45 CST 2020------------------
+2020-11-09 14:47:45,034  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:47:45,039  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:46:45 CST 2020------------------
+2020-11-09 14:47:45,041  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:48:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:48:45 CST 2020--------------
+2020-11-09 14:48:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:48:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:48:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:47:45 CST 2020------------------
+2020-11-09 14:48:45,023  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:48:45,032  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:47:45 CST 2020------------------
+2020-11-09 14:48:45,034  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:48:45,038  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:47:45 CST 2020------------------
+2020-11-09 14:48:45,040  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:49:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:49:45 CST 2020--------------
+2020-11-09 14:49:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:49:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:49:45,028  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:48:45 CST 2020------------------
+2020-11-09 14:49:45,031  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:49:45,037  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:48:45 CST 2020------------------
+2020-11-09 14:49:45,039  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:49:45,047  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:48:45 CST 2020------------------
+2020-11-09 14:49:45,049  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:50:00,038  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 14:50:00,043  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：5ms
+2020-11-09 14:50:45,003  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:50:45 CST 2020--------------
+2020-11-09 14:50:45,004  INFO NettyNewQuartz:88 - --------------2020-11-09 14:50:45.004开始运行nettyNewQuartz-----------------
+2020-11-09 14:50:45,052  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:49:45 CST 2020------------------
+2020-11-09 14:50:45,053  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:50:45,058  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:49:45 CST 2020------------------
+2020-11-09 14:50:45,059  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:50:45,067  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:49:45 CST 2020------------------
+2020-11-09 14:50:45,068  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:51:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:51:45 CST 2020--------------
+2020-11-09 14:51:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:51:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:51:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:50:45 CST 2020------------------
+2020-11-09 14:51:45,022  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:51:45,029  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:50:45 CST 2020------------------
+2020-11-09 14:51:45,031  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:51:45,035  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:50:45 CST 2020------------------
+2020-11-09 14:51:45,036  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:52:00,001  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 14:52:00,008  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：6ms
+2020-11-09 14:52:00,012  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 14:52:00,020  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：6ms
+2020-11-09 14:52:00,023  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 14:52:00,031  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：7ms
+2020-11-09 14:52:00,033  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 14:52:00,037  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：4ms
+2020-11-09 14:52:00,039  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 14:52:00,045  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：5ms
+2020-11-09 14:52:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:52:45 CST 2020--------------
+2020-11-09 14:52:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:52:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:52:45,015  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:51:45 CST 2020------------------
+2020-11-09 14:52:45,017  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:52:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:51:45 CST 2020------------------
+2020-11-09 14:52:45,022  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:52:45,025  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:51:45 CST 2020------------------
+2020-11-09 14:52:45,026  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:53:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:53:45 CST 2020--------------
+2020-11-09 14:53:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:53:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:53:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:52:45 CST 2020------------------
+2020-11-09 14:53:45,018  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:53:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:52:45 CST 2020------------------
+2020-11-09 14:53:45,022  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:53:45,026  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:52:45 CST 2020------------------
+2020-11-09 14:53:45,030  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:54:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:54:45 CST 2020--------------
+2020-11-09 14:54:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:54:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:54:45,012  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:53:45 CST 2020------------------
+2020-11-09 14:54:45,013  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:54:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:53:45 CST 2020------------------
+2020-11-09 14:54:45,017  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:54:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:53:45 CST 2020------------------
+2020-11-09 14:54:45,021  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:55:00,010  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 14:55:00,012  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:55:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:55:45 CST 2020--------------
+2020-11-09 14:55:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:55:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:55:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:54:45 CST 2020------------------
+2020-11-09 14:55:45,017  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:55:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:54:45 CST 2020------------------
+2020-11-09 14:55:45,022  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:55:45,028  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:54:45 CST 2020------------------
+2020-11-09 14:55:45,030  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:56:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:56:45 CST 2020--------------
+2020-11-09 14:56:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:56:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:56:45,013  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:55:45 CST 2020------------------
+2020-11-09 14:56:45,014  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:56:45,018  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:55:45 CST 2020------------------
+2020-11-09 14:56:45,019  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:56:45,022  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:55:45 CST 2020------------------
+2020-11-09 14:56:45,023  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:57:00,002  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 14:57:00,004  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:57:00,005  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 14:57:00,007  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:57:00,008  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 14:57:00,010  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:57:00,011  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 14:57:00,013  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:57:00,014  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 14:57:00,016  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 14:57:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:57:45 CST 2020--------------
+2020-11-09 14:57:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 14:57:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 14:57:45,034  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:56:45 CST 2020------------------
+2020-11-09 14:57:45,036  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:57:45,041  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:56:45 CST 2020------------------
+2020-11-09 14:57:45,042  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:57:45,046  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:56:45 CST 2020------------------
+2020-11-09 14:57:45,047  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:58:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:58:45 CST 2020--------------
+2020-11-09 14:58:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:58:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:58:45,015  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:57:45 CST 2020------------------
+2020-11-09 14:58:45,019  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:58:45,022  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:57:45 CST 2020------------------
+2020-11-09 14:58:45,022  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:58:45,025  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:57:45 CST 2020------------------
+2020-11-09 14:58:45,025  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:59:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 14:59:45 CST 2020--------------
+2020-11-09 14:59:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 14:59:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 14:59:45,012  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:58:45 CST 2020------------------
+2020-11-09 14:59:45,013  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:59:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:58:45 CST 2020------------------
+2020-11-09 14:59:45,017  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 14:59:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:58:45 CST 2020------------------
+2020-11-09 14:59:45,021  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:00:00,001  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:00:00,006  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：5ms
+2020-11-09 15:00:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:00:45 CST 2020--------------
+2020-11-09 15:00:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:00:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:00:45,012  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:59:45 CST 2020------------------
+2020-11-09 15:00:45,013  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:00:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:59:45 CST 2020------------------
+2020-11-09 15:00:45,016  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:00:45,019  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 14:59:45 CST 2020------------------
+2020-11-09 15:00:45,020  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:01:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:01:45 CST 2020--------------
+2020-11-09 15:01:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:01:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:01:45,010  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:00:45 CST 2020------------------
+2020-11-09 15:01:45,010  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:01:45,013  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:00:45 CST 2020------------------
+2020-11-09 15:01:45,014  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:01:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:00:45 CST 2020------------------
+2020-11-09 15:01:45,017  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:02:00,000  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:02:00,004  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:02:00,006  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:02:00,009  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:02:00,010  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:02:00,014  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：4ms
+2020-11-09 15:02:00,015  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:02:00,017  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:02:00,018  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:02:00,020  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:02:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:02:45 CST 2020--------------
+2020-11-09 15:02:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:02:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:02:45,010  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:01:45 CST 2020------------------
+2020-11-09 15:02:45,011  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:02:45,013  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:01:45 CST 2020------------------
+2020-11-09 15:02:45,014  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:02:45,017  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:01:45 CST 2020------------------
+2020-11-09 15:02:45,017  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:03:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:03:45 CST 2020--------------
+2020-11-09 15:03:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:03:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:03:45,011  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:02:45 CST 2020------------------
+2020-11-09 15:03:45,011  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:03:45,014  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:02:45 CST 2020------------------
+2020-11-09 15:03:45,015  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:03:45,018  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:02:45 CST 2020------------------
+2020-11-09 15:03:45,019  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:04:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:04:45 CST 2020--------------
+2020-11-09 15:04:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:04:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:04:45,011  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:03:45 CST 2020------------------
+2020-11-09 15:04:45,012  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:04:45,015  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:03:45 CST 2020------------------
+2020-11-09 15:04:45,016  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:04:45,019  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:03:45 CST 2020------------------
+2020-11-09 15:04:45,021  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:05:00,011  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:05:00,012  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:05:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:05:45 CST 2020--------------
+2020-11-09 15:05:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:05:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:05:45,010  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:04:45 CST 2020------------------
+2020-11-09 15:05:45,010  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:05:45,014  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:04:45 CST 2020------------------
+2020-11-09 15:05:45,015  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:05:45,017  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:04:45 CST 2020------------------
+2020-11-09 15:05:45,018  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:09:07,976  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 15:09:10,926  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 15:09:11,108  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 15:09:11,185  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 15:09:11,374  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 15:09:11,513  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 15:09:12,514  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 15:09:15,115  INFO Starter:55 - --------Start启动了-------
+2020-11-09 15:09:45,055  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:09:45 CST 2020--------------
+2020-11-09 15:09:45,055  INFO NettyNewQuartz:88 - --------------2020-11-09 15:09:45.055开始运行nettyNewQuartz-----------------
+2020-11-09 15:09:45,305  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:08:45 CST 2020------------------
+2020-11-09 15:09:45,349  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:08:45 CST 2020------------------
+2020-11-09 15:10:00,046  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:10:00,542  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：495ms
+2020-11-09 15:10:48,194  INFO Version:21 - HV000001: Hibernate Validator 6.0.18.Final
+2020-11-09 15:10:50,967  INFO DruidDataSource:1003 - {dataSource-1} inited
+2020-11-09 15:10:51,124  INFO LogHelper:31 - HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-11-09 15:10:51,199  INFO Version:46 - HHH000412: Hibernate Core {5.4.8.Final}
+2020-11-09 15:10:51,335  INFO Version:49 - HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-11-09 15:10:51,459  INFO Dialect:172 - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2020-11-09 15:10:52,521  INFO JtaPlatformInitiator:52 - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-11-09 15:10:55,152  INFO Starter:55 - --------Start启动了-------
+2020-11-09 15:11:45,022  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:11:45 CST 2020--------------
+2020-11-09 15:11:45,022  INFO NettyNewQuartz:88 - --------------2020-11-09 15:11:45.022开始运行nettyNewQuartz-----------------
+2020-11-09 15:11:45,077  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:10:45 CST 2020------------------
+2020-11-09 15:11:45,079  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:11:45,082  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:10:45 CST 2020------------------
+2020-11-09 15:11:45,083  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:11:45,087  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:10:45 CST 2020------------------
+2020-11-09 15:11:45,088  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:12:00,006  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:12:00,018  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：11ms
+2020-11-09 15:12:00,019  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:12:00,023  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:12:00,024  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:12:00,030  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：5ms
+2020-11-09 15:12:00,031  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:12:00,034  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:12:00,035  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:12:00,038  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:12:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:12:45 CST 2020--------------
+2020-11-09 15:12:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:12:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:12:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:11:45 CST 2020------------------
+2020-11-09 15:12:45,021  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:12:45,025  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:11:45 CST 2020------------------
+2020-11-09 15:12:45,026  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:12:45,029  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:11:45 CST 2020------------------
+2020-11-09 15:12:45,030  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:13:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:13:45 CST 2020--------------
+2020-11-09 15:13:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:13:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:13:45,024  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:12:45 CST 2020------------------
+2020-11-09 15:13:45,026  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:13:45,030  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:12:45 CST 2020------------------
+2020-11-09 15:13:45,032  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:13:45,036  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:12:45 CST 2020------------------
+2020-11-09 15:13:45,037  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:14:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:14:45 CST 2020--------------
+2020-11-09 15:14:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:14:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:14:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:13:45 CST 2020------------------
+2020-11-09 15:14:45,023  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:14:45,027  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:13:45 CST 2020------------------
+2020-11-09 15:14:45,029  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:14:45,032  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:13:45 CST 2020------------------
+2020-11-09 15:14:45,033  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:15:00,017  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:15:00,025  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：8ms
+2020-11-09 15:15:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:15:45 CST 2020--------------
+2020-11-09 15:15:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:15:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:15:45,041  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:14:45 CST 2020------------------
+2020-11-09 15:15:45,043  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:15:45,048  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:14:45 CST 2020------------------
+2020-11-09 15:15:45,049  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:15:45,054  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:14:45 CST 2020------------------
+2020-11-09 15:15:45,055  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:16:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:16:45 CST 2020--------------
+2020-11-09 15:16:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:16:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:16:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:15:45 CST 2020------------------
+2020-11-09 15:16:45,022  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:16:45,027  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:15:45 CST 2020------------------
+2020-11-09 15:16:45,029  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:16:45,034  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:15:45 CST 2020------------------
+2020-11-09 15:16:45,035  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:17:00,001  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:17:00,006  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：5ms
+2020-11-09 15:17:00,007  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:17:00,009  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:17:00,011  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:17:00,013  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:17:00,014  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:17:00,016  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:17:00,017  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:17:00,018  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:17:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:17:45 CST 2020--------------
+2020-11-09 15:17:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:17:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:17:45,018  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:16:45 CST 2020------------------
+2020-11-09 15:17:45,019  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:17:45,023  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:16:45 CST 2020------------------
+2020-11-09 15:17:45,024  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:17:45,028  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:16:45 CST 2020------------------
+2020-11-09 15:17:45,029  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:18:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:18:45 CST 2020--------------
+2020-11-09 15:18:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:18:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:18:45,039  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:17:45 CST 2020------------------
+2020-11-09 15:18:45,041  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:18:45,046  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:17:45 CST 2020------------------
+2020-11-09 15:18:45,047  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:18:45,051  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:17:45 CST 2020------------------
+2020-11-09 15:18:45,052  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:19:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:19:45 CST 2020--------------
+2020-11-09 15:19:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:19:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:19:45,036  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:18:45 CST 2020------------------
+2020-11-09 15:19:45,037  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:19:45,040  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:18:45 CST 2020------------------
+2020-11-09 15:19:45,041  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:19:45,044  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:18:45 CST 2020------------------
+2020-11-09 15:19:45,044  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:20:00,006  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:20:00,009  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:20:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:20:45 CST 2020--------------
+2020-11-09 15:20:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:20:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:20:45,012  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:19:45 CST 2020------------------
+2020-11-09 15:20:45,013  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:20:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:19:45 CST 2020------------------
+2020-11-09 15:20:45,017  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:20:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:19:45 CST 2020------------------
+2020-11-09 15:20:45,021  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:21:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:21:45 CST 2020--------------
+2020-11-09 15:21:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:21:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:21:45,023  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:20:45 CST 2020------------------
+2020-11-09 15:21:45,024  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:21:45,027  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:20:45 CST 2020------------------
+2020-11-09 15:21:45,028  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:21:45,031  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:20:45 CST 2020------------------
+2020-11-09 15:21:45,032  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:22:00,002  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:22:00,005  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:22:00,006  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:22:00,008  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:22:00,009  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:22:00,012  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:22:00,013  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:22:00,014  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:22:00,015  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:22:00,017  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:22:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:22:45 CST 2020--------------
+2020-11-09 15:22:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:22:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:22:45,029  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:21:45 CST 2020------------------
+2020-11-09 15:22:45,030  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:22:45,032  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:21:45 CST 2020------------------
+2020-11-09 15:22:45,033  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:22:45,036  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:21:45 CST 2020------------------
+2020-11-09 15:22:45,037  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:23:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:23:45 CST 2020--------------
+2020-11-09 15:23:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:23:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:23:45,016  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:22:45 CST 2020------------------
+2020-11-09 15:23:45,017  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:23:45,022  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:22:45 CST 2020------------------
+2020-11-09 15:23:45,023  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:23:45,028  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:22:45 CST 2020------------------
+2020-11-09 15:23:45,029  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:24:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:24:45 CST 2020--------------
+2020-11-09 15:24:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:24:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:24:45,036  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:23:45 CST 2020------------------
+2020-11-09 15:24:45,037  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:24:45,040  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:23:45 CST 2020------------------
+2020-11-09 15:24:45,041  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:24:45,044  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:23:45 CST 2020------------------
+2020-11-09 15:24:45,045  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:25:00,009  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:25:00,011  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:25:45,003  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:25:45 CST 2020--------------
+2020-11-09 15:25:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:25:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:25:45,037  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:24:45 CST 2020------------------
+2020-11-09 15:25:45,038  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:25:45,041  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:24:45 CST 2020------------------
+2020-11-09 15:25:45,042  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:25:45,044  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:24:45 CST 2020------------------
+2020-11-09 15:25:45,045  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:26:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:26:45 CST 2020--------------
+2020-11-09 15:26:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:26:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:26:45,035  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:25:45 CST 2020------------------
+2020-11-09 15:26:45,037  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:26:45,042  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:25:45 CST 2020------------------
+2020-11-09 15:26:45,043  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:26:45,047  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:25:45 CST 2020------------------
+2020-11-09 15:26:45,048  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:27:00,001  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:27:00,005  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:27:00,006  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:27:00,008  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:27:00,009  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:27:00,011  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:27:00,012  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:27:00,013  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:27:00,014  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:27:00,016  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:27:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:27:45 CST 2020--------------
+2020-11-09 15:27:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:27:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:27:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:26:45 CST 2020------------------
+2020-11-09 15:27:45,022  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:27:45,027  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:26:45 CST 2020------------------
+2020-11-09 15:27:45,029  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:27:45,034  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:26:45 CST 2020------------------
+2020-11-09 15:27:45,036  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:28:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:28:45 CST 2020--------------
+2020-11-09 15:28:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:28:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:28:45,015  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:27:45 CST 2020------------------
+2020-11-09 15:28:45,017  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:28:45,020  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:27:45 CST 2020------------------
+2020-11-09 15:28:45,021  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:28:45,024  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:27:45 CST 2020------------------
+2020-11-09 15:28:45,025  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:29:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:29:45 CST 2020--------------
+2020-11-09 15:29:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:29:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:29:45,037  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:28:45 CST 2020------------------
+2020-11-09 15:29:45,039  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:29:45,043  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:28:45 CST 2020------------------
+2020-11-09 15:29:45,045  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:29:45,048  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:28:45 CST 2020------------------
+2020-11-09 15:29:45,050  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:30:00,045  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:30:00,051  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:30:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:30:45 CST 2020--------------
+2020-11-09 15:30:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:30:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:30:45,081  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:29:45 CST 2020------------------
+2020-11-09 15:30:45,083  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:30:45,088  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:29:45 CST 2020------------------
+2020-11-09 15:30:45,090  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:30:45,099  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:29:45 CST 2020------------------
+2020-11-09 15:30:45,100  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:31:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:31:45 CST 2020--------------
+2020-11-09 15:31:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:31:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:31:45,013  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:30:45 CST 2020------------------
+2020-11-09 15:31:45,014  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:31:45,017  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:30:45 CST 2020------------------
+2020-11-09 15:31:45,018  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:31:45,021  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:30:45 CST 2020------------------
+2020-11-09 15:31:45,022  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:32:00,002  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:32:00,005  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:32:00,006  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:32:00,009  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:32:00,011  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:32:00,013  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:32:00,014  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:32:00,016  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:32:00,017  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:32:00,019  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:32:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:32:45 CST 2020--------------
+2020-11-09 15:32:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:32:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:32:45,010  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:31:45 CST 2020------------------
+2020-11-09 15:32:45,011  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:32:45,014  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:31:45 CST 2020------------------
+2020-11-09 15:32:45,015  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:32:45,019  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:31:45 CST 2020------------------
+2020-11-09 15:32:45,020  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:33:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:33:45 CST 2020--------------
+2020-11-09 15:33:45,002  INFO NettyNewQuartz:88 - --------------2020-11-09 15:33:45.002开始运行nettyNewQuartz-----------------
+2020-11-09 15:33:45,032  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:32:45 CST 2020------------------
+2020-11-09 15:33:45,034  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:33:45,038  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:32:45 CST 2020------------------
+2020-11-09 15:33:45,039  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:33:45,043  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:32:45 CST 2020------------------
+2020-11-09 15:33:45,044  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:34:45,000  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:34:45 CST 2020--------------
+2020-11-09 15:34:45,000  INFO NettyNewQuartz:88 - --------------2020-11-09 15:34:45.0开始运行nettyNewQuartz-----------------
+2020-11-09 15:34:45,011  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:33:45 CST 2020------------------
+2020-11-09 15:34:45,012  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:34:45,014  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:33:45 CST 2020------------------
+2020-11-09 15:34:45,015  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:34:45,019  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:33:45 CST 2020------------------
+2020-11-09 15:34:45,020  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:35:00,002  INFO NewNettyDataHandler:105 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-开始
+2020-11-09 15:35:00,004  INFO NewNettyDataHandler:117 - >>>>>>>>>>>进入中间表dataManage 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:35:45,002  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:35:45 CST 2020--------------
+2020-11-09 15:35:45,003  INFO NettyNewQuartz:88 - --------------2020-11-09 15:35:45.003开始运行nettyNewQuartz-----------------
+2020-11-09 15:35:45,034  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:34:45 CST 2020------------------
+2020-11-09 15:35:45,035  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:35:45,040  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:34:45 CST 2020------------------
+2020-11-09 15:35:45,041  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:35:45,043  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:34:45 CST 2020------------------
+2020-11-09 15:35:45,044  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:36:45,001  INFO NettyNewQuartz:87 - --------------Mon Nov 09 15:36:45 CST 2020--------------
+2020-11-09 15:36:45,001  INFO NettyNewQuartz:88 - --------------2020-11-09 15:36:45.001开始运行nettyNewQuartz-----------------
+2020-11-09 15:36:45,025  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:35:45 CST 2020------------------
+2020-11-09 15:36:45,027  INFO NettyNewQuartz:160 - ---------31号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:36:45,034  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:35:45 CST 2020------------------
+2020-11-09 15:36:45,036  INFO NettyNewQuartz:160 - ---------32号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:36:45,042  INFO NettyNewQuartz:109 - -------------前一分钟时间是:Mon Nov 09 15:35:45 CST 2020------------------
+2020-11-09 15:36:45,044  INFO NettyNewQuartz:160 - ---------2号的4G模块已断开连接,未接收到数据包,跳过自动关机和电流超限关机方法---------
+2020-11-09 15:37:00,001  INFO NewNettyDataHandler:125 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-开始
+2020-11-09 15:37:00,004  INFO NewNettyDataHandler:137 - >>>>>>>>>>>进入工程报表efficiency_statistics_new 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:37:00,004  INFO NewNettyDataHandler:146 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-开始
+2020-11-09 15:37:00,006  INFO NewNettyDataHandler:158 - >>>>>>>>>>>进入工效报表engineering 5分钟定时任务方法-结束。耗时：1ms
+2020-11-09 15:37:00,007  INFO NewNettyDataHandler:166 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-开始
+2020-11-09 15:37:00,010  INFO NewNettyDataHandler:178 - >>>>>>>>>>>进入个人工效报表personEfficiency 5分钟定时任务方法-结束。耗时：3ms
+2020-11-09 15:37:00,011  INFO NewNettyDataHandler:207 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-开始
+2020-11-09 15:37:00,013  INFO NewNettyDataHandler:219 - >>>>>>>>>>>进入statistics 5分钟定时任务方法-结束。耗时：2ms
+2020-11-09 15:37:00,014  INFO NewNettyDataHandler:186 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-开始
+2020-11-09 15:37:00,015  INFO NewNettyDataHandler:198 - >>>>>>>>>>>进入焊机使用报表machineUse 5分钟定时任务方法-结束。耗时：1ms

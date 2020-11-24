@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sy.dao.ZRoleMapper">
+
+    <select id="getRole" resultType="com.sy.entity.ZRole">
+        select id,`name`,pid,`level` from ${dept}
+        <where>
+            <if test="pid != null"> pid = ${pid}</if>
+        </where>
+    </select>
+    
+</mapper>
